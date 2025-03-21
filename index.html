@@ -1,0 +1,2282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="DwarvenForged - Brokkr Seeds">
+    <meta name="description" content="Premium cannabis genetics forged with dwarven precision. Affordable top-tier seed lines made available for real growers.">
+
+    <!-- Open Graph / Facebook / Discord -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.dwarvenforged.com/">
+    <meta property="og:title" content="DwarvenForged - Brokkr Seeds">
+    <meta property="og:description" content="Premium cannabis genetics forged with dwarven precision. Affordable top-tier seed lines for serious growers.">
+    <meta property="og:image" content="https://www.dwarvenforged.com/img/dwarvenforged-preview.jpg?v=1">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.dwarvenforged.com/">
+    <meta property="twitter:title" content="DwarvenForged - Brokkr Seeds">
+    <meta property="twitter:description" content="Premium cannabis genetics forged with dwarven precision. Affordable top-tier seeds for serious growers.">
+    <meta property="twitter:image" content="https://www.dwarvenforged.com/img/dwarvenforged-preview.jpg?v=1">
+    
+    <title>DwarvenForged - Brokkr Seeds</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="//cdn.cookie-script.com/s/c376cfbc34246bd3510c9376d81545db.js"></script>
+    <script src="js/agecheck.js"></script>
+
+    <style>
+    :root {
+        --primary: #b87333;      /* Copper tone */
+        --secondary: #c69c6d;    /* Lighter copper/bronze */
+        --accent: #e6c200;       /* Gold */
+        --dark: #251a12;         /* Very dark brown */
+        --light: #f5f0e6;        /* Light parchment color */
+        --background: #2e2119;   /* Dark brown background */
+        --text: #f5f0e6;         /* Light text */
+        --forge-red: #a23e25;    /* Forge fire red */
+        --font-main: 'Cinzel', serif;
+        --font-body: 'Montserrat', sans-serif;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@400;500;700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: var(--font-body);
+        line-height: 1.6;
+        color: var(--light);
+        background-color: var(--background);
+        background-image: url('img/dark-forge-texture.jpg');
+        background-attachment: fixed;
+    }
+
+    a {
+        color: var(--secondary);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    a:hover {
+        color: var(--accent);
+    }
+
+    /* Header Styles */
+    header {
+        background-color: rgba(37, 26, 18, 0.95);
+        box-shadow: 0 2px 15px rgba(0,0,0,0.5);
+        position: fixed;
+        width: 100%;
+        z-index: 100;
+        border-bottom: 1px solid var(--primary);
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+    }
+
+    .logo-img {
+        height: 45px;
+        margin-right: 15px;
+    }
+
+	.logo-text {
+		font-family: var(--font-main);
+		font-size: 1.7rem;
+		font-weight: bold;
+		color: var(--primary);
+		letter-spacing: 1px;
+		text-decoration: none;
+		display: block;
+	}
+
+	.logo-text:hover {
+		color: var(--accent);
+	}
+
+	.logo-text span {
+		color: var(--accent);
+	}
+
+    .logo-text span {
+        color: var(--accent);
+    }
+
+    nav ul {
+        display: flex;
+        list-style: none;
+    }
+
+    nav ul li {
+        margin-left: 25px;
+    }
+
+    nav ul li a {
+        font-family: var(--font-main);
+        font-weight: 500;
+        color: var(--light);
+        padding: 5px;
+        letter-spacing: 0.5px;
+    }
+
+    nav ul li a:hover {
+        color: var(--accent);
+        border-bottom: 2px solid var(--accent);
+    }
+
+    /* Hero Section */
+    .hero {
+        padding-top: 100px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: linear-gradient(rgba(37, 26, 18, 0.8), rgba(46, 33, 25, 0.7)), 
+                    url('img/forge-background.jpg') center/cover no-repeat;
+        position: relative;
+    }
+
+    .hero::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 150px;
+        background: linear-gradient(to top, var(--background), transparent);
+        pointer-events: none;
+    }
+
+    .hero-content {
+        max-width: 700px;
+        margin-bottom: 40px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-badge {
+        display: inline-block;
+        background-color: var(--forge-red);
+        color: var(--light);
+        padding: 6px 15px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+    }
+
+    .hero h1 {
+        font-family: var(--font-main);
+        font-size: 3.5rem;
+        color: var(--light);
+        margin-bottom: 20px;
+        line-height: 1.2;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .hero h1 span {
+        color: var(--accent);
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        color: #cccccc;
+        max-width: 600px;
+    }
+
+    .btn {
+        display: inline-block;
+        background-color: var(--primary);
+        color: white;
+        padding: 12px 28px;
+        border-radius: 5px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        font-family: var(--font-main);
+    }
+
+    .btn:hover {
+        background-color: var(--secondary);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .btn-outline {
+        background-color: transparent;
+        border: 2px solid var(--primary);
+        color: var(--light);
+        margin-left: 15px;
+    }
+
+    .btn-outline:hover {
+        background-color: var(--primary);
+        color: var(--light);
+    }
+
+    /* Feature Cards */
+    .features {
+        padding: 100px 0 80px;
+        position: relative;
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+        font-family: var(--font-main);
+        font-size: 2.5rem;
+        color: var(--light);
+        margin-bottom: 15px;
+        position: relative;
+        display: inline-block;
+    }
+
+    .section-header h2::after {
+        content: '';
+        position: absolute;
+        width: 60px;
+        height: 3px;
+        background-color: var(--accent);
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .section-header p {
+        font-size: 1.1rem;
+        color: #cccccc;
+        max-width: 700px;
+        margin: 15px auto 0;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+    }
+
+    .feature-card {
+        background-color: var(--dark);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid rgba(184, 115, 51, 0.2);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    }
+
+    .feature-img {
+        height: 220px;
+        background-color: #3a3129;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .feature-img::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 80px;
+        background: linear-gradient(to top, var(--dark), transparent);
+    }
+
+    .feature-badge {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background-color: var(--forge-red);
+        color: white;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        z-index: 2;
+    }
+
+    .feature-content {
+        padding: 25px;
+    }
+
+    .feature-content h3 {
+        font-family: var(--font-main);
+        font-size: 1.6rem;
+        color: var(--light);
+        margin-bottom: 15px;
+    }
+
+    .feature-content p {
+        color: #cccccc;
+        margin-bottom: 20px;
+    }
+
+    /* Genetics Explorer */
+    .genetics-explorer {
+        padding: 80px 0;
+        background-color: rgba(37, 26, 18, 0.7);
+        position: relative;
+    }
+
+    .genetics-explorer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(to right, transparent, var(--primary), transparent);
+    }
+
+    .genetics-explorer::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(to right, transparent, var(--primary), transparent);
+    }
+
+    .genetics-demo {
+        margin-top: 40px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+        background-color: var(--dark);
+        border: 1px solid rgba(184, 115, 51, 0.3);
+    }
+
+    .genetics-tree {
+        height: 400px;
+        padding: 20px;
+        overflow: hidden;
+    }
+
+    .genetics-controls {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+        border-top: 1px solid rgba(184, 115, 51, 0.2);
+    }
+
+    .genetics-info {
+        padding: 25px;
+        border-top: 1px solid rgba(184, 115, 51, 0.2);
+        color: var(--light);
+    }
+
+    .genetics-info h3 {
+        font-family: var(--font-main);
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        color: var(--primary);
+    }
+
+    /* Seed Catalog */
+    .seed-catalog {
+        padding: 100px 0 80px;
+        position: relative;
+    }
+
+    .catalog-filters {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        padding: 20px;
+        background-color: var(--dark);
+        border-radius: 8px;
+        border: 1px solid rgba(184, 115, 51, 0.3);
+    }
+
+    .filter-group {
+        display: flex;
+        align-items: center;
+    }
+
+    .filter-group label {
+        margin-right: 10px;
+        color: var(--light);
+        font-weight: 500;
+    }
+
+    .filter-group select {
+        padding: 10px 15px;
+        background-color: rgba(46, 33, 25, 0.8);
+        border: 1px solid var(--primary);
+        border-radius: 4px;
+        color: var(--light);
+        font-family: var(--font-body);
+    }
+
+    .filter-group select:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(184, 115, 51, 0.5);
+    }
+
+    .strain-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+
+    .strain-card {
+        background-color: var(--dark);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid rgba(184, 115, 51, 0.2);
+        cursor: pointer;
+    }
+
+    .strain-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    }
+
+    .strain-image {
+        height: 0;
+        padding-bottom: 100%;
+        position: relative;
+        background-color: #2e2119;
+        overflow: hidden;
+    }
+
+    .strain-image img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        top: 0;
+        left: 0;
+        transition: transform 0.5s ease;
+    }
+
+    .strain-card:hover .strain-image img {
+        transform: scale(1.05);
+    }
+
+    .strain-badges {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        z-index: 5;
+    }
+
+    .strain-type {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: var(--primary);
+        color: white;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+    }
+
+    .seed-type-badge {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        background-color: var(--forge-red);
+        color: white;
+        letter-spacing: 0.5px;
+    }
+
+    .seed-type-badge.feminized {
+        background-color: var(--accent);
+        color: var(--dark);
+    }
+
+    .strain-card-content {
+        padding: 20px;
+    }
+
+    .strain-card-content h3 {
+        font-family: var(--font-main);
+        font-size: 1.5rem;
+        color: var(--light);
+        margin-bottom: 8px;
+    }
+
+    .strain-genetics {
+        font-size: 0.85rem;
+        color: #aaaaaa;
+        margin-bottom: 12px;
+        font-style: italic;
+    }
+
+    .strain-description {
+        color: #cccccc;
+        margin-bottom: 15px;
+        font-size: 0.92rem;
+        line-height: 1.5;
+    }
+
+    .strain-details {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(184, 115, 51, 0.2);
+    }
+
+    .strain-availability {
+        color: var(--accent);
+        font-weight: bold;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .strain-seed-count {
+        font-size: 0.85rem;
+        color: #aaaaaa;
+    }
+
+    /* About Section */
+    .about {
+        padding: 100px 0;
+        background-color: rgba(37, 26, 18, 0.7);
+        position: relative;
+    }
+
+    .about::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(to right, transparent, var(--primary), transparent);
+    }
+
+    .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: center;
+    }
+
+    .about-img {
+        height: 450px;
+		width: 450px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+        border: 1px solid rgba(184, 115, 51, 0.3);
+        position: relative;
+    }
+
+    .about-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .about-content h2 {
+        font-family: var(--font-main);
+        font-size: 2.5rem;
+        color: var(--primary);
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .about-content h2::after {
+        content: '';
+        position: absolute;
+        width: 60px;
+        height: 3px;
+        background-color: var(--accent);
+        bottom: -10px;
+        left: 0;
+    }
+
+    .about-content p {
+        color: #cccccc;
+        margin-bottom: 20px;
+        font-size: 1.05rem;
+    }
+
+    /* Chat Widget */
+    .chat-widget {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+    }
+
+    .chat-btn {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: var(--forge-red);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
+        border: 2px solid rgba(184, 115, 51, 0.5);
+    }
+
+    .chat-btn:hover {
+        background-color: var(--primary);
+        transform: scale(1.05);
+    }
+
+    .chat-btn svg {
+        width: 30px;
+        height: 30px;
+        fill: white;
+    }
+
+    .chat-popup {
+        position: absolute;
+        bottom: 80px;
+        right: 0;
+        width: 350px;
+        background-color: var(--dark);
+        border-radius: 8px;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+        overflow: hidden;
+        display: none;
+        border: 1px solid rgba(184, 115, 51, 0.5);
+    }
+
+    .chat-header {
+        background-color: var(--forge-red);
+        color: white;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: var(--font-main);
+    }
+
+    .chat-title {
+        font-weight: 500;
+        letter-spacing: 0.5px;
+    }
+
+    .close-chat {
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.2rem;
+    }
+
+    .chat-messages {
+        height: 300px;
+        overflow-y: auto;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .message {
+        max-width: 75%;
+        padding: 12px 15px;
+        border-radius: 15px;
+        font-size: 0.95rem;
+    }
+
+    .bot-message {
+        background-color: rgba(184, 115, 51, 0.2);
+        align-self: flex-start;
+        border-bottom-left-radius: 5px;
+        color: var(--light);
+    }
+
+    .user-message {
+        background-color: var(--forge-red);
+        color: white;
+        align-self: flex-end;
+        border-bottom-right-radius: 5px;
+    }
+
+    .chat-input {
+        display: flex;
+        border-top: 1px solid rgba(184, 115, 51, 0.3);
+        padding: 12px;
+    }
+
+    .chat-input input {
+        flex: 1;
+        border: 1px solid rgba(184, 115, 51, 0.5);
+        border-radius: 20px;
+        padding: 10px 15px;
+        font-size: 0.95rem;
+        outline: none;
+        background-color: rgba(46, 33, 25, 0.7);
+        color: var(--light);
+        font-family: var(--font-body);
+    }
+
+    .chat-input input:focus {
+        box-shadow: 0 0 0 2px rgba(184, 115, 51, 0.3);
+    }
+
+    .send-btn {
+        background-color: transparent;
+        border: none;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+
+    .send-btn svg {
+        width: 25px;
+        height: 25px;
+        fill: var(--primary);
+        transition: fill 0.3s ease;
+    }
+
+    .send-btn:hover svg {
+        fill: var(--accent);
+    }
+
+    /* Footer */
+    footer {
+        background-color: var(--dark);
+        color: white;
+        padding: 60px 0 30px;
+        border-top: 1px solid rgba(184, 115, 51, 0.3);
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+
+    .footer-col h3 {
+        font-family: var(--font-main);
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+        color: var(--primary);
+    }
+
+    .footer-col h3::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 30px;
+        height: 2px;
+        background-color: var(--accent);
+    }
+
+    .footer-col ul {
+        list-style: none;
+    }
+
+    .footer-col ul li {
+        margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+        color: #ccc;
+        transition: all 0.3s ease;
+    }
+
+    .footer-col ul li a:hover {
+        color: white;
+        padding-left: 5px;
+    }
+
+    .footer-col ul li a .code {
+        color: var(--forge-red);
+        background-color: rgba(255,255,255,0.1);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: monospace;
+    }
+
+    .copyright {
+        text-align: center;
+        padding-top: 30px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        color: #aaa;
+        font-size: 0.9rem;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 992px) {
+        .hero h1 {
+            font-size: 2.8rem;
+        }
+        
+        .about-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .strain-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .nav-container {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .logo {
+            margin-bottom: 10px;
+        }
+
+        nav ul {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 5px 10px;
+        }
+
+        .hero h1 {
+            font-size: 2.3rem;
+        }
+
+        .hero p {
+            font-size: 1rem;
+        }
+
+        .strain-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .feature-card {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .btn, .btn-outline {
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .btn-outline {
+            margin-left: 0;
+        }
+
+        .hero-content {
+            padding: 0 15px;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+        }
+    }
+
+    /* Strain Details Modal */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.85);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .strain-modal {
+        background-color: var(--dark);
+        border-radius: 8px;
+        max-width: 800px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+        transform: translateY(20px);
+        opacity: 0;
+        transition: all 0.4s ease;
+        border: 1px solid rgba(184, 115, 51, 0.5);
+    }
+
+    .modal-overlay.active .strain-modal {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .modal-header {
+        position: relative;
+        padding: 20px;
+        border-bottom: 1px solid rgba(184, 115, 51, 0.3);
+    }
+
+    .modal-header h2 {
+        font-family: var(--font-main);
+        font-size: 2rem;
+        color: var(--primary);
+        margin-bottom: 5px;
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: none;
+        border: none;
+        color: var(--light);
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .modal-close:hover {
+        color: var(--accent);
+        transform: rotate(90deg);
+    }
+
+    .modal-content {
+        padding: 20px;
+    }
+
+    .strain-detail-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+
+    .strain-detail-image {
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid rgba(184, 115, 51, 0.3);
+    }
+
+    .strain-detail-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .strain-detail-info h3 {
+        font-family: var(--font-main);
+        font-size: 1.5rem;
+        color: var(--light);
+        margin-bottom: 15px;
+    }
+
+    .strain-specs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin: 20px 0;
+    }
+    
+    .spec-item {
+        background-color: rgba(184, 115, 51, 0.1);
+        padding: 10px 15px;
+        border-radius: 6px;
+        border-left: 3px solid var(--primary);
+    }
+    
+    .spec-label {
+        display: block;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        color: var(--secondary);
+        margin-bottom: 2px;
+        letter-spacing: 0.5px;
+    }
+    
+    .spec-value {
+        font-weight: 500;
+        color: var(--light);
+    }
+    
+    .strain-description-full {
+        margin: 20px 0;
+        line-height: 1.7;
+    }
+    
+    .strain-effects {
+        margin: 20px 0;
+    }
+    
+    .effects-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    
+    .effect-tag {
+        background-color: rgba(184, 115, 51, 0.2);
+        color: var(--light);
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+    }
+    
+    .grow-info {
+        margin: 20px 0;
+        background-color: rgba(46, 33, 25, 0.5);
+        padding: 20px;
+        border-radius: 8px;
+        border: 1px solid rgba(184, 115, 51, 0.2);
+    }
+    
+    .grow-info h4 {
+        color: var(--primary);
+        margin-bottom: 15px;
+        font-family: var(--font-main);
+    }
+    
+    .grow-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .grow-tag {
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+    
+    .flowering {
+        background-color: var(--forge-red);
+        color: white;
+    }
+    
+    .yield {
+        background-color: var(--accent);
+        color: var(--dark);
+    }
+    
+    .height {
+        background-color: var(--primary);
+        color: white;
+    }
+    
+    .difficulty {
+        background-color: #555;
+        color: white;
+    }
+    
+    @media (max-width: 768px) {
+        .strain-detail-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .strain-specs {
+            grid-template-columns: 1fr;
+        }
+    }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+	<header>
+		<div class="container nav-container">
+			<div class="logo">
+				<a href="#home" class="logo-text">DWARVEN<span>FORGED</span></a>
+			</div>
+			<nav>
+				<ul>
+					<li><a href="#catalog">Collections</a></li>
+					<li><a href="#seed-catalog">Seed Catalog</a></li>
+					<li><a href="#genetics-explorer">Genetics Explorer</a></li>
+					<li><a href="#about">Our Forge</a></li>
+					<li><a href="mailto:info@dwarvenforged.com">Contact</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">Premium Genetics</div>
+                <h1>Cannabis Seeds <span>Forged</span> With Dwarven Precision</h1>
+                <p>Discover our meticulously crafted genetics collection, bringing legendary strains to growers at prices that won't break the bank. Quality seeds with master craftsman attention to detail.</p>
+                <a href="#catalog" class="btn">Explore Collection</a>
+                <a href="#about" class="btn btn-outline">About Brokkr</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection Section -->
+    <section class="features" id="catalog">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Collection</h2>
+                <p>Explore our carefully forged collection of premium cannabis genetics available to serious growers.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-img" style="background-image: url('img/forge-collection.jpg'); background-size: cover;">
+                        <div class="feature-badge">Limited</div>
+                    </div>
+                    <div class="feature-content">
+                        <h3>The Forge Collection</h3>
+                        <p>Our signature line of in-house creations, where the finest genetics are hammered into perfection through careful selection.</p>
+                        <a href="#seed-catalog" class="btn">View Collection</a>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-img" style="background-image: url('img/anvil-collection.jpg'); background-size: cover;">
+                        <div class="feature-badge">Popular</div>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Anvil Series</h3>
+                        <p>Heavy-hitting strains with exceptional potency and yield. These workhorse varieties are built to deliver consistently impressive results.</p>
+                        <a href="#seed-catalog" class="btn">View Collection</a>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-img" style="background-image: url('img/heirloom-collection.jpg'); background-size: cover;">
+                        <div class="feature-badge">Rare</div>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Heirloom Treasures</h3>
+                        <p>Ancient genetics preserved from the vaults of time. These rare varieties represent cannabis history in its purest form.</p>
+                        <a href="#seed-catalog" class="btn">View Collection</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seed Catalog Section -->
+    <section class="seed-catalog" id="seed-catalog">
+        <div class="container">
+            <div class="section-header">
+                <h2>Seed Catalog</h2>
+                <p>Browse our selection of meticulously crafted genetics, each strain forged with dwarven precision.</p>
+            </div>
+            
+            <div class="catalog-filters">
+                <div class="filter-group">
+                    <label>Filter by type:</label>
+                    <select id="type-filter">
+                        <option value="all">All Types</option>
+                        <option value="indica">Indica</option>
+                        <option value="sativa">Sativa</option>
+                        <option value="hybrid">Hybrid</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Collection:</label>
+                    <select id="collection-filter">
+                        <option value="all">All Collections</option>
+                        <option value="forge">Forge Collection</option>
+                        <option value="anvil">Anvil Series</option>
+                        <option value="heirloom">Heirloom Treasures</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="strain-grid" id="strain-grid">
+                <!-- Strains will be loaded here dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Genetics Explorer Section -->
+    <section class="genetics-explorer" id="genetics-explorer">
+        <div class="container">
+            <div class="section-header">
+                <h2>Genetics Explorer</h2>
+                <p>Discover the lineage and relationships between our carefully bred strains with our interactive family tree visualization.</p>
+            </div>
+            <div class="genetics-demo">
+                <div class="genetics-tree" id="genetics-tree"></div>
+                <div class="genetics-controls">
+                    <a href="#" class="btn" id="expand-all">Expand All</a>
+                    <a href="#" class="btn btn-outline" id="collapse-all">Collapse All</a>
+                </div>
+                <div class="genetics-info">
+                    <h3>Strain Information</h3>
+                    <p id="strain-description">Select a strain in the tree above to view its detailed information and lineage.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-grid">
+				<div class="about-img" style="background-color: #3a3129;">
+					<img src="img/dwarf-breeder.jpg" alt="Brokkr at work in the breeding facility" onerror="this.style.display='none';">
+				</div>
+                <div class="about-content">
+                    <h2>The Brokkr Story</h2>
+                    <p>Founded by a collective of passionate cannabis craftsmen with decades of combined experience, Brokkr Seeds was born from a simple mission: to forge exceptional cannabis genetics that are accessible to real growers.</p>
+                    <p>Like the mythical dwarven smiths who crafted legendary treasures in their mountain forges, we meticulously select, test, and perfect our genetics through rigorous breeding programs. Each strain is carefully hammered into its final form through multiple generations of selection.</p>
+                    <p>Our name pays homage to Brokkr, the dwarven smith of Norse mythology who crafted mighty artifacts for the gods. In that same tradition, we create seeds worthy of the most discerning growers.</p>
+                    <a href="mailto:info@dwarvenforged.com" class="btn">Connect With Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strain Detail Modal -->
+    <div class="modal-overlay" id="strain-modal-overlay">
+        <div class="strain-modal">
+            <div class="modal-header">
+                <h2 id="modal-strain-name">Strain Name</h2>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-content" id="modal-content">
+                <!-- Modal content will be loaded here dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <div class="chat-btn" id="chat-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 1c-6.627 0-12 4.364-12 9.749 0 3.131 1.817 5.917 4.64 7.7.868 2.167-1.083 4.008-3.142 4.503 2.271.195 6.311-.121 9.374-2.498 7.095.538 13.128-3.997 13.128-9.705 0-5.385-5.373-9.749-12-9.749z"/>
+            </svg>
+        </div>
+        <div class="chat-popup" id="chat-popup">
+            <div class="chat-header">
+                <div class="chat-title">Genetics Advisor</div>
+                <button class="close-chat" id="close-chat">&times;</button>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="message bot-message">
+                    Greetings, fellow grower! I'm your dwarven seed advisor. How can I help you find the perfect genetics for your garden?
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" placeholder="Type your message..." id="user-input">
+                <button class="send-btn" id="send-message">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>DwarvenForged</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#catalog">Collections</a></li>
+                        <li><a href="#genetics-explorer">Genetics Explorer</a></li>
+                        <li><a href="#about">Our Forge</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Growing Guides</a></li>
+                        <li><a href="#">Breeding Basics</a></li>
+                        <li><a href="#">Seed Storage</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact the Forge</h3>
+                    <ul>
+                        <li><a href="mailto:info@dwarvenforged.com">info@dwarvenforged.com</a></li>
+                        <li><a href="https://www.instagram.com/dwarvenforged">Instagram</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Recommended Tools</h3>
+                    <ul>
+                        <li><a href="https://growdiaries.com" target="_blank">GrowDiaries</a></li>
+                        <li>
+                            <a href="https://buildasoil.com" target="_blank">
+                                BuildASoil (Save 10%) Code: <span class="code">BROKKR10</span>
+                            </a>
+                        </li>                
+                    </ul>
+                </div>                
+            </div>
+            <div class="copyright">
+                &copy; 2025 DwarvenForged / Brokkr Seeds. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global variables
+        let i = 0; // Counter for ID generation
+        let root; // Root of the tree data
+        let svg; // SVG element for the tree
+        let treemap; // D3 tree layout
+        let strainData = {};
+        let strainDescriptions = {};
+        let chatPopupVisible = false;    
+
+        // Handle sending messages in chat
+        async function sendUserMessage() {
+            const userInput = document.getElementById('user-input');
+            const chatMessages = document.getElementById('chat-messages');
+            const message = userInput.value.trim();
+            if (!message) return;
+            
+            // Add user message to chat
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message user-message';
+            userMsg.textContent = message;
+            chatMessages.appendChild(userMsg);
+            userInput.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Show typing indicator
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'message bot-message typing-indicator';
+            typingIndicator.innerHTML = '<span></span><span></span><span></span>';
+            chatMessages.appendChild(typingIndicator);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            try {
+                // Call Pollinations API (or simulate a response for now)
+                // For demo, we'll simulate a response
+                setTimeout(() => {
+                    // Remove typing indicator
+                    chatMessages.removeChild(typingIndicator);
+                    
+                    // Add bot response to chat
+                    const botMsg = document.createElement('div');
+                    botMsg.className = 'message bot-message';
+                    
+                    // Simple response logic based on keywords
+                    let botResponse = '';
+                    if (message.toLowerCase().includes('indica')) {
+                        botResponse = "Our indica strains are perfect for relaxation and evening use. I'd recommend checking out Dwarf Hammer or Mountain Forge from our Anvil series for powerful effects and high yields.";
+                    } else if (message.toLowerCase().includes('sativa')) {
+                        botResponse = "For a great sativa experience, take a look at Runefire Haze or Mythic Sunrise from our Forge collection. They offer energizing, creative effects ideal for daytime use.";
+                    } else if (message.toLowerCase().includes('hybrid')) {
+                        botResponse = "Our balanced hybrids include Thor's Hammer and Loki's Trick, giving you the best of both worlds with manageable growth patterns and well-rounded effects.";
+                    } else if (message.toLowerCase().includes('yield')) {
+                        botResponse = "For maximum yields, our Anvil series is specifically bred for production. Dwarf Hammer and Golem OG regularly produce 500+ grams per square meter indoors.";
+                    } else if (message.toLowerCase().includes('price') || message.toLowerCase().includes('cost')) {
+                        botResponse = "Our seeds start at $60 for a 6-pack, with most varieties available at $80 for a 10-pack. We believe quality genetics shouldn't break the bank!";
+                    } else {
+                        botResponse = "Thanks for your message! Our dwarven breeders have created collections for every type of grower. Is there a specific growing condition, effect, or characteristic you're looking for in your seeds?";
+                    }
+                    
+                    botMsg.textContent = botResponse;
+                    chatMessages.appendChild(botMsg);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1500);
+                
+            } catch (error) {
+                console.error('Chat error:', error);
+                
+                // Add fallback response
+                const errorMsg = document.createElement('div');
+                errorMsg.className = 'message bot-message error';
+                errorMsg.textContent = "By Odin's beard! I'm having trouble connecting to the forge. Please try again later.";
+                chatMessages.appendChild(errorMsg);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+
+        // Sample strain data
+        const getStrainData = () => {
+            return {
+                "strains": [
+                    {
+                        "id": "dwarf-hammer",
+                        "name": "Dwarf Hammer",
+                        "collection": "anvil",
+                        "type": "photoperiod",
+                        "dominance": "indica",
+                        "feminized": true,
+                        "description": "Our flagship strain, Dwarf Hammer hits with the force of a dwarven smithing hammer. This indica-dominant powerhouse produces dense, resin-covered nuggets with a knockout effect.",
+                        "parentage": {
+                            "female": {"name": "Northern Lights"},
+                            "male": {"name": "Forge OG"}
+                        },
+                        "flowerTime": "8-9 weeks",
+                        "stretch": "Medium",
+                        "seedCount": 10,
+                        "effects": ["Relaxing", "Sedative", "Euphoric", "Pain Relief"],
+                        "flavors": ["Earthy", "Pine", "Sweet"],
+                        "difficulty": "Easy",
+                        "yield": "High",
+                        "height": "Medium",
+                        "thc": "24-26%",
+                        "cbd": "0.1%",
+                        "availabilityStatus": "in-stock"
+                    },
+                    {
+                        "id": "runefire-haze",
+                        "name": "Runefire Haze",
+                        "collection": "forge",
+                        "type": "photoperiod",
+                        "dominance": "sativa",
+                        "feminized": true,
+                        "description": "Inscribed with the ancient runes of energy and creativity, Runefire Haze delivers an uplifting, cerebral experience with notes of tropical fruit and spice.",
+                        "parentage": {
+                            "female": {"name": "Super Silver Haze"},
+                            "male": {"name": "Forge Fuel"}
+                        },
+                        "flowerTime": "10-11 weeks",
+                        "stretch": "High",
+                        "seedCount": 6,
+                        "effects": ["Energetic", "Creative", "Focused", "Uplifting"],
+                        "flavors": ["Citrus", "Spice", "Tropical"],
+                        "difficulty": "Moderate",
+                        "yield": "Medium-High",
+                        "height": "Tall",
+                        "thc": "22-24%",
+                        "cbd": "0.1%",
+                        "availabilityStatus": "in-stock"
+                    },
+                    {
+                        "id": "thors-hammer",
+                        "name": "Thor's Hammer",
+                        "collection": "anvil",
+                        "type": "photoperiod",
+                        "dominance": "hybrid",
+                        "feminized": true,
+                        "description": "Worthy of the god of thunder himself, Thor's Hammer balances power and finesse with a perfect mix of relaxation and euphoria. Expect lightning-fast growth and thunderous potency.",
+                        "parentage": {
+                            "female": {"name": "Wedding Cake"},
+                            "male": {"name": "Mjolnir OG"}
+                        },
+                        "flowerTime": "9 weeks",
+                        "stretch": "Medium",
+                        "seedCount": 10,
+                        "effects": ["Balanced", "Euphoric", "Social", "Relaxing"],
+                        "flavors": ["Sweet", "Vanilla", "Earthy"],
+                        "difficulty": "Easy",
+                        "yield": "High",
+                        "height": "Medium",
+                        "thc": "25-27%",
+                        "cbd": "0.1%",
+                        "availabilityStatus": "limited"
+                    },
+                    {
+                        "id": "mountain-forge",
+                        "name": "Mountain Forge",
+                        "collection": "forge",
+                        "type": "autoflower",
+                        "dominance": "indica",
+                        "feminized": true,
+                        "description": "A rugged strain forged in the mountain halls, this autoflowering indica produces dense, crystal-covered nugs with remarkable speed. Perfect for stealth grows or quick harvests.",
+                        "parentage": {
+                            "female": {"name": "Anvil Kush"},
+                            "male": {"name": "Ruderalis"}
+                        },
+                        "flowerTime": "65-70 days from seed",
+                        "stretch": "Low",
+                        "seedCount": 6,
+                        "effects": ["Relaxing", "Sleep-inducing", "Stress Relief"],
+                        "flavors": ["Earthy", "Kush", "Diesel"],
+                        "difficulty": "Easy",
+                        "yield": "Medium",
+                        "height": "Short",
+                        "thc": "20-22%",
+                        "cbd": "0.2%",
+                        "availabilityStatus": "in-stock"
+                    },
+                    {
+                        "id": "mythic-sunrise",
+                        "name": "Mythic Sunrise",
+                        "collection": "forge",
+                        "type": "photoperiod",
+                        "dominance": "sativa",
+                        "feminized": true,
+                        "description": "Dawn breaks with golden rays of creativity and energy when you partake in Mythic Sunrise. This legendary sativa brings forth motivation and joy with tropical flavors.",
+                        "parentage": {
+                            "female": {"name": "Jack Herer"},
+                            "male": {"name": "Durban Poison"}
+                        },
+                        "flowerTime": "9-10 weeks",
+                        "stretch": "High",
+                        "seedCount": 6,
+                        "effects": ["Energetic", "Creative", "Euphoric", "Mood Enhancing"],
+                        "flavors": ["Tropical", "Pine", "Spicy"],
+                        "difficulty": "Moderate",
+                        "yield": "Medium",
+                        "height": "Tall",
+                        "thc": "21-23%",
+                        "cbd": "0.1%",
+                        "availabilityStatus": "in-stock"
+                    },
+                    {
+                        "id": "ancient-relic",
+                        "name": "Ancient Relic",
+                        "collection": "heirloom",
+                        "type": "photoperiod",
+                        "dominance": "hybrid",
+                        "feminized": false,
+                        "description": "Preserved from the ancient world, this heirloom strain carries the pure genetics of cannabis from another age. Experience a balanced effect with complex terpene profiles lost to modern hybridization.",
+                        "parentage": {
+                            "female": {"name": "Hindu Kush Landrace"},
+                            "male": {"name": "Thai Landrace"}
+                        },
+                        "flowerTime": "10-11 weeks",
+                        "stretch": "Medium",
+                        "seedCount": 12,
+                        "effects": ["Meditative", "Clear-headed", "Relaxing"],
+                        "flavors": ["Spicy", "Sandalwood", "Floral"],
+                        "difficulty": "Moderate",
+                        "yield": "Medium",
+                        "height": "Medium-Tall",
+                        "thc": "16-18%",
+                        "cbd": "0.5%",
+                        "availabilityStatus": "limited"
+                    },
+                    {
+                        "id": "golem-og",
+                        "name": "Golem OG",
+                        "collection": "anvil",
+                        "type": "photoperiod",
+                        "dominance": "indica",
+                        "feminized": true,
+                        "description": "Strong and unrelenting like the mythical stone creatures, Golem OG delivers a massive yield of potent, high-THC flowers with a unique combination of earthy kush and sweet berry flavors.",
+                        "parentage": {
+                            "female": {"name": "OG Kush"},
+                            "male": {"name": "Anvil Berry"}
+                        },
+                        "flowerTime": "8-9 weeks",
+                        "stretch": "Low",
+                        "seedCount": 10,
+                        "effects": ["Powerful", "Relaxing", "Sleep Aid", "Pain Relief"],
+                        "flavors": ["Earthy", "Berry", "Diesel"],
+                        "difficulty": "Easy",
+                        "yield": "Very High",
+                        "height": "Medium-Short",
+                        "thc": "26-28%",
+                        "cbd": "0.1%",
+                        "availabilityStatus": "in-stock"
+                    },
+                    {
+                        "id": "lokis-trick",
+                        "name": "Loki's Trick",
+                        "collection": "forge",
+                        "type": "photoperiod",
+                        "dominance": "hybrid",
+                        "feminized": true,
+                        "description": "Deceptively potent and full of surprises, Loki's Trick shifts between energizing and relaxing effects throughout the experience, making it perfect for any time of day.",
+                        "parentage": {
+                            "female": {"name": "GSC"},
+                            "male": {"name": "Mythic Sunrise"}
+                        },
+                        "flowerTime": "9 weeks",
+                        "stretch": "Medium",
+                        "seedCount": 6,
+                        "effects": ["Balanced", "Creative", "Mood Enhancing", "Relaxing"],
+                        "flavors": ["Sweet", "Mint", "Cookies"],
+                        "difficulty": "Moderate",
+                        "yield": "Medium-High",
+                        "height": "Medium",
+                        "thc": "23-25%",
+                        "cbd": "0.1%",
+                        "availabilityStatus": "in-stock"
+                    },
+                    {
+                        "id": "allfather-kush",
+                        "name": "Allfather Kush",
+                        "collection": "heirloom",
+                        "type": "photoperiod",
+                        "dominance": "indica",
+                        "feminized": false,
+                        "description": "Descended from ancient Afghan mountains, Allfather Kush brings wisdom and deep relaxation with traditional hash-plant characteristics and exceptional resin production.",
+                        "parentage": {
+                            "female": {"name": "Hindu Kush"},
+                            "male": {"name": "Afghan #1"}
+                        },
+                        "flowerTime": "9-10 weeks",
+                        "stretch": "Low",
+                        "seedCount": 10,
+                        "effects": ["Relaxing", "Sedative", "Euphoric", "Meditative"],
+                        "flavors": ["Hash", "Spice", "Earthy"],
+                        "difficulty": "Moderate",
+                        "yield": "Medium-High",
+                        "height": "Short",
+                        "thc": "20-22%",
+                        "cbd": "0.4%",
+                        "availabilityStatus": "limited"
+                    }
+                ],
+                "strainTree": {
+                    "name": "Brokkr Genetics",
+                    "children": [
+                        {
+                            "name": "Anvil Series",
+                            "children": [
+                                {
+                                    "name": "Dwarf Hammer",
+                                    "children": []
+                                },
+                                {
+                                    "name": "Thor's Hammer",
+                                    "children": []
+                                },
+                                {
+                                    "name": "Golem OG",
+                                    "children": []
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Forge Collection",
+                            "children": [
+                                {
+                                    "name": "Runefire Haze",
+                                    "children": []
+                                },
+                                {
+                                    "name": "Mountain Forge",
+                                    "children": []
+                                },
+                                {
+                                    "name": "Mythic Sunrise",
+                                    "children": []
+                                },
+                                {
+                                    "name": "Loki's Trick",
+                                    "children": []
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Heirloom Treasures",
+                            "children": [
+                                {
+                                    "name": "Ancient Relic",
+                                    "children": []
+                                },
+                                {
+                                    "name": "Allfather Kush",
+                                    "children": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            };
+        };
+
+// Populate strain catalog with sample data
+        function populateStrainCatalog() {
+            const strainGrid = document.getElementById('strain-grid');
+            
+            // Clear existing strains
+            strainGrid.innerHTML = '';
+            
+            // Get strain data
+            const data = getStrainData();
+            const strains = data.strains || [];
+            
+            if (strains.length === 0) {
+                strainGrid.innerHTML = '<p class="no-strains">No strains found in catalog.</p>';
+                return;
+            }
+            
+            // Create descriptions object from strains array
+            strainDescriptions = {};
+            strains.forEach(strain => {
+                strainDescriptions[strain.name] = strain.description;
+            });
+            
+            // Create a card for each strain
+            strains.forEach(strain => {
+                // Create strain card
+                const card = document.createElement('div');
+                card.className = 'strain-card';
+                card.dataset.id = strain.id;
+                
+                // Determine the seed type badge class
+                const seedTypeClass = strain.feminized ? 'feminized' : 'regular';
+                const seedTypeText = strain.feminized ? 'FEMINIZED' : 'REGULAR';
+                
+                // Create HTML for the card
+                card.innerHTML = `
+                    <div class="strain-image">
+                        <img src="img/strains/${strain.id}.jpg" alt="${strain.name}" onerror="this.src='img/placeholder-strain.jpg'; this.onerror=null;">
+                        <div class="strain-badges">
+                            <div class="strain-type">${strain.dominance.toUpperCase()}</div>
+                            <div class="seed-type-badge ${seedTypeClass}">${seedTypeText}</div>
+                        </div>
+                    </div>
+                    <div class="strain-card-content">
+                        <h3>${strain.name}</h3>
+                        ${strain.parentage ? `
+                            <div class="strain-genetics">
+                                ${strain.parentage.female.name} × ${strain.parentage.male.name}
+                            </div>
+                        ` : ''}
+                        <p class="strain-description">${strain.description.substring(0, 120)}...</p>
+                        <div class="strain-details">
+                            <div class="strain-availability">${strain.availabilityStatus === 'in-stock' ? 'IN STOCK' : 'LIMITED'}</div>
+                            <div class="strain-seed-count">${strain.seedCount} seeds</div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add card to grid
+                strainGrid.appendChild(card);
+                
+                // Add click event to view strain details
+                card.addEventListener('click', function() {
+                    showStrainModal(strain);
+                });
+            });
+            
+            // Add filter functionality
+            setupFilters(strains);
+        }
+        
+        // Setup filter functionality
+        function setupFilters(strains) {
+            const typeFilter = document.getElementById('type-filter');
+            const collectionFilter = document.getElementById('collection-filter');
+            
+            function applyFilters() {
+                const typeValue = typeFilter.value;
+                const collectionValue = collectionFilter.value;
+                
+                document.querySelectorAll('.strain-card').forEach(card => {
+                    const strainId = card.dataset.id;
+                    const strain = strains.find(s => s.id === strainId);
+                    
+                    let showCard = true;
+                    
+                    // Filter by type
+                    if (typeValue !== 'all' && strain.dominance !== typeValue) {
+                        showCard = false;
+                    }
+                    
+                    // Filter by collection
+                    if (collectionValue !== 'all' && strain.collection !== collectionValue) {
+                        showCard = false;
+                    }
+                    
+                    card.style.display = showCard ? 'block' : 'none';
+                });
+            }
+            
+            // Add event listeners to filters
+            typeFilter.addEventListener('change', applyFilters);
+            collectionFilter.addEventListener('change', applyFilters);
+        }
+        
+        // Show strain modal with detailed information
+        function showStrainModal(strain) {
+            const modal = document.getElementById('strain-modal-overlay');
+            const modalTitle = document.getElementById('modal-strain-name');
+            const modalContent = document.getElementById('modal-content');
+            
+            // Set modal title
+            modalTitle.textContent = strain.name;
+            
+            // Create content for the modal
+            const strainDetailHTML = `
+                <div class="strain-detail-grid">
+                    <div class="strain-detail-image">
+                        <img src="img/strains/${strain.id}-detail.jpg" alt="${strain.name}" onerror="this.src='img/placeholder-strain-detail.jpg'; this.onerror=null;">
+                    </div>
+                    <div class="strain-detail-info">
+                        <h3>${strain.collection === 'anvil' ? 'Anvil Series' : strain.collection === 'forge' ? 'Forge Collection' : 'Heirloom Treasures'}</h3>
+                        
+                        <div class="strain-specs">
+                            <div class="spec-item">
+                                <span class="spec-label">Type</span>
+                                <span class="spec-value">${strain.type.charAt(0).toUpperCase() + strain.type.slice(1)}</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Dominance</span>
+                                <span class="spec-value">${strain.dominance.charAt(0).toUpperCase() + strain.dominance.slice(1)}</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">THC</span>
+                                <span class="spec-value">${strain.thc}</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">CBD</span>
+                                <span class="spec-value">${strain.cbd}</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Seeds per Pack</span>
+                                <span class="spec-value">${strain.seedCount}</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Seed Type</span>
+                                <span class="spec-value">${strain.feminized ? 'Feminized' : 'Regular'}</span>
+                            </div>
+                        </div>
+                        
+                        ${strain.parentage ? `
+                            <div class="spec-item" style="grid-column: span 2;">
+                                <span class="spec-label">Genetics</span>
+                                <span class="spec-value">${strain.parentage.female.name} × ${strain.parentage.male.name}</span>
+                            </div>
+                        ` : ''}
+                        
+                        <div class="strain-description-full">
+                            <p>${strain.description}</p>
+                        </div>
+                        
+                        <div class="strain-effects">
+                            <h4>Effects</h4>
+                            <div class="effects-grid">
+                                ${strain.effects.map(effect => `<span class="effect-tag">${effect}</span>`).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="strain-effects">
+                            <h4>Flavors</h4>
+                            <div class="effects-grid">
+                                ${strain.flavors.map(flavor => `<span class="effect-tag">${flavor}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grow-info">
+                    <h4>Growing Information</h4>
+                    <div class="grow-tags">
+                        <span class="grow-tag flowering">🌸 ${strain.flowerTime}</span>
+                        <span class="grow-tag yield">⚖️ Yield: ${strain.yield}</span>
+                        <span class="grow-tag height">📏 Height: ${strain.height}</span>
+                        <span class="grow-tag difficulty">🌱 Difficulty: ${strain.difficulty}</span>
+                    </div>
+                </div>
+            `;
+            
+            // Set the content
+            modalContent.innerHTML = strainDetailHTML;
+            
+            // Show the modal
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling behind the modal
+        }
+        
+        // Close strain modal
+        function closeStrainModal() {
+            const modal = document.getElementById('strain-modal-overlay');
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        // Initialize the genetics tree visualization
+        async function initializeVisualization() {
+            const data = getStrainData();
+            strainData = data.strainTree;
+            
+            // If no strainTree data is available
+            if (!strainData || !strainData.name) {
+                document.getElementById('genetics-tree').innerHTML = '<p class="error-message">Error loading genetics tree data</p>';
+                return;
+            }
+            
+            // D3.js Tree Visualization
+            const width = document.getElementById('genetics-tree').clientWidth;
+            const height = 350;
+            const isMobile = window.innerWidth <= 768;
+            const margin = isMobile 
+                ? {top: 20, right: 20, bottom: 20, left: 20} 
+                : {top: 20, right: 90, bottom: 20, left: 90};
+            
+            // Clear any existing SVG
+            d3.select('#genetics-tree').select('svg').remove();
+            
+            // Create SVG
+            svg = d3.select('#genetics-tree')
+                .append('svg')
+                .attr('width', width)
+                .attr('height', height)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+            
+            // Create tree layout
+            treemap = d3.tree().size([height - margin.top - margin.bottom, width - margin.left - margin.right]);
+            
+            // Prepare data
+            root = d3.hierarchy(strainData);
+            root.x0 = height / 2;
+            root.y0 = isMobile ? -100 : 0; // Shift the starting point on mobile
+            
+            // Collapse all nodes initially except the first level
+            if (root.children) {
+                root.children.forEach(collapse);
+            }
+            
+            // Start the visualization
+            update(root);
+        }
+        
+        // Helper functions for the tree visualization
+        function collapse(d) {
+            if (d.children) {
+                d._children = d.children;
+                d._children.forEach(collapse);
+                d.children = null;
+            }
+        }
+        
+        function update(source) {
+            try {
+                // Assigns the x and y position for the nodes
+                const treeData = treemap(root);
+                
+                // Get the nodes and links from the hierarchy
+                const nodes = treeData.descendants();
+                const links = treeData.descendants().slice(1);
+                
+                // Normalize for fixed-depth
+                nodes.forEach(d => {
+                    d.y = d.depth * 180;
+                });
+                
+                // ****************** Nodes section ***************************
+                
+                // Update the nodes...
+                const node = svg.selectAll('g.node')
+                    .data(nodes, d => d.id || (d.id = ++i));
+                
+                // Enter any new nodes at the parent's previous position
+                const nodeEnter = node.enter().append('g')
+                    .attr('class', 'node')
+                    .attr('transform', d => `translate(${source.y0},${source.x0})`)
+                    .on('click', (event, d) => click(event, d));
+                    
+                // Add bubble/pill background for the nodes
+                nodeEnter.append('rect')
+                    .attr('class', 'node-bubble')
+                    .attr('rx', 12) // Rounded corners
+                    .attr('ry', 12)
+                    .attr('x', -10)
+                    .attr('y', -15)
+                    .attr('width', d => Math.max(d.data.name.length * 8, 40)) // Width based on text length
+                    .attr('height', 30)
+                    .style('fill', d => d._children ? '#c69c6d' : '#b87333')
+                    .style('stroke', '#b87333')
+                    .style('stroke-width', 2)
+                    .attr('cursor', 'pointer');
+                
+                // Add labels for the nodes
+                nodeEnter.append('text')
+                    .attr('dy', '.35em')
+                    .attr('x', d => d.data.name.length * 8 / 2 - 10) // Center text in bubble
+                    .attr('text-anchor', 'middle')
+                    .text(d => d.data.name)
+                    .style('font-size', '12px')
+                    .style('fill', '#f5f0e6')
+                    .attr('cursor', 'pointer');
+                
+                // UPDATE
+                const nodeUpdate = nodeEnter.merge(node);
+                
+                // Transition to the proper position for the node
+                nodeUpdate.transition()
+                    .duration(750)
+                    .attr('transform', d => `translate(${d.y},${d.x})`);
+                
+                // Update the node attributes and style
+                nodeUpdate.select('rect.node-bubble')
+                    .attr('width', d => Math.max(d.data.name.length * 8, 40))
+                    .style('fill', d => d._children ? '#c69c6d' : '#b87333');
+                
+                // Remove any exiting nodes
+                const nodeExit = node.exit().transition()
+                    .duration(750)
+                    .attr('transform', d => `translate(${source.y},${source.x})`)
+                    .remove();
+                
+                // On exit reduce the bubble opacity
+                nodeExit.select('rect.node-bubble')
+                    .attr('fill-opacity', 1e-6);
+                
+                // On exit reduce the opacity of text labels
+                nodeExit.select('text')
+                    .style('fill-opacity', 1e-6);
+                
+                // ****************** links section ***************************
+                
+                // Update the links...
+                const link = svg.selectAll('path.link')
+                    .data(links, d => d.id);
+                
+                // Enter any new links at the parent's previous position
+                const linkEnter = link.enter().insert('path', 'g')
+                    .attr('class', 'link')
+                    .attr('d', d => {
+                        const o = {x: source.x0, y: source.y0};
+                        return diagonal(o, o);
+                    })
+                    .style('fill', 'none')
+                    .style('stroke', '#c69c6d')
+                    .style('stroke-width', 2);
+                
+                // UPDATE
+                const linkUpdate = linkEnter.merge(link);
+                
+                // Transition back to the parent element position
+                linkUpdate.transition()
+                    .duration(750)
+                    .attr('d', d => diagonal(d, d.parent));
+                
+                // Remove any exiting links
+                link.exit().transition()
+                    .duration(750)
+                    .attr('d', d => {
+                        const o = {x: source.x, y: source.y};
+                        return diagonal(o, o);
+                    })
+                    .remove();
+                
+                // Store the old positions for transition
+                nodes.forEach(d => {
+                    d.x0 = d.x;
+                    d.y0 = d.y;
+                });
+                
+                // Show strain description when clicking on a node
+                if (source && source.data && source.data.name) {
+                    const description = strainDescriptions[source.data.name] || "No information available for this strain.";
+                    document.getElementById('strain-description').innerText = description;
+                }
+            } catch (error) {
+                console.error("Error in update function:", error);
+                // Don't crash the entire visualization on an error
+            }
+        }
+
+        // Creates a curved (diagonal) path from parent to the child nodes
+        function diagonal(s, d) {
+            return `M ${s.y} ${s.x}
+                    C ${(s.y + d.y) / 2} ${s.x},
+                      ${(s.y + d.y) / 2} ${d.x},
+                      ${d.y} ${d.x}`;
+        }
+
+        // Toggle children on click and display strain information
+        function click(event, d) {
+            try {
+                if (d.children) {
+                    d._children = d.children;
+                    d.children = null;
+                } else {
+                    d.children = d._children;
+                    d._children = null;
+                }
+                
+                // Update the tree
+                update(d);
+                
+                // Find the strain data to display more information
+                const data = getStrainData();
+                const strainName = d.data.name;
+                
+                // Don't try to find parent categories as strains
+                if (strainName === "Brokkr Genetics" || 
+                    strainName === "Anvil Series" || 
+                    strainName === "Forge Collection" || 
+                    strainName === "Heirloom Treasures") {
+                    document.getElementById('strain-description').innerText = 
+                        `${strainName} is a collection of strains. Click on individual strain names to see detailed information.`;
+                    return;
+                }
+                
+                const strain = data.strains.find(s => s.name === strainName);
+                
+                if (strain) {
+                    // Show comprehensive strain info
+                    const strainInfoEl = document.getElementById('strain-description');
+                    strainInfoEl.innerHTML = `<strong>${strain.name}</strong> (${strain.dominance.charAt(0).toUpperCase() + strain.dominance.slice(1)}): ${strain.description}`;
+                } else {
+                    // Fallback to simple description
+                    document.getElementById('strain-description').innerText = 
+                        strainDescriptions[d.data.name] || "No information available for this strain.";
+                }
+            } catch (error) {
+                console.error("Error in click handler:", error);
+            }
+        }
+
+        // Helper function to expand all nodes
+        function expandAll(d) {
+            if (d._children) {
+                d.children = d._children;
+                d._children = null;
+                d.children.forEach(expandAll);
+            } else if (d.children) {
+                d.children.forEach(expandAll);
+            }
+        }
+
+        // Functions for smooth scrolling navigation
+        function navigateToSection(sectionId) {
+            const targetSection = document.getElementById(sectionId);
+            
+            if (targetSection) {
+                // Scroll to the section
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Chat widget functionality
+            const chatToggle = document.getElementById('chat-toggle');
+            const chatPopup = document.getElementById('chat-popup');
+            const closeChat = document.getElementById('close-chat');
+            const userInput = document.getElementById('user-input');
+            const sendMessage = document.getElementById('send-message');
+            
+            // Set initial state
+            chatPopup.style.display = 'none';
+            
+            // Chat toggle
+            chatToggle.addEventListener('click', function() {
+                chatPopup.style.display = chatPopup.style.display === 'block' ? 'none' : 'block';
+            });
+            
+            // Close chat
+            closeChat.addEventListener('click', function() {
+                chatPopup.style.display = 'none';
+            });
+            
+            // Send message
+            sendMessage.addEventListener('click', function() {
+                sendUserMessage();
+            });
+            
+            // Send message on Enter
+            userInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendUserMessage();
+                }
+            });
+            
+            // Strain modal close
+            document.getElementById('modal-close').addEventListener('click', function() {
+                closeStrainModal();
+            });
+            
+            // Close modal when clicking outside
+            document.getElementById('strain-modal-overlay').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeStrainModal();
+                }
+            });
+            
+            // Expand/collapse genetics tree
+            document.getElementById('expand-all').addEventListener('click', function(e) {
+                e.preventDefault();
+                if (root) {
+                    expandAll(root);
+                    update(root);
+                }
+            });
+            
+            document.getElementById('collapse-all').addEventListener('click', function(e) {
+                e.preventDefault();
+                if (root) {
+                    // Collapse all except first level
+                    if (root.children) {
+                        root.children.forEach(collapse);
+                        update(root);
+                    }
+                }
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href').substring(1);
+                    if (targetId && document.getElementById(targetId)) {
+                        e.preventDefault();
+                        navigateToSection(targetId);
+                    }
+                });
+            });
+            
+            // Populate strain catalog
+            populateStrainCatalog();
+            
+            // Initialize genetics tree visualization
+            setTimeout(function() {
+                initializeVisualization();
+            }, 500);
+        });
+    </script>
+</body>
+</html>		
