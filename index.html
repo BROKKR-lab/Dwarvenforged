@@ -1536,12 +1536,18 @@
 		async function initializeData() {
 			try {
 				const data = await loadStrainData();
+				
+				// Check if data was loaded successfully
 				if (!data || !data.strains) {
-					console.error('No valid strain data loaded');
+					console.error('Failed to load strain data');
+					const strainGrid = document.getElementById('strain-grid');
+					if (strainGrid) {
+						strainGrid.innerHTML = '<p class="no-strains">Unable to load strain data. Please try refreshing the page.</p>';
+					}
 					return;
 				}
 				
-				// Set global strainData for the tree visualization
+				// Store global data
 				strainData = data.strainTree;
 				
 				// Create descriptions object from strains array
@@ -1550,15 +1556,23 @@
 					strainDescriptions[strain.name] = strain.description;
 				});
 				
-				// Initialize the page with loaded data
+				// Initialize the page with loaded data - pass the full data object
 				populateStrainCatalog(data);
 				
-				// Initialize the genetics tree visualization after data is loaded
+				// Initialize visualization after data is loaded and DOM is ready
 				setTimeout(() => {
-					initializeVisualization();
+					try {
+						initializeVisualization();
+					} catch (err) {
+						console.error('Error initializing visualization:', err);
+					}
 				}, 100);
 			} catch (error) {
 				console.error('Error initializing data:', error);
+				const strainGrid = document.getElementById('strain-grid');
+				if (strainGrid) {
+					strainGrid.innerHTML = '<p class="no-strains">Error loading strain data: ' + error.message + '</p>';
+				}
 			}
 		}
 
@@ -1634,8 +1648,15 @@
 			// Clear existing strains
 			strainGrid.innerHTML = '';
 			
+			// Safety check for undefined data
+			if (!data || !data.strains) {
+				console.error('Invalid or undefined strain data passed to populateStrainCatalog');
+				strainGrid.innerHTML = '<p class="no-strains">Unable to load strain data. Please try refreshing the page.</p>';
+				return;
+			}
+			
 			// Get strain data
-			const strains = data.strains || [];
+			const strains = data.strains;
 			
 			if (strains.length === 0) {
 				strainGrid.innerHTML = '<p class="no-strains">No strains found in catalog.</p>';
@@ -1727,11 +1748,14 @@
 				}
 			});
 			
-			// Create pagination controls
-			createPaginationControls(totalPages);
+			// Create pagination controls if element exists
+			const paginationContainer = document.getElementById('pagination-controls');
+			if (paginationContainer) {
+				createPaginationControls(totalPages);
+			}
 			
 			// Add filter functionality
-			setupFilters(data.strains);
+			setupFilters(strains);
 		}
 
 		function createPaginationControls(totalPages) {
