@@ -521,6 +521,112 @@
         letter-spacing: 0.5px;
     }
 
+	/* Strain Card Status Styles */
+	.strain-card.disabled {
+		opacity: 0.85;
+		pointer-events: none;
+		position: relative;
+	}
+
+	.availability-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.7);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: white;
+		font-weight: bold;
+		font-size: 1.2rem;
+		letter-spacing: 1px;
+		z-index: 10;
+	}
+
+	/* Availability Status Colors */
+	.strain-availability.in-stock {
+		color: var(--accent);
+	}
+
+	.strain-availability.limited {
+		color: #ff9900;
+	}
+
+	.strain-availability.sold-out {
+		color: #d32f2f;
+	}
+
+	.strain-availability.coming-soon {
+		color: #4caf50;
+	}
+
+	.strain-availability.unavailable {
+		color: #999;
+	}
+
+	/* Pagination Styles */
+	.pagination-container {
+		margin-top: 40px;
+		display: flex;
+		justify-content: center;
+	}
+
+	.pagination-controls {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+		background-color: var(--dark);
+		padding: 10px 20px;
+		border-radius: 30px;
+		border: 1px solid rgba(184, 115, 51, 0.3);
+	}
+
+	.pagination-btn {
+		background: none;
+		border: none;
+		color: var(--primary);
+		cursor: pointer;
+		width: 40px;
+		height: 40px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 50%;
+		transition: all 0.3s ease;
+	}
+
+	.pagination-btn:hover {
+		background-color: rgba(184, 115, 51, 0.2);
+	}
+
+	.pagination-btn:disabled {
+		color: #666;
+		cursor: not-allowed;
+		opacity: 0.5;
+	}
+
+	.pagination-btn svg {
+		width: 24px;
+		height: 24px;
+		fill: currentColor;
+	}
+
+	.page-indicator {
+		color: var(--light);
+		font-size: 0.9rem;
+	}
+
+	.no-strains {
+		grid-column: 1 / -1;
+		text-align: center;
+		padding: 40px 0;
+		color: var(--light);
+		font-size: 1.1rem;
+		font-style: italic;
+	}
+
     .seed-type-badge {
         display: inline-block;
         padding: 5px 10px;
@@ -1221,15 +1327,16 @@
             </div>
             
             <div class="catalog-filters">
-                <div class="filter-group">
-                    <label>Filter by type:</label>
-                    <select id="type-filter">
-                        <option value="all">All Types</option>
-                        <option value="indica">Indica</option>
-                        <option value="sativa">Sativa</option>
-                        <option value="hybrid">Hybrid</option>
-                    </select>
-                </div>
+				<div class="filter-group">
+					<label>Availability:</label>
+					<select id="availability-filter">
+						<option value="all">All Products</option>
+						<option value="available">Available</option>
+						<option value="in-stock">In Stock</option>
+						<option value="coming-soon">Coming Soon</option>
+						<option value="unavailable">Unavailable</option>
+					</select>
+				</div>
                 <div class="filter-group">
                     <label>Collection:</label>
                     <select id="collection-filter">
@@ -1244,6 +1351,10 @@
             <div class="strain-grid" id="strain-grid">
                 <!-- Strains will be loaded here dynamically -->
             </div>
+			<div class="pagination-container">
+				<div id="pagination-controls" class="pagination-controls"></div>
+			</div>
+			
         </div>
     </section>
 
@@ -1503,201 +1614,398 @@
 		}
 
 
-// Populate strain catalog with sample data
-        function populateStrainCatalog() {
-            const strainGrid = document.getElementById('strain-grid');
-            
-            // Clear existing strains
-            strainGrid.innerHTML = '';
-            
-            // Get strain data
-            const data = getStrainData();
-            const strains = data.strains || [];
-            
-            if (strains.length === 0) {
-                strainGrid.innerHTML = '<p class="no-strains">No strains found in catalog.</p>';
-                return;
-            }
-            
-            // Create descriptions object from strains array
-            strainDescriptions = {};
-            strains.forEach(strain => {
-                strainDescriptions[strain.name] = strain.description;
-            });
-            
-            // Create a card for each strain
-            strains.forEach(strain => {
-                // Create strain card
-                const card = document.createElement('div');
-                card.className = 'strain-card';
-                card.dataset.id = strain.id;
-                
-                // Determine the seed type badge class
-                const seedTypeClass = strain.feminized ? 'feminized' : 'regular';
-                const seedTypeText = strain.feminized ? 'FEMINIZED' : 'REGULAR';
-                
-                // Create HTML for the card
-                card.innerHTML = `
-                    <div class="strain-image">
-                        <img src="img/strains/${strain.id}.jpg" alt="${strain.name}" onerror="this.src='img/placeholder-strain.jpg'; this.onerror=null;">
-                        <div class="strain-badges">
-                            <div class="strain-type">${strain.dominance.toUpperCase()}</div>
-                            <div class="seed-type-badge ${seedTypeClass}">${seedTypeText}</div>
-                        </div>
-                    </div>
-                    <div class="strain-card-content">
-                        <h3>${strain.name}</h3>
-                        ${strain.parentage ? `
-                            <div class="strain-genetics">
-                                ${strain.parentage.female.name} × ${strain.parentage.male.name}
-                            </div>
-                        ` : ''}
-                        <p class="strain-description">${strain.description.substring(0, 120)}...</p>
-                        <div class="strain-details">
-                            <div class="strain-availability">${strain.availabilityStatus === 'in-stock' ? 'IN STOCK' : 'LIMITED'}</div>
-                            <div class="strain-seed-count">${strain.seedCount} seeds</div>
-                        </div>
-                    </div>
-                `;
-                
-                // Add card to grid
-                strainGrid.appendChild(card);
-                
-                // Add click event to view strain details
-                card.addEventListener('click', function() {
-                    showStrainModal(strain);
-                });
-            });
-            
-            // Add filter functionality
-            setupFilters(strains);
-        }
+		function populateStrainCatalog(data) {
+			const strainGrid = document.getElementById('strain-grid');
+			
+			// Clear existing strains
+			strainGrid.innerHTML = '';
+			
+			// Get strain data
+			const strains = data.strains || [];
+			
+			if (strains.length === 0) {
+				strainGrid.innerHTML = '<p class="no-strains">No strains found in catalog.</p>';
+				return;
+			}
+			
+			// Calculate pagination
+			const totalPages = Math.ceil(strains.length / itemsPerPage);
+			const startIndex = (currentPage - 1) * itemsPerPage;
+			const endIndex = Math.min(startIndex + itemsPerPage, strains.length);
+			const currentStrains = strains.slice(startIndex, endIndex);
+			
+			// Create a card for each strain in the current page
+			currentStrains.forEach(strain => {
+				// Create strain card
+				const card = document.createElement('div');
+				card.className = 'strain-card';
+				card.dataset.id = strain.id;
+				
+				// Determine if card should be disabled based on availability status
+				const isDisabled = ['sold-out', 'coming-soon'].includes(strain.availabilityStatus);
+				if (isDisabled) {
+					card.classList.add('disabled');
+				}
+				
+				// Determine the seed type badge class
+				const seedTypeClass = strain.feminized ? 'feminized' : 'regular';
+				const seedTypeText = strain.feminized ? 'FEMINIZED' : 'REGULAR';
+				
+				// Determine availability status display
+				let availabilityStatusText = '';
+				let availabilityStatusClass = '';
+				
+				switch(strain.availabilityStatus) {
+					case 'in-stock':
+						availabilityStatusText = 'IN STOCK';
+						availabilityStatusClass = 'in-stock';
+						break;
+					case 'limited':
+						availabilityStatusText = 'LIMITED';
+						availabilityStatusClass = 'limited';
+						break;
+					case 'sold-out':
+						availabilityStatusText = 'SOLD OUT';
+						availabilityStatusClass = 'sold-out';
+						break;
+					case 'coming-soon':
+						availabilityStatusText = 'COMING SOON';
+						availabilityStatusClass = 'coming-soon';
+						break;
+					default:
+						availabilityStatusText = 'UNAVAILABLE';
+						availabilityStatusClass = 'unavailable';
+				}
+				
+				// Create HTML for the card
+				card.innerHTML = `
+					<div class="strain-image">
+						<img src="img/strains/${strain.id}.jpg" alt="${strain.name}" onerror="this.src='img/placeholder-strain.jpg'; this.onerror=null;">
+						<div class="strain-badges">
+							<div class="strain-type">${strain.dominance.toUpperCase()}</div>
+							<div class="seed-type-badge ${seedTypeClass}">${seedTypeText}</div>
+						</div>
+						${isDisabled ? `<div class="availability-overlay">${availabilityStatusText}</div>` : ''}
+					</div>
+					<div class="strain-card-content">
+						<h3>${strain.name}</h3>
+						${strain.parentage ? `
+							<div class="strain-genetics">
+								${strain.parentage.female.name} × ${strain.parentage.male.name}
+							</div>
+						` : ''}
+						<p class="strain-description">${strain.description.substring(0, 120)}...</p>
+						<div class="strain-details">
+							<div class="strain-availability ${availabilityStatusClass}">${availabilityStatusText}</div>
+							<div class="strain-seed-count">${strain.seedCount} seeds</div>
+						</div>
+					</div>
+				`;
+				
+				// Add card to grid
+				strainGrid.appendChild(card);
+				
+				// Add click event to view strain details (only for available strains)
+				if (!isDisabled) {
+					card.addEventListener('click', function() {
+						showStrainModal(strain);
+					});
+				}
+			});
+			
+			// Create pagination controls
+			createPaginationControls(totalPages);
+			
+			// Add filter functionality
+			setupFilters(data.strains);
+		}
+
+		function createPaginationControls(totalPages) {
+			const paginationContainer = document.getElementById('pagination-controls');
+			if (!paginationContainer) return;
+			
+			paginationContainer.innerHTML = '';
+			
+			if (totalPages <= 1) return; // Don't show pagination for a single page
+			
+			const paginationHTML = `
+				<button id="prev-page" class="pagination-btn" ${currentPage === 1 ? 'disabled' : ''}>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+						<path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+					</svg>
+				</button>
+				<div class="page-indicator">Page ${currentPage} of ${totalPages}</div>
+				<button id="next-page" class="pagination-btn" ${currentPage === totalPages ? 'disabled' : ''}>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+						<path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+					</svg>
+				</button>
+			`;
+			
+			paginationContainer.innerHTML = paginationHTML;
+			
+			// Add event listeners to pagination buttons
+			document.getElementById('prev-page')?.addEventListener('click', function() {
+				if (currentPage > 1) {
+					currentPage--;
+					initializeData(); // Reload data with new page
+				}
+			});
+			
+			document.getElementById('next-page')?.addEventListener('click', function() {
+				if (currentPage < totalPages) {
+					currentPage++;
+					initializeData(); // Reload data with new page
+				}
+			});
+		}
         
-        // Setup filter functionality
-        function setupFilters(strains) {
-            const typeFilter = document.getElementById('type-filter');
-            const collectionFilter = document.getElementById('collection-filter');
-            
-            function applyFilters() {
-                const typeValue = typeFilter.value;
-                const collectionValue = collectionFilter.value;
-                
-                document.querySelectorAll('.strain-card').forEach(card => {
-                    const strainId = card.dataset.id;
-                    const strain = strains.find(s => s.id === strainId);
-                    
-                    let showCard = true;
-                    
-                    // Filter by type
-                    if (typeValue !== 'all' && strain.dominance !== typeValue) {
-                        showCard = false;
-                    }
-                    
-                    // Filter by collection
-                    if (collectionValue !== 'all' && strain.collection !== collectionValue) {
-                        showCard = false;
-                    }
-                    
-                    card.style.display = showCard ? 'block' : 'none';
-                });
-            }
-            
-            // Add event listeners to filters
-            typeFilter.addEventListener('change', applyFilters);
-            collectionFilter.addEventListener('change', applyFilters);
-        }
-        
-        // Show strain modal with detailed information
-        function showStrainModal(strain) {
-            const modal = document.getElementById('strain-modal-overlay');
-            const modalTitle = document.getElementById('modal-strain-name');
-            const modalContent = document.getElementById('modal-content');
-            
-            // Set modal title
-            modalTitle.textContent = strain.name;
-            
-            // Create content for the modal
-            const strainDetailHTML = `
-                <div class="strain-detail-grid">
-                    <div class="strain-detail-image">
-                        <img src="img/strains/${strain.id}-detail.jpg" alt="${strain.name}" onerror="this.src='img/placeholder-strain-detail.jpg'; this.onerror=null;">
-                    </div>
-                    <div class="strain-detail-info">
-                        <h3>${strain.collection === 'anvil' ? 'Anvil Series' : strain.collection === 'forge' ? 'Forge Collection' : 'Heirloom Treasures'}</h3>
-                        
-                        <div class="strain-specs">
-                            <div class="spec-item">
-                                <span class="spec-label">Type</span>
-                                <span class="spec-value">${strain.type.charAt(0).toUpperCase() + strain.type.slice(1)}</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">Dominance</span>
-                                <span class="spec-value">${strain.dominance.charAt(0).toUpperCase() + strain.dominance.slice(1)}</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">THC</span>
-                                <span class="spec-value">${strain.thc}</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">CBD</span>
-                                <span class="spec-value">${strain.cbd}</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">Seeds per Pack</span>
-                                <span class="spec-value">${strain.seedCount}</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">Seed Type</span>
-                                <span class="spec-value">${strain.feminized ? 'Feminized' : 'Regular'}</span>
-                            </div>
-                        </div>
-                        
-                        ${strain.parentage ? `
-                            <div class="spec-item" style="grid-column: span 2;">
-                                <span class="spec-label">Genetics</span>
-                                <span class="spec-value">${strain.parentage.female.name} × ${strain.parentage.male.name}</span>
-                            </div>
-                        ` : ''}
-                        
-                        <div class="strain-description-full">
-                            <p>${strain.description}</p>
-                        </div>
-                        
-                        <div class="strain-effects">
-                            <h4>Effects</h4>
-                            <div class="effects-grid">
-                                ${strain.effects.map(effect => `<span class="effect-tag">${effect}</span>`).join('')}
-                            </div>
-                        </div>
-                        
-                        <div class="strain-effects">
-                            <h4>Flavors</h4>
-                            <div class="effects-grid">
-                                ${strain.flavors.map(flavor => `<span class="effect-tag">${flavor}</span>`).join('')}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="grow-info">
-                    <h4>Growing Information</h4>
-                    <div class="grow-tags">
-                        <span class="grow-tag flowering">🌸 ${strain.flowerTime}</span>
-                        <span class="grow-tag yield">⚖️ Yield: ${strain.yield}</span>
-                        <span class="grow-tag height">📏 Height: ${strain.height}</span>
-                        <span class="grow-tag difficulty">🌱 Difficulty: ${strain.difficulty}</span>
-                    </div>
-                </div>
-            `;
-            
-            // Set the content
-            modalContent.innerHTML = strainDetailHTML;
-            
-            // Show the modal
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling behind the modal
-        }
-        
+		function setupFilters(strains) {
+			const typeFilter = document.getElementById('type-filter');
+			const collectionFilter = document.getElementById('collection-filter');
+			const availabilityFilter = document.getElementById('availability-filter');
+			
+			function applyFilters() {
+				const typeValue = typeFilter.value;
+				const collectionValue = collectionFilter.value;
+				const availabilityValue = availabilityFilter ? availabilityFilter.value : 'all';
+				
+				// Reset page when filters change
+				currentPage = 1;
+				
+				// Filter the strains array
+				const filteredStrains = strains.filter(strain => {
+					let includeStrain = true;
+					
+					// Filter by type
+					if (typeValue !== 'all' && strain.dominance !== typeValue) {
+						includeStrain = false;
+					}
+					
+					// Filter by collection
+					if (collectionValue !== 'all' && strain.collection !== collectionValue) {
+						includeStrain = false;
+					}
+					
+					// Filter by availability
+					if (availabilityValue !== 'all') {
+						if (availabilityValue === 'available' && 
+							!['in-stock', 'limited'].includes(strain.availabilityStatus)) {
+							includeStrain = false;
+						} else if (availabilityValue === 'unavailable' && 
+								   ['in-stock', 'limited'].includes(strain.availabilityStatus)) {
+							includeStrain = false;
+						} else if (availabilityValue === 'in-stock' && 
+								   strain.availabilityStatus !== 'in-stock') {
+							includeStrain = false;
+						} else if (availabilityValue === 'coming-soon' && 
+								   strain.availabilityStatus !== 'coming-soon') {
+							includeStrain = false;
+						}
+					}
+					
+					return includeStrain;
+				});
+				
+				// Recalculate pagination based on filtered strains
+				const totalFilteredPages = Math.ceil(filteredStrains.length / itemsPerPage);
+				
+				// Get the current page of filtered strains
+				const startIndex = (currentPage - 1) * itemsPerPage;
+				const endIndex = Math.min(startIndex + itemsPerPage, filteredStrains.length);
+				const currentStrains = filteredStrains.slice(startIndex, endIndex);
+				
+				// Clear the grid
+				const strainGrid = document.getElementById('strain-grid');
+				strainGrid.innerHTML = '';
+				
+				if (currentStrains.length === 0) {
+					strainGrid.innerHTML = '<p class="no-strains">No strains match your filter criteria.</p>';
+					document.getElementById('pagination-controls').innerHTML = '';
+					return;
+				}
+				
+				// Re-populate with filtered strains
+				currentStrains.forEach(strain => {
+					// Create and append strain cards (reusing code from populateStrainCatalog)
+					// ...
+					const card = document.createElement('div');
+					card.className = 'strain-card';
+					card.dataset.id = strain.id;
+					
+					// Determine if card should be disabled based on availability status
+					const isDisabled = ['sold-out', 'coming-soon'].includes(strain.availabilityStatus);
+					if (isDisabled) {
+						card.classList.add('disabled');
+					}
+					
+					// Determine the seed type badge class
+					const seedTypeClass = strain.feminized ? 'feminized' : 'regular';
+					const seedTypeText = strain.feminized ? 'FEMINIZED' : 'REGULAR';
+					
+					// Determine availability status display
+					let availabilityStatusText = '';
+					let availabilityStatusClass = '';
+					
+					switch(strain.availabilityStatus) {
+						case 'in-stock':
+							availabilityStatusText = 'IN STOCK';
+							availabilityStatusClass = 'in-stock';
+							break;
+						case 'limited':
+							availabilityStatusText = 'LIMITED';
+							availabilityStatusClass = 'limited';
+							break;
+						case 'sold-out':
+							availabilityStatusText = 'SOLD OUT';
+							availabilityStatusClass = 'sold-out';
+							break;
+						case 'coming-soon':
+							availabilityStatusText = 'COMING SOON';
+							availabilityStatusClass = 'coming-soon';
+							break;
+						default:
+							availabilityStatusText = 'UNAVAILABLE';
+							availabilityStatusClass = 'unavailable';
+					}
+					
+					// Create HTML for the card
+					card.innerHTML = `
+						<div class="strain-image">
+							<img src="img/strains/${strain.id}.jpg" alt="${strain.name}" onerror="this.src='img/placeholder-strain.jpg'; this.onerror=null;">
+							<div class="strain-badges">
+								<div class="strain-type">${strain.dominance.toUpperCase()}</div>
+								<div class="seed-type-badge ${seedTypeClass}">${seedTypeText}</div>
+							</div>
+							${isDisabled ? `<div class="availability-overlay">${availabilityStatusText}</div>` : ''}
+						</div>
+						<div class="strain-card-content">
+							<h3>${strain.name}</h3>
+							${strain.parentage ? `
+								<div class="strain-genetics">
+									${strain.parentage.female.name} × ${strain.parentage.male.name}
+								</div>
+							` : ''}
+							<p class="strain-description">${strain.description.substring(0, 120)}...</p>
+							<div class="strain-details">
+								<div class="strain-availability ${availabilityStatusClass}">${availabilityStatusText}</div>
+								<div class="strain-seed-count">${strain.seedCount} seeds</div>
+							</div>
+						</div>
+					`;
+					
+					// Add card to grid
+					strainGrid.appendChild(card);
+					
+					// Add click event to view strain details (only for available strains)
+					if (!isDisabled) {
+						card.addEventListener('click', function() {
+							showStrainModal(strain);
+						});
+					}
+				});
+				
+				// Update pagination controls
+				createPaginationControls(totalFilteredPages);
+			}
+			
+			// Add event listeners to filters
+			typeFilter.addEventListener('change', applyFilters);
+			collectionFilter.addEventListener('change', applyFilters);
+			availabilityFilter?.addEventListener('change', applyFilters);
+		}
+
+		// Show strain modal with detailed information
+		function showStrainModal(strain) {
+			const modal = document.getElementById('strain-modal-overlay');
+			const modalTitle = document.getElementById('modal-strain-name');
+			const modalContent = document.getElementById('modal-content');
+			
+			// Set modal title
+			modalTitle.textContent = strain.name;
+			
+			// Create content for the modal
+			const strainDetailHTML = `
+				<div class="strain-detail-grid">
+					<div class="strain-detail-image">
+						<img src="img/strains/${strain.id}-detail.jpg" alt="${strain.name}" onerror="this.src='img/placeholder-strain-detail.jpg'; this.onerror=null;">
+					</div>
+					<div class="strain-detail-info">
+						<h3>${strain.collection === 'anvil' ? 'Anvil Series' : strain.collection === 'forge' ? 'Forge Collection' : 'Heirloom Treasures'}</h3>
+						
+						<div class="strain-specs">
+							<div class="spec-item">
+								<span class="spec-label">Type</span>
+								<span class="spec-value">${strain.type.charAt(0).toUpperCase() + strain.type.slice(1)}</span>
+							</div>
+							<div class="spec-item">
+								<span class="spec-label">Dominance</span>
+								<span class="spec-value">${strain.dominance.charAt(0).toUpperCase() + strain.dominance.slice(1)}</span>
+							</div>
+							<div class="spec-item">
+								<span class="spec-label">THC</span>
+								<span class="spec-value">${strain.thc}</span>
+							</div>
+							<div class="spec-item">
+								<span class="spec-label">CBD</span>
+								<span class="spec-value">${strain.cbd}</span>
+							</div>
+							<div class="spec-item">
+								<span class="spec-label">Seeds per Pack</span>
+								<span class="spec-value">${strain.seedCount}</span>
+							</div>
+							<div class="spec-item">
+								<span class="spec-label">Seed Type</span>
+								<span class="spec-value">${strain.feminized ? 'Feminized' : 'Regular'}</span>
+							</div>
+						</div>
+						
+						${strain.parentage ? `
+							<div class="spec-item" style="grid-column: span 2;">
+								<span class="spec-label">Genetics</span>
+								<span class="spec-value">${strain.parentage.female.name} × ${strain.parentage.male.name}</span>
+							</div>
+						` : ''}
+						
+						<div class="strain-description-full">
+							<p>${strain.description}</p>
+						</div>
+						
+						<div class="strain-effects">
+							<h4>Effects</h4>
+							<div class="effects-grid">
+								${strain.effects.map(effect => `<span class="effect-tag">${effect}</span>`).join('')}
+							</div>
+						</div>
+						
+						<div class="strain-effects">
+							<h4>Flavors</h4>
+							<div class="effects-grid">
+								${strain.flavors.map(flavor => `<span class="effect-tag">${flavor}</span>`).join('')}
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="grow-info">
+					<h4>Growing Information</h4>
+					<div class="grow-tags">
+						<span class="grow-tag flowering">🌸 ${strain.flowerTime}</span>
+						<span class="grow-tag yield">⚖️ Yield: ${strain.yield}</span>
+						<span class="grow-tag height">📏 Height: ${strain.height}</span>
+						<span class="grow-tag difficulty">🌱 Difficulty: ${strain.difficulty}</span>
+					</div>
+				</div>
+			`;
+			
+			// Set the content
+			modalContent.innerHTML = strainDetailHTML;
+			
+			// Show the modal
+			modal.classList.add('active');
+			document.body.style.overflow = 'hidden'; // Prevent scrolling behind the modal
+		}			
+               
         // Close strain modal
         function closeStrainModal() {
             const modal = document.getElementById('strain-modal-overlay');
@@ -1705,52 +2013,51 @@
             document.body.style.overflow = ''; // Restore scrolling
         }
 
-        // Initialize the genetics tree visualization
-        async function initializeVisualization() {
-            const data = getStrainData();
-            strainData = data.strainTree;
-            
-            // If no strainTree data is available
-            if (!strainData || !strainData.name) {
-                document.getElementById('genetics-tree').innerHTML = '<p class="error-message">Error loading genetics tree data</p>';
-                return;
-            }
-            
-            // D3.js Tree Visualization
-            const width = document.getElementById('genetics-tree').clientWidth;
-            const height = 350;
-            const isMobile = window.innerWidth <= 768;
-            const margin = isMobile 
-                ? {top: 20, right: 20, bottom: 20, left: 20} 
-                : {top: 20, right: 90, bottom: 20, left: 90};
-            
-            // Clear any existing SVG
-            d3.select('#genetics-tree').select('svg').remove();
-            
-            // Create SVG
-            svg = d3.select('#genetics-tree')
-                .append('svg')
-                .attr('width', width)
-                .attr('height', height)
-                .append('g')
-                .attr('transform', `translate(${margin.left},${margin.top})`);
-            
-            // Create tree layout
-            treemap = d3.tree().size([height - margin.top - margin.bottom, width - margin.left - margin.right]);
-            
-            // Prepare data
-            root = d3.hierarchy(strainData);
-            root.x0 = height / 2;
-            root.y0 = isMobile ? -100 : 0; // Shift the starting point on mobile
-            
-            // Collapse all nodes initially except the first level
-            if (root.children) {
-                root.children.forEach(collapse);
-            }
-            
-            // Start the visualization
-            update(root);
-        }
+		// Initialize the genetics tree visualization
+		async function initializeVisualization() {
+			// strainData is already populated from initializeData() function
+			
+			// If no strainTree data is available
+			if (!strainData || !strainData.name) {
+				document.getElementById('genetics-tree').innerHTML = '<p class="error-message">Error loading genetics tree data</p>';
+				return;
+			}
+			
+			// D3.js Tree Visualization
+			const width = document.getElementById('genetics-tree').clientWidth;
+			const height = 350;
+			const isMobile = window.innerWidth <= 768;
+			const margin = isMobile 
+				? {top: 20, right: 20, bottom: 20, left: 20} 
+				: {top: 20, right: 90, bottom: 20, left: 90};
+			
+			// Clear any existing SVG
+			d3.select('#genetics-tree').select('svg').remove();
+			
+			// Create SVG
+			svg = d3.select('#genetics-tree')
+				.append('svg')
+				.attr('width', width)
+				.attr('height', height)
+				.append('g')
+				.attr('transform', `translate(${margin.left},${margin.top})`);
+			
+			// Create tree layout
+			treemap = d3.tree().size([height - margin.top - margin.bottom, width - margin.left - margin.right]);
+			
+			// Prepare data
+			root = d3.hierarchy(strainData);
+			root.x0 = height / 2;
+			root.y0 = isMobile ? -100 : 0; // Shift the starting point on mobile
+			
+			// Collapse all nodes initially except the first level
+			if (root.children) {
+				root.children.forEach(collapse);
+			}
+			
+			// Start the visualization
+			update(root);
+		}
         
         // Helper functions for the tree visualization
         function collapse(d) {
@@ -1964,6 +2271,9 @@
 
         // Event listeners
         document.addEventListener('DOMContentLoaded', function() {
+			// Initialize data
+			initializeData();
+	
             // Chat widget functionality
             const chatToggle = document.getElementById('chat-toggle');
             const chatPopup = document.getElementById('chat-popup');
