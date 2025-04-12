@@ -1534,18 +1534,32 @@
 		}
 
 		async function initializeData() {
-			const data = await loadStrainData();
-			strainData = data.strainTree;
-			
-			// Create descriptions object from strains array
-			strainDescriptions = {};
-			data.strains.forEach(strain => {
-				strainDescriptions[strain.name] = strain.description;
-			});
-			
-			// Initialize the page with loaded data
-			populateStrainCatalog(data);
-			initializeVisualization();
+			try {
+				const data = await loadStrainData();
+				if (!data || !data.strains) {
+					console.error('No valid strain data loaded');
+					return;
+				}
+				
+				// Set global strainData for the tree visualization
+				strainData = data.strainTree;
+				
+				// Create descriptions object from strains array
+				strainDescriptions = {};
+				data.strains.forEach(strain => {
+					strainDescriptions[strain.name] = strain.description;
+				});
+				
+				// Initialize the page with loaded data
+				populateStrainCatalog(data);
+				
+				// Initialize the genetics tree visualization after data is loaded
+				setTimeout(() => {
+					initializeVisualization();
+				}, 100);
+			} catch (error) {
+				console.error('Error initializing data:', error);
+			}
 		}
 
 		async function sendUserMessage() {
@@ -1765,148 +1779,175 @@
 			const collectionFilter = document.getElementById('collection-filter');
 			const availabilityFilter = document.getElementById('availability-filter');
 			
-			function applyFilters() {
-				const typeValue = typeFilter.value;
-				const collectionValue = collectionFilter.value;
-				const availabilityValue = availabilityFilter ? availabilityFilter.value : 'all';
+			// Check if filters exist before setting up event listeners
+			if (!typeFilter || !collectionFilter) {
+				console.warn('Filter elements not found in the DOM');
+				return;
+			}
+			
+			// Setup filter functionality
+			function setupFilters(strains) {
+				const typeFilter = document.getElementById('type-filter');
+				const collectionFilter = document.getElementById('collection-filter');
+				const availabilityFilter = document.getElementById('availability-filter');
 				
-				// Reset page when filters change
-				currentPage = 1;
-				
-				// Filter the strains array
-				const filteredStrains = strains.filter(strain => {
-					let includeStrain = true;
-					
-					// Filter by type
-					if (typeValue !== 'all' && strain.dominance !== typeValue) {
-						includeStrain = false;
-					}
-					
-					// Filter by collection
-					if (collectionValue !== 'all' && strain.collection !== collectionValue) {
-						includeStrain = false;
-					}
-					
-					// Filter by availability
-					if (availabilityValue !== 'all') {
-						if (availabilityValue === 'available' && 
-							!['in-stock', 'limited'].includes(strain.availabilityStatus)) {
-							includeStrain = false;
-						} else if (availabilityValue === 'unavailable' && 
-								   ['in-stock', 'limited'].includes(strain.availabilityStatus)) {
-							includeStrain = false;
-						} else if (availabilityValue === 'in-stock' && 
-								   strain.availabilityStatus !== 'in-stock') {
-							includeStrain = false;
-						} else if (availabilityValue === 'coming-soon' && 
-								   strain.availabilityStatus !== 'coming-soon') {
-							includeStrain = false;
-						}
-					}
-					
-					return includeStrain;
-				});
-				
-				// Recalculate pagination based on filtered strains
-				const totalFilteredPages = Math.ceil(filteredStrains.length / itemsPerPage);
-				
-				// Get the current page of filtered strains
-				const startIndex = (currentPage - 1) * itemsPerPage;
-				const endIndex = Math.min(startIndex + itemsPerPage, filteredStrains.length);
-				const currentStrains = filteredStrains.slice(startIndex, endIndex);
-				
-				// Clear the grid
-				const strainGrid = document.getElementById('strain-grid');
-				strainGrid.innerHTML = '';
-				
-				if (currentStrains.length === 0) {
-					strainGrid.innerHTML = '<p class="no-strains">No strains match your filter criteria.</p>';
-					document.getElementById('pagination-controls').innerHTML = '';
+				// Check if filters exist before setting up event listeners
+				if (!typeFilter || !collectionFilter) {
+					console.warn('Filter elements not found in the DOM');
 					return;
 				}
 				
-				// Re-populate with filtered strains
-				currentStrains.forEach(strain => {
-					// Create and append strain cards (reusing code from populateStrainCatalog)
-					// ...
-					const card = document.createElement('div');
-					card.className = 'strain-card';
-					card.dataset.id = strain.id;
+				function applyFilters() {
+					const typeValue = typeFilter.value;
+					const collectionValue = collectionFilter.value;
+					const availabilityValue = availabilityFilter ? availabilityFilter.value : 'all';
 					
-					// Determine if card should be disabled based on availability status
-					const isDisabled = ['sold-out', 'coming-soon'].includes(strain.availabilityStatus);
-					if (isDisabled) {
-						card.classList.add('disabled');
+					// Reset page when filters change
+					currentPage = 1;
+					
+					// Filter the strains array
+					const filteredStrains = strains.filter(strain => {
+						let includeStrain = true;
+						
+						// Filter by type
+						if (typeValue !== 'all' && strain.dominance !== typeValue) {
+							includeStrain = false;
+						}
+						
+						// Filter by collection
+						if (collectionValue !== 'all' && strain.collection !== collectionValue) {
+							includeStrain = false;
+						}
+						
+						// Filter by availability
+						if (availabilityValue !== 'all') {
+							if (availabilityValue === 'available' && 
+								!['in-stock', 'limited'].includes(strain.availabilityStatus)) {
+								includeStrain = false;
+							} else if (availabilityValue === 'unavailable' && 
+									   ['in-stock', 'limited'].includes(strain.availabilityStatus)) {
+								includeStrain = false;
+							} else if (availabilityValue === 'in-stock' && 
+									   strain.availabilityStatus !== 'in-stock') {
+								includeStrain = false;
+							} else if (availabilityValue === 'coming-soon' && 
+									   strain.availabilityStatus !== 'coming-soon') {
+								includeStrain = false;
+							}
+						}
+						
+						return includeStrain;
+					});
+					
+					// Recalculate pagination based on filtered strains
+					const totalFilteredPages = Math.ceil(filteredStrains.length / itemsPerPage);
+					
+					// Get the current page of filtered strains
+					const startIndex = (currentPage - 1) * itemsPerPage;
+					const endIndex = Math.min(startIndex + itemsPerPage, filteredStrains.length);
+					const currentStrains = filteredStrains.slice(startIndex, endIndex);
+					
+					// Clear the grid
+					const strainGrid = document.getElementById('strain-grid');
+					strainGrid.innerHTML = '';
+					
+					if (currentStrains.length === 0) {
+						strainGrid.innerHTML = '<p class="no-strains">No strains match your filter criteria.</p>';
+						const paginationControls = document.getElementById('pagination-controls');
+						if (paginationControls) {
+							paginationControls.innerHTML = '';
+						}
+						return;
 					}
 					
-					// Determine the seed type badge class
-					const seedTypeClass = strain.feminized ? 'feminized' : 'regular';
-					const seedTypeText = strain.feminized ? 'FEMINIZED' : 'REGULAR';
-					
-					// Determine availability status display
-					let availabilityStatusText = '';
-					let availabilityStatusClass = '';
-					
-					switch(strain.availabilityStatus) {
-						case 'in-stock':
-							availabilityStatusText = 'IN STOCK';
-							availabilityStatusClass = 'in-stock';
-							break;
-						case 'limited':
-							availabilityStatusText = 'LIMITED';
-							availabilityStatusClass = 'limited';
-							break;
-						case 'sold-out':
-							availabilityStatusText = 'SOLD OUT';
-							availabilityStatusClass = 'sold-out';
-							break;
-						case 'coming-soon':
-							availabilityStatusText = 'COMING SOON';
-							availabilityStatusClass = 'coming-soon';
-							break;
-						default:
-							availabilityStatusText = 'UNAVAILABLE';
-							availabilityStatusClass = 'unavailable';
-					}
-					
-					// Create HTML for the card
-					card.innerHTML = `
-						<div class="strain-image">
-							<img src="img/strains/${strain.id}.jpg" alt="${strain.name}" onerror="this.src='img/placeholder-strain.jpg'; this.onerror=null;">
-							<div class="strain-badges">
-								<div class="strain-type">${strain.dominance.toUpperCase()}</div>
-								<div class="seed-type-badge ${seedTypeClass}">${seedTypeText}</div>
-							</div>
-							${isDisabled ? `<div class="availability-overlay">${availabilityStatusText}</div>` : ''}
-						</div>
-						<div class="strain-card-content">
-							<h3>${strain.name}</h3>
-							${strain.parentage ? `
-								<div class="strain-genetics">
-									${strain.parentage.female.name} × ${strain.parentage.male.name}
+					// Re-populate with filtered strains
+					currentStrains.forEach(strain => {
+						const card = document.createElement('div');
+						card.className = 'strain-card';
+						card.dataset.id = strain.id;
+						
+						// Determine if card should be disabled based on availability status
+						const isDisabled = ['sold-out', 'coming-soon'].includes(strain.availabilityStatus);
+						if (isDisabled) {
+							card.classList.add('disabled');
+						}
+						
+						// Determine the seed type badge class
+						const seedTypeClass = strain.feminized ? 'feminized' : 'regular';
+						const seedTypeText = strain.feminized ? 'FEMINIZED' : 'REGULAR';
+						
+						// Determine availability status display
+						let availabilityStatusText = '';
+						let availabilityStatusClass = '';
+						
+						switch(strain.availabilityStatus) {
+							case 'in-stock':
+								availabilityStatusText = 'IN STOCK';
+								availabilityStatusClass = 'in-stock';
+								break;
+							case 'limited':
+								availabilityStatusText = 'LIMITED';
+								availabilityStatusClass = 'limited';
+								break;
+							case 'sold-out':
+								availabilityStatusText = 'SOLD OUT';
+								availabilityStatusClass = 'sold-out';
+								break;
+							case 'coming-soon':
+								availabilityStatusText = 'COMING SOON';
+								availabilityStatusClass = 'coming-soon';
+								break;
+							default:
+								availabilityStatusText = 'UNAVAILABLE';
+								availabilityStatusClass = 'unavailable';
+						}
+						
+						// Create HTML for the card
+						card.innerHTML = `
+							<div class="strain-image">
+								<img src="img/strains/${strain.id}.jpg" alt="${strain.name}" onerror="this.src='img/placeholder-strain.jpg'; this.onerror=null;">
+								<div class="strain-badges">
+									<div class="strain-type">${strain.dominance.toUpperCase()}</div>
+									<div class="seed-type-badge ${seedTypeClass}">${seedTypeText}</div>
 								</div>
-							` : ''}
-							<p class="strain-description">${strain.description.substring(0, 120)}...</p>
-							<div class="strain-details">
-								<div class="strain-availability ${availabilityStatusClass}">${availabilityStatusText}</div>
-								<div class="strain-seed-count">${strain.seedCount} seeds</div>
+								${isDisabled ? `<div class="availability-overlay">${availabilityStatusText}</div>` : ''}
 							</div>
-						</div>
-					`;
+							<div class="strain-card-content">
+								<h3>${strain.name}</h3>
+								${strain.parentage ? `
+									<div class="strain-genetics">
+										${strain.parentage.female.name} × ${strain.parentage.male.name}
+									</div>
+								` : ''}
+								<p class="strain-description">${strain.description.substring(0, 120)}...</p>
+								<div class="strain-details">
+									<div class="strain-availability ${availabilityStatusClass}">${availabilityStatusText}</div>
+									<div class="strain-seed-count">${strain.seedCount} seeds</div>
+								</div>
+							</div>
+						`;
+						
+						// Add card to grid
+						strainGrid.appendChild(card);
+						
+						// Add click event to view strain details (only for available strains)
+						if (!isDisabled) {
+							card.addEventListener('click', function() {
+								showStrainModal(strain);
+							});
+						}
+					});
 					
-					// Add card to grid
-					strainGrid.appendChild(card);
-					
-					// Add click event to view strain details (only for available strains)
-					if (!isDisabled) {
-						card.addEventListener('click', function() {
-							showStrainModal(strain);
-						});
-					}
-				});
+					// Update pagination controls
+					createPaginationControls(totalFilteredPages);
+				}
 				
-				// Update pagination controls
-				createPaginationControls(totalFilteredPages);
+				// Add event listeners to filters
+				typeFilter.addEventListener('change', applyFilters);
+				collectionFilter.addEventListener('change', applyFilters);
+				if (availabilityFilter) {
+					availabilityFilter.addEventListener('change', applyFilters);
+				}
 			}
 			
 			// Add event listeners to filters
