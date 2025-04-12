@@ -1,0 +1,360 @@
+{
+  "strains": [
+    {
+      "id": "dwarf-hammer",
+      "name": "Dwarf Hammer",
+      "collection": "anvil",
+      "type": "autoflower",
+      "dominance": "indica",
+      "feminized": true,
+      "description": "Our flagship strain, Dwarf Hammer hits with the force of a dwarven smithing hammer. This indica-dominant powerhouse produces dense, resin-covered nuggets with a knockout effect.",
+      "parentage": {
+        "female": {"name": "Gorilla Glue #4"},
+        "male": {"name": "Anvil #8 FEM F7"}
+      },
+      "flowerTime": "12 weeks",
+      "stretch": "Medium",
+      "seedCount": 40,
+      "effects": ["Relaxing", "Sedative", "Euphoric", "Pain Relief"],
+      "flavors": ["Earthy", "Pine"],
+      "difficulty": "Easy",
+      "yield": "High",
+      "height": "Medium",
+      "thc": "24-26%",
+      "cbd": "0.1%",
+      "availabilityStatus": "in-stock"
+    },
+    {
+      "id": "runefire-haze",
+      "name": "Runefire Haze",
+      "collection": "forge",
+      "type": "photoperiod",
+      "dominance": "sativa",
+      "feminized": true,
+      "description": "Inscribed with the ancient runes of energy and creativity, Runefire Haze delivers an uplifting, cerebral experience with notes of tropical fruit and spice.",
+      "parentage": {
+        "female": {"name": "Super Silver Haze"},
+        "male": {"name": "Forge Fuel"}
+      },
+      "flowerTime": "10-11 weeks",
+      "stretch": "High",
+      "seedCount": 6,
+      "effects": ["Energetic", "Creative", "Focused", "Uplifting"],
+      "flavors": ["Citrus", "Spice", "Tropical"],
+      "difficulty": "Moderate",
+      "yield": "Medium-High",
+      "height": "Tall",
+      "thc": "22-24%",
+      "cbd": "0.1%",
+      "availabilityStatus": "in-stock"
+    },
+    {
+      "id": "thors-hammer",
+      "name": "Thor's Hammer",
+      "collection": "anvil",
+      "type": "photoperiod",
+      "dominance": "hybrid",
+      "feminized": true,
+      "description": "Worthy of the god of thunder himself, Thor's Hammer balances power and finesse with a perfect mix of relaxation and euphoria. Expect lightning-fast growth and thunderous potency.",
+      "parentage": {
+        "female": {"name": "Wedding Cake"},
+        "male": {"name": "Mjolnir OG"}
+      },
+      "flowerTime": "9 weeks",
+      "stretch": "Medium",
+      "seedCount": 10,
+      "effects": ["Balanced", "Euphoric", "Social", "Relaxing"],
+      "flavors": ["Sweet", "Vanilla", "Earthy"],
+      "difficulty": "Easy",
+      "yield": "High",
+      "height": "Medium",
+      "thc": "25-27%",
+      "cbd": "0.1%",
+      "availabilityStatus": "limited"
+    },
+    {
+      "id": "mountain-forge",
+      "name": "Mountain Forge",
+      "collection": "forge",
+      "type": "autoflower",
+      "dominance": "indica",
+      "feminized": true,
+      "description": "A rugged strain forged in the mountain halls, this autoflowering indica produces dense, crystal-covered nugs with remarkable speed. Perfect for stealth grows or quick harvests.",
+      "parentage": {
+        "female": {"name": "Anvil Kush"},
+        "male": {"name": "Ruderalis"}
+      },
+      "flowerTime": "65-70 days from seed",
+      "stretch": "Low",
+      "seedCount": 6,
+      "effects": ["Relaxing", "Sleep-inducing", "Stress Relief"],
+      "flavors": ["Earthy", "Kush", "Diesel"],
+      "difficulty": "Easy",
+      "yield": "Medium",
+      "height": "Short",
+      "thc": "20-22%",
+      "cbd": "0.2%",
+      "availabilityStatus": "in-stock"
+    },
+    {
+      "id": "mythic-sunrise",
+      "name": "Mythic Sunrise",
+      "collection": "forge",
+      "type": "photoperiod",
+      "dominance": "sativa",
+      "feminized": true,
+      "description": "Dawn breaks with golden rays of creativity and energy when you partake in Mythic Sunrise. This legendary sativa brings forth motivation and joy with tropical flavors.",
+      "parentage": {
+        "female": {"name": "Jack Herer"},
+        "male": {"name": "Durban Poison"}
+      },
+      "flowerTime": "9-10 weeks",
+      "stretch": "High",
+      "seedCount": 6,
+      "effects": ["Energetic", "Creative", "Euphoric", "Mood Enhancing"],
+      "flavors": ["Tropical", "Pine", "Spicy"],
+      "difficulty": "Moderate",
+      "yield": "Medium",
+      "height": "Tall",
+      "thc": "21-23%",
+      "cbd": "0.1%",
+      "availabilityStatus": "in-stock"
+    },
+    {
+      "id": "ancient-relic",
+      "name": "Ancient Relic",
+      "collection": "heirloom",
+      "type": "photoperiod",
+      "dominance": "hybrid",
+      "feminized": false,
+      "description": "Preserved from the ancient world, this heirloom strain carries the pure genetics of cannabis from another age. Experience a balanced effect with complex terpene profiles lost to modern hybridization.",
+      "parentage": {
+        "female": {"name": "Hindu Kush Landrace"},
+        "male": {"name": "Thai Landrace"}
+      },
+      "flowerTime": "10-11 weeks",
+      "stretch": "Medium",
+      "seedCount": 12,
+      "effects": ["Meditative", "Clear-headed", "Relaxing"],
+      "flavors": ["Spicy", "Sandalwood", "Floral"],
+      "difficulty": "Moderate",
+      "yield": "Medium",
+      "height": "Medium-Tall",
+      "thc": "16-18%",
+      "cbd": "0.5%",
+      "availabilityStatus": "limited"
+    },
+    {
+      "id": "golem-og",
+      "name": "Golem OG",
+      "collection": "anvil",
+      "type": "photoperiod",
+      "dominance": "indica",
+      "feminized": true,
+      "description": "Strong and unrelenting like the mythical stone creatures, Golem OG delivers a massive yield of potent, high-THC flowers with a unique combination of earthy kush and sweet berry flavors.",
+      "parentage": {
+        "female": {"name": "OG Kush"},
+        "male": {"name": "Anvil Berry"}
+      },
+      "flowerTime": "8-9 weeks",
+      "stretch": "Low",
+      "seedCount": 10,
+      "effects": ["Powerful", "Relaxing", "Sleep Aid", "Pain Relief"],
+      "flavors": ["Earthy", "Berry", "Diesel"],
+      "difficulty": "Easy",
+      "yield": "Very High",
+      "height": "Medium-Short",
+      "thc": "26-28%",
+      "cbd": "0.1%",
+      "availabilityStatus": "in-stock"
+    },
+    {
+      "id": "lokis-trick",
+      "name": "Loki's Trick",
+      "collection": "forge",
+      "type": "photoperiod",
+      "dominance": "hybrid",
+      "feminized": true,
+      "description": "Deceptively potent and full of surprises, Loki's Trick shifts between energizing and relaxing effects throughout the experience, making it perfect for any time of day.",
+      "parentage": {
+        "female": {"name": "GSC"},
+        "male": {"name": "Mythic Sunrise"}
+      },
+      "flowerTime": "9 weeks",
+      "stretch": "Medium",
+      "seedCount": 6,
+      "effects": ["Balanced", "Creative", "Mood Enhancing", "Relaxing"],
+      "flavors": ["Sweet", "Mint", "Cookies"],
+      "difficulty": "Moderate",
+      "yield": "Medium-High",
+      "height": "Medium",
+      "thc": "23-25%",
+      "cbd": "0.1%",
+      "availabilityStatus": "in-stock"
+    },
+    {
+      "id": "allfather-kush",
+      "name": "Allfather Kush",
+      "collection": "heirloom",
+      "type": "photoperiod",
+      "dominance": "indica",
+      "feminized": false,
+      "description": "Descended from ancient Afghan mountains, Allfather Kush brings wisdom and deep relaxation with traditional hash-plant characteristics and exceptional resin production.",
+      "parentage": {
+        "female": {"name": "Hindu Kush"},
+        "male": {"name": "Afghan #1"}
+      },
+      "flowerTime": "9-10 weeks",
+      "stretch": "Low",
+      "seedCount": 10,
+      "effects": ["Relaxing", "Sedative", "Euphoric", "Meditative"],
+      "flavors": ["Hash", "Spice", "Earthy"],
+      "difficulty": "Moderate",
+      "yield": "Medium-High",
+      "height": "Short",
+      "thc": "20-22%",
+      "cbd": "0.4%",
+      "availabilityStatus": "limited"
+    },
+    {
+      "id": "niflheim-frost",
+      "name": "Niflheim Frost",
+      "collection": "forge",
+      "type": "photoperiod",
+      "dominance": "indica",
+      "feminized": true,
+      "description": "Named after the Norse realm of ice and mist, Niflheim Frost delivers a chilling potency with exceptional trichome production. The frosty buds create a deeply relaxing experience with hints of mint and berry.",
+      "parentage": {
+        "female": {"name": "White Widow"},
+        "male": {"name": "Northern Lights"}
+      },
+      "flowerTime": "8-9 weeks",
+      "stretch": "Low",
+      "seedCount": 8,
+      "effects": ["Relaxing", "Euphoric", "Sedative", "Dreamy"],
+      "flavors": ["Mint", "Berry", "Pine"],
+      "difficulty": "Easy",
+      "yield": "High",
+      "height": "Medium-Short",
+      "thc": "23-25%",
+      "cbd": "0.3%",
+      "availabilityStatus": "in-stock"
+    },
+    {
+      "id": "valkyrie-dreams",
+      "name": "Valkyrie Dreams",
+      "collection": "anvil",
+      "type": "photoperiod",
+      "dominance": "hybrid",
+      "feminized": true,
+      "description": "An ethereal strain that will carry you to Valhalla on its wings. Valkyrie Dreams offers a perfectly balanced hybrid experience with soaring euphoria and gentle physical relaxation.",
+      "parentage": {
+        "female": {"name": "Blue Dream"},
+        "male": {"name": "Thor's Hammer"}
+      },
+      "flowerTime": "9-10 weeks",
+      "stretch": "Medium",
+      "seedCount": 6,
+      "effects": ["Euphoric", "Balanced", "Creative", "Uplifting"],
+      "flavors": ["Blueberry", "Sweet", "Earthy"],
+      "difficulty": "Moderate",
+      "yield": "Medium-High",
+      "height": "Medium-Tall",
+      "thc": "22-24%",
+      "cbd": "0.2%",
+      "availabilityStatus": "coming-soon"
+    },
+    {
+      "id": "jotun-giant",
+      "name": "Jotun Giant",
+      "collection": "forge",
+      "type": "photoperiod",
+      "dominance": "sativa",
+      "feminized": true,
+      "description": "True to its name, Jotun Giant grows to towering heights with massive yields. This mammoth sativa delivers energizing effects and creative stimulation with a fruity, tropical profile.",
+      "parentage": {
+        "female": {"name": "Maui Wowie"},
+        "male": {"name": "Loki's Trick"}
+      },
+      "flowerTime": "10-11 weeks",
+      "stretch": "Very High",
+      "seedCount": 6,
+      "effects": ["Energetic", "Creative", "Euphoric", "Focused"],
+      "flavors": ["Tropical", "Citrus", "Sweet"],
+      "difficulty": "Advanced",
+      "yield": "Very High",
+      "height": "Very Tall",
+      "thc": "24-26%",
+      "cbd": "0.1%",
+      "availabilityStatus": "sold-out"
+    }
+  ],
+  "strainTree": {
+    "name": "Brokkr Genetics",
+    "children": [
+      {
+        "name": "Anvil Series",
+        "children": [
+          {
+            "name": "Dwarf Hammer",
+            "children": []
+          },
+          {
+            "name": "Thor's Hammer",
+            "children": []
+          },
+          {
+            "name": "Golem OG",
+            "children": []
+          },
+          {
+            "name": "Valkyrie Dreams",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Forge Collection",
+        "children": [
+          {
+            "name": "Runefire Haze",
+            "children": []
+          },
+          {
+            "name": "Mountain Forge",
+            "children": []
+          },
+          {
+            "name": "Mythic Sunrise",
+            "children": []
+          },
+          {
+            "name": "Loki's Trick",
+            "children": []
+          },
+          {
+            "name": "Niflheim Frost",
+            "children": []
+          },
+          {
+            "name": "Jotun Giant",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Heirloom Treasures",
+        "children": [
+          {
+            "name": "Ancient Relic",
+            "children": []
+          },
+          {
+            "name": "Allfather Kush",
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+}
