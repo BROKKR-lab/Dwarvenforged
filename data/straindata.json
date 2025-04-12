@@ -46,7 +46,7 @@
       "height": "Tall",
       "thc": "22-24%",
       "cbd": "0.1%",
-      "availabilityStatus": "in-stock"
+      "availabilityStatus": "coming-soon"
     },
     {
       "id": "thors-hammer",
@@ -94,7 +94,7 @@
       "height": "Short",
       "thc": "20-22%",
       "cbd": "0.2%",
-      "availabilityStatus": "in-stock"
+      "availabilityStatus": "sold-out"
     },
     {
       "id": "mythic-sunrise",
@@ -118,7 +118,7 @@
       "height": "Tall",
       "thc": "21-23%",
       "cbd": "0.1%",
-      "availabilityStatus": "in-stock"
+      "availabilityStatus": "coming-soon"
     },
     {
       "id": "ancient-relic",
@@ -142,7 +142,7 @@
       "height": "Medium-Tall",
       "thc": "16-18%",
       "cbd": "0.5%",
-      "availabilityStatus": "limited"
+      "availabilityStatus": "sold out"
     },
     {
       "id": "golem-og",
@@ -166,7 +166,7 @@
       "height": "Medium-Short",
       "thc": "26-28%",
       "cbd": "0.1%",
-      "availabilityStatus": "in-stock"
+      "availabilityStatus": "coming-soon"
     },
     {
       "id": "lokis-trick",
@@ -190,7 +190,7 @@
       "height": "Medium",
       "thc": "23-25%",
       "cbd": "0.1%",
-      "availabilityStatus": "in-stock"
+      "availabilityStatus": "coming-soon"
     },
     {
       "id": "allfather-kush",
@@ -238,7 +238,7 @@
       "height": "Medium-Short",
       "thc": "23-25%",
       "cbd": "0.3%",
-      "availabilityStatus": "in-stock"
+      "availabilityStatus": "coming-soon"
     },
     {
       "id": "valkyrie-dreams",
@@ -286,7 +286,7 @@
       "height": "Very Tall",
       "thc": "24-26%",
       "cbd": "0.1%",
-      "availabilityStatus": "sold-out"
+      "availabilityStatus": "coming-soon"
     }
   ],
   "strainTree": {
