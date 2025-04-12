@@ -1402,353 +1402,106 @@
         let treemap; // D3 tree layout
         let strainData = {};
         let strainDescriptions = {};
-        let chatPopupVisible = false;    
+        let chatPopupVisible = false;  
+		
+		let currentPage = 1;
+		const itemsPerPage = 9;
 
-        // Handle sending messages in chat
-        async function sendUserMessage() {
-            const userInput = document.getElementById('user-input');
-            const chatMessages = document.getElementById('chat-messages');
-            const message = userInput.value.trim();
-            if (!message) return;
-            
-            // Add user message to chat
-            const userMsg = document.createElement('div');
-            userMsg.className = 'message user-message';
-            userMsg.textContent = message;
-            chatMessages.appendChild(userMsg);
-            userInput.value = '';
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            
-            // Show typing indicator
-            const typingIndicator = document.createElement('div');
-            typingIndicator.className = 'message bot-message typing-indicator';
-            typingIndicator.innerHTML = '<span></span><span></span><span></span>';
-            chatMessages.appendChild(typingIndicator);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            
-            try {
-                // Call Pollinations API (or simulate a response for now)
-                // For demo, we'll simulate a response
-                setTimeout(() => {
-                    // Remove typing indicator
-                    chatMessages.removeChild(typingIndicator);
-                    
-                    // Add bot response to chat
-                    const botMsg = document.createElement('div');
-                    botMsg.className = 'message bot-message';
-                    
-                    // Simple response logic based on keywords
-                    let botResponse = '';
-                    if (message.toLowerCase().includes('indica')) {
-                        botResponse = "Our indica strains are perfect for relaxation and evening use. I'd recommend checking out Dwarf Hammer or Mountain Forge from our Anvil series for powerful effects and high yields.";
-                    } else if (message.toLowerCase().includes('sativa')) {
-                        botResponse = "For a great sativa experience, take a look at Runefire Haze or Mythic Sunrise from our Forge collection. They offer energizing, creative effects ideal for daytime use.";
-                    } else if (message.toLowerCase().includes('hybrid')) {
-                        botResponse = "Our balanced hybrids include Thor's Hammer and Loki's Trick, giving you the best of both worlds with manageable growth patterns and well-rounded effects.";
-                    } else if (message.toLowerCase().includes('yield')) {
-                        botResponse = "For maximum yields, our Anvil series is specifically bred for production. Dwarf Hammer and Golem OG regularly produce 500+ grams per square meter indoors.";
-                    } else if (message.toLowerCase().includes('price') || message.toLowerCase().includes('cost')) {
-                        botResponse = "Our seeds start at $60 for a 6-pack, with most varieties available at $80 for a 10-pack. We believe quality genetics shouldn't break the bank!";
-                    } else {
-                        botResponse = "Thanks for your message! Our dwarven breeders have created collections for every type of grower. Is there a specific growing condition, effect, or characteristic you're looking for in your seeds?";
-                    }
-                    
-                    botMsg.textContent = botResponse;
-                    chatMessages.appendChild(botMsg);
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-                }, 1500);
-                
-            } catch (error) {
-                console.error('Chat error:', error);
-                
-                // Add fallback response
-                const errorMsg = document.createElement('div');
-                errorMsg.className = 'message bot-message error';
-                errorMsg.textContent = "By Odin's beard! I'm having trouble connecting to the forge. Please try again later.";
-                chatMessages.appendChild(errorMsg);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }
-        }
+		async function loadStrainData() {
+			try {
+				const response = await fetch('data/straindata.json');
+				if (!response.ok) {
+					throw new Error(`HTTP error! Status: ${response.status}`);
+				}
+				const data = await response.json();
+				return data;
+			} catch (error) {
+				console.error('Error loading strain data:', error);
+				// Fallback to empty data structure if fetch fails
+				return { strains: [], strainTree: { name: "Error", children: [] } };
+			}
+		}
 
-        // Sample strain data
-        const getStrainData = () => {
-            return {
-                "strains": [
-                    {
-                        "id": "dwarf-hammer",
-                        "name": "Dwarf Hammer",
-                        "collection": "anvil",
-                        "type": "autoflower",
-                        "dominance": "indica",
-                        "feminized": true,
-                        "description": "Our flagship strain, Dwarf Hammer hits with the force of a dwarven smithing hammer. This indica-dominant powerhouse produces dense, resin-covered nuggets with a knockout effect.",
-                        "parentage": {
-                            "female": {"name": "Gorilla Glue #4"},
-                            "male": {"name": "Anvil #8 FEM F7"}
-                        },
-                        "flowerTime": "12 weeks",
-                        "stretch": "Medium",
-                        "seedCount": 40,
-                        "effects": ["Relaxing", "Sedative", "Euphoric", "Pain Relief"],
-                        "flavors": ["Earthy", "Pine"],
-                        "difficulty": "Easy",
-                        "yield": "High",
-                        "height": "Medium",
-                        "thc": "24-26%",
-                        "cbd": "0.1%",
-                        "availabilityStatus": "in-stock"
-                    },
-                    {
-                        "id": "runefire-haze",
-                        "name": "Runefire Haze",
-                        "collection": "forge",
-                        "type": "photoperiod",
-                        "dominance": "sativa",
-                        "feminized": true,
-                        "description": "Inscribed with the ancient runes of energy and creativity, Runefire Haze delivers an uplifting, cerebral experience with notes of tropical fruit and spice.",
-                        "parentage": {
-                            "female": {"name": "Super Silver Haze"},
-                            "male": {"name": "Forge Fuel"}
-                        },
-                        "flowerTime": "10-11 weeks",
-                        "stretch": "High",
-                        "seedCount": 6,
-                        "effects": ["Energetic", "Creative", "Focused", "Uplifting"],
-                        "flavors": ["Citrus", "Spice", "Tropical"],
-                        "difficulty": "Moderate",
-                        "yield": "Medium-High",
-                        "height": "Tall",
-                        "thc": "22-24%",
-                        "cbd": "0.1%",
-                        "availabilityStatus": "in-stock"
-                    },
-                    {
-                        "id": "thors-hammer",
-                        "name": "Thor's Hammer",
-                        "collection": "anvil",
-                        "type": "photoperiod",
-                        "dominance": "hybrid",
-                        "feminized": true,
-                        "description": "Worthy of the god of thunder himself, Thor's Hammer balances power and finesse with a perfect mix of relaxation and euphoria. Expect lightning-fast growth and thunderous potency.",
-                        "parentage": {
-                            "female": {"name": "Wedding Cake"},
-                            "male": {"name": "Mjolnir OG"}
-                        },
-                        "flowerTime": "9 weeks",
-                        "stretch": "Medium",
-                        "seedCount": 10,
-                        "effects": ["Balanced", "Euphoric", "Social", "Relaxing"],
-                        "flavors": ["Sweet", "Vanilla", "Earthy"],
-                        "difficulty": "Easy",
-                        "yield": "High",
-                        "height": "Medium",
-                        "thc": "25-27%",
-                        "cbd": "0.1%",
-                        "availabilityStatus": "limited"
-                    },
-                    {
-                        "id": "mountain-forge",
-                        "name": "Mountain Forge",
-                        "collection": "forge",
-                        "type": "autoflower",
-                        "dominance": "indica",
-                        "feminized": true,
-                        "description": "A rugged strain forged in the mountain halls, this autoflowering indica produces dense, crystal-covered nugs with remarkable speed. Perfect for stealth grows or quick harvests.",
-                        "parentage": {
-                            "female": {"name": "Anvil Kush"},
-                            "male": {"name": "Ruderalis"}
-                        },
-                        "flowerTime": "65-70 days from seed",
-                        "stretch": "Low",
-                        "seedCount": 6,
-                        "effects": ["Relaxing", "Sleep-inducing", "Stress Relief"],
-                        "flavors": ["Earthy", "Kush", "Diesel"],
-                        "difficulty": "Easy",
-                        "yield": "Medium",
-                        "height": "Short",
-                        "thc": "20-22%",
-                        "cbd": "0.2%",
-                        "availabilityStatus": "in-stock"
-                    },
-                    {
-                        "id": "mythic-sunrise",
-                        "name": "Mythic Sunrise",
-                        "collection": "forge",
-                        "type": "photoperiod",
-                        "dominance": "sativa",
-                        "feminized": true,
-                        "description": "Dawn breaks with golden rays of creativity and energy when you partake in Mythic Sunrise. This legendary sativa brings forth motivation and joy with tropical flavors.",
-                        "parentage": {
-                            "female": {"name": "Jack Herer"},
-                            "male": {"name": "Durban Poison"}
-                        },
-                        "flowerTime": "9-10 weeks",
-                        "stretch": "High",
-                        "seedCount": 6,
-                        "effects": ["Energetic", "Creative", "Euphoric", "Mood Enhancing"],
-                        "flavors": ["Tropical", "Pine", "Spicy"],
-                        "difficulty": "Moderate",
-                        "yield": "Medium",
-                        "height": "Tall",
-                        "thc": "21-23%",
-                        "cbd": "0.1%",
-                        "availabilityStatus": "in-stock"
-                    },
-                    {
-                        "id": "ancient-relic",
-                        "name": "Ancient Relic",
-                        "collection": "heirloom",
-                        "type": "photoperiod",
-                        "dominance": "hybrid",
-                        "feminized": false,
-                        "description": "Preserved from the ancient world, this heirloom strain carries the pure genetics of cannabis from another age. Experience a balanced effect with complex terpene profiles lost to modern hybridization.",
-                        "parentage": {
-                            "female": {"name": "Hindu Kush Landrace"},
-                            "male": {"name": "Thai Landrace"}
-                        },
-                        "flowerTime": "10-11 weeks",
-                        "stretch": "Medium",
-                        "seedCount": 12,
-                        "effects": ["Meditative", "Clear-headed", "Relaxing"],
-                        "flavors": ["Spicy", "Sandalwood", "Floral"],
-                        "difficulty": "Moderate",
-                        "yield": "Medium",
-                        "height": "Medium-Tall",
-                        "thc": "16-18%",
-                        "cbd": "0.5%",
-                        "availabilityStatus": "limited"
-                    },
-                    {
-                        "id": "golem-og",
-                        "name": "Golem OG",
-                        "collection": "anvil",
-                        "type": "photoperiod",
-                        "dominance": "indica",
-                        "feminized": true,
-                        "description": "Strong and unrelenting like the mythical stone creatures, Golem OG delivers a massive yield of potent, high-THC flowers with a unique combination of earthy kush and sweet berry flavors.",
-                        "parentage": {
-                            "female": {"name": "OG Kush"},
-                            "male": {"name": "Anvil Berry"}
-                        },
-                        "flowerTime": "8-9 weeks",
-                        "stretch": "Low",
-                        "seedCount": 10,
-                        "effects": ["Powerful", "Relaxing", "Sleep Aid", "Pain Relief"],
-                        "flavors": ["Earthy", "Berry", "Diesel"],
-                        "difficulty": "Easy",
-                        "yield": "Very High",
-                        "height": "Medium-Short",
-                        "thc": "26-28%",
-                        "cbd": "0.1%",
-                        "availabilityStatus": "in-stock"
-                    },
-                    {
-                        "id": "lokis-trick",
-                        "name": "Loki's Trick",
-                        "collection": "forge",
-                        "type": "photoperiod",
-                        "dominance": "hybrid",
-                        "feminized": true,
-                        "description": "Deceptively potent and full of surprises, Loki's Trick shifts between energizing and relaxing effects throughout the experience, making it perfect for any time of day.",
-                        "parentage": {
-                            "female": {"name": "GSC"},
-                            "male": {"name": "Mythic Sunrise"}
-                        },
-                        "flowerTime": "9 weeks",
-                        "stretch": "Medium",
-                        "seedCount": 6,
-                        "effects": ["Balanced", "Creative", "Mood Enhancing", "Relaxing"],
-                        "flavors": ["Sweet", "Mint", "Cookies"],
-                        "difficulty": "Moderate",
-                        "yield": "Medium-High",
-                        "height": "Medium",
-                        "thc": "23-25%",
-                        "cbd": "0.1%",
-                        "availabilityStatus": "in-stock"
-                    },
-                    {
-                        "id": "allfather-kush",
-                        "name": "Allfather Kush",
-                        "collection": "heirloom",
-                        "type": "photoperiod",
-                        "dominance": "indica",
-                        "feminized": false,
-                        "description": "Descended from ancient Afghan mountains, Allfather Kush brings wisdom and deep relaxation with traditional hash-plant characteristics and exceptional resin production.",
-                        "parentage": {
-                            "female": {"name": "Hindu Kush"},
-                            "male": {"name": "Afghan #1"}
-                        },
-                        "flowerTime": "9-10 weeks",
-                        "stretch": "Low",
-                        "seedCount": 10,
-                        "effects": ["Relaxing", "Sedative", "Euphoric", "Meditative"],
-                        "flavors": ["Hash", "Spice", "Earthy"],
-                        "difficulty": "Moderate",
-                        "yield": "Medium-High",
-                        "height": "Short",
-                        "thc": "20-22%",
-                        "cbd": "0.4%",
-                        "availabilityStatus": "limited"
-                    }
-                ],
-                "strainTree": {
-                    "name": "Brokkr Genetics",
-                    "children": [
-                        {
-                            "name": "Anvil Series",
-                            "children": [
-                                {
-                                    "name": "Dwarf Hammer",
-                                    "children": []
-                                },
-                                {
-                                    "name": "Thor's Hammer",
-                                    "children": []
-                                },
-                                {
-                                    "name": "Golem OG",
-                                    "children": []
-                                }
-                            ]
-                        },
-                        {
-                            "name": "Forge Collection",
-                            "children": [
-                                {
-                                    "name": "Runefire Haze",
-                                    "children": []
-                                },
-                                {
-                                    "name": "Mountain Forge",
-                                    "children": []
-                                },
-                                {
-                                    "name": "Mythic Sunrise",
-                                    "children": []
-                                },
-                                {
-                                    "name": "Loki's Trick",
-                                    "children": []
-                                }
-                            ]
-                        },
-                        {
-                            "name": "Heirloom Treasures",
-                            "children": [
-                                {
-                                    "name": "Ancient Relic",
-                                    "children": []
-                                },
-                                {
-                                    "name": "Allfather Kush",
-                                    "children": []
-                                }
-                            ]
-                        }
-                    ]
-                }
-            };
-        };
+		async function initializeData() {
+			const data = await loadStrainData();
+			strainData = data.strainTree;
+			
+			// Create descriptions object from strains array
+			strainDescriptions = {};
+			data.strains.forEach(strain => {
+				strainDescriptions[strain.name] = strain.description;
+			});
+			
+			// Initialize the page with loaded data
+			populateStrainCatalog(data);
+			initializeVisualization();
+		}
+
+		async function sendUserMessage() {
+			const userInput = document.getElementById('user-input');
+			const chatMessages = document.getElementById('chat-messages');
+			const message = userInput.value.trim();
+			if (!message) return;
+			
+			// Add user message to chat
+			const userMsg = document.createElement('div');
+			userMsg.className = 'message user-message';
+			userMsg.textContent = message;
+			chatMessages.appendChild(userMsg);
+			userInput.value = '';
+			chatMessages.scrollTop = chatMessages.scrollHeight;
+			
+			// Show typing indicator
+			const typingIndicator = document.createElement('div');
+			typingIndicator.className = 'message bot-message typing-indicator';
+			typingIndicator.innerHTML = '<span></span><span></span><span></span>';
+			chatMessages.appendChild(typingIndicator);
+			chatMessages.scrollTop = chatMessages.scrollHeight;
+			
+			try {
+				// Call Pollinations API (or simulate a response for now)
+				// For demo, we'll simulate a response
+				setTimeout(() => {
+					// Remove typing indicator
+					chatMessages.removeChild(typingIndicator);
+					
+					// Add bot response to chat
+					const botMsg = document.createElement('div');
+					botMsg.className = 'message bot-message';
+					
+					// Simple response logic based on keywords
+					let botResponse = '';
+					if (message.toLowerCase().includes('indica')) {
+						botResponse = "Our indica strains are perfect for relaxation and evening use. I'd recommend checking out Dwarf Hammer or Mountain Forge from our Anvil series for powerful effects and high yields.";
+					} else if (message.toLowerCase().includes('sativa')) {
+						botResponse = "For a great sativa experience, take a look at Runefire Haze or Mythic Sunrise from our Forge collection. They offer energizing, creative effects ideal for daytime use.";
+					} else if (message.toLowerCase().includes('hybrid')) {
+						botResponse = "Our balanced hybrids include Thor's Hammer and Loki's Trick, giving you the best of both worlds with manageable growth patterns and well-rounded effects.";
+					} else if (message.toLowerCase().includes('yield')) {
+						botResponse = "For maximum yields, our Anvil series is specifically bred for production. Dwarf Hammer and Golem OG regularly produce 500+ grams per square meter indoors.";
+					} else if (message.toLowerCase().includes('price') || message.toLowerCase().includes('cost')) {
+						botResponse = "Our seeds start at $60 for a 6-pack, with most varieties available at $80 for a 10-pack. We believe quality genetics shouldn't break the bank!";
+					} else {
+						botResponse = "Thanks for your message! Our dwarven breeders have created collections for every type of grower. Is there a specific growing condition, effect, or characteristic you're looking for in your seeds?";
+					}
+					
+					botMsg.textContent = botResponse;
+					chatMessages.appendChild(botMsg);
+					chatMessages.scrollTop = chatMessages.scrollHeight;
+				}, 1500);
+				
+			} catch (error) {
+				console.error('Chat error:', error);
+				
+				// Add fallback response
+				const errorMsg = document.createElement('div');
+				errorMsg.className = 'message bot-message error';
+				errorMsg.textContent = "By Odin's beard! I'm having trouble connecting to the forge. Please try again later.";
+				chatMessages.appendChild(errorMsg);
+				chatMessages.scrollTop = chatMessages.scrollHeight;
+			}
+		}
+
 
 // Populate strain catalog with sample data
         function populateStrainCatalog() {
