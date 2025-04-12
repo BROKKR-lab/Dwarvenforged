@@ -2080,8 +2080,6 @@
 
 		// Initialize the genetics tree visualization
 		async function initializeVisualization() {
-			// strainData is already populated from initializeData() function
-			
 			// If no strainTree data is available
 			if (!strainData || !strainData.name) {
 				document.getElementById('genetics-tree').innerHTML = '<p class="error-message">Error loading genetics tree data</p>';
@@ -2133,133 +2131,133 @@
             }
         }
         
-        function update(source) {
-            try {
-                // Assigns the x and y position for the nodes
-                const treeData = treemap(root);
-                
-                // Get the nodes and links from the hierarchy
-                const nodes = treeData.descendants();
-                const links = treeData.descendants().slice(1);
-                
-                // Normalize for fixed-depth
-                nodes.forEach(d => {
-                    d.y = d.depth * 180;
-                });
-                
-                // ****************** Nodes section ***************************
-                
-                // Update the nodes...
-                const node = svg.selectAll('g.node')
-                    .data(nodes, d => d.id || (d.id = ++i));
-                
-                // Enter any new nodes at the parent's previous position
-                const nodeEnter = node.enter().append('g')
-                    .attr('class', 'node')
-                    .attr('transform', d => `translate(${source.y0},${source.x0})`)
-                    .on('click', (event, d) => click(event, d));
-                    
-                // Add bubble/pill background for the nodes
-                nodeEnter.append('rect')
-                    .attr('class', 'node-bubble')
-                    .attr('rx', 12) // Rounded corners
-                    .attr('ry', 12)
-                    .attr('x', -10)
-                    .attr('y', -15)
-                    .attr('width', d => Math.max(d.data.name.length * 8, 40)) // Width based on text length
-                    .attr('height', 30)
-                    .style('fill', d => d._children ? '#c69c6d' : '#b87333')
-                    .style('stroke', '#b87333')
-                    .style('stroke-width', 2)
-                    .attr('cursor', 'pointer');
-                
-                // Add labels for the nodes
-                nodeEnter.append('text')
-                    .attr('dy', '.35em')
-                    .attr('x', d => d.data.name.length * 8 / 2 - 10) // Center text in bubble
-                    .attr('text-anchor', 'middle')
-                    .text(d => d.data.name)
-                    .style('font-size', '12px')
-                    .style('fill', '#f5f0e6')
-                    .attr('cursor', 'pointer');
-                
-                // UPDATE
-                const nodeUpdate = nodeEnter.merge(node);
-                
-                // Transition to the proper position for the node
-                nodeUpdate.transition()
-                    .duration(750)
-                    .attr('transform', d => `translate(${d.y},${d.x})`);
-                
-                // Update the node attributes and style
-                nodeUpdate.select('rect.node-bubble')
-                    .attr('width', d => Math.max(d.data.name.length * 8, 40))
-                    .style('fill', d => d._children ? '#c69c6d' : '#b87333');
-                
-                // Remove any exiting nodes
-                const nodeExit = node.exit().transition()
-                    .duration(750)
-                    .attr('transform', d => `translate(${source.y},${source.x})`)
-                    .remove();
-                
-                // On exit reduce the bubble opacity
-                nodeExit.select('rect.node-bubble')
-                    .attr('fill-opacity', 1e-6);
-                
-                // On exit reduce the opacity of text labels
-                nodeExit.select('text')
-                    .style('fill-opacity', 1e-6);
-                
-                // ****************** links section ***************************
-                
-                // Update the links...
-                const link = svg.selectAll('path.link')
-                    .data(links, d => d.id);
-                
-                // Enter any new links at the parent's previous position
-                const linkEnter = link.enter().insert('path', 'g')
-                    .attr('class', 'link')
-                    .attr('d', d => {
-                        const o = {x: source.x0, y: source.y0};
-                        return diagonal(o, o);
-                    })
-                    .style('fill', 'none')
-                    .style('stroke', '#c69c6d')
-                    .style('stroke-width', 2);
-                
-                // UPDATE
-                const linkUpdate = linkEnter.merge(link);
-                
-                // Transition back to the parent element position
-                linkUpdate.transition()
-                    .duration(750)
-                    .attr('d', d => diagonal(d, d.parent));
-                
-                // Remove any exiting links
-                link.exit().transition()
-                    .duration(750)
-                    .attr('d', d => {
-                        const o = {x: source.x, y: source.y};
-                        return diagonal(o, o);
-                    })
-                    .remove();
-                
-                // Store the old positions for transition
-                nodes.forEach(d => {
-                    d.x0 = d.x;
-                    d.y0 = d.y;
-                });
-                
-                // Show strain description when clicking on a node
-                if (source && source.data && source.data.name) {
-                    const description = strainDescriptions[source.data.name] || "No information available for this strain.";
-                    document.getElementById('strain-description').innerText = description;
-                }
-            } catch (error) {
-                console.error("Error in update function:", error);
-                // Don't crash the entire visualization on an error
-            }
-        }
+		function update(source) {
+			try {
+				// Assigns the x and y position for the nodes
+				const treeData = treemap(root);
+				
+				// Get the nodes and links from the hierarchy
+				const nodes = treeData.descendants();
+				const links = treeData.descendants().slice(1);
+				
+				// Normalize for fixed-depth
+				nodes.forEach(d => {
+					d.y = d.depth * 180;
+				});
+				
+				// ****************** Nodes section ***************************
+				
+				// Update the nodes...
+				const node = svg.selectAll('g.node')
+					.data(nodes, d => d.id || (d.id = ++i));
+				
+				// Enter any new nodes at the parent's previous position
+				const nodeEnter = node.enter().append('g')
+					.attr('class', 'node')
+					.attr('transform', d => `translate(${source.y0},${source.x0})`)
+					.on('click', (event, d) => click(event, d));
+					
+				// Add bubble/pill background for the nodes
+				nodeEnter.append('rect')
+					.attr('class', 'node-bubble')
+					.attr('rx', 12) // Rounded corners
+					.attr('ry', 12)
+					.attr('x', -10)
+					.attr('y', -15)
+					.attr('width', d => Math.max(d.data.name.length * 8, 40)) // Width based on text length
+					.attr('height', 30)
+					.style('fill', d => d._children ? '#c69c6d' : '#b87333')
+					.style('stroke', '#b87333')
+					.style('stroke-width', 2)
+					.attr('cursor', 'pointer');
+				
+				// Add labels for the nodes
+				nodeEnter.append('text')
+					.attr('dy', '.35em')
+					.attr('x', d => d.data.name.length * 8 / 2 - 10) // Center text in bubble
+					.attr('text-anchor', 'middle')
+					.text(d => d.data.name)
+					.style('font-size', '12px')
+					.style('fill', '#f5f0e6')
+					.attr('cursor', 'pointer');
+				
+				// UPDATE
+				const nodeUpdate = nodeEnter.merge(node);
+				
+				// Transition to the proper position for the node
+				nodeUpdate.transition()
+					.duration(750)
+					.attr('transform', d => `translate(${d.y},${d.x})`);
+				
+				// Update the node attributes and style
+				nodeUpdate.select('rect.node-bubble')
+					.attr('width', d => Math.max(d.data.name.length * 8, 40))
+					.style('fill', d => d._children ? '#c69c6d' : '#b87333');
+				
+				// Remove any exiting nodes
+				const nodeExit = node.exit().transition()
+					.duration(750)
+					.attr('transform', d => `translate(${source.y},${source.x})`)
+					.remove();
+				
+				// On exit reduce the bubble opacity
+				nodeExit.select('rect.node-bubble')
+					.attr('fill-opacity', 1e-6);
+				
+				// On exit reduce the opacity of text labels
+				nodeExit.select('text')
+					.style('fill-opacity', 1e-6);
+				
+				// ****************** links section ***************************
+				
+				// Update the links...
+				const link = svg.selectAll('path.link')
+					.data(links, d => d.id);
+				
+				// Enter any new links at the parent's previous position
+				const linkEnter = link.enter().insert('path', 'g')
+					.attr('class', 'link')
+					.attr('d', d => {
+						const o = {x: source.x0, y: source.y0};
+						return diagonal(o, o);
+					})
+					.style('fill', 'none')
+					.style('stroke', '#c69c6d')
+					.style('stroke-width', 2);
+				
+				// UPDATE
+				const linkUpdate = linkEnter.merge(link);
+				
+				// Transition back to the parent element position
+				linkUpdate.transition()
+					.duration(750)
+					.attr('d', d => diagonal(d, d.parent));
+				
+				// Remove any exiting links
+				link.exit().transition()
+					.duration(750)
+					.attr('d', d => {
+						const o = {x: source.x, y: source.y};
+						return diagonal(o, o);
+					})
+					.remove();
+				
+				// Store the old positions for transition
+				nodes.forEach(d => {
+					d.x0 = d.x;
+					d.y0 = d.y;
+				});
+				
+				// Show strain description when clicking on a node
+				if (source && source.data && source.data.name) {
+					const description = strainDescriptions[source.data.name] || "No information available for this strain.";
+					document.getElementById('strain-description').innerText = description;
+				}
+			} catch (error) {
+				console.error("Error in update function:", error);
+				// Don't crash the entire visualization on an error
+			}
+		}
 
         // Creates a curved (diagonal) path from parent to the child nodes
         function diagonal(s, d) {
@@ -2269,49 +2267,49 @@
                       ${d.y} ${d.x}`;
         }
 
-        // Toggle children on click and display strain information
-        function click(event, d) {
-            try {
-                if (d.children) {
-                    d._children = d.children;
-                    d.children = null;
-                } else {
-                    d.children = d._children;
-                    d._children = null;
-                }
-                
-                // Update the tree
-                update(d);
-                
-                // Find the strain data to display more information
-                const data = getStrainData();
-                const strainName = d.data.name;
-                
-                // Don't try to find parent categories as strains
-                if (strainName === "Brokkr Genetics" || 
-                    strainName === "Anvil Series" || 
-                    strainName === "Forge Collection" || 
-                    strainName === "Heirloom Treasures") {
-                    document.getElementById('strain-description').innerText = 
-                        `${strainName} is a collection of strains. Click on individual strain names to see detailed information.`;
-                    return;
-                }
-                
-                const strain = data.strains.find(s => s.name === strainName);
-                
-                if (strain) {
-                    // Show comprehensive strain info
-                    const strainInfoEl = document.getElementById('strain-description');
-                    strainInfoEl.innerHTML = `<strong>${strain.name}</strong> (${strain.dominance.charAt(0).toUpperCase() + strain.dominance.slice(1)}): ${strain.description}`;
-                } else {
-                    // Fallback to simple description
-                    document.getElementById('strain-description').innerText = 
-                        strainDescriptions[d.data.name] || "No information available for this strain.";
-                }
-            } catch (error) {
-                console.error("Error in click handler:", error);
-            }
-        }
+		// Toggle children on click and display strain information
+		function click(event, d) {
+			try {
+				if (d.children) {
+					d._children = d.children;
+					d.children = null;
+				} else {
+					d.children = d._children;
+					d._children = null;
+				}
+				
+				// Update the tree
+				update(d);
+				
+				// Find the strain data to display more information
+				const strainName = d.data.name;
+				
+				// Don't try to find parent categories as strains
+				if (strainName === "Brokkr Genetics" || 
+					strainName === "Anvil Series" || 
+					strainName === "Forge Collection" || 
+					strainName === "Heirloom Treasures") {
+					document.getElementById('strain-description').innerText = 
+						`${strainName} is a collection of strains. Click on individual strain names to see detailed information.`;
+					return;
+				}
+				
+				// Use the description from our global strainDescriptions object
+				const description = strainDescriptions[strainName];
+				
+				if (description) {
+					// Show comprehensive strain info
+					const strainInfoEl = document.getElementById('strain-description');
+					strainInfoEl.innerHTML = `<strong>${strainName}</strong>: ${description}`;
+				} else {
+					// Fallback
+					document.getElementById('strain-description').innerText = 
+						"No information available for this strain.";
+				}
+			} catch (error) {
+				console.error("Error in click handler:", error);
+			}
+		}
 
         // Helper function to expand all nodes
         function expandAll(d) {
