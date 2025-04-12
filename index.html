@@ -1787,13 +1787,23 @@
 				if (currentPage > 1) {
 					currentPage--;
 					initializeData(); // Reload data with new page
+					
+					// Add this line to scroll to the strain catalog section
+					setTimeout(() => {
+						document.getElementById('seed-catalog').scrollIntoView({ behavior: 'smooth' });
+					}, 100);
 				}
 			});
-			
+
 			document.getElementById('next-page')?.addEventListener('click', function() {
 				if (currentPage < totalPages) {
 					currentPage++;
 					initializeData(); // Reload data with new page
+					
+					// Add this line to scroll to the strain catalog section
+					setTimeout(() => {
+						document.getElementById('seed-catalog').scrollIntoView({ behavior: 'smooth' });
+					}, 100);
 				}
 			});
 		}
