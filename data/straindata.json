@@ -217,8 +217,8 @@
       "availabilityStatus": "limited"
     },
     {
-      "id": "niflheim-frost",
-      "name": "Niflheim Frost",
+      "id": "niflheim",
+      "name": "Niflheim",
       "collection": "forge",
       "type": "photoperiod",
       "dominance": "indica",
