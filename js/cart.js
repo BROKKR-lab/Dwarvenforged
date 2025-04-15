@@ -23,7 +23,9 @@ function openCartModal() {
     const cartTotalEl = document.getElementById('cartTotal');
     const checkoutBtn = document.getElementById('checkoutBtn');
     
-	cartModal.classList.add('active');
+    if (!cartModal || !cartItemsEl || !cartEmptyEl || !cartTotalEl || !checkoutBtn) {
+        console.error('Cart modal elements not found');
+        return;
     }
     
     // Clear cart items
@@ -108,7 +110,7 @@ function openCartModal() {
     }
     
     // Show cart modal
-    cartModal.style.display = 'block';
+    cartModal.classList.add('active');
 }
 
 // Function to add to cart
