@@ -32,6 +32,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
     <script type="text/javascript" charset="UTF-8" src="//cdn.cookie-script.com/s/c376cfbc34246bd3510c9376d81545db.js"></script>
     <script src="js/agecheck.js"></script>
+    <script src="js/cart.js"></script>
 
     <style>
     :root {
@@ -1232,6 +1233,199 @@
         background-color: #555;
         color: white;
     }
+
+	/* Cart Icon */
+	.cart-icon {
+		position: relative;
+		display: flex;
+		align-items: center;
+	}
+
+	#cart-count {
+		display: inline-block;
+		background-color: var(--forge-red);
+		color: white;
+		font-size: 0.7rem;
+		font-weight: bold;
+		width: 18px;
+		height: 18px;
+		border-radius: 50%;
+		text-align: center;
+		line-height: 18px;
+		margin-left: 5px;
+	}
+
+	/* Cart Modal */
+	.cart-modal {
+		background-color: var(--dark);
+		border-radius: 8px;
+		max-width: 800px;
+		width: 90%;
+		max-height: 90vh;
+		overflow-y: auto;
+		box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+		transform: translateY(20px);
+		opacity: 0;
+		transition: all 0.4s ease;
+		border: 1px solid rgba(184, 115, 51, 0.5);
+	}
+
+	.modal-overlay.active .cart-modal {
+		transform: translateY(0);
+		opacity: 1;
+	}
+
+	.cart-empty {
+		padding: 40px 20px;
+		text-align: center;
+		color: var(--light);
+	}
+
+	.cart-items {
+		padding: 0 20px;
+	}
+
+	.cart-item {
+		display: flex;
+		align-items: center;
+		padding: 15px 0;
+		border-bottom: 1px solid rgba(184, 115, 51, 0.2);
+	}
+
+	.cart-item-img {
+		width: 60px;
+		height: 60px;
+		object-fit: cover;
+		border-radius: 4px;
+		margin-right: 15px;
+	}
+
+	.cart-item-info {
+		flex: 1;
+	}
+
+	.cart-item-info h4 {
+		font-family: var(--font-main);
+		color: var(--light);
+		margin-bottom: 5px;
+	}
+
+	.cart-item-details {
+		font-size: 0.85rem;
+		color: #aaa;
+	}
+
+	.quantity-selector {
+		display: flex;
+		align-items: center;
+		margin: 0 15px;
+	}
+
+	.quantity-btn {
+		width: 25px;
+		height: 25px;
+		background-color: rgba(184, 115, 51, 0.2);
+		border: 1px solid var(--primary);
+		color: var(--light);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
+		border-radius: 4px;
+	}
+
+	.quantity-btn:hover {
+		background-color: var(--primary);
+	}
+
+	.quantity-value {
+		padding: 0 10px;
+		color: var(--light);
+	}
+
+	.cart-item-price {
+		font-weight: 500;
+		color: var(--light);
+		min-width: 70px;
+		text-align: right;
+		margin-right: 15px;
+	}
+
+	.cart-item-remove {
+		background: none;
+		border: none;
+		color: var(--forge-red);
+		font-size: 1.5rem;
+		cursor: pointer;
+		padding: 0 5px;
+	}
+
+	.cart-total {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 20px;
+		font-weight: bold;
+		color: var(--light);
+		border-top: 1px solid rgba(184, 115, 51, 0.3);
+	}
+
+	.cart-actions {
+		display: flex;
+		padding: 0 20px 20px;
+		gap: 10px;
+	}
+
+	.cart-actions button {
+		flex: 1;
+	}
+
+	/* Checkout Modal */
+	.checkout-modal {
+		background-color: var(--dark);
+		border-radius: 8px;
+		max-width: 600px;
+		width: 90%;
+		max-height: 90vh;
+		overflow-y: auto;
+		box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+		transform: translateY(20px);
+		opacity: 0;
+		transition: all 0.4s ease;
+		border: 1px solid rgba(184, 115, 51, 0.5);
+	}
+
+	.modal-overlay.active .checkout-modal {
+		transform: translateY(0);
+		opacity: 1;
+	}
+
+	.form-group {
+		margin-bottom: 20px;
+	}
+
+	.form-group label {
+		display: block;
+		margin-bottom: 5px;
+		color: var(--light);
+	}
+
+	.form-group input,
+	.form-group textarea {
+		width: 100%;
+		padding: 10px;
+		background-color: rgba(46, 33, 25, 0.7);
+		border: 1px solid rgba(184, 115, 51, 0.5);
+		border-radius: 4px;
+		color: var(--light);
+		font-family: var(--font-body);
+	}
+
+	.form-group input:focus,
+	.form-group textarea:focus {
+		outline: none;
+		box-shadow: 0 0 0 2px rgba(184, 115, 51, 0.3);
+	}
     
     @media (max-width: 768px) {
         .strain-detail-grid {
@@ -1258,6 +1452,7 @@
 					<li><a href="#genetics-explorer">Genetics Explorer</a></li>
 					<li><a href="#about">Our Forge</a></li>
 					<li><a href="mailto:info@dwarvenforged.com">Contact</a></li>
+					<li><a href="#" id="cart-link" class="cart-icon">Cart <span id="cart-count">0</span></a></li>
 				</ul>
 			</nav>
 		</div>
@@ -1437,6 +1632,64 @@
             </div>
         </div>
     </div>
+
+	<!-- Cart Modal -->
+	<div id="cartModal" class="modal-overlay">
+		<div class="cart-modal">
+			<div class="modal-header">
+				<h2>Your Cart</h2>
+				<button id="closeCart" class="modal-close">&times;</button>
+			</div>
+			<div class="modal-content">
+				<div id="cartEmpty" class="cart-empty">
+					<p>Your cart is empty.</p>
+					<p>Add some premium genetics to get started!</p>
+				</div>
+				<div id="cartItems" class="cart-items">
+					<!-- Cart items will be loaded here dynamically -->
+				</div>
+				<div id="cartTotal" class="cart-total">
+					<span>Total:</span>
+					<span id="totalAmount">$0.00</span>
+				</div>
+				<div class="cart-actions">
+					<button id="continueShoppingBtn" class="btn btn-outline">Continue Shopping</button>
+					<button id="checkoutBtn" class="btn">Checkout</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Checkout Modal -->
+	<div id="checkoutModal" class="modal-overlay">
+		<div class="checkout-modal">
+			<div class="modal-header">
+				<h2>Checkout</h2>
+				<button id="closeCheckout" class="modal-close">&times;</button>
+			</div>
+			<div class="modal-content">
+				<form id="checkoutForm">
+					<div class="form-group">
+						<label for="name">Name</label>
+						<input type="text" id="name" name="name" required>
+					</div>
+					<div class="form-group">
+						<label for="email">Email</label>
+						<input type="email" id="email" name="email" required>
+					</div>
+					<div class="form-group">
+						<label for="phone">Phone</label>
+						<input type="tel" id="phone" name="phone" required>
+					</div>
+					<div class="form-group">
+						<label for="message">Additional Notes</label>
+						<textarea id="message" name="message" rows="4"></textarea>
+					</div>
+					<button type="submit" class="btn">Place Order</button>
+				</form>
+			</div>
+		</div>
+	</div>
 
     <!-- Footer -->
     <footer>
@@ -1958,6 +2211,12 @@
 									<div class="strain-availability ${availabilityStatusClass}">${availabilityStatusText}</div>
 									<div class="strain-seed-count">${strain.seedCount} seeds</div>
 								</div>
+								<div class="strain-actions">
+									<button class="btn add-to-cart-btn" data-id="${strain.id}" data-name="${strain.name}" data-price="79.99" data-image="img/strains/${strain.id}.jpg">
+										Add to Cart
+									</button>
+								</div>								
+								
 							</div>
 						`;
 						
@@ -2341,6 +2600,26 @@
                 targetSection.scrollIntoView({ behavior: 'smooth' });
             }
         }
+
+		// Set up Add to Cart buttons
+		document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+			button.addEventListener('click', function(e) {
+				e.preventDefault();
+				e.stopPropagation(); // Prevent opening strain modal
+				
+				const itemData = {
+					id: this.getAttribute('data-id'),
+					name: this.getAttribute('data-name'),
+					price: parseFloat(this.getAttribute('data-price')),
+					image: this.getAttribute('data-image')
+				};
+				
+				window.blowflowCart.addToCart(itemData);
+				
+				// Show confirmation
+				alert(`${itemData.name} added to your cart!`);
+			});
+		});
 
         // Event listeners
         document.addEventListener('DOMContentLoaded', function() {
