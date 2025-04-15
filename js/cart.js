@@ -1,10 +1,10 @@
 /**
- * Shared cart functionality for Blow Flow Creationz
- * This script handles cart operations across all pages
+ * Shopping cart functionality for DwarvenForged
+ * This script handles cart operations across the site
  */
 
 // Initialize cart
-let cart = JSON.parse(localStorage.getItem('blowflowCart')) || [];
+let cart = JSON.parse(localStorage.getItem('dwarvenForgedCart')) || [];
 
 // Function to update cart count badge
 function updateCartCount() {
@@ -80,7 +80,7 @@ function openCartModal() {
                 const index = parseInt(this.getAttribute('data-index'));
                 if (cart[index].quantity > 1) {
                     cart[index].quantity -= 1;
-                    localStorage.setItem('blowflowCart', JSON.stringify(cart));
+                    localStorage.setItem('dwarvenForgedCart', JSON.stringify(cart));
                     updateCartCount();
                     openCartModal(); // Refresh cart modal
                 }
@@ -91,7 +91,7 @@ function openCartModal() {
             button.addEventListener('click', function() {
                 const index = parseInt(this.getAttribute('data-index'));
                 cart[index].quantity += 1;
-                localStorage.setItem('blowflowCart', JSON.stringify(cart));
+                localStorage.setItem('dwarvenForgedCart', JSON.stringify(cart));
                 updateCartCount();
                 openCartModal(); // Refresh cart modal
             });
@@ -102,7 +102,7 @@ function openCartModal() {
             button.addEventListener('click', function() {
                 const index = parseInt(this.getAttribute('data-index'));
                 cart.splice(index, 1);
-                localStorage.setItem('blowflowCart', JSON.stringify(cart));
+                localStorage.setItem('dwarvenForgedCart', JSON.stringify(cart));
                 updateCartCount();
                 openCartModal(); // Refresh cart modal
             });
@@ -165,7 +165,7 @@ function addToCart(itemData, quantity = 1, options = null) {
     }
     
     // Save cart to localStorage
-    localStorage.setItem('blowflowCart', JSON.stringify(cart));
+    localStorage.setItem('dwarvenForgedCart', JSON.stringify(cart));
     
     // Update cart count
     updateCartCount();
@@ -179,7 +179,7 @@ function removeFromCart(itemId) {
     
     if (itemIndex !== -1) {
         cart.splice(itemIndex, 1);
-        localStorage.setItem('blowflowCart', JSON.stringify(cart));
+        localStorage.setItem('dwarvenForgedCart', JSON.stringify(cart));
         updateCartCount();
         return true;
     }
@@ -193,7 +193,7 @@ function updateCartItemQuantity(itemId, quantity) {
     
     if (itemIndex !== -1 && quantity > 0) {
         cart[itemIndex].quantity = quantity;
-        localStorage.setItem('blowflowCart', JSON.stringify(cart));
+        localStorage.setItem('dwarvenForgedCart', JSON.stringify(cart));
         updateCartCount();
         return true;
     }
@@ -204,7 +204,7 @@ function updateCartItemQuantity(itemId, quantity) {
 // Function to clear cart
 function clearCart() {
     cart = [];
-    localStorage.setItem('blowflowCart', JSON.stringify(cart));
+    localStorage.setItem('dwarvenForgedCart', JSON.stringify(cart));
     updateCartCount();
 }
 
@@ -295,14 +295,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Prepare email body
             const emailBody = `
-            Name: ${name}
-            Email: ${email}
-            Phone: ${phone}
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
 
-            ${orderDetails}
+${orderDetails}
 
-            Additional Notes:
-            ${message}
+Additional Notes:
+${message}
             `;
             
             // Create mailto link
@@ -336,24 +336,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-    
-    // Close modals when clicking outside
-    window.addEventListener('click', function(event) {
-        const cartModal = document.getElementById('cartModal');
-        const checkoutModal = document.getElementById('checkoutModal');
-        
-        if (event.target === cartModal) {
-            cartModal.style.display = 'none';
-        }
-        
-        if (event.target === checkoutModal) {
-            checkoutModal.style.display = 'none';
-        }
-    });
-});
 
 // Export functions for use in other scripts
-window.blowflowCart = {
+window.dwarvenForgedCart = {
     addToCart,
     removeFromCart,
     updateCartItemQuantity,
