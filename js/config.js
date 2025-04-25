@@ -26,8 +26,8 @@
         "text": "#f5f0e6"
     },
     "background": {
-        "image": "hero-background.jpg",
-        "sectionImage": "metal-texture.jpg"
+        "image": "",
+        "sectionImage": ""
     },
     "fonts": {
         "heading": "'Oswald', sans-serif",
@@ -450,15 +450,15 @@
                 "type": "Anvil Series",
                 "status": "available",
                 "delivery": "digital",
-                "digitalContent": "https://www.sitepackages.net/PUB/DWARVENFORGED/growguide/dwarvenforgedgrowguide.html",
+                "digitalContent": "https://www.dwarvenforged.com/growguide/dwarvenforgedgrowguide.html",
                 "image": "growing-guide.jpg",
                 "additionalImages": [],
-                "description": "Our complete growing guide with tips and tricks from the Dwarven master growers. Learn how to maximize yields and potency with our step-by-step instructions.",
+                "description": "Our complete growing guide with tips and tricks from the Dwarven master growers. Learn how to maximize yields and potency with our step-by-step instructions.\n[A work in progress]",
                 "variety": "Comprehensive Guide",
                 "rating": "5/5",
                 "origin": "DwarvenForged Research",
                 "details": "Many pages of growing information including:\n- Nutrient schedules\n- Lighting tips\n- Environmental control\n- Troubleshooting common issues",
-                "notes": "Digital product - instant access after purchase. Perfect companion for our genetics.",
+                "notes": "Digital product - instant access. Perfect companion for our genetics.",
                 "packOptions": [
                     {
                         "size": "Single Guide",
