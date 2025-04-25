@@ -27,7 +27,7 @@
     },
     "background": {
         "image": "",
-        "sectionImage": ""
+        "sectionImage": "metal-texture.jpg"
     },
     "fonts": {
         "heading": "'Oswald', sans-serif",
