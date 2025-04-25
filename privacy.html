@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - DwarvenForged</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #b87333;
+            --secondary-color: #c69c6d;
+            --tertiary-color: #a23e25;
+            --highlight-color: #e6c200;
+            --alert-color: #a23e25;
+            --background-color: #2e2119;
+            --text-color: #f5f0e6;
+            
+            --font-heading: 'Oswald', sans-serif;
+            --font-body: 'Lato', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-body);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #3a2215 0%, #1e160e 100%);
+            z-index: -3;
+        }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(30, 22, 14, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--primary-color);
+            z-index: 1000;
+            box-shadow: 0 0 20px rgba(184, 115, 51, 0.5);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-logo {
+            height: 60px;
+            filter: drop-shadow(0 0 5px rgba(184, 115, 51, 0.8));
+        }
+        
+        .site-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-left: 15px;
+            color: var(--highlight-color);
+            text-shadow: 2px 2px 0 var(--tertiary-color), 
+                        -2px -2px 0 var(--primary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+        
+        nav a:hover {
+            background: rgba(162, 62, 37, 0.3);
+            color: var(--highlight-color);
+            text-shadow: 0 0 10px var(--highlight-color);
+        }
+        
+        .main-content {
+            padding: 130px 0 40px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            color: var(--highlight-color);
+            text-shadow: 3px 3px 0 var(--tertiary-color), 
+                        -3px -3px 0 var(--primary-color);
+            letter-spacing: 2px;
+        }
+        
+        .legal-content {
+            background: rgba(30, 22, 14, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 50px;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .legal-content h2 {
+            color: var(--secondary-color);
+            font-family: var(--font-heading);
+            margin: 30px 0 15px;
+            font-size: 1.6rem;
+        }
+        
+        .legal-content h2:first-child {
+            margin-top: 0;
+        }
+        
+        .legal-content p {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        
+        .legal-content ul, .legal-content ol {
+            margin-bottom: 15px;
+            margin-left: 30px;
+            color: var(--text-color);
+        }
+        
+        .legal-content li {
+            margin-bottom: 5px;
+        }
+        
+        footer {
+            background-color: rgba(30, 22, 14, 0.8);
+            padding: 50px 0 20px;
+            border-top: 3px solid var(--tertiary-color);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            color: var(--secondary-color);
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--highlight-color);
+            text-shadow: 0 0 5px var(--highlight-color);
+        }
+
+        .copyright {
+            text-align: center;
+            border-top: 1px solid rgba(198, 156, 109, 0.2);
+            padding-top: 20px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo-container {
+                margin-bottom: 15px;
+                justify-content: center;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .main-content {
+                padding-top: 170px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    
+    <header>
+        <div class="container">
+            <div class="header-container">
+                <div class="logo-container">
+                    <a href="index.html" style="text-decoration: none; display: flex; align-items: center;">
+                        <img src="/img/logo.jpg" alt="DwarvenForged" class="header-logo">
+                        <h1 class="site-title">DwarvenForged</h1>
+                    </a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html#collections">Collections</a></li>
+                        <li><a href="index.html#seed-catalog">Seed Catalog</a></li>
+                        <li><a href="index.html#genetics-explorer">Genetics Explorer</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <div class="main-content">
+        <div class="container">
+            <h1 class="section-title">Privacy Policy</h1>
+            
+            <div class="legal-content">
+                <h2>1. Introduction</h2>
+                <p>At DwarvenForged, we respect your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website or place an order with us.</p>
+                
+                <h2>2. Information We Collect</h2>
+                <p>We collect information you provide directly to us when you:</p>
+                <ul>
+                    <li>Contact us via email</li>
+                    <li>Place an order through our website</li>
+                    <li>Submit information through our contact form</li>
+                </ul>
+                <p>The types of information we may collect include:</p>
+                <ul>
+                    <li>Your name</li>
+                    <li>Email address</li>
+                    <li>Phone number (if provided)</li>
+                    <li>Shipping address</li>
+                    <li>Any additional information you choose to provide</li>
+                </ul>
+                
+                <h2>3. How We Use Your Information</h2>
+                <p>We use the information we collect to:</p>
+                <ul>
+                    <li>Process and fulfill your orders</li>
+                    <li>Communicate with you about your orders</li>
+                    <li>Respond to your inquiries</li>
+                    <li>Improve our website and services</li>
+                    <li>Comply with legal obligations</li>
+                </ul>
+                
+                <h2>4. Information Sharing</h2>
+                <p>We do not sell, trade, or otherwise transfer your personal information to outside parties. This does not include trusted third parties who assist us in operating our website or servicing you, so long as those parties agree to keep this information confidential.</p>
+                
+                <h2>5. Cookies and Tracking Technologies</h2>
+                <p>Our website does not currently use cookies or similar tracking technologies to collect information about your browsing activities. If this changes in the future, we will update this Privacy Policy accordingly.</p>
+                <p>Please note that third-party services (such as Google services) that may be integrated into our website in the future might use cookies or similar technologies in accordance with their own privacy policies.</p>
+                
+                <h2>6. Data Security</h2>
+                <p>We implement appropriate security measures to protect your personal information. However, no method of transmission over the Internet or electronic storage is 100% secure, and we cannot guarantee absolute security.</p>
+                
+                <h2>7. Third-Party Links</h2>
+                <p>Our website may contain links to third-party websites. We have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party websites.</p>
+                
+                <h2>8. Age Restrictions</h2>
+                <p>Our website is not intended for individuals under the age of 21. We do not knowingly collect personal information from children under 21.</p>
+                
+                <h2>9. Changes to This Privacy Policy</h2>
+                <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. You are advised to review this Privacy Policy periodically for any changes.</p>
+                
+                <h2>10. Contact Us</h2>
+                <p>If you have any questions about this Privacy Policy, please contact us at info@dwarvenforged.com.</p>
+                
+                <p><strong>Last updated:</strong> April 18, 2025</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>DwarvenForged</h3>
+                    <ul>
+                        <li><a href="index.html#collections">Collections</a></li>
+                        <li><a href="index.html#seed-catalog">Seed Catalog</a></li>
+                        <li><a href="index.html#genetics-explorer">Genetics Explorer</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Policies</h3>
+                    <ul>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="shipping.html">Shipping Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="mailto:info@dwarvenforged.com">E-Mail Us</a></li>
+                        <li><a href="https://discord.gg/dwarvenforged">Discord</a></li>
+                        <li><a href="https://youtube.com/@dwarvenforged">YouTube</a></li>
+                        <li><a href="https://tiktok.com/@dwarvenforged">TikTok</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Visit Our Friends</h3>
+                    <ul>
+                        <li><a href="https://strainnavigator.com" target="_blank">StrainNavigator</a></li>
+                        <li><a href="https://buildasoil.com" target="_blank">BuildASoil</a></li>
+                        <li><a href="https://growdiaries.com" target="_blank">GrowDiaries</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2025 DwarvenForged / Brokkr Seeds. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
