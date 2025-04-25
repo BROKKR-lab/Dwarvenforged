@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dwarven Forged Grow Guide - Digital Edition</title>
+    <link rel="stylesheet" href="css/growguide-styles.css">
+    <script src="js/growguide-content.js" defer></script>
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" onclick="toggleMenu()">☰</button>
+    
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="https://www.sitepackages.net/PUB/DWARVENFORGED/growguide/img/growing-guide.jpg" alt="Dwarven Forged Logo" class="sidebar-logo">
+                <h2 class="sidebar-title">GROW GUIDE</h2>
+            </div>
+            <ul class="nav-list" id="navList">
+                <li><a href="#" class="nav-link" data-section="intro">Introduction</a></li>
+                <li><a href="#" class="nav-link" data-section="step1">1: Choosing Your Forge (Grow Space)</a></li>
+                <li><a href="#" class="nav-link" data-section="step2">2: Setting Up Your Forge</a></li>
+                <li><a href="#" class="nav-link" data-section="step3">3: Selecting Your Ore (Medium)</a></li>
+                <li><a href="#" class="nav-link" data-section="step4">4: Choosing Your Materials (Strains)</a></li>
+                <li><a href="#" class="nav-link" data-section="step5">5: Awakening the Seed (Germination)</a></li>
+                <li><a href="#" class="nav-link" data-section="step6">6: The First Shaping (Transplanting)</a></li>
+                <li><a href="#" class="nav-link" data-section="step7">7: Tempering the Steel (Veg Growth)</a></li>
+                <li><a href="#" class="nav-link" data-section="step8">8: Alchemical Nourishment (Nutrients)</a></li>
+                <li><a href="#" class="nav-link" data-section="step9">9: Master's Touch (Training & Pruning)</a></li>
+                <li><a href="#" class="nav-link" data-section="step10">10: Crystallizing the Craft (Flowering)</a></li>
+                <li><a href="#" class="nav-link" data-section="step11">11: Reaping the Rewards (Harvesting)</a></li>
+                <li><a href="#" class="nav-link" data-section="step12">12: Enjoying Your Craft</a></li>
+                <li><a href="#" class="nav-link" data-section="legal">Legal Considerations</a></li>
+            </ul>
+        </aside>
+        
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div id="contentContainer">
+                <!-- Content will be loaded dynamically from content.js -->
+            </div>
+        </main>
+    </div>
+    
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop" onclick="scrollToTop(); return false;">↑</a>
+    
+    <script>
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.getAttribute('data-section');
+                    showSection(section);
+                    
+                    // Update active link
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Close mobile menu if open
+                    if(window.innerWidth <= 992) {
+                        document.getElementById('sidebar').classList.remove('open');
+                    }
+                });
+            });
+            
+            // Show intro section by default
+            showSection('intro');
+            navLinks[0].classList.add('active');
+            
+            // Back to top button visibility
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    document.getElementById('backToTop').classList.add('visible');
+                } else {
+                    document.getElementById('backToTop').classList.remove('visible');
+                }
+            });
+        });
+        
+        // Show content section
+        function showSection(sectionId) {
+            const contentContainer = document.getElementById('contentContainer');
+            
+            // Load content from the content.js file
+            if (sectionId in contentData) {
+                contentContainer.innerHTML = contentData[sectionId];
+                window.scrollTo(0, 0);
+            } else {
+                contentContainer.innerHTML = '<h1>Section Not Found</h1><p>The requested section could not be found.</p>';
+            }
+        }
+        
+        // Toggle mobile menu
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+        
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
