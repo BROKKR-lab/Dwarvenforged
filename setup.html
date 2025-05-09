@@ -969,6 +969,25 @@ document.createElement = function(tagName) {
 									<div id="additional-images" style="max-height: 120px; overflow-y: auto; border: 1px solid var(--primary-color); border-radius: 5px; padding: 5px; background: rgba(0, 0, 0, 0.2);"></div>
 								</div>
 							</div>
+
+							<!-- Add this after the Additional Images section in the product editor modal -->
+							<div class="form-group">
+								<label for="product-enable-hover" style="color: var(--secondary-color);">Enable Hover Image</label>
+								<select id="product-enable-hover">
+									<option value="false" selected>No</option>
+									<option value="true">Yes</option>
+								</select>
+								<p style="font-size: 0.8rem; color: #aaa; margin-top: 3px;">Show an additional image when hovering over product card.</p>
+							</div>
+
+							<div class="form-group" id="hover-image-group" style="display: none;">
+								<label for="product-hover-image" style="color: var(--secondary-color);">Hover Image</label>
+								<select id="product-hover-image" style="width: 100%;">
+									<option value="">— First Additional Image —</option>
+									<!-- Options will be populated dynamically -->
+								</select>
+								<p style="font-size: 0.8rem; color: #aaa; margin-top: 3px;">If not selected, the first additional image will be used.</p>
+							</div>
 							
 							<!-- Right Column - Details and Options -->
 							<div style="background: rgba(10, 14, 23, 0.9); padding: 15px; border-radius: 10px; border: 1px solid var(--primary-color);">
@@ -1886,7 +1905,42 @@ document.createElement = function(tagName) {
 				safeSetValue('product-rarity', isNewProduct ? '' : (product.rarity || ''));
 				safeSetValue('product-details', isNewProduct ? '' : product.details);
 				safeSetValue('product-notes', isNewProduct ? '' : product.notes);
-				
+				safeSetValue('product-enable-hover', isNewProduct ? 'false' : (product.enableHoverImage ? 'true' : 'false'));
+
+				const enableHoverSelect = document.getElementById('product-enable-hover');
+				const hoverImageGroup = document.getElementById('hover-image-group');
+				if (enableHoverSelect && hoverImageGroup) {
+					if (enableHoverSelect.value === 'true') {
+						hoverImageGroup.style.display = 'block';
+						
+						// Populate the hover image select
+						const hoverImageSelect = document.getElementById('product-hover-image');
+						if (hoverImageSelect) {
+							// Clear existing options except the default one
+							while (hoverImageSelect.options.length > 1) {
+								hoverImageSelect.remove(1);
+							}
+							
+							// Add options for each additional image
+							if (!isNewProduct && product.additionalImages) {
+								product.additionalImages.forEach((img, index) => {
+									const option = document.createElement('option');
+									option.value = img;
+									option.textContent = `Image ${index + 1}: ${img}`;
+									hoverImageSelect.appendChild(option);
+									
+									// Select the current hover image if it exists
+									if (product.hoverImage && product.hoverImage === img) {
+										option.selected = true;
+									}
+								});
+							}
+						}
+					} else {
+						hoverImageGroup.style.display = 'none';
+					}
+				}
+
 				// Set product type
 				const typeSelect = document.getElementById('product-type');
 				if (typeSelect && !isNewProduct) {
@@ -2019,6 +2073,48 @@ document.createElement = function(tagName) {
 					"deliveryType": currentDeliveryType,
 					"packOptionsSectionExists": !!packOptionsSection,
 					"packOptionsSectionDisplay": packOptionsSection ? packOptionsSection.style.display : 'N/A'
+				});
+			}
+
+			function setupHoverImageHandlers() {
+				const enableHoverSelect = document.getElementById('product-enable-hover');
+				const hoverImageGroup = document.getElementById('hover-image-group');
+				
+				if (enableHoverSelect) {
+					enableHoverSelect.addEventListener('change', function() {
+						if (this.value === 'true') {
+							hoverImageGroup.style.display = 'block';
+							updateHoverImageOptions();
+						} else {
+							hoverImageGroup.style.display = 'none';
+						}
+					});
+				}
+			}
+
+			// Function to update hover image options based on available additional images
+			function updateHoverImageOptions() {
+				const hoverImageSelect = document.getElementById('product-hover-image');
+				const additionalImages = [];
+				
+				// Get all additional images from the form
+				document.querySelectorAll('#additional-images input').forEach(input => {
+					if (input.value.trim()) {
+						additionalImages.push(input.value.trim());
+					}
+				});
+				
+				// Clear existing options except the default one
+				while (hoverImageSelect.options.length > 1) {
+					hoverImageSelect.remove(1);
+				}
+				
+				// Add options for each additional image
+				additionalImages.forEach((img, index) => {
+					const option = document.createElement('option');
+					option.value = img;
+					option.textContent = `Image ${index + 1}: ${img}`;
+					hoverImageSelect.appendChild(option);
 				});
 			}
 
@@ -2319,18 +2415,26 @@ document.createElement = function(tagName) {
 				document.querySelectorAll('#pack-options .pack-option').forEach(packEl => {
 					const inputs = packEl.querySelectorAll('input');
 					
-					const size = inputs[0].value;
-					// Parse the values as floats first
-					const regularPrice = parseFloat(inputs[1].value);
-					const salePrice = parseFloat(inputs[2].value);
-					
-					if (size && !isNaN(regularPrice) && !isNaN(salePrice)) {
-						packOptions.push({
-							size,
-							// Store the exact values with 2 decimal places
-							regularPrice: regularPrice.toFixed(2),
-							salePrice: salePrice.toFixed(2)
-						});
+					if (inputs.length >= 3) {
+						const size = inputs[0].value.trim();
+						
+						// Handle the price values properly regardless of format
+						let regularPrice = inputs[1].value.trim();
+						let salePrice = inputs[2].value.trim();
+						
+						// If they're not empty, convert to numbers
+						if (size && regularPrice && salePrice) {
+							// Remove any quotes and convert to numbers
+							regularPrice = Number(regularPrice.replace(/"/g, ''));
+							salePrice = Number(salePrice.replace(/"/g, ''));
+							
+							// Add to pack options
+							packOptions.push({
+								size: size,
+								regularPrice: regularPrice,
+								salePrice: salePrice
+							});
+						}
 					}
 				});
 				
@@ -2354,7 +2458,10 @@ document.createElement = function(tagName) {
 					rarity: productRarity,
 					details: productDetails,
 					notes: productNotes,
-					packOptions: packOptions
+					packOptions: packOptions,
+					enableHoverImage: document.getElementById('product-enable-hover').value === 'true',
+					hoverImage: document.getElementById('product-enable-hover').value === 'true' ? 
+						document.getElementById('product-hover-image').value : ''
 				};
 				
 				// For debugging - check what's being saved
@@ -3629,6 +3736,15 @@ document.createElement = function(tagName) {
 						
 						// Then setup auto-save functionality
 						setupAutoSave();
+						
+						setupHoverImageHandlers();
+
+						// Listen for changes to additional images to update hover image options
+						document.getElementById('additional-images').addEventListener('change', function() {
+							if (document.getElementById('product-enable-hover').value === 'true') {
+								updateHoverImageOptions();
+							}
+						});
 						
 						// Reset image prompt field when page loads
 						const imagePromptField = document.getElementById('image-prompt');
