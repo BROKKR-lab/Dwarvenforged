@@ -769,36 +769,64 @@
     </script>
 
 	<script>
-	// Property Sharing Extension Module
+	// Property Sharing Extension Module - Improved Version
 	const PropertySharingModule = {
 		initialize: function() {
-			// Create the new tab
-			this.createTab();
-			// Initialize event listeners
-			this.initializeEvents();
+			// Restructure existing tabs
+			this.restructureTabs();
+			// Create new property tabs
+			this.createPropertyTabs();
 			// Ensure proper tab navigation
 			this.improveTabNavigation();
+			// Add print functionality
+			this.addPrintToPdfFunction();
 		},
 		
-		createTab: function() {
-			// Add a new tab in the tabs section
+		restructureTabs: function() {
+			// Rename existing tabs
 			const tabsContainer = document.querySelector('.tabs');
-			const propertyTab = document.createElement('div');
-			propertyTab.className = 'tab';
-			propertyTab.setAttribute('data-tab', 'property');
-			propertyTab.textContent = '2.5 Space Sharing';
+			const tabs = tabsContainer.querySelectorAll('.tab');
 			
-			// Insert after details tab but before conditions
+			// Update tab names
+			tabs.forEach(tab => {
+				const tabName = tab.getAttribute('data-tab');
+				if (tabName === 'conditions') {
+					tab.textContent = '5. Conditions';
+				} else if (tabName === 'preview') {
+					tab.textContent = '6. Preview';
+				}
+			});
+		},
+		
+		createPropertyTabs: function() {
+			const tabsContainer = document.querySelector('.tabs');
+			
+			// Create space description tab (3)
+			const spaceTab = document.createElement('div');
+			spaceTab.className = 'tab';
+			spaceTab.setAttribute('data-tab', 'space');
+			spaceTab.textContent = '3. Space Details';
+			
+			// Create compensation tab (4)
+			const compensationTab = document.createElement('div');
+			compensationTab.className = 'tab';
+			compensationTab.setAttribute('data-tab', 'compensation');
+			compensationTab.textContent = '4. Compensation';
+			
+			// Find where to insert our new tabs
 			const conditionsTab = document.querySelector('.tab[data-tab="conditions"]');
-			tabsContainer.insertBefore(propertyTab, conditionsTab);
 			
-			// Create tab content
-			const propertyTabContent = document.createElement('div');
-			propertyTabContent.id = 'propertyTab';
-			propertyTabContent.className = 'tab-content';
+			// Insert our new tabs
+			tabsContainer.insertBefore(spaceTab, conditionsTab);
+			tabsContainer.insertBefore(compensationTab, conditionsTab);
 			
-			propertyTabContent.innerHTML = `
-				<h2>Space Sharing Arrangements</h2>
+			// Create tab content for Space Details
+			const spaceTabContent = document.createElement('div');
+			spaceTabContent.id = 'spaceTab';
+			spaceTabContent.className = 'tab-content';
+			
+			spaceTabContent.innerHTML = `
+				<h2>Space Details</h2>
 				
 				<div class="form-section">
 					<label for="spaceType">Type of Space</label>
@@ -820,86 +848,6 @@
 				<div class="form-section">
 					<label for="spaceAccess">Access Details</label>
 					<textarea id="spaceAccess" placeholder="Describe how and when the space can be accessed..."></textarea>
-				</div>
-
-				<div class="form-section">
-					<label for="compensationDetails">Compensation Arrangement</label>
-					<div class="custom-section" id="compensationDetails">
-						<h3>Compensation Type</h3>
-						<select id="compensationType">
-							<option value="monetary">Monetary</option>
-							<option value="work">Services/Work Exchange</option>
-							<option value="barter">Barter/Trade</option>
-							<option value="free">No Compensation</option>
-							<option value="mixed">Mixed Arrangement</option>
-						</select>
-						
-						<div id="monetaryDetails">
-							<label for="paymentAmount">Amount</label>
-							<input type="number" id="paymentAmount" min="0" step="0.01">
-							
-							<label for="paymentCurrency">Currency</label>
-							<input type="text" id="paymentCurrency" value="USD">
-							
-							<label for="paymentFrequency">Frequency</label>
-							<select id="paymentFrequency">
-								<option value="weekly">Weekly</option>
-								<option value="biweekly">Bi-weekly</option>
-								<option value="monthly">Monthly</option>
-								<option value="quarterly">Quarterly</option>
-								<option value="annual">Annual</option>
-								<option value="oneTime">One-time</option>
-							</select>
-							
-							<label for="paymentDueDate">Due Date</label>
-							<input type="text" id="paymentDueDate" placeholder="e.g., 1st of month, within 3 days of...">
-							
-							<label for="paymentMethod">Payment Method</label>
-							<input type="text" id="paymentMethod" placeholder="e.g., bank transfer, cash, etc.">
-						</div>
-						
-						<div id="workDetails" class="hidden">
-							<label for="workDescription">Work Description</label>
-							<textarea id="workDescription" placeholder="Describe the work or services to be provided in exchange..."></textarea>
-							
-							<label for="workHours">Hours/Frequency</label>
-							<input type="text" id="workHours" placeholder="e.g., 10 hours weekly, 2 days per month">
-						</div>
-						
-						<div id="barterDetails" class="hidden">
-							<label for="barterDescription">Barter Description</label>
-							<textarea id="barterDescription" placeholder="Describe the goods or services to be exchanged..."></textarea>
-						</div>
-						
-						<div id="mixedDetails" class="hidden">
-							<label for="mixedDescription">Mixed Arrangement Description</label>
-							<textarea id="mixedDescription" placeholder="Describe the combination of monetary and non-monetary compensation..."></textarea>
-						</div>
-					</div>
-				</div>
-				
-				<div class="form-section">
-					<label for="maintenanceSection">Upkeep Responsibilities</label>
-					<div class="custom-section" id="maintenanceSection">
-						<ul class="section-list" id="maintenanceList"></ul>
-						<div class="add-section-form">
-							<label for="maintenanceItem">Responsibility</label>
-							<input type="text" id="maintenanceItem" placeholder="e.g., Cleaning, Yard work, Repairs">
-							
-							<label for="maintenancePerson">Person Responsible</label>
-							<select id="maintenancePerson">
-								<option value="first">Space Provider</option>
-								<option value="second">Space User</option>
-								<option value="both">Both Parties</option>
-								<option value="shared">Shared (describe below)</option>
-							</select>
-							
-							<label for="maintenanceDescription">Details</label>
-							<textarea id="maintenanceDescription" placeholder="Describe the maintenance responsibility..."></textarea>
-							
-							<button type="button" id="addMaintenance" class="success">Add Responsibility</button>
-						</div>
-					</div>
 				</div>
 				
 				<div class="form-section">
@@ -937,349 +885,580 @@
 				</div>
 				
 				<div class="form-section">
+					<label for="maintenanceSection">Upkeep Responsibilities</label>
+					<div class="custom-section" id="maintenanceSection">
+						<ul class="section-list" id="maintenanceList"></ul>
+						<div class="add-section-form">
+							<label for="maintenanceItem">Responsibility</label>
+							<input type="text" id="maintenanceItem" placeholder="e.g., Cleaning, Yard work, Repairs">
+							
+							<label for="maintenancePerson">Person Responsible</label>
+							<select id="maintenancePerson">
+								<option value="first">Space Provider</option>
+								<option value="second">Space User</option>
+								<option value="both">Both Parties</option>
+								<option value="shared">Shared (describe below)</option>
+							</select>
+							
+							<label for="maintenanceDescription">Details</label>
+							<textarea id="maintenanceDescription" placeholder="Describe the maintenance responsibility..."></textarea>
+							
+							<button type="button" id="addMaintenance" class="success">Add Responsibility</button>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-section">
 					<label for="moveOutProcess">Space Return Process</label>
 					<textarea id="moveOutProcess" placeholder="Describe the process for returning the space at arrangement end..."></textarea>
 				</div>
 				
 				<div class="button-group">
 					<button class="prev-tab" data-prev="details">Back to Details</button>
+					<button class="next-tab" data-next="compensation">Continue to Compensation</button>
+				</div>
+			`;
+			
+			// Create tab content for Compensation
+			const compensationTabContent = document.createElement('div');
+			compensationTabContent.id = 'compensationTab';
+			compensationTabContent.className = 'tab-content';
+			
+			compensationTabContent.innerHTML = `
+				<h2>Compensation Arrangements</h2>
+				
+				<div class="form-section">
+					<label for="compensationType">Compensation Type</label>
+					<select id="compensationType">
+						<option value="monetary">Monetary</option>
+						<option value="work">Services/Work Exchange</option>
+						<option value="barter">Barter/Trade</option>
+						<option value="free">No Compensation</option>
+						<option value="mixed">Mixed Arrangement</option>
+					</select>
+				</div>
+				
+				<div id="monetaryDetails">
+					<div class="form-section">
+						<label for="paymentAmount">Amount</label>
+						<input type="number" id="paymentAmount" min="0" step="0.01">
+					</div>
+					
+					<div class="form-section">
+						<label for="paymentCurrency">Currency</label>
+						<input type="text" id="paymentCurrency" value="USD">
+					</div>
+					
+					<div class="form-section">
+						<label for="paymentFrequency">Frequency</label>
+						<select id="paymentFrequency">
+							<option value="weekly">Weekly</option>
+							<option value="biweekly">Bi-weekly</option>
+							<option value="monthly">Monthly</option>
+							<option value="quarterly">Quarterly</option>
+							<option value="annual">Annual</option>
+							<option value="oneTime">One-time</option>
+						</select>
+					</div>
+					
+					<div class="form-section">
+						<label for="paymentDueDate">Due Date</label>
+						<input type="text" id="paymentDueDate" placeholder="e.g., 1st of month, within 3 days of...">
+					</div>
+					
+					<div class="form-section">
+						<label for="paymentMethod">Payment Method</label>
+						<input type="text" id="paymentMethod" placeholder="e.g., bank transfer, cash, etc.">
+					</div>
+				</div>
+				
+				<div id="workDetails" class="hidden">
+					<div class="form-section">
+						<label for="workDescription">Work Description</label>
+						<textarea id="workDescription" placeholder="Describe the work or services to be provided in exchange..."></textarea>
+					</div>
+					
+					<div class="form-section">
+						<label for="workHours">Hours/Frequency</label>
+						<input type="text" id="workHours" placeholder="e.g., 10 hours weekly, 2 days per month">
+					</div>
+				</div>
+				
+				<div id="barterDetails" class="hidden">
+					<div class="form-section">
+						<label for="barterDescription">Barter Description</label>
+						<textarea id="barterDescription" placeholder="Describe the goods or services to be exchanged..."></textarea>
+					</div>
+				</div>
+				
+				<div id="mixedDetails" class="hidden">
+					<div class="form-section">
+						<label for="mixedDescription">Mixed Arrangement Description</label>
+						<textarea id="mixedDescription" placeholder="Describe the combination of monetary and non-monetary compensation..."></textarea>
+					</div>
+				</div>
+				
+				<div class="button-group">
+					<button class="prev-tab" data-prev="space">Back to Space Details</button>
 					<button class="next-tab" data-next="conditions">Continue to Conditions</button>
 				</div>
 			`;
 			
-			// Insert after details tab but before conditions tab content
+			// Insert tab content
 			const conditionsTabContent = document.getElementById('conditionsTab');
-			conditionsTabContent.parentNode.insertBefore(propertyTabContent, conditionsTabContent);
+			conditionsTabContent.parentNode.insertBefore(spaceTabContent, conditionsTabContent);
+			conditionsTabContent.parentNode.insertBefore(compensationTabContent, conditionsTabContent);
 		},
 		
 		improveTabNavigation: function() {
 			// Override the existing tab click handlers
 			const tabs = document.querySelectorAll('.tab');
+			
+			// Remove any existing click handlers and add new ones
 			tabs.forEach(tab => {
-				// Remove existing event listeners
+				// Clone and replace to remove existing handlers
 				const newTab = tab.cloneNode(true);
 				tab.parentNode.replaceChild(newTab, tab);
 				
-				// Add our new event handler
-				newTab.addEventListener('click', () => {
-					const tabName = newTab.getAttribute('data-tab');
+				newTab.addEventListener('click', function() {
+					// Get tab name
+					const tabName = this.getAttribute('data-tab');
 					
-					// Update active tab
-					tabs.forEach(t => t.classList.remove('active'));
-					newTab.classList.add('active');
+					// Update active tab styling - very important for visual feedback
+					document.querySelectorAll('.tab').forEach(t => {
+						t.classList.remove('active');
+					});
+					this.classList.add('active');
 					
-					// Hide all tab content
+					// Hide all tab contents
 					document.querySelectorAll('.tab-content').forEach(content => {
 						content.classList.remove('active');
 					});
 					
-					// Show only the active tab content
-					document.getElementById(tabName + 'Tab').classList.add('active');
-				});
-			});
-			
-			// Also improve the next/prev buttons
-			document.querySelectorAll('.next-tab, .prev-tab').forEach(button => {
-				// Remove existing event listeners
-				const newButton = button.cloneNode(true);
-				button.parentNode.replaceChild(newButton, button);
-				
-				// Add our new event handler
-				newButton.addEventListener('click', () => {
-					const nextTab = newButton.getAttribute('data-next');
-					const prevTab = newButton.getAttribute('data-prev');
-					const targetTab = nextTab || prevTab;
-					
-					if (targetTab) {
-						// Simulate a click on the target tab
-						document.querySelector(`.tab[data-tab="${targetTab}"]`).click();
+					// Show only the clicked tab content
+					const tabContent = document.getElementById(tabName + 'Tab');
+					if (tabContent) {
+						tabContent.classList.add('active');
 					}
 				});
 			});
+			
+			// Fix the next/prev buttons too
+			document.querySelectorAll('.next-tab, .prev-tab').forEach(button => {
+				// Clone and replace to remove existing handlers
+				const newButton = button.cloneNode(true);
+				button.parentNode.replaceChild(newButton, button);
+				
+				newButton.addEventListener('click', function() {
+					const nextTab = this.getAttribute('data-next');
+					const prevTab = this.getAttribute('data-prev');
+					const targetTab = nextTab || prevTab;
+					
+					if (targetTab) {
+						const tabToClick = document.querySelector(`.tab[data-tab="${targetTab}"]`);
+						if (tabToClick) {
+							tabToClick.click();
+						}
+					}
+				});
+			});
+			
+			// Ensure setup tab is active at start
+			setTimeout(() => {
+				const setupTab = document.querySelector('.tab[data-tab="setup"]');
+				if (setupTab) {
+					setupTab.click();
+				}
+			}, 100);
+		},
+		
+		addPrintToPdfFunction: function() {
+			// Replace the non-functional downloadPDF button with a print function
+			const downloadPDFBtn = document.getElementById('downloadPDF');
+			
+			if (downloadPDFBtn) {
+				downloadPDFBtn.textContent = 'Print Agreement';
+				downloadPDFBtn.addEventListener('click', function() {
+					const agreementOutput = document.getElementById('agreementOutput');
+					
+					if (agreementOutput && !agreementOutput.classList.contains('hidden')) {
+						// Create a new window for printing
+						const printWindow = window.open('', '_blank');
+						
+						// Add content and styles
+						printWindow.document.write(`
+							<!DOCTYPE html>
+							<html>
+							<head>
+								<title>Collaboration Arrangement</title>
+								<style>
+									body {
+										font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+										line-height: 1.6;
+										color: #333;
+										padding: 20px;
+										max-width: 800px;
+										margin: 0 auto;
+									}
+									h1, h2, h3 {
+										color: #4a6fa5;
+									}
+									ul {
+										padding-left: 20px;
+									}
+									.signature-area {
+										margin-top: 50px;
+										display: flex;
+										justify-content: space-between;
+									}
+									.signature-box {
+										width: 45%;
+									}
+									@media print {
+										body {
+											padding: 0;
+										}
+										.no-print {
+											display: none;
+										}
+									}
+								</style>
+							</head>
+							<body>
+								${agreementOutput.innerHTML}
+								<div class="no-print" style="margin-top: 30px; text-align: center;">
+									<p>Use your browser's print function or press Ctrl+P (Cmd+P on Mac) to print or save as PDF.</p>
+									<button onclick="window.print();" style="padding: 10px 20px; background: #4a6fa5; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">Print Document</button>
+									<button onclick="window.close();" style="padding: 10px 20px; background: #6e9887; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-left: 10px;">Close</button>
+								</div>
+							</body>
+							</html>
+						`);
+						
+						// Focus the new window
+						printWindow.document.close();
+						printWindow.focus();
+						
+						// Auto-print on some browsers
+						setTimeout(() => {
+							printWindow.print();
+						}, 1000);
+					} else {
+						alert('Please generate a preview first before printing.');
+					}
+				});
+			}
 		},
 		
 		initializeEvents: function() {
 			// Wait for DOM to be ready with the new elements
 			setTimeout(() => {
-				// Add tab switching functionality
-				document.querySelector('.tab[data-tab="property"]').addEventListener('click', function() {
-					// Update active tab
-					document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-					this.classList.add('active');
-					
-					// Show active content
-					document.querySelectorAll('.tab-content').forEach(content => {
-						content.classList.remove('active');
-					});
-					document.getElementById('propertyTab').classList.add('active');
-				});
-				
-				// Next/Previous buttons functionality
-				document.querySelector('#propertyTab .next-tab').addEventListener('click', function() {
-					const nextTab = this.getAttribute('data-next');
-					document.querySelector(`.tab[data-tab="${nextTab}"]`).click();
-				});
-				
-				document.querySelector('#propertyTab .prev-tab').addEventListener('click', function() {
-					const prevTab = this.getAttribute('data-prev');
-					document.querySelector(`.tab[data-tab="${prevTab}"]`).click();
-				});
-				
 				// Show/hide compensation types based on selection
 				const compensationTypeSelect = document.getElementById('compensationType');
-				const monetaryDetails = document.getElementById('monetaryDetails');
-				const workDetails = document.getElementById('workDetails');
-				const barterDetails = document.getElementById('barterDetails');
-				const mixedDetails = document.getElementById('mixedDetails');
-				
-				compensationTypeSelect.addEventListener('change', function() {
-					// Hide all
-					monetaryDetails.classList.add('hidden');
-					workDetails.classList.add('hidden');
-					barterDetails.classList.add('hidden');
-					mixedDetails.classList.add('hidden');
+				if (compensationTypeSelect) {
+					const monetaryDetails = document.getElementById('monetaryDetails');
+					const workDetails = document.getElementById('workDetails');
+					const barterDetails = document.getElementById('barterDetails');
+					const mixedDetails = document.getElementById('mixedDetails');
 					
-					// Show relevant section
-					if (this.value === 'monetary') {
-						monetaryDetails.classList.remove('hidden');
-					} else if (this.value === 'work') {
-						workDetails.classList.remove('hidden');
-					} else if (this.value === 'barter') {
-						barterDetails.classList.remove('hidden');
-					} else if (this.value === 'mixed') {
-						mixedDetails.classList.remove('hidden');
-						monetaryDetails.classList.remove('hidden');
-					}
-				});
+					compensationTypeSelect.addEventListener('change', function() {
+						// Hide all
+						monetaryDetails.classList.add('hidden');
+						workDetails.classList.add('hidden');
+						barterDetails.classList.add('hidden');
+						mixedDetails.classList.add('hidden');
+						
+						// Show relevant section
+						if (this.value === 'monetary') {
+							monetaryDetails.classList.remove('hidden');
+						} else if (this.value === 'work') {
+							workDetails.classList.remove('hidden');
+						} else if (this.value === 'barter') {
+							barterDetails.classList.remove('hidden');
+						} else if (this.value === 'mixed') {
+							mixedDetails.classList.remove('hidden');
+							monetaryDetails.classList.remove('hidden');
+						}
+					});
+				}
 				
 				// Add maintenance responsibility
-				const maintenanceList = document.getElementById('maintenanceList');
 				const addMaintenanceBtn = document.getElementById('addMaintenance');
-				
-				addMaintenanceBtn.addEventListener('click', function() {
-					const item = document.getElementById('maintenanceItem').value;
-					const person = document.getElementById('maintenancePerson').value;
-					const description = document.getElementById('maintenanceDescription').value;
+				if (addMaintenanceBtn) {
+					const maintenanceList = document.getElementById('maintenanceList');
 					
-					if (!item || !description) return;
-					
-					let personText = '';
-					if (person === 'first') {
-						personText = 'Space Provider';
-					} else if (person === 'second') {
-						personText = 'Space User';
-					} else if (person === 'both') {
-						personText = 'Both Parties';
-					} else {
-						personText = 'Shared';
-					}
-					
-					const li = document.createElement('li');
-					li.className = 'section-item';
-					li.innerHTML = `
-						<strong>${item}</strong> - ${personText}: ${description}
-						<div class="section-controls">
-							<button class="danger delete-item">Remove</button>
-						</div>
-					`;
-					
-					maintenanceList.appendChild(li);
-					
-					// Reset fields
-					document.getElementById('maintenanceItem').value = '';
-					document.getElementById('maintenanceDescription').value = '';
-					
-					// Add delete functionality
-					li.querySelector('.delete-item').addEventListener('click', function() {
-						li.remove();
+					addMaintenanceBtn.addEventListener('click', function() {
+						const item = document.getElementById('maintenanceItem').value;
+						const person = document.getElementById('maintenancePerson').value;
+						const description = document.getElementById('maintenanceDescription').value;
+						
+						if (!item || !description) return;
+						
+						let personText = '';
+						if (person === 'first') {
+							personText = 'Space Provider';
+						} else if (person === 'second') {
+							personText = 'Space User';
+						} else if (person === 'both') {
+							personText = 'Both Parties';
+						} else {
+							personText = 'Shared';
+						}
+						
+						const li = document.createElement('li');
+						li.className = 'section-item';
+						li.innerHTML = `
+							<strong>${item}</strong> - ${personText}: ${description}
+							<div class="section-controls">
+								<button class="danger delete-item">Remove</button>
+							</div>
+						`;
+						
+						maintenanceList.appendChild(li);
+						
+						// Reset fields
+						document.getElementById('maintenanceItem').value = '';
+						document.getElementById('maintenanceDescription').value = '';
+						
+						// Add delete functionality
+						li.querySelector('.delete-item').addEventListener('click', function() {
+							li.remove();
+						});
 					});
-				});
+				}
 				
 				// Add utility
-				const utilitiesList = document.getElementById('utilitiesList');
 				const addUtilityBtn = document.getElementById('addUtility');
-				
-				addUtilityBtn.addEventListener('click', function() {
-					const name = document.getElementById('utilityName').value;
-					const responsibility = document.getElementById('utilityResponsibility').value;
-					const details = document.getElementById('utilityDetails').value;
+				if (addUtilityBtn) {
+					const utilitiesList = document.getElementById('utilitiesList');
 					
-					if (!name) return;
-					
-					let responsibilityText = '';
-					if (responsibility === 'included') {
-						responsibilityText = 'Included in main compensation';
-					} else if (responsibility === 'first') {
-						responsibilityText = 'Provided by space provider';
-					} else if (responsibility === 'second') {
-						responsibilityText = 'Provided by space user';
-					} else {
-						responsibilityText = 'Split between parties';
-					}
-					
-					const li = document.createElement('li');
-					li.className = 'section-item';
-					li.innerHTML = `
-						<strong>${name}</strong> - ${responsibilityText}: ${details || 'No additional details'}
-						<div class="section-controls">
-							<button class="danger delete-item">Remove</button>
-						</div>
-					`;
-					
-					utilitiesList.appendChild(li);
-					
-					// Reset fields
-					document.getElementById('utilityName').value = '';
-					document.getElementById('utilityDetails').value = '';
-					
-					// Add delete functionality
-					li.querySelector('.delete-item').addEventListener('click', function() {
-						li.remove();
+					addUtilityBtn.addEventListener('click', function() {
+						const name = document.getElementById('utilityName').value;
+						const responsibility = document.getElementById('utilityResponsibility').value;
+						const details = document.getElementById('utilityDetails').value;
+						
+						if (!name) return;
+						
+						let responsibilityText = '';
+						if (responsibility === 'included') {
+							responsibilityText = 'Included in main compensation';
+						} else if (responsibility === 'first') {
+							responsibilityText = 'Provided by space provider';
+						} else if (responsibility === 'second') {
+							responsibilityText = 'Provided by space user';
+						} else {
+							responsibilityText = 'Split between parties';
+						}
+						
+						const li = document.createElement('li');
+						li.className = 'section-item';
+						li.innerHTML = `
+							<strong>${name}</strong> - ${responsibilityText}: ${details || 'No additional details'}
+							<div class="section-controls">
+								<button class="danger delete-item">Remove</button>
+							</div>
+						`;
+						
+						utilitiesList.appendChild(li);
+						
+						// Reset fields
+						document.getElementById('utilityName').value = '';
+						document.getElementById('utilityDetails').value = '';
+						
+						// Add delete functionality
+						li.querySelector('.delete-item').addEventListener('click', function() {
+							li.remove();
+						});
 					});
-				});
+				}
 				
 				// Extend the generate preview function to include property details
-				const originalGeneratePreview = document.getElementById('generatePreview').onclick;
-				
-				document.getElementById('generatePreview').onclick = function() {
-					// Call the original function first
-					if (originalGeneratePreview) {
-						originalGeneratePreview.call(this);
-					}
+				const generatePreviewBtn = document.getElementById('generatePreview');
+				if (generatePreviewBtn) {
+					const originalGeneratePreview = generatePreviewBtn.onclick;
 					
-					// Check if property tab exists and has been configured
-					if (!document.getElementById('propertyTab')) return;
-					
-					// Get property details
-					const spaceType = document.getElementById('spaceType')?.value || 'Not specified';
-					const spaceDescription = document.getElementById('spaceDescription')?.value || 'Not specified';
-					const spaceAccess = document.getElementById('spaceAccess')?.value || 'Not specified';
-					const compensationType = document.getElementById('compensationType')?.value || 'Not specified';
-					
-					// Get compensation details based on type
-					let compensationDetails = '';
-					if (compensationType === 'monetary') {
-						const amount = document.getElementById('paymentAmount')?.value || '0';
-						const currency = document.getElementById('paymentCurrency')?.value || 'USD';
-						const frequency = document.getElementById('paymentFrequency')?.value || 'Not specified';
-						const dueDate = document.getElementById('paymentDueDate')?.value || 'Not specified';
-						const method = document.getElementById('paymentMethod')?.value || 'Not specified';
-						
-						compensationDetails = `
-							<p><strong>Type:</strong> Monetary</p>
-							<p><strong>Amount:</strong> ${amount} ${currency}</p>
-							<p><strong>Frequency:</strong> ${frequency}</p>
-							<p><strong>Due Date:</strong> ${dueDate}</p>
-							<p><strong>Payment Method:</strong> ${method}</p>
-						`;
-					} else if (compensationType === 'work') {
-						const workDesc = document.getElementById('workDescription')?.value || 'Not specified';
-						const workHours = document.getElementById('workHours')?.value || 'Not specified';
-						
-						compensationDetails = `
-							<p><strong>Type:</strong> Services/Work Exchange</p>
-							<p><strong>Work Description:</strong> ${workDesc}</p>
-							<p><strong>Hours/Frequency:</strong> ${workHours}</p>
-						`;
-					} else if (compensationType === 'barter') {
-						const barterDesc = document.getElementById('barterDescription')?.value || 'Not specified';
-						
-						compensationDetails = `
-							<p><strong>Type:</strong> Barter/Trade</p>
-							<p><strong>Description:</strong> ${barterDesc}</p>
-						`;
-					} else if (compensationType === 'mixed') {
-						const mixedDesc = document.getElementById('mixedDescription')?.value || 'Not specified';
-						
-						compensationDetails = `
-							<p><strong>Type:</strong> Mixed Arrangement</p>
-							<p><strong>Description:</strong> ${mixedDesc}</p>
-						`;
-					} else if (compensationType === 'free') {
-						compensationDetails = `
-							<p><strong>Type:</strong> No Compensation Required</p>
-						`;
-					}
-					
-					// Get maintenance responsibilities
-					let maintenanceHtml = '';
-					document.querySelectorAll('#maintenanceList .section-item').forEach(item => {
-						maintenanceHtml += `<li>${item.innerHTML.split('<div')[0]}</li>`;
-					});
-					
-					// Get utilities
-					let utilitiesHtml = '';
-					document.querySelectorAll('#utilitiesList .section-item').forEach(item => {
-						utilitiesHtml += `<li>${item.innerHTML.split('<div')[0]}</li>`;
-					});
-					
-					// Get other property details
-					const housingRules = document.getElementById('housingRules')?.value || 'Not specified';
-					const visitorsPolicy = document.getElementById('visitorsPolicy')?.value || 'Not specified';
-					const moveOutProcess = document.getElementById('moveOutProcess')?.value || 'Not specified';
-					
-					// Create space sharing section HTML
-					const propertyHtml = `
-						<h2>Space Sharing Details</h2>
-						
-						<h3>Space Information</h3>
-						<p><strong>Type:</strong> ${spaceType}</p>
-						<p><strong>Description:</strong> ${spaceDescription}</p>
-						<p><strong>Access Details:</strong> ${spaceAccess}</p>
-						
-						<h3>Compensation Arrangement</h3>
-						${compensationDetails}
-						
-						<h3>Upkeep Responsibilities</h3>
-						${maintenanceHtml ? `<ul>${maintenanceHtml}</ul>` : '<p>No maintenance responsibilities specified</p>'}
-						
-						<h3>Space Usage Guidelines</h3>
-						<p>${housingRules}</p>
-						
-						<h3>Visitors Policy</h3>
-						<p>${visitorsPolicy}</p>
-						
-						<h3>Utilities & Amenities</h3>
-						${utilitiesHtml ? `<ul>${utilitiesHtml}</ul>` : '<p>No utilities specified</p>'}
-						
-						<h3>Space Return Process</h3>
-						<p>${moveOutProcess}</p>
-					`;
-					
-					// Find where to insert the property HTML in the agreement output
-					const agreementOutput = document.getElementById('agreementOutput');
-					if (!agreementOutput) return;
-					
-					// Create a temporary element to hold the property HTML
-					const tempDiv = document.createElement('div');
-					tempDiv.innerHTML = propertyHtml;
-					
-					// Find the responsibilities section to insert before
-					const responsibilitiesHeader = Array.from(agreementOutput.querySelectorAll('h2')).find(h => 
-						h.textContent === 'Responsibilities'
-					);
-					
-					// Insert before responsibilities section
-					if (responsibilitiesHeader) {
-						agreementOutput.insertBefore(tempDiv, responsibilitiesHeader);
-					} else {
-						// If no responsibilities header, append to the end before signatures
-						const signatureSection = agreementOutput.querySelector('div[style*="margin-top: 50px"]');
-						if (signatureSection) {
-							agreementOutput.insertBefore(tempDiv, signatureSection);
-						} else {
-							// As a last resort, append to the end
-							agreementOutput.appendChild(tempDiv);
+					generatePreviewBtn.onclick = function() {
+						// Call original function if it exists
+						if (typeof originalGeneratePreview === 'function') {
+							originalGeneratePreview.call(this);
 						}
-					}
-				};
-			}, 100);
+						
+						// Get all the space and compensation details
+						const spaceDetails = {
+							type: document.getElementById('spaceType')?.value || 'Not specified',
+							description: document.getElementById('spaceDescription')?.value || 'Not specified',
+							access: document.getElementById('spaceAccess')?.value || 'Not specified',
+							rules: document.getElementById('housingRules')?.value || 'Not specified',
+							visitors: document.getElementById('visitorsPolicy')?.value || 'Not specified',
+							returnProcess: document.getElementById('moveOutProcess')?.value || 'Not specified'
+						};
+						
+						// Get maintenance responsibilities
+						let maintenanceHtml = '';
+						const maintenanceItems = document.querySelectorAll('#maintenanceList .section-item');
+						if (maintenanceItems && maintenanceItems.length > 0) {
+							maintenanceItems.forEach(item => {
+								maintenanceHtml += `<li>${item.innerHTML.split('<div')[0]}</li>`;
+							});
+						}
+						
+						// Get utilities
+						let utilitiesHtml = '';
+						const utilityItems = document.querySelectorAll('#utilitiesList .section-item');
+						if (utilityItems && utilityItems.length > 0) {
+							utilityItems.forEach(item => {
+								utilitiesHtml += `<li>${item.innerHTML.split('<div')[0]}</li>`;
+							});
+						}
+						
+						// Get compensation details
+						const compensationType = document.getElementById('compensationType')?.value || 'Not specified';
+						let compensationDetails = '';
+						
+						if (compensationType === 'monetary') {
+							const amount = document.getElementById('paymentAmount')?.value || '0';
+							const currency = document.getElementById('paymentCurrency')?.value || 'USD';
+							const frequency = document.getElementById('paymentFrequency')?.value || 'Not specified';
+							const dueDate = document.getElementById('paymentDueDate')?.value || 'Not specified';
+							const method = document.getElementById('paymentMethod')?.value || 'Not specified';
+							
+							compensationDetails = `
+								<p><strong>Type:</strong> Monetary</p>
+								<p><strong>Amount:</strong> ${amount} ${currency}</p>
+								<p><strong>Frequency:</strong> ${frequency}</p>
+								<p><strong>Due Date:</strong> ${dueDate}</p>
+								<p><strong>Payment Method:</strong> ${method}</p>
+							`;
+						} else if (compensationType === 'work') {
+							const workDesc = document.getElementById('workDescription')?.value || 'Not specified';
+							const workHours = document.getElementById('workHours')?.value || 'Not specified';
+							
+							compensationDetails = `
+								<p><strong>Type:</strong> Services/Work Exchange</p>
+								<p><strong>Work Description:</strong> ${workDesc}</p>
+								<p><strong>Hours/Frequency:</strong> ${workHours}</p>
+							`;
+						} else if (compensationType === 'barter') {
+							const barterDesc = document.getElementById('barterDescription')?.value || 'Not specified';
+							
+							compensationDetails = `
+								<p><strong>Type:</strong> Barter/Trade</p>
+								<p><strong>Description:</strong> ${barterDesc}</p>
+							`;
+						} else if (compensationType === 'mixed') {
+							const mixedDesc = document.getElementById('mixedDescription')?.value || 'Not specified';
+							
+							compensationDetails = `
+								<p><strong>Type:</strong> Mixed Arrangement</p>
+								<p><strong>Description:</strong> ${mixedDesc}</p>
+							`;
+						} else if (compensationType === 'free') {
+							compensationDetails = `
+								<p><strong>Type:</strong> No Compensation Required</p>
+							`;
+						}
+						
+						// Create HTML for space and compensation sections
+						const spaceHtml = `
+							<h2>Space Details</h2>
+							<p><strong>Type:</strong> ${spaceDetails.type}</p>
+							<p><strong>Description:</strong> ${spaceDetails.description}</p>
+							<p><strong>Access Details:</strong> ${spaceDetails.access}</p>
+							
+							<h3>Space Usage Guidelines</h3>
+							<p>${spaceDetails.rules}</p>
+							
+							<h3>Visitors Policy</h3>
+							<p>${spaceDetails.visitors}</p>
+							
+							<h3>Utilities & Amenities</h3>
+							${utilitiesHtml ? `<ul>${utilitiesHtml}</ul>` : '<p>No utilities specified</p>'}
+							
+							<h3>Upkeep Responsibilities</h3>
+							${maintenanceHtml ? `<ul>${maintenanceHtml}</ul>` : '<p>No maintenance responsibilities specified</p>'}
+							
+							<h3>Space Return Process</h3>
+							<p>${spaceDetails.returnProcess}</p>
+						`;
+						
+						const compensationHtml = `
+							<h2>Compensation Arrangement</h2>
+							${compensationDetails}
+						`;
+						
+						// Find the agreement output
+						const agreementOutput = document.getElementById('agreementOutput');
+						if (!agreementOutput || agreementOutput.classList.contains('hidden')) {
+							return;
+						}
+						
+						// Find where to insert our HTML
+						const responsibilitiesHeader = Array.from(agreementOutput.querySelectorAll('h2')).find(h => 
+							h.textContent === 'Responsibilities' || h.textContent.includes('Responsibilities')
+						);
+						
+						if (responsibilitiesHeader) {
+							// Create temporary elements
+							const spaceDiv = document.createElement('div');
+							spaceDiv.innerHTML = spaceHtml;
+							
+							const compensationDiv = document.createElement('div');
+							compensationDiv.innerHTML = compensationHtml;
+							
+							// Insert before responsibilities
+							agreementOutput.insertBefore(compensationDiv, responsibilitiesHeader);
+							agreementOutput.insertBefore(spaceDiv, compensationDiv);
+						} else {
+							// As a fallback, append to the purpose section
+							const purposeHeader = Array.from(agreementOutput.querySelectorAll('h2')).find(h => 
+								h.textContent === 'Purpose'
+							);
+							
+							if (purposeHeader) {
+								// Find the next header after purpose
+								let nextElement = purposeHeader.nextElementSibling;
+								while (nextElement && nextElement.tagName !== 'H2') {
+									nextElement = nextElement.nextElementSibling;
+								}
+								
+								// Create our elements
+								const spaceDiv = document.createElement('div');
+								spaceDiv.innerHTML = spaceHtml;
+								
+								const compensationDiv = document.createElement('div');
+								compensationDiv.innerHTML = compensationHtml;
+								
+								// Insert after purpose but before next section
+								if (nextElement) {
+									agreementOutput.insertBefore(compensationDiv, nextElement);
+									agreementOutput.insertBefore(spaceDiv, compensationDiv);
+								} else {
+									// Just append at the end before signatures
+									const signatureSection = agreementOutput.querySelector('div[style*="margin-top: 50px"]');
+									if (signatureSection) {
+										agreementOutput.insertBefore(compensationDiv, signatureSection);
+										agreementOutput.insertBefore(spaceDiv, compensationDiv);
+									} else {
+										// Last resort - append to end
+										agreementOutput.appendChild(spaceDiv);
+										agreementOutput.appendChild(compensationDiv);
+									}
+								}
+							} else {
+								// Extreme fallback - just append to end
+								agreementOutput.innerHTML += spaceHtml + compensationHtml;
+							}
+						}
+						
+						// Enable the print button
+						const printBtn = document.getElementById('downloadPDF');
+						if (printBtn) {
+							printBtn.classList.remove('hidden');
+						}
+					};
+				}
+			}, 200);
 		}
-	};
-
-	// Helper function to find elements by text content (since we don't have jQuery)
-	Element.prototype.textContentContains = function(text) {
-		return this.textContent.indexOf(text) !== -1;
 	};
 
 	// Initialize the Property Sharing Module
@@ -1288,6 +1467,7 @@
 			PropertySharingModule.initialize();
 		}, 500);
 	});
+
 	</script>
 	
 </body>
