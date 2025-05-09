@@ -769,7 +769,7 @@
     </script>
 
 	<script>
-	// Property Sharing Extension Module - Improved Version
+	// Complete Property Sharing Extension Module with navigation fixes
 	const PropertySharingModule = {
 		initialize: function() {
 			// Restructure existing tabs
@@ -780,6 +780,8 @@
 			this.improveTabNavigation();
 			// Add print functionality
 			this.addPrintToPdfFunction();
+			// Fix navigation flow
+			this.fixNavigationSequence();
 		},
 		
 		restructureTabs: function() {
@@ -1070,6 +1072,80 @@
 					setupTab.click();
 				}
 			}, 100);
+		},
+		
+		fixNavigationSequence: function() {
+			// The correct tab sequence
+			const correctSequence = [
+				{ tab: 'setup', next: 'details', prev: null },
+				{ tab: 'details', next: 'space', prev: 'setup' },
+				{ tab: 'space', next: 'compensation', prev: 'details' },
+				{ tab: 'compensation', next: 'conditions', prev: 'space' },
+				{ tab: 'conditions', next: 'preview', prev: 'compensation' },
+				{ tab: 'preview', next: null, prev: 'conditions' }
+			];
+			
+			// Apply the correct sequence to all navigation buttons
+			correctSequence.forEach(item => {
+				const tabContent = document.getElementById(item.tab + 'Tab');
+				if (tabContent) {
+					// Fix Next buttons
+					if (item.next) {
+						const nextButtons = tabContent.querySelectorAll('.next-tab');
+						nextButtons.forEach(button => {
+							button.setAttribute('data-next', item.next);
+							
+							// Update button text
+							let nextTabName = '';
+							if (item.next === 'details') nextTabName = 'Details';
+							else if (item.next === 'space') nextTabName = 'Space Details';
+							else if (item.next === 'compensation') nextTabName = 'Compensation';
+							else if (item.next === 'conditions') nextTabName = 'Conditions';
+							else if (item.next === 'preview') nextTabName = 'Preview';
+							
+							button.textContent = 'Continue to ' + nextTabName;
+						});
+					}
+					
+					// Fix Prev buttons
+					if (item.prev) {
+						const prevButtons = tabContent.querySelectorAll('.prev-tab');
+						prevButtons.forEach(button => {
+							button.setAttribute('data-prev', item.prev);
+							
+							// Update button text
+							let prevTabName = '';
+							if (item.prev === 'setup') prevTabName = 'Setup';
+							else if (item.prev === 'details') prevTabName = 'Details';
+							else if (item.prev === 'space') prevTabName = 'Space Details';
+							else if (item.prev === 'compensation') prevTabName = 'Compensation';
+							else if (item.prev === 'conditions') prevTabName = 'Conditions';
+							
+							button.textContent = 'Back to ' + prevTabName;
+						});
+					}
+				}
+			});
+			
+			// Ensure navigation from Details goes to Space instead of Conditions
+			const detailsTab = document.getElementById('detailsTab');
+			if (detailsTab) {
+				const continueButton = detailsTab.querySelector('.next-tab');
+				if (continueButton) {
+					continueButton.setAttribute('data-next', 'space');
+					continueButton.textContent = 'Continue to Space Details';
+				}
+			}
+			
+			// Update the back button in Conditions to go to Compensation instead of Details
+			const conditionsTab = document.getElementById('conditionsTab');
+			if (conditionsTab) {
+				const backButton = conditionsTab.querySelector('.prev-tab');
+				if (backButton) {
+					backButton.setAttribute('data-prev', 'compensation');
+					backButton.textContent = 'Back to Compensation';
+				}
+			}
 		},
 		
 		addPrintToPdfFunction: function() {
@@ -1420,7 +1496,7 @@
 								while (nextElement && nextElement.tagName !== 'H2') {
 									nextElement = nextElement.nextElementSibling;
 								}
-								
+
 								// Create our elements
 								const spaceDiv = document.createElement('div');
 								spaceDiv.innerHTML = spaceHtml;
@@ -1466,7 +1542,7 @@
 		setTimeout(() => {
 			PropertySharingModule.initialize();
 		}, 500);
-	});
+	});							
 
 	</script>
 	
