@@ -1318,17 +1318,14 @@ function createProductCard(product) {
         card.setAttribute('data-delivery', 'digital');
     }
     
-    // Determine category class
-    let categoryClass = 'category3'; // Default to hybrid/category3
+    // Match product type to category
+    let categoryClass = 'category3'; // Default
     
-    // Find which category this product type matches
-    if (product.type === siteConfig.terminology.category1 || 
-        product.type.toLowerCase().includes(siteConfig.terminology.category1.toLowerCase())) {
+    if (product.type === siteConfig.terminology.category1) {
         categoryClass = 'category1';
-    } else if (product.type === siteConfig.terminology.category2 || 
-               product.type.toLowerCase().includes(siteConfig.terminology.category2.toLowerCase())) {
+    } else if (product.type === siteConfig.terminology.category2) {
         categoryClass = 'category2';
-    } else {
+    } else if (product.type === siteConfig.terminology.category3) {
         categoryClass = 'category3';
     }
     
@@ -1786,45 +1783,38 @@ function openCartModal() {
 }
 
 // Filter buttons
+// Filter buttons
 function setupFilterButtons() {
-	document.querySelectorAll('.filter-button').forEach(button => {
-		button.addEventListener('click', function() {
-			// Remove active class from all buttons
-			document.querySelectorAll('.filter-button').forEach(btn => {
-				btn.classList.remove('active');
-			});
-			
-			// Add active class to clicked button
-			this.classList.add('active');
-			
-			// Get filter value
-			const filter = this.getAttribute('data-filter');
-			const siteConfig = window.siteConfig;
-			
-			// Show/hide product cards based on filter
-			document.querySelectorAll('.product-card').forEach(card => {
-				const product = window.products[card.getAttribute('data-product')];
-				
-				if (filter === 'all') {
-					card.style.display = 'block';
-				} else if (filter === 'category1' && 
-						  (product.type === siteConfig.terminology.category1 || 
-						   product.type.toLowerCase().includes(siteConfig.terminology.category1.toLowerCase()))) {
-					card.style.display = 'block';
-				} else if (filter === 'category2' && 
-						  (product.type === siteConfig.terminology.category2 || 
-						   product.type.toLowerCase().includes(siteConfig.terminology.category2.toLowerCase()))) {
-					card.style.display = 'block';
-				} else if (filter === 'category3' && 
-						  (product.type === siteConfig.terminology.category3 || 
-						   product.type.toLowerCase().includes(siteConfig.terminology.category3.toLowerCase()))) {
-					card.style.display = 'block';
-				} else {
-					card.style.display = 'none';
-				}
-			});
-		});
-	});
+    document.querySelectorAll('.filter-button').forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            document.querySelectorAll('.filter-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Get filter value
+            const filter = this.getAttribute('data-filter');
+            const siteConfig = window.siteConfig;
+            
+            // Show/hide product cards based on filter
+            document.querySelectorAll('.product-card').forEach(card => {
+                if (filter === 'all') {
+                    card.style.display = 'block';
+                } else {
+                    // Get the category attribute directly
+                    const category = card.getAttribute('data-category');
+                    if (category === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        });
+    });
 }
 	
 // Set up event listeners
