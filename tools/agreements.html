@@ -776,6 +776,8 @@
 			this.createTab();
 			// Initialize event listeners
 			this.initializeEvents();
+			// Ensure proper tab navigation
+			this.improveTabNavigation();
 		},
 		
 		createTab: function() {
@@ -950,6 +952,52 @@
 			conditionsTabContent.parentNode.insertBefore(propertyTabContent, conditionsTabContent);
 		},
 		
+		improveTabNavigation: function() {
+			// Override the existing tab click handlers
+			const tabs = document.querySelectorAll('.tab');
+			tabs.forEach(tab => {
+				// Remove existing event listeners
+				const newTab = tab.cloneNode(true);
+				tab.parentNode.replaceChild(newTab, tab);
+				
+				// Add our new event handler
+				newTab.addEventListener('click', () => {
+					const tabName = newTab.getAttribute('data-tab');
+					
+					// Update active tab
+					tabs.forEach(t => t.classList.remove('active'));
+					newTab.classList.add('active');
+					
+					// Hide all tab content
+					document.querySelectorAll('.tab-content').forEach(content => {
+						content.classList.remove('active');
+					});
+					
+					// Show only the active tab content
+					document.getElementById(tabName + 'Tab').classList.add('active');
+				});
+			});
+			
+			// Also improve the next/prev buttons
+			document.querySelectorAll('.next-tab, .prev-tab').forEach(button => {
+				// Remove existing event listeners
+				const newButton = button.cloneNode(true);
+				button.parentNode.replaceChild(newButton, button);
+				
+				// Add our new event handler
+				newButton.addEventListener('click', () => {
+					const nextTab = newButton.getAttribute('data-next');
+					const prevTab = newButton.getAttribute('data-prev');
+					const targetTab = nextTab || prevTab;
+					
+					if (targetTab) {
+						// Simulate a click on the target tab
+						document.querySelector(`.tab[data-tab="${targetTab}"]`).click();
+					}
+				});
+			});
+		},
+		
 		initializeEvents: function() {
 			// Wait for DOM to be ready with the new elements
 			setTimeout(() => {
@@ -1095,55 +1143,57 @@
 				
 				document.getElementById('generatePreview').onclick = function() {
 					// Call the original function first
-					originalGeneratePreview.call(this);
+					if (originalGeneratePreview) {
+						originalGeneratePreview.call(this);
+					}
 					
 					// Check if property tab exists and has been configured
 					if (!document.getElementById('propertyTab')) return;
 					
 					// Get property details
-					const spaceType = document.getElementById('spaceType')?.value;
-					const spaceDescription = document.getElementById('spaceDescription')?.value;
-					const spaceAccess = document.getElementById('spaceAccess')?.value;
-					const compensationType = document.getElementById('compensationType')?.value;
+					const spaceType = document.getElementById('spaceType')?.value || 'Not specified';
+					const spaceDescription = document.getElementById('spaceDescription')?.value || 'Not specified';
+					const spaceAccess = document.getElementById('spaceAccess')?.value || 'Not specified';
+					const compensationType = document.getElementById('compensationType')?.value || 'Not specified';
 					
 					// Get compensation details based on type
 					let compensationDetails = '';
 					if (compensationType === 'monetary') {
-						const amount = document.getElementById('paymentAmount')?.value;
-						const currency = document.getElementById('paymentCurrency')?.value;
-						const frequency = document.getElementById('paymentFrequency')?.value;
-						const dueDate = document.getElementById('paymentDueDate')?.value;
-						const method = document.getElementById('paymentMethod')?.value;
+						const amount = document.getElementById('paymentAmount')?.value || '0';
+						const currency = document.getElementById('paymentCurrency')?.value || 'USD';
+						const frequency = document.getElementById('paymentFrequency')?.value || 'Not specified';
+						const dueDate = document.getElementById('paymentDueDate')?.value || 'Not specified';
+						const method = document.getElementById('paymentMethod')?.value || 'Not specified';
 						
 						compensationDetails = `
 							<p><strong>Type:</strong> Monetary</p>
-							<p><strong>Amount:</strong> ${amount || '0'} ${currency || 'USD'}</p>
-							<p><strong>Frequency:</strong> ${frequency || 'Not specified'}</p>
-							<p><strong>Due Date:</strong> ${dueDate || 'Not specified'}</p>
-							<p><strong>Payment Method:</strong> ${method || 'Not specified'}</p>
+							<p><strong>Amount:</strong> ${amount} ${currency}</p>
+							<p><strong>Frequency:</strong> ${frequency}</p>
+							<p><strong>Due Date:</strong> ${dueDate}</p>
+							<p><strong>Payment Method:</strong> ${method}</p>
 						`;
 					} else if (compensationType === 'work') {
-						const workDesc = document.getElementById('workDescription')?.value;
-						const workHours = document.getElementById('workHours')?.value;
+						const workDesc = document.getElementById('workDescription')?.value || 'Not specified';
+						const workHours = document.getElementById('workHours')?.value || 'Not specified';
 						
 						compensationDetails = `
 							<p><strong>Type:</strong> Services/Work Exchange</p>
-							<p><strong>Work Description:</strong> ${workDesc || 'Not specified'}</p>
-							<p><strong>Hours/Frequency:</strong> ${workHours || 'Not specified'}</p>
+							<p><strong>Work Description:</strong> ${workDesc}</p>
+							<p><strong>Hours/Frequency:</strong> ${workHours}</p>
 						`;
 					} else if (compensationType === 'barter') {
-						const barterDesc = document.getElementById('barterDescription')?.value;
+						const barterDesc = document.getElementById('barterDescription')?.value || 'Not specified';
 						
 						compensationDetails = `
 							<p><strong>Type:</strong> Barter/Trade</p>
-							<p><strong>Description:</strong> ${barterDesc || 'Not specified'}</p>
+							<p><strong>Description:</strong> ${barterDesc}</p>
 						`;
 					} else if (compensationType === 'mixed') {
-						const mixedDesc = document.getElementById('mixedDescription')?.value;
+						const mixedDesc = document.getElementById('mixedDescription')?.value || 'Not specified';
 						
 						compensationDetails = `
 							<p><strong>Type:</strong> Mixed Arrangement</p>
-							<p><strong>Description:</strong> ${mixedDesc || 'Not specified'}</p>
+							<p><strong>Description:</strong> ${mixedDesc}</p>
 						`;
 					} else if (compensationType === 'free') {
 						compensationDetails = `
@@ -1164,18 +1214,18 @@
 					});
 					
 					// Get other property details
-					const housingRules = document.getElementById('housingRules')?.value;
-					const visitorsPolicy = document.getElementById('visitorsPolicy')?.value;
-					const moveOutProcess = document.getElementById('moveOutProcess')?.value;
+					const housingRules = document.getElementById('housingRules')?.value || 'Not specified';
+					const visitorsPolicy = document.getElementById('visitorsPolicy')?.value || 'Not specified';
+					const moveOutProcess = document.getElementById('moveOutProcess')?.value || 'Not specified';
 					
 					// Create space sharing section HTML
 					const propertyHtml = `
 						<h2>Space Sharing Details</h2>
 						
 						<h3>Space Information</h3>
-						<p><strong>Type:</strong> ${spaceType || 'Not specified'}</p>
-						<p><strong>Description:</strong> ${spaceDescription || 'Not specified'}</p>
-						<p><strong>Access Details:</strong> ${spaceAccess || 'Not specified'}</p>
+						<p><strong>Type:</strong> ${spaceType}</p>
+						<p><strong>Description:</strong> ${spaceDescription}</p>
+						<p><strong>Access Details:</strong> ${spaceAccess}</p>
 						
 						<h3>Compensation Arrangement</h3>
 						${compensationDetails}
@@ -1184,36 +1234,52 @@
 						${maintenanceHtml ? `<ul>${maintenanceHtml}</ul>` : '<p>No maintenance responsibilities specified</p>'}
 						
 						<h3>Space Usage Guidelines</h3>
-						<p>${housingRules || 'Not specified'}</p>
+						<p>${housingRules}</p>
 						
 						<h3>Visitors Policy</h3>
-						<p>${visitorsPolicy || 'Not specified'}</p>
+						<p>${visitorsPolicy}</p>
 						
 						<h3>Utilities & Amenities</h3>
 						${utilitiesHtml ? `<ul>${utilitiesHtml}</ul>` : '<p>No utilities specified</p>'}
 						
 						<h3>Space Return Process</h3>
-						<p>${moveOutProcess || 'Not specified'}</p>
+						<p>${moveOutProcess}</p>
 					`;
 					
 					// Find where to insert the property HTML in the agreement output
 					const agreementOutput = document.getElementById('agreementOutput');
-					const responsibilitiesHeader = agreementOutput.querySelector('h2:contains("Responsibilities")');
+					if (!agreementOutput) return;
 					
 					// Create a temporary element to hold the property HTML
 					const tempDiv = document.createElement('div');
 					tempDiv.innerHTML = propertyHtml;
 					
+					// Find the responsibilities section to insert before
+					const responsibilitiesHeader = Array.from(agreementOutput.querySelectorAll('h2')).find(h => 
+						h.textContent === 'Responsibilities'
+					);
+					
 					// Insert before responsibilities section
 					if (responsibilitiesHeader) {
-						responsibilitiesHeader.parentNode.insertBefore(tempDiv, responsibilitiesHeader);
+						agreementOutput.insertBefore(tempDiv, responsibilitiesHeader);
 					} else {
-						// If no responsibilities header, append to the end
-						agreementOutput.insertBefore(tempDiv, agreementOutput.querySelector('div[style="margin-top: 50px;"]'));
+						// If no responsibilities header, append to the end before signatures
+						const signatureSection = agreementOutput.querySelector('div[style*="margin-top: 50px"]');
+						if (signatureSection) {
+							agreementOutput.insertBefore(tempDiv, signatureSection);
+						} else {
+							// As a last resort, append to the end
+							agreementOutput.appendChild(tempDiv);
+						}
 					}
 				};
 			}, 100);
 		}
+	};
+
+	// Helper function to find elements by text content (since we don't have jQuery)
+	Element.prototype.textContentContains = function(text) {
+		return this.textContent.indexOf(text) !== -1;
 	};
 
 	// Initialize the Property Sharing Module
@@ -1222,11 +1288,6 @@
 			PropertySharingModule.initialize();
 		}, 500);
 	});
-
-	// Helper function to find elements by text content
-	jQuery.expr[':'].contains = function(a, i, m) {
-		return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
-	};
 	</script>
 	
 </body>
