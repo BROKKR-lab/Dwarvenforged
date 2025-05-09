@@ -417,6 +417,23 @@ function formatTextWithParagraphs(text) {
         .join('');
 }
 
+// Function to initialize hover images
+function initializeHoverImages() {
+    // Find all product cards with hover images
+    document.querySelectorAll('.product-card.has-hover-image').forEach(card => {
+        const hoverImage = card.getAttribute('data-hover-image');
+        if (hoverImage) {
+            // Set the background image for the hover effect
+            card.style.setProperty('--hover-image', `url('${hoverImage}')`);
+            // Update the ::after pseudo-element with the hover image
+            const style = document.createElement('style');
+            const cardId = card.getAttribute('data-product');
+            style.textContent = `.product-card[data-product="${cardId}"]::after { background-image: url('${hoverImage}'); }`;
+            document.head.appendChild(style);
+        }
+    });
+}
+
 function initializeSite() {		
     // Check if siteConfig exists
     if (!window.siteConfig) {
@@ -456,6 +473,8 @@ function initializeSite() {
         
         // Render product cards
         renderProductCards();
+		// Initialize hover images for products
+		initializeHoverImages();		
         setupEventListeners();
         addDigitalProductStyles();
     } else {
@@ -1306,7 +1325,7 @@ function renderProductCards() {
     });
 }
 
-// Create product card element 
+// Function to create product card element
 function createProductCard(product) {
     const siteConfig = window.siteConfig;
     const card = document.createElement('div');
@@ -1331,24 +1350,25 @@ function createProductCard(product) {
     
     card.setAttribute('data-category', categoryClass);
 
-	// Add click handler for available products if shop is enabled
-	const shopEnabled = siteConfig.advanced && siteConfig.advanced.enableShop !== false;
+    // Handle hover image functionality if product has additional images
+    if (product.enableHoverImage && product.additionalImages && product.additionalImages.length > 0) {
+        // Get the hover image (or default to first additional image)
+        let hoverImagePath = product.hoverImage || product.additionalImages[0];
+        
+        // Add img/ prefix if needed
+        if (hoverImagePath && !hoverImagePath.startsWith('img/') && !hoverImagePath.startsWith('/') && !hoverImagePath.startsWith('http')) {
+            hoverImagePath = 'img/' + hoverImagePath;
+        }
+        
+        // Set a custom CSS style for this specific card
+        const styleEl = document.createElement('style');
+        styleEl.textContent = `.product-card[data-product="${product.id}"]::after { background-image: url("${hoverImagePath}"); }`;
+        document.head.appendChild(styleEl);
+        
+        // Add class to enable hover effect
+        card.classList.add('has-hover-image');
+    }
 
-	if (product.status === 'available') {
-		card.addEventListener('click', function() {
-			if (shopEnabled) {
-				openProductModal(product);
-			} else if (product.delivery === 'digital' && product.digitalContent) {
-				// For digital products when shop is disabled, show the modal with the digital content link
-				openProductModalReadOnly(product);
-			} else {
-				// For physical products when shop is disabled, just show product details
-				// without the ability to add to cart
-				openProductModalReadOnly(product);
-			}
-		});
-	}
-    
     // Add unavailable class for non-available products
     if (product.status !== 'available') {
         card.classList.add('unavailable');

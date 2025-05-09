@@ -27,7 +27,7 @@
     },
     "background": {
         "image": "",
-        "sectionImage": "metal-texture.jpg"
+        "sectionImage": ""
     },
     "fonts": {
         "heading": "'Oswald', sans-serif",
@@ -58,8 +58,8 @@
         }
     },
     "strainTree": {
-        "enabled": true,
-        "title": "Strain Genetics Explorer",
+        "enabled": false,
+        "title": "Genetics Explorer",
         "description": "Explore the genetic relationships between our strains.",
         "dataPath": "data/straindata.json"
     },
@@ -136,11 +136,14 @@
                 "delivery": "physical",
                 "digitalContent": "",
                 "image": "strains/dwarf-hammer.jpg",
-                "additionalImages": [],
+                "additionalImages": [
+                    "detail1-1.jpg"
+                ],
                 "description": "Our flagship strain, Dwarf Hammer hits with the force of a dwarven smithing hammer. This indica-dominant powerhouse produces dense, resin-covered nuggets with a knockout effect.",
                 "variety": "Autoflower",
                 "rating": "24-26% THC",
                 "origin": "Gorilla Glue #4 × Anvil #8 FEM F7",
+                "rarity": "Rare",
                 "details": "Flowering Time: 12 weeks\nStretch: Medium\nYield: High\nHeight: Medium\nTHC: 24-26%\nCBD: 0.1%\nEffects: Relaxing, Sedative, Euphoric, Pain Relief\nFlavors: Earthy, Pine",
                 "notes": "Our flagship strain, perfect for evening use and pain management. Easy to grow with exceptional yields.",
                 "packOptions": [
@@ -159,7 +162,9 @@
                         "regularPrice": 320,
                         "salePrice": 280
                     }
-                ]
+                ],
+                "enableHoverImage": true,
+                "hoverImage": "detail1-1.jpg"
             },
             "thors-hammer": {
                 "id": "thors-hammer",
@@ -450,15 +455,15 @@
                 "type": "Anvil Series",
                 "status": "available",
                 "delivery": "digital",
-                "digitalContent": "https://www.dwarvenforged.com/growguide/dwarvenforgedgrowguide.html",
+                "digitalContent": "https://www.sitepackages.net/PUB/DWARVENFORGED/growguide/dwarvenforgedgrowguide.html",
                 "image": "growing-guide.jpg",
                 "additionalImages": [],
-                "description": "Our complete growing guide with tips and tricks from the Dwarven master growers. Learn how to maximize yields and potency with our step-by-step instructions.\n[A work in progress]",
+                "description": "Our complete growing guide with tips and tricks from the Dwarven master growers. Learn how to maximize yields and potency with our step-by-step instructions.",
                 "variety": "Comprehensive Guide",
                 "rating": "5/5",
                 "origin": "DwarvenForged Research",
                 "details": "Many pages of growing information including:\n- Nutrient schedules\n- Lighting tips\n- Environmental control\n- Troubleshooting common issues",
-                "notes": "Digital product - instant access. Perfect companion for our genetics.",
+                "notes": "Digital product - instant access after purchase. Perfect companion for our genetics.",
                 "packOptions": [
                     {
                         "size": "Single Guide",
