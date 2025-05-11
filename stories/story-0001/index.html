@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dwarven Forge Stories - Audio Player Demo</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f9f7f4;
+    }
+    
+    h1 {
+      color: #5b3a29;
+      border-bottom: 2px solid #bb8c65;
+      padding-bottom: 10px;
+    }
+    
+    .story-section {
+      margin-bottom: 30px;
+      position: relative;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .story-section.active {
+      background-color: #f8f2e9;
+      border-left: 4px solid #bb8c65;
+    }
+    
+    .section-title {
+      font-size: 0.8em;
+      color: #bb8c65;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    
+    hr {
+      border: none;
+      height: 1px;
+      background-color: #ddd;
+      margin: 20px 0;
+    }
+    
+    .audio-controls {
+      position: sticky;
+      top: 10px;
+      background-color: #5b3a29;
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 100;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+    
+    .audio-controls button {
+      background-color: transparent;
+      border: 1px solid white;
+      color: white;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .audio-controls button:hover {
+      background-color: rgba(255,255,255,0.2);
+    }
+    
+    .progress-container {
+      flex-grow: 1;
+      height: 8px;
+      background-color: rgba(255,255,255,0.2);
+      border-radius: 4px;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background-color: #bb8c65;
+      border-radius: 4px;
+      width: 0;
+    }
+    
+    .section-indicator {
+      position: absolute;
+      background-color: rgba(255,255,255,0.8);
+      width: 2px;
+      height: 100%;
+    }
+    
+    .time-display {
+      font-size: 0.8em;
+      min-width: 80px;
+      text-align: center;
+    }
+    
+    .listen-button {
+      display: inline-flex;
+      align-items: center;
+      background-color: #5b3a29;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 0.8em;
+      margin-top: 10px;
+      transition: all 0.3s ease;
+    }
+    
+    .listen-button:hover {
+      background-color: #7b5a49;
+    }
+    
+    .listen-icon {
+      margin-right: 5px;
+    }
+    
+    .section-title-sticky {
+      margin: 0 20px;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 200px;
+    }
+    
+    @media (max-width: 600px) {
+      .section-title-sticky {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>The Forge Root Flame</h1>
+  
+  <div class="audio-controls">
+    <button id="play-pause">▶</button>
+    <div class="section-title-sticky">Beginning</div>
+    <div class="progress-container" id="progress-container">
+      <div class="progress-bar" id="progress-bar"></div>
+      <!-- Section markers will be added here dynamically -->
+    </div>
+    <div class="time-display">00:00 / 00:00</div>
+  </div>
+  
+  <div class="story-section" data-section="1">
+    <div class="section-title">Beginning</div>
+    <p>There were fires beneath the fires, and Brokkr knew them all.</p>
+    <p>Not just the bellows-fed flames of forgework, but older blazes—primordial ones—that pulsed deep under Svartalfheim. The kind of flame that never flickered, that remembered the making of the Nine Realms. The kind that spoke, if you listened with calloused hands.</p>
+    <p>Brokkr listened.</p>
+    <p>His forge was carved into the spine of the earth itself. It had no doors, no roof, only the pulse of the root-veins of Yggdrasil and the thrum of old magic. It was not a place mortals found, though gods had come more than once, humbled and half-afraid. Even Odin had walked barefoot to Brokkr's anvil, asking for weapons.</p>
+    <p>But this was not a tale of weapons.</p>
+    <p>This was the tale of <em>seeds</em>—and the price of giving life to what the gods had left to die.</p>
+    <button class="listen-button" data-section="1">
+      <span class="listen-icon">🔊</span> Listen to this section
+    </button>
+  </div>
+  
+  <hr>
+  
+  <div class="story-section" data-section="2">
+    <div class="section-title">The Call</div>
+    <p>It began with silence.</p>
+    <p>Not the kind found in forests or the quiet after war—but the silence that followed the <em>vanishing</em>. A blight had crept from Helheim, slow and rootless, leeching green from Midgard. Whole groves fell still, crops withered in the womb. Even Idunn's orchard felt it—her apples dulled, their skins clouded.</p>
+    <p>The gods sent word. Odin's raven, Muninn, arrived with no poetry in its beak, only urgency. A single line: <strong>"The World Tree withers. We need the craftsman of living flame."</strong></p>
+    <p>Brokkr spat iron dust and answered without speech. He picked up his hammer.</p>
+    <button class="listen-button" data-section="2">
+      <span class="listen-icon">🔊</span> Listen to this section
+    </button>
+  </div>
+  
+  <hr>
+  
+  <div class="story-section" data-section="3">
+    <div class="section-title">The Forge</div>
+    <p>The forge had made many things—Mjölnir, Gungnir, Gullinbursti—but this would be no metal. This was seedcraft. Older, harder.</p>
+    <p>He walked to the Vault of Veins, where deeproot embers touched stone. There, the essence of fallen life still lingered. He gathered ash from the roots of Ask and Embla, the first humans, their dust never truly dead. He pulled water from the breath of Ymir's bones—frozen, then melted, then sung to sleep.</p>
+    <p>Then, with hands blackened with rune-oil, he began to forge the Seed of Renewal.</p>
+    <p>It was not like shaping steel. It <em>fought</em> him—grew and twisted and cracked in his grip. The seed resisted shape because life resists control. He bled on it. Breathed it. Watched as the golden core formed not from heat, but from memory—of forests unborn, of beasts yet to graze, of wilds untouched.</p>
+    <p>Each strike of his hammer echoed not metal, but heartbeat.</p>
+    <button class="listen-button" data-section="3">
+      <span class="listen-icon">🔊</span> Listen to this section
+    </button>
+  </div>
+  
+  <hr>
+  
+  <div class="story-section" data-section="4">
+    <div class="section-title">Family</div>
+    <p>His wife, <strong>Elri</strong>, watched in silence, her braid catching sparks as she stitched containment runes into woven root-shells. She was no stranger to magic—once a sap-witch of Vanaheim, before she gave it up to raise their child beyond war and prophecy. Still, she knew the price of this work.</p>
+    <p>The seed would grow life—but it would take <em>death</em> to finish it.</p>
+    <p>"You can't give all of yourself," she said.</p>
+    <p>"I won't," he lied.</p>
+    <p>Their daughter, <strong>Nostri</strong>, danced with the sprite-light that came when flame kissed green. She laughed, and Brokkr's hand faltered. Just once.</p>
+    <p>The seed cracked—hairline, silver, but enough.</p>
+    <button class="listen-button" data-section="4">
+      <span class="listen-icon">🔊</span> Listen to this section
+    </button>
+  </div>
+  
+  <hr>
+  
+  <div class="story-section" data-section="5">
+    <div class="section-title">The Trickster</div>
+    <p>Loki came.</p>
+    <p>Of course he did.</p>
+    <p>Drawn to imbalance, that trickster slithered into the forge like smoke, eyes gleaming. "Still playing god, little dwarf?" he grinned.</p>
+    <p>Brokkr ignored him.</p>
+    <p>But Loki saw the crack in the seed, and he smiled wider. "You'll need something more," he said. "Something... borrowed."</p>
+    <p>"No."</p>
+    <p>"It's for her," he whispered, eyes flicking to Nostri. "You'll burn before it's done. Let me help."</p>
+    <p>"No."</p>
+    <p>But Loki was already gone, leaving behind a vial of light caught from the dying star of Muspelheim. It pulsed, slow and angry.</p>
+    <p>Brokkr cursed and threw it into the fire.</p>
+    <p>Then he wept. Quietly, where Elri couldn't hear.</p>
+    <button class="listen-button" data-section="5">
+      <span class="listen-icon">🔊</span> Listen to this section
+    </button>
+  </div>
+  
+  <hr>
+  
+  <div class="story-section" data-section="6">
+    <div class="section-title">The Final Strike</div>
+    <p>He gave the seed its final shape beneath a storm of burning root-sap and molten myth. The forge screamed. Time bled sideways. The walls warped with the pressure of what was being born.</p>
+    <p>Brokkr collapsed before the final strike—but Elri caught the hammer.</p>
+    <p>And when her hands touched the anvil, the forge recognized her.</p>
+    <p>Together, they struck the last blow.</p>
+    <button class="listen-button" data-section="6">
+      <span class="listen-icon">🔊</span> Listen to this section
+    </button>
+  </div>
+  
+  <hr>
+  
+  <div class="story-section" data-section="7">
+    <div class="section-title">Renewal</div>
+    <p>The Seed of Renewal was planted not in soil, but in <strong>the Well of Urd</strong>, beneath the Norns' gaze. It hummed like a heartbeat beneath the realms.</p>
+    <p>And life returned—not all at once, not in some perfect wave of green. But steadily. Secretly. Wisely.</p>
+    <p>The forests remembered their names. The crops fed the starving. Even the sacred grove in Asgard bloomed again, apples sharp with promise.</p>
+    <p>Brokkr did not walk again.</p>
+    <p>He remained in the forge, part of the stone, whispering into root and heat. But his fire still burns—every time a field is reborn, or a tree pushes through ruin.</p>
+    <p>Elri and Nostri tend the living vault now. They never tell the whole story.</p>
+    <p>Only that a craftsman once planted something stronger than steel.</p>
+    <button class="listen-button" data-section="7">
+      <span class="listen-icon">🔊</span> Listen to this section
+    </button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Audio files base URL
+      const audioBaseUrl = 'https://www.dwarvenforged.com/stories/story-0001/';
+      
+      // Create audio element
+      const audio = new Audio();
+      let currentSection = 1;
+      let isPlaying = false;
+      
+      // Get DOM elements
+      const playPauseButton = document.getElementById('play-pause');
+      const progressBar = document.getElementById('progress-bar');
+      const progressContainer = document.getElementById('progress-container');
+      const timeDisplay = document.querySelector('.time-display');
+      const sections = document.querySelectorAll('.story-section');
+      const sectionTitleSticky = document.querySelector('.section-title-sticky');
+      
+      // Add section markers to progress bar
+      const totalSections = sections.length;
+      for (let i = 1; i < totalSections; i++) {
+        const marker = document.createElement('div');
+        marker.className = 'section-indicator';
+        marker.style.left = `${(i / totalSections) * 100}%`;
+        progressContainer.appendChild(marker);
+      }
+      
+      // Format time function
+      function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+      }
+      
+      // Update progress function
+      function updateProgress() {
+        if (audio.duration) {
+          const percentage = (audio.currentTime / audio.duration) * 100;
+          progressBar.style.width = `${percentage}%`;
+          timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+        }
+      }
+      
+      // Load and play section function
+      function loadAndPlaySection(sectionNumber) {
+        // Update UI
+        sections.forEach(section => section.classList.remove('active'));
+        const activeSection = document.querySelector(`.story-section[data-section="${sectionNumber}"]`);
+        activeSection.classList.add('active');
+        
+        // Scroll to section (with a slight offset for the sticky player)
+        activeSection.scrollIntoView({behavior: 'smooth', block: 'start'});
+        window.scrollBy(0, -100); // Offset for sticky player
+        
+        // Update sticky title
+        sectionTitleSticky.textContent = activeSection.querySelector('.section-title').textContent;
+        
+        // Update audio
+        currentSection = sectionNumber;
+        audio.src = `${audioBaseUrl}Part-${String(sectionNumber).padStart(4, '0')}.mp3`;
+        audio.load();
+        
+        // Play audio
+        audio.play()
+          .then(() => {
+            isPlaying = true;
+            playPauseButton.textContent = '❚❚';
+          })
+          .catch(err => {
+            console.error('Error playing audio:', err);
+            playPauseButton.textContent = '▶';
+            isPlaying = false;
+          });
+      }
+      
+      // Play/Pause button event
+      playPauseButton.addEventListener('click', function() {
+        if (isPlaying) {
+          audio.pause();
+          isPlaying = false;
+          playPauseButton.textContent = '▶';
+        } else {
+          if (audio.src) {
+            audio.play();
+            isPlaying = true;
+            playPauseButton.textContent = '❚❚';
+          } else {
+            // If no audio is loaded yet, load the first section
+            loadAndPlaySection(1);
+          }
+        }
+      });
+      
+      // Progress container click event
+      progressContainer.addEventListener('click', function(e) {
+        if (audio.duration) {
+          const clickPosition = (e.offsetX / progressContainer.offsetWidth);
+          audio.currentTime = clickPosition * audio.duration;
+        }
+      });
+      
+      // Listen to this section buttons
+      document.querySelectorAll('.listen-button').forEach(button => {
+        button.addEventListener('click', function() {
+          const sectionNumber = parseInt(this.getAttribute('data-section'));
+          loadAndPlaySection(sectionNumber);
+        });
+      });
+      
+      // Audio events
+      audio.addEventListener('timeupdate', updateProgress);
+      
+      audio.addEventListener('ended', function() {
+        // Move to next section if available
+        if (currentSection < totalSections) {
+          loadAndPlaySection(currentSection + 1);
+        } else {
+          // Reset play button state
+          isPlaying = false;
+          playPauseButton.textContent = '▶';
+        }
+      });
+      
+      // Initial setup - preload first audio file
+      audio.preload = 'metadata';
+      audio.src = `${audioBaseUrl}Part-0001.mp3`;
+    });
+  </script>
+</body>
+</html>
