@@ -58,7 +58,7 @@
         }
     },
     "strainTree": {
-        "enabled": false,
+        "enabled": true,
         "title": "Strain Genetics Explorer",
         "description": "Explore the genetic relationships between our strains.",
         "dataPath": "data/straindata.json"
