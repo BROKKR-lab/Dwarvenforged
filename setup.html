@@ -3558,6 +3558,18 @@ document.createElement = function(tagName) {
 							}
 						});
 						
+						// Explicitly save background image fields to ensure they're captured
+						const backgroundImageField = document.getElementById('background-image');
+						const sectionImageField = document.getElementById('section-image');
+						
+						if (backgroundImageField) {
+							formValues['background-image'] = backgroundImageField.value;
+						}
+						
+						if (sectionImageField) {
+							formValues['section-image'] = sectionImageField.value;
+						}
+						
 						// Save navigation items separately
 						const navItems = [];
 						document.querySelectorAll('#nav-items .nav-item').forEach(item => {
@@ -3613,6 +3625,22 @@ document.createElement = function(tagName) {
 						input.addEventListener('input', saveFormValues);
 					});
 					
+					// Add specific listeners for background image fields to ensure they're saved
+					const backgroundImageField = document.getElementById('background-image');
+					const sectionImageField = document.getElementById('section-image');
+					
+					if (backgroundImageField) {
+						backgroundImageField.addEventListener('change', saveFormValues);
+						backgroundImageField.addEventListener('input', saveFormValues);
+						backgroundImageField.addEventListener('blur', saveFormValues); // Save on field blur too
+					}
+					
+					if (sectionImageField) {
+						sectionImageField.addEventListener('change', saveFormValues);
+						sectionImageField.addEventListener('input', saveFormValues);
+						sectionImageField.addEventListener('blur', saveFormValues); // Save on field blur too
+					}
+					
 					// Handle the preset theme selection
 					document.querySelectorAll('.preset-theme').forEach(theme => {
 						theme.addEventListener('click', function() {
@@ -3651,6 +3679,23 @@ document.createElement = function(tagName) {
 						const formValues = JSON.parse(savedValues);
 						console.log('Loading saved configuration');
 						
+						// Explicitly handle background and texture fields first to ensure they're loaded
+						if (formValues['background-image']) {
+							const backgroundField = document.getElementById('background-image');
+							if (backgroundField) {
+								backgroundField.value = formValues['background-image'];
+								console.log('Loaded background image:', formValues['background-image']);
+							}
+						}
+						
+						if (formValues['section-image']) {
+							const textureField = document.getElementById('section-image');
+							if (textureField) {
+								textureField.value = formValues['section-image'];
+								console.log('Loaded section image:', formValues['section-image']);
+							}
+						}
+						
 						// Loop through saved values and apply them to form elements
 						Object.keys(formValues).forEach(id => {
 							// Handle navigation items separately
@@ -3668,6 +3713,11 @@ document.createElement = function(tagName) {
 							// Handle active theme separately
 							if (id === 'active-theme') {
 								// We'll apply this later
+								return;
+							}
+							
+							// Skip background image fields as we handled them above
+							if (id === 'background-image' || id === 'section-image') {
 								return;
 							}
 							
@@ -4287,6 +4337,12 @@ document.createElement = function(tagName) {
 						safeSetValue('analytics-id', config.advanced.analyticsId);
 					}
 					
+					// Handle background images specifically
+					if (config.background) {
+						safeSetValue('background-image', config.background.image || '');
+						safeSetValue('section-image', config.background.sectionImage || '');
+					}
+	
 					// Navigation items
 					if (config.navigation && config.navigation.length > 0) {
 						loadNavigationItems(config.navigation);
