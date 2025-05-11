@@ -165,7 +165,7 @@
                 ],
                 "enableHoverImage": true,
                 "hoverImage": "detail1-1.jpg",
-                "displayOrder": 4
+                "displayOrder": 3
             },
             "thors-hammer": {
                 "id": "thors-hammer",
@@ -224,7 +224,7 @@
                         "salePrice": 55
                     }
                 ],
-                "displayOrder": 3
+                "displayOrder": 2
             },
             "mountain-forge": {
                 "id": "mountain-forge",
@@ -248,7 +248,7 @@
                         "salePrice": 50
                     }
                 ],
-                "displayOrder": 5
+                "displayOrder": 4
             },
             "ancient-relic": {
                 "id": "ancient-relic",
@@ -272,7 +272,7 @@
                         "salePrice": 75
                     }
                 ],
-                "displayOrder": 6
+                "displayOrder": 5
             },
             "allfather-kush": {
                 "id": "allfather-kush",
@@ -301,7 +301,7 @@
                         "salePrice": 80
                     }
                 ],
-                "displayOrder": 2
+                "displayOrder": 1
             },
             "mythic-sunrise": {
                 "id": "mythic-sunrise",
@@ -390,8 +390,8 @@
                         "salePrice": 100
                     }
                 ],
-                "displayOrder": 10,
-                "hidden": true
+                "displayOrder": 6,
+                "hidden": false
             },
             "mithril-mint": {
                 "id": "mithril-mint",
@@ -415,7 +415,7 @@
                         "salePrice": 65
                     }
                 ],
-                "displayOrder": 11,
+                "displayOrder": 10,
                 "hidden": true
             },
             "dragon-breath": {
@@ -440,7 +440,7 @@
                         "salePrice": 75
                     }
                 ],
-                "displayOrder": 12,
+                "displayOrder": 11,
                 "hidden": true
             },
             "dwarven-gold": {
@@ -465,7 +465,7 @@
                         "salePrice": 80
                     }
                 ],
-                "displayOrder": 13,
+                "displayOrder": 12,
                 "hidden": true
             },
             "growing-guide": {
@@ -490,7 +490,7 @@
                         "salePrice": 20
                     }
                 ],
-                "displayOrder": 1
+                "displayOrder": 13
             },
             "product-1746999759173": {
                 "id": "product-1746999759173",
