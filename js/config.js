@@ -26,8 +26,8 @@
         "text": "#f5f0e6"
     },
     "background": {
-        "image": "hero-bg.jpg",
-        "sectionImage": "metal-texture.jpg"
+        "image": "",
+        "sectionImage": ""
     },
     "fonts": {
         "heading": "'Oswald', sans-serif",
@@ -164,7 +164,8 @@
                     }
                 ],
                 "enableHoverImage": true,
-                "hoverImage": "detail1-1.jpg"
+                "hoverImage": "detail1-1.jpg",
+                "displayOrder": 4
             },
             "thors-hammer": {
                 "id": "thors-hammer",
@@ -197,7 +198,9 @@
                         "regularPrice": 100,
                         "salePrice": 90
                     }
-                ]
+                ],
+                "displayOrder": 7,
+                "hidden": true
             },
             "runefire-haze": {
                 "id": "runefire-haze",
@@ -220,7 +223,8 @@
                         "regularPrice": 60,
                         "salePrice": 55
                     }
-                ]
+                ],
+                "displayOrder": 3
             },
             "mountain-forge": {
                 "id": "mountain-forge",
@@ -243,7 +247,8 @@
                         "regularPrice": 55,
                         "salePrice": 50
                     }
-                ]
+                ],
+                "displayOrder": 5
             },
             "ancient-relic": {
                 "id": "ancient-relic",
@@ -266,7 +271,8 @@
                         "regularPrice": 85,
                         "salePrice": 75
                     }
-                ]
+                ],
+                "displayOrder": 6
             },
             "allfather-kush": {
                 "id": "allfather-kush",
@@ -294,7 +300,8 @@
                         "regularPrice": 90,
                         "salePrice": 80
                     }
-                ]
+                ],
+                "displayOrder": 2
             },
             "mythic-sunrise": {
                 "id": "mythic-sunrise",
@@ -322,7 +329,9 @@
                         "regularPrice": 95,
                         "salePrice": 85
                     }
-                ]
+                ],
+                "displayOrder": 8,
+                "hidden": true
             },
             "lokis-trick": {
                 "id": "lokis-trick",
@@ -350,7 +359,9 @@
                         "regularPrice": 100,
                         "salePrice": 90
                     }
-                ]
+                ],
+                "displayOrder": 9,
+                "hidden": true
             },
             "golem-og": {
                 "id": "golem-og",
@@ -378,7 +389,9 @@
                         "regularPrice": 120,
                         "salePrice": 100
                     }
-                ]
+                ],
+                "displayOrder": 10,
+                "hidden": true
             },
             "mithril-mint": {
                 "id": "mithril-mint",
@@ -401,7 +414,9 @@
                         "regularPrice": 75,
                         "salePrice": 65
                     }
-                ]
+                ],
+                "displayOrder": 11,
+                "hidden": true
             },
             "dragon-breath": {
                 "id": "dragon-breath",
@@ -424,7 +439,9 @@
                         "regularPrice": 85,
                         "salePrice": 75
                     }
-                ]
+                ],
+                "displayOrder": 12,
+                "hidden": true
             },
             "dwarven-gold": {
                 "id": "dwarven-gold",
@@ -447,7 +464,9 @@
                         "regularPrice": 90,
                         "salePrice": 80
                     }
-                ]
+                ],
+                "displayOrder": 13,
+                "hidden": true
             },
             "growing-guide": {
                 "id": "growing-guide",
@@ -470,7 +489,8 @@
                         "regularPrice": 25,
                         "salePrice": 20
                     }
-                ]
+                ],
+                "displayOrder": 1
             }
         }
     },
