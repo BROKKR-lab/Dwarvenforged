@@ -165,7 +165,8 @@
                 ],
                 "enableHoverImage": true,
                 "hoverImage": "detail1-1.jpg",
-                "displayOrder": 3
+                "displayOrder": 3,
+                "hidden": true
             },
             "thors-hammer": {
                 "id": "thors-hammer",
@@ -229,7 +230,7 @@
                 ],
                 "enableHoverImage": true,
                 "hoverImage": "",
-                "hidden": false,
+                "hidden": true,
                 "displayOrder": 2
             },
             "mountain-forge": {
@@ -254,7 +255,8 @@
                         "salePrice": 50
                     }
                 ],
-                "displayOrder": 4
+                "displayOrder": 4,
+                "hidden": true
             },
             "ancient-relic": {
                 "id": "ancient-relic",
@@ -278,7 +280,8 @@
                         "salePrice": 75
                     }
                 ],
-                "displayOrder": 5
+                "displayOrder": 5,
+                "hidden": true
             },
             "allfather-kush": {
                 "id": "allfather-kush",
@@ -312,7 +315,7 @@
                 ],
                 "enableHoverImage": true,
                 "hoverImage": "",
-                "hidden": false,
+                "hidden": true,
                 "displayOrder": 1
             },
             "mythic-sunrise": {
@@ -403,7 +406,7 @@
                     }
                 ],
                 "displayOrder": 6,
-                "hidden": false
+                "hidden": true
             },
             "mithril-mint": {
                 "id": "mithril-mint",
@@ -502,7 +505,7 @@
                         "salePrice": 20
                     }
                 ],
-                "displayOrder": 13
+                "displayOrder": 18
             },
             "product-1746999759173": {
                 "id": "product-1746999759173",
@@ -524,7 +527,117 @@
                 "enableHoverImage": false,
                 "hoverImage": "",
                 "hidden": false,
+                "displayOrder": 19
+            },
+            "product-1747018112345": {
+                "id": "product-1747018112345",
+                "name": "Niflheim",
+                "type": "Anvil Series",
+                "status": "available",
+                "delivery": "physical",
+                "digitalContent": "",
+                "image": "/img/strains/Niflheim-logo.jpg",
+                "additionalImages": [],
+                "description": "Niflheim",
+                "variety": "",
+                "rating": "",
+                "origin": "",
+                "rarity": "",
+                "details": "Niflheim",
+                "notes": "",
+                "packOptions": [],
+                "enableHoverImage": false,
+                "hoverImage": "",
+                "hidden": false,
+                "displayOrder": 13
+            },
+            "product-1747018175265": {
+                "id": "product-1747018175265",
+                "name": "Burdens Bliss",
+                "type": "Anvil Series",
+                "status": "available",
+                "delivery": "physical",
+                "digitalContent": "",
+                "image": "/img/strains/BurdensBliss-logo.jpg",
+                "additionalImages": [],
+                "description": "Burdens Bliss",
+                "variety": "",
+                "rating": "",
+                "origin": "",
+                "rarity": "",
+                "details": "Burdens Bliss",
+                "notes": "",
+                "packOptions": [],
+                "enableHoverImage": false,
+                "hoverImage": "",
+                "hidden": false,
                 "displayOrder": 14
+            },
+            "product-1747018271296": {
+                "id": "product-1747018271296",
+                "name": "Valkyrie's Banner",
+                "type": "Anvil Series",
+                "status": "available",
+                "delivery": "physical",
+                "digitalContent": "",
+                "image": "/img/strains/ValkyriesBanner-logo.jpg",
+                "additionalImages": [],
+                "description": "Valkyrie's Banner",
+                "variety": "",
+                "rating": "",
+                "origin": "",
+                "rarity": "",
+                "details": "Valkyrie's Banner",
+                "notes": "",
+                "packOptions": [],
+                "enableHoverImage": false,
+                "hoverImage": "",
+                "hidden": false,
+                "displayOrder": 15
+            },
+            "product-1747018323542": {
+                "id": "product-1747018323542",
+                "name": "Ironside",
+                "type": "Anvil Series",
+                "status": "available",
+                "delivery": "physical",
+                "digitalContent": "",
+                "image": "/img/strains/Ironside-logo.jpg",
+                "additionalImages": [],
+                "description": "Ironside",
+                "variety": "",
+                "rating": "",
+                "origin": "",
+                "rarity": "",
+                "details": "Ironside",
+                "notes": "",
+                "packOptions": [],
+                "enableHoverImage": false,
+                "hoverImage": "",
+                "hidden": false,
+                "displayOrder": 16
+            },
+            "product-1747018356805": {
+                "id": "product-1747018356805",
+                "name": "Laughing Viking Berries",
+                "type": "Anvil Series",
+                "status": "available",
+                "delivery": "physical",
+                "digitalContent": "",
+                "image": "/img/strains/LaughingVikingBerries-logo.jpg",
+                "additionalImages": [],
+                "description": "Laughing Viking Berries",
+                "variety": "",
+                "rating": "",
+                "origin": "",
+                "rarity": "",
+                "details": "Laughing Viking Berries",
+                "notes": "",
+                "packOptions": [],
+                "enableHoverImage": false,
+                "hoverImage": "",
+                "hidden": false,
+                "displayOrder": 17
             }
         }
     },
