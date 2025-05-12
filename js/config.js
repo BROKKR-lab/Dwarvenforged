@@ -486,7 +486,7 @@
             "growing-guide": {
                 "id": "growing-guide",
                 "name": "Dwarven Growing Guide",
-                "type": "Anvil Series",
+                "type": "Guides & Tips",
                 "status": "available",
                 "delivery": "digital",
                 "digitalContent": "https://www.sitepackages.net/PUB/DWARVENFORGED/growguide/dwarvenforgedgrowguide.html",
@@ -496,6 +496,7 @@
                 "variety": "Comprehensive Guide",
                 "rating": "5/5",
                 "origin": "DwarvenForged Research",
+                "rarity": "",
                 "details": "Many pages of growing information including:\n- Nutrient schedules\n- Lighting tips\n- Environmental control\n- Troubleshooting common issues",
                 "notes": "Digital product - instant access after purchase. Perfect companion for our genetics.",
                 "packOptions": [
@@ -505,16 +506,19 @@
                         "salePrice": 20
                     }
                 ],
+                "enableHoverImage": false,
+                "hoverImage": "",
+                "hidden": false,
                 "displayOrder": 18
             },
             "product-1746999759173": {
                 "id": "product-1746999759173",
                 "name": "Dwarven Forged Stories",
-                "type": "Heirloom Treasures",
+                "type": "Lore & Stories",
                 "status": "available",
                 "delivery": "digital",
                 "digitalContent": "https://www.dwarvenforged.com/stories/index.html",
-                "image": "https://www.dwarvenforged.com/stories/DwarvenStories.jpg ",
+                "image": "https://www.dwarvenforged.com/stories/DwarvenStories.jpg",
                 "additionalImages": [],
                 "description": "Legends Of The Seeds",
                 "variety": "Digital Fiction",
@@ -532,7 +536,7 @@
             "product-1747018112345": {
                 "id": "product-1747018112345",
                 "name": "Niflheim",
-                "type": "Anvil Series",
+                "type": "Crafted Genetics",
                 "status": "available",
                 "delivery": "physical",
                 "digitalContent": "",
@@ -554,7 +558,7 @@
             "product-1747018175265": {
                 "id": "product-1747018175265",
                 "name": "Burdens Bliss",
-                "type": "Anvil Series",
+                "type": "Crafted Genetics",
                 "status": "available",
                 "delivery": "physical",
                 "digitalContent": "",
@@ -576,7 +580,7 @@
             "product-1747018271296": {
                 "id": "product-1747018271296",
                 "name": "Valkyrie's Banner",
-                "type": "Anvil Series",
+                "type": "Crafted Genetics",
                 "status": "available",
                 "delivery": "physical",
                 "digitalContent": "",
@@ -598,7 +602,7 @@
             "product-1747018323542": {
                 "id": "product-1747018323542",
                 "name": "Forge Pickles",
-                "type": "Anvil Series",
+                "type": "Crafted Genetics",
                 "status": "available",
                 "delivery": "physical",
                 "digitalContent": "",
@@ -620,7 +624,7 @@
             "product-1747018356805": {
                 "id": "product-1747018356805",
                 "name": "Mirth Berries",
-                "type": "Anvil Series",
+                "type": "Crafted Genetics",
                 "status": "available",
                 "delivery": "physical",
                 "digitalContent": "",
