@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dwarven Forged Stories - Legends of the Seeds</title>
+  <style>
+    :root {
+      --primary-bg: #0d0e12;
+      --card-bg: #1e2028;
+      --accent-color: #bb8c65;
+      --primary-text: #ffffff;
+      --secondary-text: #a5a9b7;
+      --button-color: #bb8c65;
+      --button-hover: #d9a681;
+      --card-border: #2a2c37;
+      --badge-color: #ffc107;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--primary-bg);
+      color: var(--primary-text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 40px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .logo h1 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .home-button {
+      background-color: var(--button-color);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.3s;
+    }
+
+    .home-button:hover {
+      background-color: var(--button-hover);
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .page-title h2 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .page-title p {
+      color: var(--secondary-text);
+      font-size: 16px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .stories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .story-card {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .story-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .story-image {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .story-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .story-card:hover .story-image img {
+      transform: scale(1.05);
+    }
+
+    .new-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background-color: var(--badge-color);
+      color: #000;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .story-content {
+      padding: 20px;
+    }
+
+    .story-title {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .story-description {
+      color: var(--secondary-text);
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .story-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .story-parts {
+      font-size: 13px;
+      color: var(--secondary-text);
+    }
+
+    .read-button {
+      background-color: var(--button-color);
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 13px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.3s;
+    }
+
+    .read-button:hover {
+      background-color: var(--button-hover);
+    }
+
+    .digital-download {
+      display: inline-flex;
+      align-items: center;
+      margin-left: 10px;
+      font-size: 12px;
+      color: var(--secondary-text);
+    }
+
+    .digital-download a {
+      color: var(--accent-color);
+      text-decoration: none;
+      margin-left: 5px;
+    }
+
+    .digital-download a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 0;
+      margin-top: 60px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--secondary-text);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <img src="https://www.dwarvenforged.com/images/logo-small.png" alt="Dwarven Forged Logo">
+        <h1>Dwarven Forged Stories</h1>
+      </div>
+      <a href="https://www.dwarvenforged.com" class="home-button">Return to Main Site</a>
+    </header>
+
+    <div class="page-title">
+      <h2>Legends of the Seeds</h2>
+      <p>Explore the mythic tales behind our seed strains, forged in the ancient traditions of the dwarven masters and the secrets of nature's deepest magic.</p>
+    </div>
+
+    <div class="stories-grid">
+      <div class="story-card">
+        <div class="story-image">
+          <img src="story-0001/ForgeRootFlame.jpg" alt="The Forge Root Flame">
+          <span class="new-badge">New</span>
+        </div>
+        <div class="story-content">
+          <h3 class="story-title">The Forge Root Flame</h3>
+          <p class="story-description">When a blight threatens the Nine Realms, master craftsman Brokkr must forge a Seed of Renewal in his legendary anvil deep beneath Svartalfheim. But the price of creation may be higher than even a dwarf can bear.</p>
+          <div class="story-meta">
+            <span class="story-parts">Part 1 of Brokkr's Tale</span>
+            <div>
+              <a href="story-0001/the-forge-root-flame.html" class="read-button">Read Story</a>
+              <div class="digital-download">
+                Download: <a href="#">Digital</a> | <a href="#">Digital Fiction</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-card">
+        <div class="story-image">
+          <img src="story-0002/ForgeDaughter.jpg" alt="The Forge Daughter">
+          <span class="new-badge">New</span>
+        </div>
+        <div class="story-content">
+          <h3 class="story-title">Daughter of the Forge</h3>
+          <p class="story-description">Years after her father's sacrifice, Nostri journeys into the depths of Svartalfheim to find what remains of Brokkr. With unlikely help from Loki, she discovers that the fires of creation never truly die—they only wait to be relit.</p>
+          <div class="story-meta">
+            <span class="story-parts">Part 2 of Brokkr's Tale</span>
+            <div>
+              <a href="story-0002/the-forge-daughter.html" class="read-button">Read Story</a>
+              <div class="digital-download">
+                Download: <a href="#">Digital</a> | <a href="#">Digital Fiction</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>© 2025 Dwarven Forged. All stories are original works and part of the Dwarven Forged universe.</p>
+    </footer>
+  </div>
+</body>
+</html>
