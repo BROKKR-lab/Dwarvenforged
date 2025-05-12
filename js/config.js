@@ -34,12 +34,12 @@
         "body": "'Lato', sans-serif"
     },
     "terminology": {
-        "category1": "Anvil Series",
-        "category2": "Forge Collection",
-        "category3": "Heirloom Treasures",
-        "productTerm": "Strain",
-        "productPluralTerm": "Strains",
-        "packTerm": "Seed Pack",
+        "category1": "Crafted Genetics",
+        "category2": "Guides & Tips",
+        "category3": "Lore & Stories",
+        "productTerm": "Item",
+        "productPluralTerm": "Items",
+        "packTerm": "Pack",
         "cartTerm": "Collection Box",
         "soldOutLabel": "SOLD OUT",
         "comingSoonLabel": "COMING SOON"
