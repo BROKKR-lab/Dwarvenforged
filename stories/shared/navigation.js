@@ -1,4 +1,4 @@
-// Truly dynamic navigation system - client-side only
+// Updated navigation.js with automatic next/previous links
 document.addEventListener('DOMContentLoaded', function() {
   const navPlaceholder = document.getElementById('nav-placeholder');
   
@@ -26,23 +26,41 @@ document.addEventListener('DOMContentLoaded', function() {
   // Get the stories dropdown element
   const storiesDropdown = document.getElementById('stories-dropdown');
   
+  // Master story data - central place for all story information
+  const masterStoryData = {
+    // The reading order array - this controls sequence throughout the site
+    readingOrder: ['0003', '0004', '0001', '0002'],
+    
+    // Complete story information
+    stories: {
+      '0001': {
+        title: 'The Forge Root Flame',
+        path: '/stories/story-0001/index.html',
+        description: 'When a blight threatens the Nine Realms, master craftsman Brokkr must forge a Seed of Renewal in his legendary anvil deep beneath Svartalfheim. But the price of creation may be higher than even a dwarf can bear.'
+      },
+      '0002': {
+        title: 'Daughter of the Forge',
+        path: '/stories/story-0002/index.html',
+        description: 'Years after her father\'s sacrifice, Nostri journeys into the depths of Svartalfheim to find what remains of Brokkr. With unlikely help from Loki, she discovers that the fires of creation never truly die—they only wait to be relit.'
+      },
+      '0003': {
+        title: 'The Forge Trial',
+        path: '/stories/story-0003/index.html',
+        description: 'Before becoming the legendary craftsman of the Nine Realms, Brokkr must endure imprisonment by the fire giants of Muspelheim. Through cunning, knowledge, and innovation, he transforms his captivity into an opportunity that will change the nature of his craft forever.'
+      },
+      '0004': {
+        title: 'The Forge Council',
+        path: '/stories/story-0004/index.html',
+        description: 'After his return from captivity, Brokkr establishes the Forge Council, a community of craftsmen dedicated to the art of seedcraft. Through nine sacred principles, he builds a legacy that will outlast him and shape the future of the Nine Realms.'
+      }
+    }
+  };
+  
   // This function will attempt to find stories by checking if directories exist
   function detectStories() {
     // Maximum number of stories to check for (can be increased as needed)
     const maxStoriesToCheck = 10;
     let foundStories = [];
-    
-    // Known story metadata - used as a fallback if we can't fetch titles
-    // This is especially useful for testing
-    const knownStories = {
-      '0001': 'The Forge Root Flame',
-      '0002': 'Daughter of the Forge',
-      '0003': 'The Forge Trial'
-      // Add more stories here as they are created
-    };
-    
-    // The preferred reading order - used to determine which numbers to display
-    const readingOrder = ['0003', '0001', '0002'];
     
     // Helper function to check if a URL exists
     function urlExists(url, callback) {
@@ -60,8 +78,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function processFoundStories() {
       // Sort stories by reading order if possible
       foundStories.sort((a, b) => {
-        const aIndex = readingOrder.indexOf(a.id);
-        const bIndex = readingOrder.indexOf(b.id);
+        const aIndex = masterStoryData.readingOrder.indexOf(a.id);
+        const bIndex = masterStoryData.readingOrder.indexOf(b.id);
         if (aIndex !== -1 && bIndex !== -1) {
           return aIndex - bIndex;
         } else if (aIndex !== -1) {
@@ -117,11 +135,72 @@ document.addEventListener('DOMContentLoaded', function() {
         if (allStoriesLink && allStoriesLink.getAttribute('href') === '/stories/') {
           allStoriesLink.setAttribute('href', '../');
         }
+        
+        // Update the previous/next navigation links if they exist
+        updateStoryNavigation(currentPath);
       }
     }
     
-    // Try to fetch the title from an HTML page
+    // Automatically update the story navigation links
+    function updateStoryNavigation(currentPath) {
+      const seriesNav = document.querySelector('.series-navigation');
+      if (!seriesNav) return; // No navigation section found
+      
+      // Extract the current story ID from the path
+      const storyMatch = currentPath.match(/story-(\d{4})/);
+      if (!storyMatch) return;
+      
+      const currentStoryId = storyMatch[1];
+      const currentIndex = masterStoryData.readingOrder.indexOf(currentStoryId);
+      
+      if (currentIndex === -1) return; // Story not in reading order
+      
+      // Get previous and next story IDs
+      const prevStoryId = currentIndex > 0 ? masterStoryData.readingOrder[currentIndex - 1] : null;
+      const nextStoryId = currentIndex < masterStoryData.readingOrder.length - 1 ? masterStoryData.readingOrder[currentIndex + 1] : null;
+      
+      // Update the navigation links
+      const prevButton = seriesNav.querySelector('.nav-prev');
+      const nextButton = seriesNav.querySelector('.nav-next');
+      
+      if (prevButton) {
+        if (prevStoryId) {
+          const prevStory = masterStoryData.stories[prevStoryId];
+          let prevPath = prevStory.path.replace('/stories/', '../');
+          prevButton.href = prevPath;
+          prevButton.textContent = prevStory.title;
+          prevButton.classList.remove('disabled');
+        } else {
+          prevButton.href = '#';
+          prevButton.textContent = 'Previous Story';
+          prevButton.classList.add('disabled');
+        }
+      }
+      
+      if (nextButton) {
+        if (nextStoryId) {
+          const nextStory = masterStoryData.stories[nextStoryId];
+          let nextPath = nextStory.path.replace('/stories/', '../');
+          nextButton.href = nextPath;
+          nextButton.textContent = nextStory.title;
+          nextButton.classList.remove('disabled');
+        } else {
+          nextButton.href = '#';
+          nextButton.textContent = 'Next Story';
+          nextButton.classList.add('disabled');
+        }
+      }
+    }
+    
+    // Try to fetch the title from an HTML page, or use master data
     function getPageTitle(url, storyId, callback) {
+      // If we already have data for this story, use it
+      if (masterStoryData.stories[storyId]) {
+        callback(masterStoryData.stories[storyId].title);
+        return;
+      }
+      
+      // Otherwise try to fetch it
       fetch(url)
         .then(response => {
           if (!response.ok) {
@@ -134,12 +213,12 @@ document.addEventListener('DOMContentLoaded', function() {
           const titleMatch = html.match(/<title>(.*?)<\/title>/i);
           const title = titleMatch 
             ? titleMatch[1].replace(' - Dwarven Forged Stories', '').trim()
-            : knownStories[storyId] || `Story ${storyId}`;
+            : `Story ${storyId}`;
           callback(title);
         })
         .catch(error => {
-          // Use fallback title if we can't fetch
-          callback(knownStories[storyId] || `Story ${storyId}`);
+          // Use fallback title
+          callback(`Story ${storyId}`);
         });
     }
     
