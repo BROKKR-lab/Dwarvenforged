@@ -210,11 +210,14 @@
                 "delivery": "physical",
                 "digitalContent": "",
                 "image": "strains/runefire-haze.jpg",
-                "additionalImages": [],
+                "additionalImages": [
+                    "detail1-1.jpg"
+                ],
                 "description": "Inscribed with the ancient runes of energy and creativity, Runefire Haze delivers an uplifting, cerebral experience with notes of tropical fruit and spice.",
                 "variety": "Photoperiod",
                 "rating": "22-24% THC",
                 "origin": "Super Silver Haze × Forge Fuel",
+                "rarity": "",
                 "details": "Flowering Time: 10-11 weeks\nStretch: High\nYield: Medium-High\nHeight: Tall\nTHC: 22-24%\nCBD: 0.1%\nEffects: Energetic, Creative, Focused, Uplifting\nFlavors: Citrus, Spice, Tropical",
                 "notes": "Coming soon! Join our waiting list to be notified when this energizing sativa becomes available.",
                 "packOptions": [
@@ -224,6 +227,9 @@
                         "salePrice": 55
                     }
                 ],
+                "enableHoverImage": true,
+                "hoverImage": "",
+                "hidden": false,
                 "displayOrder": 2
             },
             "mountain-forge": {
@@ -282,11 +288,14 @@
                 "delivery": "physical",
                 "digitalContent": "",
                 "image": "strains/allfather-kush.jpg",
-                "additionalImages": [],
+                "additionalImages": [
+                    "detail1-1.jpg"
+                ],
                 "description": "Descended from ancient Afghan mountains, Allfather Kush brings wisdom and deep relaxation with traditional hash-plant characteristics and exceptional resin production.",
                 "variety": "Photoperiod",
                 "rating": "20-22% THC",
                 "origin": "Hindu Kush × Afghan #1",
+                "rarity": "",
                 "details": "Flowering Time: 9-10 weeks\nStretch: Low\nYield: Medium-High\nHeight: Short\nTHC: 20-22%\nCBD: 0.4%\nEffects: Relaxing, Sedative, Euphoric, Meditative\nFlavors: Hash, Spice, Earthy",
                 "notes": "Perfect for hash production. These regular seeds allow for breeding and selection.",
                 "packOptions": [
@@ -301,6 +310,9 @@
                         "salePrice": 80
                     }
                 ],
+                "enableHoverImage": true,
+                "hoverImage": "",
+                "hidden": false,
                 "displayOrder": 1
             },
             "mythic-sunrise": {
