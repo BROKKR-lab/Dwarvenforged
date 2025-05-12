@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const navHTML = `
     <nav class="site-nav">
       <div class="nav-container">
-        <h1 class="site-title"><a href="/stories/">Dwarven Forge Stories</a></h1>
+        <h1 class="site-title"><a href="https://www.dwarvenforged.com">Dwarven Forged</a></h1>
         <div class="nav-links">
           <div class="nav-dropdown">
             <button class="dropdown-button">Stories</button>
@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
               </a>
             </div>
           </div>
+          <a href="/stories/" class="nav-button">All Stories</a>
         </div>
       </div>
     </nav>
