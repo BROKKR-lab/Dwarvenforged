@@ -4,465 +4,175 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Forge Daughter - Dwarven Forge Stories</title>
+  <link rel="stylesheet" href="../shared/styles.css">
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #f9f7f4;
-    }
-    
-    h1 {
-      color: #5b3a29;
-      border-bottom: 2px solid #bb8c65;
-      padding-bottom: 10px;
-    }
-    
-    .story-section {
-      margin-bottom: 30px;
-      position: relative;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    
-    .story-section.active {
-      background-color: #f8f2e9;
-      border-left: 4px solid #bb8c65;
-    }
-    
-    .section-title {
-      font-size: 0.8em;
-      color: #bb8c65;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 10px;
-    }
-    
-    hr {
-      border: none;
-      height: 1px;
-      background-color: #ddd;
-      margin: 20px 0;
-    }
-    
-    .audio-controls {
-      position: sticky;
-      top: 10px;
-      background-color: #5b3a29;
-      color: white;
-      padding: 15px;
-      border-radius: 5px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      z-index: 100;
-      margin-bottom: 20px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-    }
-    
-    .audio-controls button {
-      background-color: transparent;
-      border: 1px solid white;
-      color: white;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .audio-controls button:hover {
-      background-color: rgba(255,255,255,0.2);
-    }
-    
-    .progress-container {
-      flex-grow: 1;
-      height: 8px;
-      background-color: rgba(255,255,255,0.2);
-      border-radius: 4px;
-      cursor: pointer;
-      position: relative;
-    }
-    
-    .progress-bar {
-      height: 100%;
-      background-color: #bb8c65;
-      border-radius: 4px;
-      width: 0;
-    }
-    
-    .section-indicator {
-      position: absolute;
-      background-color: rgba(255,255,255,0.8);
-      width: 2px;
-      height: 100%;
-    }
-    
-    .time-display {
-      font-size: 0.8em;
-      min-width: 80px;
-      text-align: center;
-    }
-    
-    .listen-button {
-      display: inline-flex;
-      align-items: center;
-      background-color: #5b3a29;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 15px;
-      cursor: pointer;
-      font-size: 0.8em;
-      margin-top: 10px;
-      transition: all 0.3s ease;
-    }
-    
-    .listen-button:hover {
-      background-color: #7b5a49;
-    }
-    
-    .listen-icon {
-      margin-right: 5px;
-    }
-    
-    .section-title-sticky {
-      margin: 0 20px;
-      font-weight: bold;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 200px;
-    }
-    
-    .story-image {
-      width: 100%;
-      max-width: 640px;
-      height: auto;
-      margin: 0 auto 20px auto;
-      display: block;
-      border-radius: 5px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    }
-    
-    .series-navigation {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 30px;
-      padding-top: 20px;
-      border-top: 1px solid #ddd;
-    }
-    
-    .nav-button {
-      display: inline-flex;
-      align-items: center;
-      background-color: #5b3a29;
-      color: white;
-      border: none;
-      padding: 8px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      text-decoration: none;
-      font-size: 0.9em;
-      transition: all 0.3s ease;
-    }
-    
-    .nav-button:hover {
-      background-color: #7b5a49;
-    }
-    
-    .nav-prev:before {
-      content: "←";
-      margin-right: 8px;
-    }
-    
-    .nav-next:after {
-      content: "→";
-      margin-left: 8px;
-    }
-    
-    @media (max-width: 600px) {
-      .section-title-sticky {
-        display: none;
-      }
-    }
+    /* Story-specific styles can go here if needed */
   </style>
 </head>
 <body>
-  <h1>The Forge Daughter</h1>
+  <!-- Navigation bar will be inserted by JavaScript -->
+  <div id="nav-placeholder"></div>
   
-  <img src="https://www.dwarvenforged.com/stories/story-0002/ForgeDaughter.jpg" alt="The Forge Daughter" class="story-image">
-  
-  <div class="audio-controls">
-    <button id="play-pause">▶</button>
-    <div class="section-title-sticky">Whispers</div>
-    <div class="progress-container" id="progress-container">
-      <div class="progress-bar" id="progress-bar"></div>
-      <!-- Section markers will be added here dynamically -->
+  <div class="content-container">
+    <h1>The Forge Daughter</h1>
+    
+    <img src="https://www.dwarvenforged.com/stories/story-0002/ForgeDaughter.jpg" alt="" class="story-image">
+    
+    <div class="audio-controls">
+      <button id="play-pause">▶</button>
+      <div class="section-title-sticky">Whispers</div>
+      <div class="progress-container" id="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+        <!-- Section markers will be added here dynamically -->
+      </div>
+      <div class="time-display">00:00 / 00:00</div>
     </div>
-    <div class="time-display">00:00 / 00:00</div>
-  </div>
-  
-  <div class="story-section" data-section="1">
-    <div class="section-title">Whispers</div>
-    <p>They spoke of Brokkr in whispers now. Not in Asgard, nor in Midgard's towns, but in the cracks between—forges that had gone cold, vaults where tools had rusted shut. Some said he had fused with the stone, others that he'd burned out his soul forging the seed that saved the realms.</p>
-    <p>Nostri didn't speak of him.<br>She remembered his voice only when dreaming.<br>She remembered the sound of the hammer more clearly than his face.</p>
-    <p>But something had started to call her in the deep hours—<em>something buried.</em></p>
-    <button class="listen-button" data-section="1">
-      <span class="listen-icon">🔊</span> Listen to this section
-    </button>
-  </div>
-  
-  <hr>
-  
-  <div class="story-section" data-section="2">
-    <div class="section-title">Mother's Question</div>
-    <p>Her mother, Elri, still kept the forge behind the world tree's root-veins. She was calm now, older, braided silver threading her fire-red hair. One morning, Nostri found her tracing a burned rune in her palm, as if remembering someone long dead.</p>
-    <p>"You ever wonder what really happened to him?" Nostri asked.</p>
-    <p>Elri didn't look up. "He gave himself to the work. That's what dwarves do."</p>
-    <p>"That's not an answer."</p>
-    <p>"It's the only one I have."</p>
-    <p>Nostri left that same night.</p>
-    <button class="listen-button" data-section="2">
-      <span class="listen-icon">🔊</span> Listen to this section
-    </button>
-  </div>
-  
-  <hr>
-  
-  <div class="story-section" data-section="3">
-    <div class="section-title">The Journey</div>
-    <p>She crossed into Svartalfheim through the old river-tunnels—twisting places few dared enter anymore. Past the corpse-pits of the Blight Years, past veins of dead fungus and machines choked with rootmetal. She carried only what mattered: her father's old forge medallion, a cracked map of under-paths, and her mother's blessing folded into a rune-marked cloth.</p>
-    <p>But she wasn't two days in when someone started trailing her. No footfalls, no sound—but she <em>knew</em>.</p>
-    <p>On the fourth day, she stepped into an ancient rail chamber—rusted steel, great arches collapsed into blackness—and called out.</p>
-    <p>"Come out. You stink of mischief."</p>
-    <p>A voice laughed from nowhere. "Mischief is better than fear. And you've got both, little hammer-born."</p>
-    <p>Loki stepped from the dark, arms crossed, cloak flickering with oil-fire colors.</p>
-    <p>She narrowed her eyes. "You helped him burn out. Don't pretend to care."</p>
-    <p>"Burned out?" Loki tilted his head. "Child, your father made a tomb of himself and buried it beneath the roots of the realm. I merely gave him the match."</p>
-    <p>"I'm going to find him. I don't need you."</p>
-    <p>He smiled. "No. But you'll want me when you see what waits beneath the forge."</p>
-    <button class="listen-button" data-section="3">
-      <span class="listen-icon">🔊</span> Listen to this section
-    </button>
-  </div>
-  
-  <hr>
-  
-  <div class="story-section" data-section="4">
-    <div class="section-title">The Black Forge</div>
-    <p>The chamber wasn't where the map said it would be. The Black Forge had sunk deeper than expected, warped by time and pressure. They had to crawl through collapsed rune tunnels, swim through boiling stonewater, and barter with a scrap-mage made of limbs and smoke.</p>
-    <p>By the time they reached the vault, Nostri's arms were raw with rune-burn and Loki's smirk had faded.</p>
-    <p>The forge was dead.</p>
-    <p>Not just cold—<em>dead.</em><br>Silent in a way that made sound feel like a sin.</p>
-    <p>Stone figures lined the walls—dwarves caught mid-swing, expressions locked in agony. Not statues. Remains. <em>Hands fused to hammer hafts. Eyes still full of ash.</em></p>
-    <p>"Is this what he built?" Nostri whispered. "Or what it cost?"</p>
-    <p>Loki didn't answer.</p>
-    <p>At the center was a slab. Black. Cracked. Cabled with root-veins that pulsed faintly. On it lay a shape—curled, twisted inward, half-formed from slag and grief.</p>
-    <p>Nostri stepped forward. Her father's forge medallion, warm now, pulsed against her chest.</p>
-    <p>She reached into her satchel, pulled out the vial—the <em>essence of Yggdrasil,</em> stolen from the edge of the Well.</p>
-    <p>"You sure?" Loki asked. "Once you wake him, he won't be the same."</p>
-    <p>"I'm not the same girl either."</p>
-    <p>She poured the vial onto the ember-heart in the slab.</p>
-    <p>Nothing.</p>
-    <p>Then—<em>heat.</em></p>
-    <button class="listen-button" data-section="4">
-      <span class="listen-icon">🔊</span> Listen to this section
-    </button>
-  </div>
-  
-  <hr>
-  
-  <div class="story-section" data-section="5">
-    <div class="section-title">Resurrection</div>
-    <p>It wasn't just fire. It was <em>memory</em>, <em>grief</em>, <em>metal</em>, <em>flesh</em>, <em>will.</em></p>
-    <p>Brokkr did not rise all at once. His body melted and reformed, tendons singing with old rune-craft, bones laced with ore. His eyes opened, but they weren't eyes. They were <strong>furnaces</strong>.</p>
-    <p>He looked at her.</p>
-    <p>"You've grown," he rasped, voice like two anvils grinding together.</p>
-    <p>She nodded. "And you slept too long."</p>
-    <p>He sat up. His arms shook. Not with weakness—but with rage restrained.</p>
-    <p>"Why did you come?"</p>
-    <p>"Because I never got to say goodbye."</p>
-    <p>He stared at her—then smiled, small, broken, but real. "Then let's say something else instead."</p>
-    <button class="listen-button" data-section="5">
-      <span class="listen-icon">🔊</span> Listen to this section
-    </button>
-  </div>
-  
-  <hr>
-  
-  <div class="story-section" data-section="6">
-    <div class="section-title">Reforging</div>
-    <p>They left the forge behind—but not alone.</p>
-    <p>The Black Forge was alive again, and with it, every seed of flame Brokkr had hidden in its walls. Old hammers woke. Runes ignited. And in the deepest chamber, Brokkr found something left unfinished: a forgeborn golem that had waited years for the final shaping.</p>
-    <p>Together, they remade it. Brokkr taught her how to strike—not as a warrior, but as a maker. Her swing wasn't perfect, but it had <em>purpose.</em> She wasn't her father. She was <em>his echo,</em> and her own flame.</p>
-    <p>Even Loki helped, once.</p>
-    <p>"I never liked watching things break," he muttered, as he etched a containment glyph into the golem's ribcage.</p>
-    <p>"Could've fooled me," Brokkr said.</p>
-    <p>"Oh, I still <em>like</em> breaking them. I just don't like when it sticks."</p>
-    <button class="listen-button" data-section="6">
-      <span class="listen-icon">🔊</span> Listen to this section
-    </button>
-  </div>
-  
-  <hr>
-  
-  <div class="story-section" data-section="7">
-    <div class="section-title">Return</div>
-    <p>They emerged a month later, the golem behind them carrying packs of half-forged relics, seeds of renewal, and a hammer that whispered its own name: <em>Svarbrandr.</em></p>
-    <p>Elri was waiting.</p>
-    <p>She saw Brokkr first. Her expression didn't change—but her eyes softened. She walked up, touched his chest, then his cheek.</p>
-    <p>"About time."</p>
-    <p>He took her hand. "You kept the forge."</p>
-    <p>"No," she said, glancing at Nostri. "<em>She</em> did."</p>
-    <p>They stayed. They worked. Nostri became more than daughter—she became flamebearer, seed-shaper, runesmith. The world had burned once.</p>
-    <p>Now, it grew again.</p>
-    <p>And Brokkr? He didn't sleep.<br>He watched his daughter hammer stars into seeds.<br>He smiled.</p>
-    <p>Because even the gods knew:<br><strong>Ash doesn't end the fire. It proves it ever burned.</strong></p>
-    <button class="listen-button" data-section="7">
-      <span class="listen-icon">🔊</span> Listen to this section
-    </button>
-  </div>
-  
-  <div class="series-navigation">
-    <a href="the-forge-root-flame.html" class="nav-button nav-prev">The Forge Root Flame</a>
-    <a href="#" class="nav-button nav-next">Next Story</a>
+    
+    <div class="story-section" data-section="1">
+      <div class="section-title">Whispers</div>
+      <p>They spoke of Brokkr in whispers now. Not in Asgard, nor in Midgard's towns, but in the cracks between—forges that had gone cold, vaults where tools had rusted shut. Some said he had fused with the stone, others that he'd burned out his soul forging the seed that saved the realms.</p>
+      <p>Nostri didn't speak of him.<br>She remembered his voice only when dreaming.<br>She remembered the sound of the hammer more clearly than his face.</p>
+      <p>But something had started to call her in the deep hours—<em>something buried.</em></p>
+      <button class="listen-button" data-section="1">
+        <span class="listen-icon">🔊</span> Listen to this section
+      </button>
+    </div>
+    
+    <hr>
+    
+    <div class="story-section" data-section="2">
+      <div class="section-title">Mother's Question</div>
+      <p>Her mother, Elri, still kept the forge behind the world tree's root-veins. She was calm now, older, braided silver threading her fire-red hair. One morning, Nostri found her tracing a burned rune in her palm, as if remembering someone long dead.</p>
+      <p>"You ever wonder what really happened to him?" Nostri asked.</p>
+      <p>Elri didn't look up. "He gave himself to the work. That's what dwarves do."</p>
+      <p>"That's not an answer."</p>
+      <p>"It's the only one I have."</p>
+      <p>Nostri left that same night.</p>
+      <button class="listen-button" data-section="2">
+        <span class="listen-icon">🔊</span> Listen to this section
+      </button>
+    </div>
+    
+    <hr>
+    
+    <div class="story-section" data-section="3">
+      <div class="section-title">The Journey</div>
+      <p>She crossed into Svartalfheim through the old river-tunnels—twisting places few dared enter anymore. Past the corpse-pits of the Blight Years, past veins of dead fungus and machines choked with rootmetal. She carried only what mattered: her father's old forge medallion, a cracked map of under-paths, and her mother's blessing folded into a rune-marked cloth.</p>
+      <p>But she wasn't two days in when someone started trailing her. No footfalls, no sound—but she <em>knew</em>.</p>
+      <p>On the fourth day, she stepped into an ancient rail chamber—rusted steel, great arches collapsed into blackness—and called out.</p>
+      <p>"Come out. You stink of mischief."</p>
+      <p>A voice laughed from nowhere. "Mischief is better than fear. And you've got both, little hammer-born."</p>
+      <p>Loki stepped from the dark, arms crossed, cloak flickering with oil-fire colors.</p>
+      <p>She narrowed her eyes. "You helped him burn out. Don't pretend to care."</p>
+      <p>"Burned out?" Loki tilted his head. "Child, your father made a tomb of himself and buried it beneath the roots of the realm. I merely gave him the match."</p>
+      <p>"I'm going to find him. I don't need you."</p>
+      <p>He smiled. "No. But you'll want me when you see what waits beneath the forge."</p>
+      <button class="listen-button" data-section="3">
+        <span class="listen-icon">🔊</span> Listen to this section
+      </button>
+    </div>
+    
+    <hr>
+    
+    <div class="story-section" data-section="4">
+      <div class="section-title">The Black Forge</div>
+      <p>The chamber wasn't where the map said it would be. The Black Forge had sunk deeper than expected, warped by time and pressure. They had to crawl through collapsed rune tunnels, swim through boiling stonewater, and barter with a scrap-mage made of limbs and smoke.</p>
+      <p>By the time they reached the vault, Nostri's arms were raw with rune-burn and Loki's smirk had faded.</p>
+      <p>The forge was dead.</p>
+      <p>Not just cold—<em>dead.</em><br>Silent in a way that made sound feel like a sin.</p>
+      <p>Stone figures lined the walls—dwarves caught mid-swing, expressions locked in agony. Not statues. Remains. <em>Hands fused to hammer hafts. Eyes still full of ash.</em></p>
+      <p>"Is this what he built?" Nostri whispered. "Or what it cost?"</p>
+      <p>Loki didn't answer.</p>
+      <p>At the center was a slab. Black. Cracked. Cabled with root-veins that pulsed faintly. On it lay a shape—curled, twisted inward, half-formed from slag and grief.</p>
+      <p>Nostri stepped forward. Her father's forge medallion, warm now, pulsed against her chest.</p>
+      <p>She reached into her satchel, pulled out the vial—the <em>essence of Yggdrasil,</em> stolen from the edge of the Well.</p>
+      <p>"You sure?" Loki asked. "Once you wake him, he won't be the same."</p>
+      <p>"I'm not the same girl either."</p>
+      <p>She poured the vial onto the ember-heart in the slab.</p>
+      <p>Nothing.</p>
+      <p>Then—<em>heat.</em></p>
+      <button class="listen-button" data-section="4">
+        <span class="listen-icon">🔊</span> Listen to this section
+      </button>
+    </div>
+    
+    <hr>
+    
+    <div class="story-section" data-section="5">
+      <div class="section-title">Resurrection</div>
+      <p>It wasn't just fire. It was <em>memory</em>, <em>grief</em>, <em>metal</em>, <em>flesh</em>, <em>will.</em></p>
+      <p>Brokkr did not rise all at once. His body melted and reformed, tendons singing with old rune-craft, bones laced with ore. His eyes opened, but they weren't eyes. They were <strong>furnaces</strong>.</p>
+      <p>He looked at her.</p>
+      <p>"You've grown," he rasped, voice like two anvils grinding together.</p>
+      <p>She nodded. "And you slept too long."</p>
+      <p>He sat up. His arms shook. Not with weakness—but with rage restrained.</p>
+      <p>"Why did you come?"</p>
+      <p>"Because I never got to say goodbye."</p>
+      <p>He stared at her—then smiled, small, broken, but real. "Then let's say something else instead."</p>
+      <button class="listen-button" data-section="5">
+        <span class="listen-icon">🔊</span> Listen to this section
+      </button>
+    </div>
+    
+    <hr>
+    
+    <div class="story-section" data-section="6">
+      <div class="section-title">Reforging</div>
+      <p>They left the forge behind—but not alone.</p>
+      <p>The Black Forge was alive again, and with it, every seed of flame Brokkr had hidden in its walls. Old hammers woke. Runes ignited. And in the deepest chamber, Brokkr found something left unfinished: a forgeborn golem that had waited years for the final shaping.</p>
+      <p>Together, they remade it. Brokkr taught her how to strike—not as a warrior, but as a maker. Her swing wasn't perfect, but it had <em>purpose.</em> She wasn't her father. She was <em>his echo,</em> and her own flame.</p>
+      <p>Even Loki helped, once.</p>
+      <p>"I never liked watching things break," he muttered, as he etched a containment glyph into the golem's ribcage.</p>
+      <p>"Could've fooled me," Brokkr said.</p>
+      <p>"Oh, I still <em>like</em> breaking them. I just don't like when it sticks."</p>
+      <button class="listen-button" data-section="6">
+        <span class="listen-icon">🔊</span> Listen to this section
+      </button>
+    </div>
+    
+    <hr>
+    
+    <div class="story-section" data-section="7">
+      <div class="section-title">Return</div>
+      <p>They emerged a month later, the golem behind them carrying packs of half-forged relics, seeds of renewal, and a hammer that whispered its own name: <em>Svarbrandr.</em></p>
+      <p>Elri was waiting.</p>
+      <p>She saw Brokkr first. Her expression didn't change—but her eyes softened. She walked up, touched his chest, then his cheek.</p>
+      <p>"About time."</p>
+      <p>He took her hand. "You kept the forge."</p>
+      <p>"No," she said, glancing at Nostri. "<em>She</em> did."</p>
+      <p>They stayed. They worked. Nostri became more than daughter—she became flamebearer, seed-shaper, runesmith. The world had burned once.</p>
+      <p>Now, it grew again.</p>
+      <p>And Brokkr? He didn't sleep.<br>He watched his daughter hammer stars into seeds.<br>He smiled.</p>
+      <p>Because even the gods knew:<br><strong>Ash doesn't end the fire. It proves it ever burned.</strong></p>
+      <button class="listen-button" data-section="7">
+        <span class="listen-icon">🔊</span> Listen to this section
+      </button>
+    </div>
+    
+    <div class="series-navigation">
+      <a href="../story-0001/the-forge-root-flame.html" class="nav-button nav-prev">The Forge Root Flame</a>
+      <a href="#" class="nav-button nav-next disabled">Next Story</a>
+    </div>
   </div>
 
+  <script src="../shared/navigation.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Audio files base URL
-      const audioBaseUrl = 'https://www.dwarvenforged.com/stories/story-0002/';
+      // Story config
+      const storyConfig = {
+        audioBaseUrl: 'https://www.dwarvenforged.com/stories/story-0002/',
+        storyId: '0002',
+        storyTitle: 'The Forge Daughter'
+      };
       
-      // Create audio element
-      const audio = new Audio();
-      let currentSection = 1;
-      let isPlaying = false;
-      
-      // Get DOM elements
-      const playPauseButton = document.getElementById('play-pause');
-      const progressBar = document.getElementById('progress-bar');
-      const progressContainer = document.getElementById('progress-container');
-      const timeDisplay = document.querySelector('.time-display');
-      const sections = document.querySelectorAll('.story-section');
-      const sectionTitleSticky = document.querySelector('.section-title-sticky');
-      
-      // Add section markers to progress bar
-      const totalSections = sections.length;
-      for (let i = 1; i < totalSections; i++) {
-        const marker = document.createElement('div');
-        marker.className = 'section-indicator';
-        marker.style.left = `${(i / totalSections) * 100}%`;
-        progressContainer.appendChild(marker);
-      }
-      
-      // Format time function
-      function formatTime(seconds) {
-        const mins = Math.floor(seconds / 60);
-        const secs = Math.floor(seconds % 60);
-        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-      }
-      
-      // Update progress function
-      function updateProgress() {
-        if (audio.duration) {
-          const percentage = (audio.currentTime / audio.duration) * 100;
-          progressBar.style.width = `${percentage}%`;
-          timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
-        }
-      }
-      
-      // Load and play section function
-      function loadAndPlaySection(sectionNumber) {
-        // Update UI
-        sections.forEach(section => section.classList.remove('active'));
-        const activeSection = document.querySelector(`.story-section[data-section="${sectionNumber}"]`);
-        activeSection.classList.add('active');
-        
-        // Scroll to section (with a slight offset for the sticky player)
-        activeSection.scrollIntoView({behavior: 'smooth', block: 'start'});
-        window.scrollBy(0, -100); // Offset for sticky player
-        
-        // Update sticky title
-        sectionTitleSticky.textContent = activeSection.querySelector('.section-title').textContent;
-        
-        // Update audio
-        currentSection = sectionNumber;
-        audio.src = `${audioBaseUrl}Part-${String(sectionNumber).padStart(4, '0')}.mp3`;
-        audio.load();
-        
-        // Play audio
-        audio.play()
-          .then(() => {
-            isPlaying = true;
-            playPauseButton.textContent = '❚❚';
-          })
-          .catch(err => {
-            console.error('Error playing audio:', err);
-            playPauseButton.textContent = '▶';
-            isPlaying = false;
-          });
-      }
-      
-      // Play/Pause button event
-      playPauseButton.addEventListener('click', function() {
-        if (isPlaying) {
-          audio.pause();
-          isPlaying = false;
-          playPauseButton.textContent = '▶';
-        } else {
-          if (audio.src) {
-            audio.play();
-            isPlaying = true;
-            playPauseButton.textContent = '❚❚';
-          } else {
-            // If no audio is loaded yet, load the first section
-            loadAndPlaySection(1);
-          }
-        }
-      });
-      
-      // Progress container click event
-      progressContainer.addEventListener('click', function(e) {
-        if (audio.duration) {
-          const clickPosition = (e.offsetX / progressContainer.offsetWidth);
-          audio.currentTime = clickPosition * audio.duration;
-        }
-      });
-      
-      // Listen to this section buttons
-      document.querySelectorAll('.listen-button').forEach(button => {
-        button.addEventListener('click', function() {
-          const sectionNumber = parseInt(this.getAttribute('data-section'));
-          loadAndPlaySection(sectionNumber);
-        });
-      });
-      
-      // Audio events
-      audio.addEventListener('timeupdate', updateProgress);
-      
-      audio.addEventListener('ended', function() {
-        // Move to next section if available
-        if (currentSection < totalSections) {
-          loadAndPlaySection(currentSection + 1);
-        } else {
-          // Reset play button state
-          isPlaying = false;
-          playPauseButton.textContent = '▶';
-        }
-      });
-      
-      // Initial setup - preload first audio file
-      audio.preload = 'metadata';
-      audio.src = `${audioBaseUrl}Part-0001.mp3`;
+      // Load the shared player script
+      const script = document.createElement('script');
+      script.src = "../shared/player.js";
+      script.onload = function() {
+        // Initialize the player with story-specific config
+        initializePlayer(storyConfig);
+      };
+      document.body.appendChild(script);
     });
   </script>
 </body>
