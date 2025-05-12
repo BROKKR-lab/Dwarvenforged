@@ -1,4 +1,4 @@
-// Updated navigation.js with automatic next/previous links
+// Updated navigation.js with automatic next/previous links and proper chronology
 document.addEventListener('DOMContentLoaded', function() {
   const navPlaceholder = document.getElementById('nav-placeholder');
   
@@ -27,9 +27,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const storiesDropdown = document.getElementById('stories-dropdown');
   
   // Master story data - central place for all story information
+  // Reading order: The young smith creates legendary Mjolnir, gets imprisoned, 
+  // escapes and establishes his principles, forges the great seed, and finally his daughter's journey
   const masterStoryData = {
     // The reading order array - this controls sequence throughout the site
-    readingOrder: ['0003', '0004', '0001', '0002'],
+    readingOrder: ['0005', '0003', '0004', '0001', '0002'],
     
     // Complete story information
     stories: {
@@ -52,6 +54,11 @@ document.addEventListener('DOMContentLoaded', function() {
         title: 'The Forge Council',
         path: '/stories/story-0004/index.html',
         description: 'After his return from captivity, Brokkr establishes the Forge Council, a community of craftsmen dedicated to the art of seedcraft. Through nine sacred principles, he builds a legacy that will outlast him and shape the future of the Nine Realms.'
+      },
+      '0005': {
+        title: 'The Forge Wager',
+        path: '/stories/story-0005/index.html',
+        description: 'When Loki cuts off Sif\'s golden hair, Brokkr is drawn into a dangerous wager that will test his craft against the legendary Sons of Ivaldi. The result: the creation of Mjolnir, the most powerful weapon in the Nine Realms.'
       }
     }
   };
