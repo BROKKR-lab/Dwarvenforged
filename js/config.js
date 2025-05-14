@@ -631,7 +631,8 @@
                 "digitalContent": "",
                 "image": "/img/strains/ForgePickles-logo.jpg",
                 "additionalImages": [
-                    "/img/strains/ForgePickles-detail1.jpg"
+                    "/img/strains/ForgePickles-detail1.jpg",
+                    "/img/strains/ForgePickles-detail2.jpg"
                 ],
                 "description": "Forge Pickles",
                 "variety": "Premium",
@@ -648,7 +649,7 @@
                     }
                 ],
                 "enableHoverImage": true,
-                "hoverImage": "",
+                "hoverImage": "/img/strains/ForgePickles-detail2.jpg",
                 "hidden": false,
                 "displayOrder": 16
             },
