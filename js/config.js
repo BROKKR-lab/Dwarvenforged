@@ -586,7 +586,7 @@
                 "digitalContent": "",
                 "image": "/img/strains/ValkyriesBanner-logo.jpg",
                 "additionalImages": [
-                    "ValkyriesBanner-detail1.jpg"
+                    "/img/strains/ValkyriesBanner-detail1.jpg"
                 ],
                 "description": "Valkyrie's Banner",
                 "variety": "Hybrid",
@@ -610,7 +610,7 @@
                 "digitalContent": "",
                 "image": "/img/strains/ForgePickles-logo.jpg",
                 "additionalImages": [
-                    "ForgePickles-detail1.jpg"
+                    "/img/strains/ForgePickles-detail1.jpg"
                 ],
                 "description": "Forge Pickles",
                 "variety": "Premium",
@@ -621,7 +621,7 @@
                 "notes": "",
                 "packOptions": [],
                 "enableHoverImage": true,
-                "hoverImage": "ForgePickles-detail1.jpg",
+                "hoverImage": "",
                 "hidden": false,
                 "displayOrder": 16
             },
