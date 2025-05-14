@@ -586,7 +586,10 @@
                 "digitalContent": "",
                 "image": "/img/strains/ValkyriesBanner-logo.jpg",
                 "additionalImages": [
-                    "/img/strains/ValkyriesBanner-detail1.jpg"
+                    "/img/strains/ValkyriesBanner-detail1.jpg",
+                    "/img/strains/ValkyriesBanner-detail2.jpg",
+                    "/img/strains/ValkyriesBanner-detail3.jpg",
+                    "/img/strains/ValkyriesBanner-detail4.jpg"
                 ],
                 "description": "Valkyrie's Banner",
                 "variety": "Hybrid",
@@ -618,7 +621,7 @@
                 "origin": "Svartalfheim",
                 "rarity": "Rare",
                 "details": "Forge Pickles",
-                "notes": "",
+                "notes": "In Old Norse literature, the home of the dwarves is called either Nidavellir (pronounced “NID-uh-vell-ir;” Old Norse Niðavellir, “Low Fields” or “Dark Fields”) or Svartalfheim (pronounced “SVART-alf-hame;” Old Norse Svartálfaheimr, “Homeland of the Black Elves”).",
                 "packOptions": [],
                 "enableHoverImage": true,
                 "hoverImage": "",
