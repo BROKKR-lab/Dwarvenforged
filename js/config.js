@@ -720,6 +720,6 @@
         "checkoutMethod": "email",
         "externalCheckoutUrl": "",
         "analyticsId": "",
-        "orderEmail": "orders@example.com"
+        "orderEmail": "dwarvenforgedshop@sitepackages.net"
     }
 };
