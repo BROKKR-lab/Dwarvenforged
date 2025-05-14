@@ -549,7 +549,13 @@
                 "rarity": "",
                 "details": "Niflheim",
                 "notes": "",
-                "packOptions": [],
+                "packOptions": [
+                    {
+                        "size": "6 Pack",
+                        "regularPrice": 30,
+                        "salePrice": 25
+                    }
+                ],
                 "enableHoverImage": false,
                 "hoverImage": "",
                 "hidden": false,
@@ -565,13 +571,19 @@
                 "image": "/img/strains/BurdensBliss-logo.jpg",
                 "additionalImages": [],
                 "description": "Burdens Bliss",
-                "variety": "",
-                "rating": "",
-                "origin": "",
-                "rarity": "",
+                "variety": "Premium",
+                "rating": "4.8/5",
+                "origin": "Hellheim",
+                "rarity": "Rare",
                 "details": "Burdens Bliss",
                 "notes": "",
-                "packOptions": [],
+                "packOptions": [
+                    {
+                        "size": "6 Pack",
+                        "regularPrice": 30,
+                        "salePrice": 25
+                    }
+                ],
                 "enableHoverImage": false,
                 "hoverImage": "",
                 "hidden": false,
@@ -598,7 +610,13 @@
                 "rarity": "Rare",
                 "details": "Valkyrie's Banner",
                 "notes": "",
-                "packOptions": [],
+                "packOptions": [
+                    {
+                        "size": "6 Pack",
+                        "regularPrice": 30,
+                        "salePrice": 25
+                    }
+                ],
                 "enableHoverImage": true,
                 "hoverImage": "",
                 "hidden": false,
@@ -622,7 +640,13 @@
                 "rarity": "Rare",
                 "details": "Forge Pickles",
                 "notes": "In Old Norse literature, the home of the dwarves is called either Nidavellir (pronounced “NID-uh-vell-ir;” Old Norse Niðavellir, “Low Fields” or “Dark Fields”) or Svartalfheim (pronounced “SVART-alf-hame;” Old Norse Svartálfaheimr, “Homeland of the Black Elves”).",
-                "packOptions": [],
+                "packOptions": [
+                    {
+                        "size": "6",
+                        "regularPrice": 30,
+                        "salePrice": 25
+                    }
+                ],
                 "enableHoverImage": true,
                 "hoverImage": "",
                 "hidden": false,
@@ -644,7 +668,13 @@
                 "rarity": "",
                 "details": "Mirth Berries",
                 "notes": "",
-                "packOptions": [],
+                "packOptions": [
+                    {
+                        "size": "6",
+                        "regularPrice": 30,
+                        "salePrice": 25
+                    }
+                ],
                 "enableHoverImage": false,
                 "hoverImage": "",
                 "hidden": false,
