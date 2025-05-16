@@ -15,8 +15,8 @@
       --button-hover: #d9a681;
       --card-border: #2a2c37;
       --badge-color: #ffc107;
-      --audio-badge: #5b9bd5;
-      --text-badge: #70ad47;
+      --fantasy-badge: #70ad47; /* Green for Creative Fantasy */
+      --audio-badge: #5b9bd5;   /* Blue for Audio Edition */
     }
 
     * {
@@ -179,14 +179,6 @@
     .story-title {
       font-size: 20px;
       margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .story-title-audio {
-      color: var(--audio-badge);
-      font-size: 16px;
     }
 
     .story-description {
@@ -246,9 +238,9 @@
       gap: 10px;
     }
 
-    .download-option-text {
+    .download-option-fantasy {
       flex: 1;
-      background-color: var(--text-badge);
+      background-color: var(--fantasy-badge);
       color: white;
       text-decoration: none;
       padding: 8px;
@@ -256,10 +248,6 @@
       font-size: 13px;
       text-align: center;
       transition: background-color 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
     }
 
     .download-option-audio {
@@ -272,13 +260,9 @@
       font-size: 13px;
       text-align: center;
       transition: background-color 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
     }
 
-    .download-option-text:hover {
+    .download-option-fantasy:hover {
       background-color: #8bc470;
     }
 
@@ -382,23 +366,8 @@
             <div class="story-actions">
               <a href="story-0005/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="#" class="download-option-text">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
-                    <path d="M14 2V8H20" fill="currentColor"/>
-                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Read Text
-                </a>
-                <a href="#" class="download-option-audio">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Get Audio
-                </a>
+                <a href="#" class="download-option-fantasy">Creative Fantasy</a>
+                <a href="#" class="download-option-audio">Audio Edition</a>
               </div>
             </div>
           </div>
@@ -425,23 +394,8 @@
             <div class="story-actions">
               <a href="story-0003/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="#" class="download-option-text">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
-                    <path d="M14 2V8H20" fill="currentColor"/>
-                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Read Text
-                </a>
-                <a href="#" class="download-option-audio">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Get Audio
-                </a>
+                <a href="#" class="download-option-fantasy">Creative Fantasy</a>
+                <a href="#" class="download-option-audio">Audio Edition</a>
               </div>
             </div>
           </div>
@@ -468,23 +422,8 @@
             <div class="story-actions">
               <a href="story-0004/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="#" class="download-option-text">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
-                    <path d="M14 2V8H20" fill="currentColor"/>
-                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Read Text
-                </a>
-                <a href="#" class="download-option-audio">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Get Audio
-                </a>
+                <a href="#" class="download-option-fantasy">Creative Fantasy</a>
+                <a href="#" class="download-option-audio">Audio Edition</a>
               </div>
             </div>
           </div>
@@ -511,23 +450,8 @@
             <div class="story-actions">
               <a href="story-0001/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="#" class="download-option-text">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
-                    <path d="M14 2V8H20" fill="currentColor"/>
-                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Read Text
-                </a>
-                <a href="#" class="download-option-audio">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Get Audio
-                </a>
+                <a href="#" class="download-option-fantasy">Creative Fantasy</a>
+                <a href="#" class="download-option-audio">Audio Edition</a>
               </div>
             </div>
           </div>
@@ -554,23 +478,8 @@
             <div class="story-actions">
               <a href="story-0002/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="#" class="download-option-text">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
-                    <path d="M14 2V8H20" fill="currentColor"/>
-                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Read Text
-                </a>
-                <a href="#" class="download-option-audio">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Get Audio
-                </a>
+                <a href="#" class="download-option-fantasy">Creative Fantasy</a>
+                <a href="#" class="download-option-audio">Audio Edition</a>
               </div>
             </div>
           </div>
@@ -597,23 +506,8 @@
             <div class="story-actions">
               <a href="story-0006/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="#" class="download-option-text">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
-                    <path d="M14 2V8H20" fill="currentColor"/>
-                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-					Read Text
-                </a>
-                <a href="#" class="download-option-audio">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Get Audio
-                </a>
+                <a href="#" class="download-option-fantasy">Creative Fantasy</a>
+                <a href="#" class="download-option-audio">Audio Edition</a>
               </div>
             </div>
           </div>
@@ -640,23 +534,8 @@
             <div class="story-actions">
               <a href="story-0007/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="#" class="download-option-text">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
-                    <path d="M14 2V8H20" fill="currentColor"/>
-                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Read Text
-                </a>
-                <a href="#" class="download-option-audio">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Get Audio
-                </a>
+                <a href="#" class="download-option-fantasy">Creative Fantasy</a>
+                <a href="#" class="download-option-audio">Audio Edition</a>
               </div>
             </div>
           </div>
@@ -683,23 +562,8 @@
             <div class="story-actions">
               <a href="story-0008/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="#" class="download-option-text">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
-                    <path d="M14 2V8H20" fill="currentColor"/>
-                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Read Text
-                </a>
-                <a href="#" class="download-option-audio">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Get Audio
-                </a>
+                <a href="#" class="download-option-fantasy">Creative Fantasy</a>
+                <a href="#" class="download-option-audio">Audio Edition</a>
               </div>
             </div>
           </div>
@@ -726,23 +590,8 @@
             <div class="story-actions">
               <a href="story-0009/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="#" class="download-option-text">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
-                    <path d="M14 2V8H20" fill="currentColor"/>
-                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Read Text
-                </a>
-                <a href="#" class="download-option-audio">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Get Audio
-                </a>
+                <a href="#" class="download-option-fantasy">Creative Fantasy</a>
+                <a href="#" class="download-option-audio">Audio Edition</a>
               </div>
             </div>
           </div>
@@ -770,23 +619,8 @@
 			<div class="story-actions">
 			  <a href="story-0010/index.html" class="read-button">Read Story</a>
 			  <div class="download-options">
-                <a href="#" class="download-option-text">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
-                    <path d="M14 2V8H20" fill="currentColor"/>
-                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Read Text
-                </a>
-                <a href="#" class="download-option-audio">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Get Audio
-                </a>
+                <a href="#" class="download-option-fantasy">Creative Fantasy</a>
+                <a href="#" class="download-option-audio">Audio Edition</a>
               </div>
 			</div>
 		  </div>
@@ -814,23 +648,8 @@
 			<div class="story-actions">
 			  <a href="story-0011/index.html" class="read-button">Read Story</a>
 			  <div class="download-options">
-                <a href="#" class="download-option-text">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
-                    <path d="M14 2V8H20" fill="currentColor"/>
-                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Read Text
-                </a>
-                <a href="#" class="download-option-audio">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Get Audio
-                </a>
+                <a href="#" class="download-option-fantasy">Creative Fantasy</a>
+                <a href="#" class="download-option-audio">Audio Edition</a>
               </div>
 			</div>
 		  </div>
@@ -840,8 +659,8 @@
     </div>
 	
     <footer>
-      <p>© 2025 Dwarven Forged. All stories are original works and part of the Dwarven Forged universe.</p>
-    </footer>
-  </div>
+		<p>© 2025 Dwarven Forged. All stories are original works and part of the Dwarven Forged universe.</p>
+   </footer>
+ </div>
 </body>
-</html>				  
+</html>
