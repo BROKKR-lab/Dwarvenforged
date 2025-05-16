@@ -15,6 +15,8 @@
       --button-hover: #d9a681;
       --card-border: #2a2c37;
       --badge-color: #ffc107;
+      --audio-badge: #5b9bd5;
+      --text-badge: #70ad47;
     }
 
     * {
@@ -146,6 +148,27 @@
       font-weight: bold;
     }
 
+    .audio-badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background-color: var(--audio-badge);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .audio-icon {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
     .story-content {
       padding: 20px;
       flex-grow: 1;
@@ -156,6 +179,14 @@
     .story-title {
       font-size: 20px;
       margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .story-title-audio {
+      color: var(--audio-badge);
+      font-size: 16px;
     }
 
     .story-description {
@@ -215,20 +246,44 @@
       gap: 10px;
     }
 
-    .download-option {
+    .download-option-text {
       flex: 1;
-      background-color: rgba(255, 255, 255, 0.05);
-      color: var(--accent-color);
+      background-color: var(--text-badge);
+      color: white;
       text-decoration: none;
       padding: 8px;
       border-radius: 4px;
       font-size: 13px;
       text-align: center;
       transition: background-color 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
     }
 
-    .download-option:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+    .download-option-audio {
+      flex: 1;
+      background-color: var(--audio-badge);
+      color: white;
+      text-decoration: none;
+      padding: 8px;
+      border-radius: 4px;
+      font-size: 13px;
+      text-align: center;
+      transition: background-color 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .download-option-text:hover {
+      background-color: #8bc470;
+    }
+
+    .download-option-audio:hover {
+      background-color: #7cb9e8;
     }
 
     .reading-order {
@@ -248,6 +303,22 @@
     .reading-order p {
       font-size: 14px;
       color: var(--secondary-text);
+    }
+
+    .audio-note {
+      background-color: rgba(91, 155, 213, 0.1);
+      border-left: 4px solid var(--audio-badge);
+      padding: 15px;
+      margin: 30px 0;
+      border-radius: 4px;
+    }
+
+    .audio-note h3 {
+      color: var(--audio-badge);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
     
     footer {
@@ -280,10 +351,26 @@
       <p>Follow the journey of the master craftsman Brokkr, from his legendary beginnings to his greatest creation and lasting legacy.</p>
     </div>
 
+    <div class="audio-note">
+      <h3>
+        <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+        Immersive Audio Experience
+      </h3>
+      <p>All stories in the Brokkr Saga are available as professional audio recordings, bringing these mythic tales to life through sound. Download the audio editions for an immersive journey through the Nine Realms.</p>
+    </div>
+
     <div class="stories-grid">
       <div class="story-card">
         <div class="story-image">
           <img src="story-0005/ForgeWager.jpg" alt="The Forge Wager">
+          <div class="audio-badge">
+            <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+            </svg>
+            Audio Available
+          </div>
         </div>
         <div class="story-content">
           <div class="story-sequence">
@@ -295,8 +382,23 @@
             <div class="story-actions">
               <a href="story-0005/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="#" class="download-option">Creative Fantasy</a>
-                <a href="#" class="download-option">Audio Edition</a>
+                <a href="#" class="download-option-text">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
+                    <path d="M14 2V8H20" fill="currentColor"/>
+                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Read Text
+                </a>
+                <a href="#" class="download-option-audio">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Get Audio
+                </a>
               </div>
             </div>
           </div>
@@ -306,6 +408,12 @@
       <div class="story-card">
         <div class="story-image">
           <img src="story-0003/ForgeTrial.jpg" alt="The Forge Trial">
+          <div class="audio-badge">
+            <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+            </svg>
+            Audio Available
+          </div>
         </div>
         <div class="story-content">
           <div class="story-sequence">
@@ -317,8 +425,23 @@
             <div class="story-actions">
               <a href="story-0003/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="#" class="download-option">Creative Fantasy</a>
-                <a href="#" class="download-option">Audio Edition</a>
+                <a href="#" class="download-option-text">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
+                    <path d="M14 2V8H20" fill="currentColor"/>
+                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Read Text
+                </a>
+                <a href="#" class="download-option-audio">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Get Audio
+                </a>
               </div>
             </div>
           </div>
@@ -328,6 +451,12 @@
       <div class="story-card">
         <div class="story-image">
           <img src="story-0004/ForgeCouncil.jpg" alt="The Forge Council">
+          <div class="audio-badge">
+            <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+            </svg>
+            Audio Available
+          </div>
         </div>
         <div class="story-content">
           <div class="story-sequence">
@@ -339,8 +468,23 @@
             <div class="story-actions">
               <a href="story-0004/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="#" class="download-option">Creative Fantasy</a>
-                <a href="#" class="download-option">Audio Edition</a>
+                <a href="#" class="download-option-text">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
+                    <path d="M14 2V8H20" fill="currentColor"/>
+                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Read Text
+                </a>
+                <a href="#" class="download-option-audio">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Get Audio
+                </a>
               </div>
             </div>
           </div>
@@ -350,6 +494,12 @@
       <div class="story-card">
         <div class="story-image">
           <img src="story-0001/ForgeRootFlame.jpg" alt="The Forge Root Flame">
+          <div class="audio-badge">
+            <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+            </svg>
+            Audio Available
+          </div>
         </div>
         <div class="story-content">
           <div class="story-sequence">
@@ -361,8 +511,23 @@
             <div class="story-actions">
               <a href="story-0001/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="#" class="download-option">Creative Fantasy</a>
-                <a href="#" class="download-option">Audio Edition</a>
+                <a href="#" class="download-option-text">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
+                    <path d="M14 2V8H20" fill="currentColor"/>
+                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Read Text
+                </a>
+                <a href="#" class="download-option-audio">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Get Audio
+                </a>
               </div>
             </div>
           </div>
@@ -372,6 +537,12 @@
       <div class="story-card">
         <div class="story-image">
           <img src="story-0002/ForgeDaughter.jpg" alt="The Forge Daughter">
+          <div class="audio-badge">
+            <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+            </svg>
+            Audio Available
+          </div>
         </div>
         <div class="story-content">
           <div class="story-sequence">
@@ -383,8 +554,23 @@
             <div class="story-actions">
               <a href="story-0002/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="#" class="download-option">Creative Fantasy</a>
-                <a href="#" class="download-option">Audio Edition</a>
+                <a href="#" class="download-option-text">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
+                    <path d="M14 2V8H20" fill="currentColor"/>
+                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Read Text
+                </a>
+                <a href="#" class="download-option-audio">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Get Audio
+                </a>
               </div>
             </div>
           </div>
@@ -394,6 +580,12 @@
       <div class="story-card">
         <div class="story-image">
           <img src="story-0006/ForgeJourney.jpg" alt="The Forge Journey">
+          <div class="audio-badge">
+            <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+            </svg>
+            Audio Available
+          </div>
         </div>
         <div class="story-content">
           <div class="story-sequence">
@@ -405,8 +597,23 @@
             <div class="story-actions">
               <a href="story-0006/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="#" class="download-option">Creative Fantasy</a>
-                <a href="#" class="download-option">Audio Edition</a>
+                <a href="#" class="download-option-text">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
+                    <path d="M14 2V8H20" fill="currentColor"/>
+                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+					Read Text
+                </a>
+                <a href="#" class="download-option-audio">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Get Audio
+                </a>
               </div>
             </div>
           </div>
@@ -416,6 +623,12 @@
       <div class="story-card">
         <div class="story-image">
           <img src="story-0007/ForgeDetail.jpg" alt="The Forge Detail">
+          <div class="audio-badge">
+            <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+            </svg>
+            Audio Available
+          </div>
         </div>
         <div class="story-content">
           <div class="story-sequence">
@@ -427,8 +640,23 @@
             <div class="story-actions">
               <a href="story-0007/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="#" class="download-option">Creative Fantasy</a>
-                <a href="#" class="download-option">Audio Edition</a>
+                <a href="#" class="download-option-text">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
+                    <path d="M14 2V8H20" fill="currentColor"/>
+                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Read Text
+                </a>
+                <a href="#" class="download-option-audio">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Get Audio
+                </a>
               </div>
             </div>
           </div>
@@ -438,6 +666,12 @@
       <div class="story-card">
         <div class="story-image">
           <img src="story-0008/ForgeChronicle.jpg" alt="The Forge Chronicle">
+          <div class="audio-badge">
+            <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+            </svg>
+            Audio Available
+          </div>
         </div>
         <div class="story-content">
           <div class="story-sequence">
@@ -449,8 +683,23 @@
             <div class="story-actions">
               <a href="story-0008/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="#" class="download-option">Creative Fantasy</a>
-                <a href="#" class="download-option">Audio Edition</a>
+                <a href="#" class="download-option-text">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
+                    <path d="M14 2V8H20" fill="currentColor"/>
+                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Read Text
+                </a>
+                <a href="#" class="download-option-audio">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Get Audio
+                </a>
               </div>
             </div>
           </div>
@@ -460,6 +709,12 @@
       <div class="story-card">
         <div class="story-image">
           <img src="story-0009/ForgeReunion.jpg" alt="The Forge Reunion">
+          <div class="audio-badge">
+            <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+            </svg>
+            Audio Available
+          </div>
         </div>
         <div class="story-content">
           <div class="story-sequence">
@@ -471,8 +726,23 @@
             <div class="story-actions">
               <a href="story-0009/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="#" class="download-option">Creative Fantasy</a>
-                <a href="#" class="download-option">Audio Edition</a>
+                <a href="#" class="download-option-text">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
+                    <path d="M14 2V8H20" fill="currentColor"/>
+                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Read Text
+                </a>
+                <a href="#" class="download-option-audio">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Get Audio
+                </a>
               </div>
             </div>
           </div>
@@ -480,51 +750,93 @@
       </div>
 
 
-		<div class="story-card">
-			<div class="story-image">
-			  <img src="story-0010/ForgeBond.jpg" alt="The Forge Bond">
-			</div>
-			<div class="story-content">
-			  <div class="story-sequence">
-				<span>Part 10 of Brokkr's Saga</span>
-			  </div>
-			  <h3 class="story-title">The Forge Bond</h3>
-			  <p class="story-description">After his imprisonment among the fire giants, Brokkr meets Elri, a seed-tender with Vanir heritage, and her young daughter Nostri. Despite facing a second confinement for forbidden experiments, they build a life combining dwarven metallurgy with plant-craft. When fire destroys their seedforge and years of research, they discover that from the ashes, the most resilient creations emerge—both in their work and in their bond as a family.</p>
-			  <div class="story-meta">
-				<div class="story-actions">
-				  <a href="story-0010/index.html" class="read-button">Read Story</a>
-				  <div class="download-options">
-					<a href="#" class="download-option">Creative Fantasy</a>
-					<a href="#" class="download-option">Audio Edition</a>
-				  </div>
-				</div>
-			  </div>
+	  <div class="story-card">
+		<div class="story-image">
+		  <img src="story-0010/ForgeBond.jpg" alt="The Forge Bond">
+          <div class="audio-badge">
+            <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+            </svg>
+            Audio Available
+          </div>
+		</div>
+		<div class="story-content">
+		  <div class="story-sequence">
+			<span>Part 10 of Brokkr's Saga</span>
+		  </div>
+		  <h3 class="story-title">The Forge Bond</h3>
+		  <p class="story-description">After his imprisonment among the fire giants, Brokkr meets Elri, a seed-tender with Vanir heritage, and her young daughter Nostri. Despite facing a second confinement for forbidden experiments, they build a life combining dwarven metallurgy with plant-craft. When fire destroys their seedforge and years of research, they discover that from the ashes, the most resilient creations emerge—both in their work and in their bond as a family.</p>
+		  <div class="story-meta">
+			<div class="story-actions">
+			  <a href="story-0010/index.html" class="read-button">Read Story</a>
+			  <div class="download-options">
+                <a href="#" class="download-option-text">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
+                    <path d="M14 2V8H20" fill="currentColor"/>
+                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Read Text
+                </a>
+                <a href="#" class="download-option-audio">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Get Audio
+                </a>
+              </div>
 			</div>
 		  </div>
-	  
-		<div class="story-card">
-			<div class="story-image">
-			  <img src="story-0011/PhoenixFlame.jpg" alt="The Phoenix Flame">
-			  <span class="new-badge">New</span>
-			</div>
-			<div class="story-content">
-			  <div class="story-sequence">
-				<span>Part 11 of Brokkr's Saga</span>
-			  </div>
-			  <h3 class="story-title">The Phoenix Flame</h3>
-			  <p class="story-description">After the devastating fire, Brokkr and Elri discover that many had preserved fragments of their work. These "ember carriers" become the foundation of a special honor—the Phoenix Flame. Recipients are gifted handcrafted wooden boxes containing the rarest seeds, including mysterious "Lost and Found" varieties with unknown potential. Not purchased but freely given out of respect, this tradition celebrates those who stood with Brokkr when others wouldn't, forming a sacred circle of trust that transcends the boundaries between realms.</p>
-			  <div class="story-meta">
-				<div class="story-actions">
-				  <a href="story-0011/index.html" class="read-button">Read Story</a>
-				  <div class="download-options">
-					<a href="#" class="download-option">Creative Fantasy</a>
-					<a href="#" class="download-option">Audio Edition</a>
-				  </div>
-				</div>
-			  </div>
+		</div>
+	  </div>
+  
+	<div class="story-card">
+		<div class="story-image">
+		  <img src="story-0011/PhoenixFlame.jpg" alt="The Phoenix Flame">
+		  <span class="new-badge">New</span>
+          <div class="audio-badge">
+            <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+            </svg>
+            Audio Available
+          </div>
+		</div>
+		<div class="story-content">
+		  <div class="story-sequence">
+			<span>Part 11 of Brokkr's Saga</span>
+		  </div>
+		  <h3 class="story-title">The Phoenix Flame</h3>
+		  <p class="story-description">After the devastating fire, Brokkr and Elri discover that many had preserved fragments of their work. These "ember carriers" become the foundation of a special honor—the Phoenix Flame. Recipients are gifted handcrafted wooden boxes containing the rarest seeds, including mysterious "Lost and Found" varieties with unknown potential. Not purchased but freely given out of respect, this tradition celebrates those who stood with Brokkr when others wouldn't, forming a sacred circle of trust that transcends the boundaries between realms.</p>
+		  <div class="story-meta">
+			<div class="story-actions">
+			  <a href="story-0011/index.html" class="read-button">Read Story</a>
+			  <div class="download-options">
+                <a href="#" class="download-option-text">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
+                    <path d="M14 2V8H20" fill="currentColor"/>
+                    <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M10 9H8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Read Text
+                </a>
+                <a href="#" class="download-option-audio">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3V13M12 13L15 10M12 13L9 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19 17V19C19 20.1046 17.1046 21 15 21H9C6.89543 21 5 20.1046 5 19V17" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Get Audio
+                </a>
+              </div>
 			</div>
 		  </div>
-	  
+		</div>
+	  </div>
+  
     </div>
 	
     <footer>
@@ -532,4 +844,4 @@
     </footer>
   </div>
 </body>
-</html>
+</html>				  
