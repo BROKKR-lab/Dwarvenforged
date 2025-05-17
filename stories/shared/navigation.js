@@ -27,11 +27,10 @@ document.addEventListener('DOMContentLoaded', function() {
   const storiesDropdown = document.getElementById('stories-dropdown');
   
   // Master story data - central place for all story information
-  // Reading order: The young smith creates legendary Mjolnir, gets imprisoned, 
-  // escapes and establishes his principles, forges the great seed, and finally his daughter's journey
+  // Complete Brokkr Saga reading order
   const masterStoryData = {
     // The reading order array - this controls sequence throughout the site
-    readingOrder: ['0005', '0003', '0004', '0001', '0002'],
+    readingOrder: ['0005', '0003', '0004', '0001', '0002', '0006', '0007', '0008', '0009', '0010', '0011', '0012'],
     
     // Complete story information
     stories: {
@@ -59,14 +58,49 @@ document.addEventListener('DOMContentLoaded', function() {
         title: 'The Forge Wager',
         path: '/stories/story-0005/index.html',
         description: 'When Loki cuts off Sif\'s golden hair, Brokkr is drawn into a dangerous wager that will test his craft against the legendary Sons of Ivaldi. The result: the creation of Mjolnir, the most powerful weapon in the Nine Realms.'
+      },
+      '0006': {
+        title: 'The Forge Journey',
+        path: '/stories/story-0006/index.html',
+        description: 'After his rebirth, Brokkr embarks on a mission to share his craft across the Nine Realms. Teaching others to adapt seedcraft to their own environments, he creates a network of knowledge exchange that transforms not just how seeds grow, but how realms connect.'
+      },
+      '0007': {
+        title: 'The Forge Detail',
+        path: '/stories/story-0007/index.html',
+        description: 'While establishing seed exchanges in Alfheim, Brokkr discovers dark elves living in secret. As he learns their mastery of precision and microscopic detail, they in turn discover his knowledge of scaling work across different magnitudes. Together, they create a hidden alliance that bridges realms in unexpected ways.'
+      },
+      '0008': {
+        title: 'The Forge Chronicle',
+        path: '/stories/story-0008/index.html',
+        description: 'Brokkr encounters Eddan, a court scribe who abandoned comfort to record tales worth telling. What begins as Brokkr offering aid to a traveler transforms into an unexpected partnership, as Eddan\'s gift for storytelling helps spread seedcraft knowledge across the realms far beyond what Brokkr could achieve alone.'
+      },
+      '0009': {
+        title: 'The Forge Reunion',
+        path: '/stories/story-0009/index.html',
+        description: 'Brokkr recounts the tale of Lonetree, a towering, tattooed human who once led a fellowship of knowledge-sharers across the realms. Separated by the Great Withering, they reunite decades later to establish Forge Gardens—permanent communities where their different approaches to craft and growth combine to create something greater than either could achieve alone.'
+      },
+      '0010': {
+        title: 'The Forge Bond',
+        path: '/stories/story-0010/index.html',
+        description: 'After his imprisonment among the fire giants, Brokkr meets Elri, a seed-tender with Vanir heritage, and her young daughter Nostri. Despite facing a second confinement for forbidden experiments, they build a life combining dwarven metallurgy with plant-craft. When fire destroys their seedforge and years of research, they discover that from the ashes, the most resilient creations emerge—both in their work and in their bond as a family.'
+      },
+      '0011': {
+        title: 'The Phoenix Flame',
+        path: '/stories/story-0011/index.html',
+        description: 'After the devastating fire, Brokkr and Elri discover that many had preserved fragments of their work. These "ember carriers" become the foundation of a special honor—the Phoenix Flame. Recipients are gifted handcrafted wooden boxes containing the rarest seeds, including mysterious "Lost and Found" varieties with unknown potential. Not purchased but freely given out of respect, this tradition celebrates those who stood with Brokkr when others wouldn\'t, forming a sacred circle of trust that transcends the boundaries between realms.'
+      },
+      '0012': {
+        title: 'The Forge Memory',
+        path: '/stories/story-0012/index.html',
+        description: 'As Brokkr\'s seedcraft grows increasingly complex, his traditional methods of documentation prove inadequate. When Eddan the chronicler brings him a mysterious "memory tablet" combining elven crystal-work with dwarven metallurgy, Brokkr reluctantly embraces this new tool. Through his struggles to adapt, he discovers that the tablet reveals hidden patterns in his phoenix seeds—connections that transform not just how he records his knowledge, but how he understands the very nature of his craft.'
       }
     }
   };
   
   // This function will attempt to find stories by checking if directories exist
   function detectStories() {
-    // Maximum number of stories to check for (can be increased as needed)
-    const maxStoriesToCheck = 10;
+    // Maximum number of stories to check for (increased to accommodate more stories)
+    const maxStoriesToCheck = 15;
     let foundStories = [];
     
     // Helper function to check if a URL exists
