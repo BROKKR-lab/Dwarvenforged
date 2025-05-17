@@ -450,6 +450,24 @@ h1 {
   border-left: 4px solid #bb8c65;
 }
 
+/* Chapter headers/titles */
+.story-section h2 {
+  background-color: #5b3a29;
+  color: #ffffff;
+  padding: 8px 12px;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+/* Story text color for contrast against tan background */
+.story-section p {
+  color: #333;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
 /* Ember Carriers Story Styling */
 .the-ember-carriers {
   color: #bb8c65; /* Accent color for the title */
