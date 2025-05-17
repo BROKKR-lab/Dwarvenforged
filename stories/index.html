@@ -1,334 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Open Graph / Facebook / Discord -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.dwarvenforged.com/stories/">
+  <meta property="og:title" content="Dwarven Forged Stories">
+  <meta property="og:description" content="Explore the mythic tales behind our seed strains, forged in the ancient traditions of the dwarven masters and the secrets of nature's deepest magic.">
+  <meta property="og:image" content="https://www.dwarvenforged.com/stories/social-preview.jpg">
 
-	<!-- Open Graph / Facebook / Discord -->
-	<meta property="og:type" content="website">
-	<meta property="og:url" content="https://www.dwarvenforged.com/stories/">
-	<meta property="og:title" content="Dwarven Forged Stories">
-	<meta property="og:description" content="Explore the mythic tales behind our seed strains, forged in the ancient traditions of the dwarven masters and the secrets of nature's deepest magic.">
-	<meta property="og:image" content="https://www.dwarvenforged.com/stories/social-preview.jpg">
-
-	<!-- Twitter -->
-	<meta property="twitter:card" content="summary_large_image">
-	<meta property="twitter:url" content="https://www.dwarvenforged.com/stories/">
-	<meta property="twitter:title" content="Dwarven Forged Stories">
-	<meta property="twitter:description" content="Explore the mythic tales behind our seed strains, forged in the ancient traditions of the dwarven masters and the secrets of nature's deepest magic.">
-	<meta property="twitter:image" content="https://www.dwarvenforged.com/stories/social-preview.jpg">
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://www.dwarvenforged.com/stories/">
+  <meta property="twitter:title" content="Dwarven Forged Stories">
+  <meta property="twitter:description" content="Explore the mythic tales behind our seed strains, forged in the ancient traditions of the dwarven masters and the secrets of nature's deepest magic.">
+  <meta property="twitter:image" content="https://www.dwarvenforged.com/stories/social-preview.jpg">
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dwarven Forged Stories - Legends of the Seeds</title>
-  <style>
-    :root {
-      --primary-bg: #0d0e12;
-      --card-bg: #1e2028;
-      --accent-color: #bb8c65;
-      --primary-text: #ffffff;
-      --secondary-text: #a5a9b7;
-      --button-color: #bb8c65;
-      --button-hover: #d9a681;
-      --card-border: #2a2c37;
-      --badge-color: #ffc107;
-      --fantasy-badge: #70ad47; /* Green for Creative Fantasy */
-      --audio-badge: #5b9bd5;   /* Blue for Audio Edition */
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--primary-bg);
-      color: var(--primary-text);
-      line-height: 1.6;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      margin-bottom: 40px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-    }
-
-    .logo img {
-      height: 40px;
-      margin-right: 10px;
-    }
-
-    .logo h1 {
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    .home-button {
-      background-color: var(--button-color);
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: bold;
-      text-decoration: none;
-      display: inline-block;
-      transition: background-color 0.3s;
-    }
-
-    .home-button:hover {
-      background-color: var(--button-hover);
-    }
-
-    .page-title {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .page-title h2 {
-      font-size: 32px;
-      margin-bottom: 10px;
-    }
-
-    .page-title p {
-      color: var(--secondary-text);
-      font-size: 16px;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .stories-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 25px;
-      margin-top: 40px;
-    }
-
-    .story-card {
-      background-color: var(--card-bg);
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid var(--card-border);
-      transition: transform 0.3s, box-shadow 0.3s;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .story-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .story-image {
-      position: relative;
-      height: 200px;
-      overflow: hidden;
-    }
-
-    .story-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s;
-    }
-
-    .story-card:hover .story-image img {
-      transform: scale(1.05);
-    }
-
-    .new-badge {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background-color: var(--badge-color);
-      color: #000;
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .audio-badge {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      background-color: var(--audio-badge);
-      color: white;
-      padding: 5px 10px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .audio-icon {
-      width: 16px;
-      height: 16px;
-      fill: currentColor;
-    }
-
-    .story-content {
-      padding: 20px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .story-title {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
-
-    .story-description {
-      color: var(--secondary-text);
-      font-size: 14px;
-      margin-bottom: 15px;
-      flex-grow: 1;
-    }
-
-    .story-meta {
-      padding-top: 15px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .story-sequence {
-      background-color: rgba(187, 140, 101, 0.1);
-      padding: 8px 12px;
-      border-radius: 4px;
-      margin-bottom: 15px;
-      text-align: center;
-    }
-    
-    .story-sequence span {
-      font-size: 14px;
-      font-weight: bold;
-      color: var(--accent-color);
-    }
-
-    .story-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .read-button {
-      background-color: var(--button-color);
-      color: white;
-      border: none;
-      padding: 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: bold;
-      text-decoration: none;
-      display: block;
-      transition: background-color 0.3s;
-      text-align: center;
-    }
-
-    .read-button:hover {
-      background-color: var(--button-hover);
-    }
-
-    .download-options {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .download-option-fantasy {
-      flex: 1;
-      background-color: var(--fantasy-badge);
-      color: white;
-      text-decoration: none;
-      padding: 8px;
-      border-radius: 4px;
-      font-size: 13px;
-      text-align: center;
-      transition: background-color 0.3s;
-    }
-
-    .download-option-audio {
-      flex: 1;
-      background-color: var(--audio-badge);
-      color: white;
-      text-decoration: none;
-      padding: 8px;
-      border-radius: 4px;
-      font-size: 13px;
-      text-align: center;
-      transition: background-color 0.3s;
-    }
-
-    .download-option-fantasy:hover {
-      background-color: #8bc470;
-    }
-
-    .download-option-audio:hover {
-      background-color: #7cb9e8;
-    }
-
-    .reading-order {
-      text-align: center;
-      margin-bottom: 30px;
-      background-color: var(--card-bg);
-      padding: 15px;
-      border-radius: 8px;
-      border: 1px solid var(--card-border);
-    }
-    
-    .reading-order h3 {
-      margin-bottom: 10px;
-      color: var(--accent-color);
-    }
-    
-    .reading-order p {
-      font-size: 14px;
-      color: var(--secondary-text);
-    }
-
-    .audio-note {
-      background-color: rgba(91, 155, 213, 0.1);
-      border-left: 4px solid var(--audio-badge);
-      padding: 15px;
-      margin: 30px 0;
-      border-radius: 4px;
-    }
-
-    .audio-note h3 {
-      color: var(--audio-badge);
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    footer {
-      text-align: center;
-      padding: 30px 0;
-      margin-top: 60px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--secondary-text);
-      font-size: 13px;
-    }
-  </style>
+  <link rel="stylesheet" href="../shared/styles.css">
 </head>
 <body>
   <div class="container">
@@ -358,7 +48,7 @@
         Immersive Audio Experience
       </h3>
       <p>All stories in the Brokkr Saga are available as audio recordings, bringing these mythic tales to life through sound.<p>
-			- Listen to the audio editions for an immersive journey through the Nine Realms.</p>
+      <p>- Listen to the audio editions for an immersive journey through the Nine Realms.</p>
     </div>
 
     <div class="stories-grid">
@@ -367,12 +57,12 @@
           <a href="story-0005/index.html">
             <img src="story-0005/ForgeWager.jpg" alt="The Forge Wager">
           </a>
-          <div class="audio-badge">
+          <span class="audio-badge">
             <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
             </svg>
             Audio Available
-          </div>
+          </span>
         </div>
         <div class="story-content">
           <div class="story-sequence">
@@ -384,8 +74,8 @@
             <div class="story-actions">
               <a href="story-0005/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="story-0005/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                <a href="story-0005/index.html" class="download-option-audio">DIGITAL EDITION</a>
+                <a href="story-0005/index.html" class="download-option creative-fantasy">Creative Fantasy</a>
+                <a href="story-0005/index.html" class="download-option digital-edition-upper">DIGITAL EDITION</a>
               </div>
             </div>
           </div>
@@ -397,12 +87,12 @@
           <a href="story-0003/index.html">
             <img src="story-0003/ForgeTrial.jpg" alt="The Forge Trial">
           </a>
-          <div class="audio-badge">
+          <span class="audio-badge">
             <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
             </svg>
             Audio Available
-          </div>
+          </span>
         </div>
         <div class="story-content">
           <div class="story-sequence">
@@ -414,8 +104,8 @@
             <div class="story-actions">
               <a href="story-0003/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="story-0003/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                <a href="story-0003/index.html" class="download-option-audio">DIGITAL EDITION</a>
+                <a href="story-0003/index.html" class="download-option creative-fantasy">Creative Fantasy</a>
+                <a href="story-0003/index.html" class="download-option digital-edition-upper">DIGITAL EDITION</a>
               </div>
             </div>
           </div>
@@ -427,12 +117,12 @@
           <a href="story-0004/index.html">
             <img src="story-0004/ForgeCouncil.jpg" alt="The Forge Council">
           </a>
-          <div class="audio-badge">
+          <span class="audio-badge">
             <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
             </svg>
             Audio Available
-          </div>
+          </span>
         </div>
         <div class="story-content">
           <div class="story-sequence">
@@ -444,8 +134,8 @@
             <div class="story-actions">
               <a href="story-0004/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="story-0004/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                <a href="story-0004/index.html" class="download-option-audio">DIGITAL EDITION</a>
+                <a href="story-0004/index.html" class="download-option creative-fantasy">Creative Fantasy</a>
+                <a href="story-0004/index.html" class="download-option digital-edition-upper">DIGITAL EDITION</a>
               </div>
             </div>
           </div>
@@ -457,12 +147,12 @@
           <a href="story-0001/index.html">
             <img src="story-0001/ForgeRootFlame.jpg" alt="The Forge Root Flame">
           </a>
-          <div class="audio-badge">
+          <span class="audio-badge">
             <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
             </svg>
             Audio Available
-          </div>
+          </span>
         </div>
         <div class="story-content">
           <div class="story-sequence">
@@ -474,8 +164,8 @@
             <div class="story-actions">
               <a href="story-0001/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="story-0001/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                <a href="story-0001/index.html" class="download-option-audio">DIGITAL EDITION</a>
+                <a href="story-0001/index.html" class="download-option creative-fantasy">Creative Fantasy</a>
+                <a href="story-0001/index.html" class="download-option digital-edition-upper">DIGITAL EDITION</a>
               </div>
             </div>
           </div>
@@ -487,12 +177,12 @@
           <a href="story-0002/index.html">
             <img src="story-0002/ForgeDaughter.jpg" alt="The Forge Daughter">
           </a>
-          <div class="audio-badge">
+          <span class="audio-badge">
             <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
             </svg>
             Audio Available
-          </div>
+          </span>
         </div>
         <div class="story-content">
           <div class="story-sequence">
@@ -504,8 +194,8 @@
             <div class="story-actions">
               <a href="story-0002/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="story-0002/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                <a href="story-0002/index.html" class="download-option-audio">DIGITAL EDITION</a>
+                <a href="story-0002/index.html" class="download-option creative-fantasy">Creative Fantasy</a>
+                <a href="story-0002/index.html" class="download-option digital-edition-upper">DIGITAL EDITION</a>
               </div>
             </div>
           </div>
@@ -517,12 +207,12 @@
           <a href="story-0006/index.html">
             <img src="story-0006/ForgeJourney.jpg" alt="The Forge Journey">
           </a>
-          <div class="audio-badge">
+          <span class="audio-badge">
             <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
             </svg>
             Audio Available
-          </div>
+          </span>
         </div>
         <div class="story-content">
           <div class="story-sequence">
@@ -534,8 +224,8 @@
             <div class="story-actions">
               <a href="story-0006/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="story-0006/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                <a href="story-0006/index.html" class="download-option-audio">DIGITAL EDITION</a>
+                <a href="story-0006/index.html" class="download-option creative-fantasy">Creative Fantasy</a>
+                <a href="story-0006/index.html" class="download-option digital-edition-upper">DIGITAL EDITION</a>
               </div>
             </div>
           </div>
@@ -547,12 +237,12 @@
           <a href="story-0007/index.html">
             <img src="story-0007/ForgeDetail.jpg" alt="The Forge Detail">
           </a>
-          <div class="audio-badge">
+          <span class="audio-badge">
             <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
             </svg>
             Audio Available
-          </div>
+          </span>
         </div>
         <div class="story-content">
           <div class="story-sequence">
@@ -564,8 +254,8 @@
             <div class="story-actions">
               <a href="story-0007/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="story-0007/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                <a href="story-0007/index.html" class="download-option-audio">DIGITAL EDITION</a>
+                <a href="story-0007/index.html" class="download-option creative-fantasy">Creative Fantasy</a>
+                <a href="story-0007/index.html" class="download-option digital-edition-upper">DIGITAL EDITION</a>
               </div>
             </div>
           </div>
@@ -577,12 +267,12 @@
           <a href="story-0008/index.html">
             <img src="story-0008/ForgeChronicle.jpg" alt="The Forge Chronicle">
           </a>
-          <div class="audio-badge">
+          <span class="audio-badge">
             <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
             </svg>
             Audio Available
-          </div>
+          </span>
         </div>
         <div class="story-content">
           <div class="story-sequence">
@@ -594,8 +284,8 @@
             <div class="story-actions">
               <a href="story-0008/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="story-0008/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                <a href="story-0008/index.html" class="download-option-audio">DIGITAL EDITION</a>
+                <a href="story-0008/index.html" class="download-option creative-fantasy">Creative Fantasy</a>
+                <a href="story-0008/index.html" class="download-option digital-edition-upper">DIGITAL EDITION</a>
               </div>
             </div>
           </div>
@@ -607,12 +297,12 @@
           <a href="story-0009/index.html">
             <img src="story-0009/ForgeReunion.jpg" alt="The Forge Reunion">
           </a>
-          <div class="audio-badge">
+          <span class="audio-badge">
             <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
             </svg>
             Audio Available
-          </div>
+          </span>
         </div>
         <div class="story-content">
           <div class="story-sequence">
@@ -624,105 +314,105 @@
             <div class="story-actions">
               <a href="story-0009/index.html" class="read-button">Read Story</a>
               <div class="download-options">
-                <a href="story-0009/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                <a href="story-0009/index.html" class="download-option-audio">DIGITAL EDITION</a>
+                <a href="story-0009/index.html" class="download-option creative-fantasy">Creative Fantasy</a>
+                <a href="story-0009/index.html" class="download-option digital-edition-upper">DIGITAL EDITION</a>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-
-	  <div class="story-card">
-		<div class="story-image">
-		  <a href="story-0010/index.html">
-		    <img src="story-0010/ForgeBond.jpg" alt="The Forge Bond">
-		  </a>
-          <div class="audio-badge">
+      <div class="story-card">
+        <div class="story-image">
+          <a href="story-0010/index.html">
+            <img src="story-0010/ForgeBond.jpg" alt="The Forge Bond">
+          </a>
+          <span class="audio-badge">
             <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
             </svg>
             Audio Available
+          </span>
+        </div>
+        <div class="story-content">
+          <div class="story-sequence">
+            <span>Part 10 of Brokkr's Saga</span>
           </div>
-		</div>
-		<div class="story-content">
-		  <div class="story-sequence">
-			<span>Part 10 of Brokkr's Saga</span>
-		  </div>
-		  <h3 class="story-title">The Forge Bond</h3>
-		  <p class="story-description">After his imprisonment among the fire giants, Brokkr meets Elri, a seed-tender with Vanir heritage, and her young daughter Nostri. Despite facing a second confinement for forbidden experiments, they build a life combining dwarven metallurgy with plant-craft. When fire destroys their seedforge and years of research, they discover that from the ashes, the most resilient creations emerge—both in their work and in their bond as a family.</p>
-		  <div class="story-meta">
-			<div class="story-actions">
-			  <a href="story-0010/index.html" class="read-button">Read Story</a>
-			  <div class="download-options">
-                <a href="story-0010/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                <a href="story-0010/index.html" class="download-option-audio">DIGITAL EDITION</a>
+          <h3 class="story-title">The Forge Bond</h3>
+          <p class="story-description">After his imprisonment among the fire giants, Brokkr meets Elri, a seed-tender with Vanir heritage, and her young daughter Nostri. Despite facing a second confinement for forbidden experiments, they build a life combining dwarven metallurgy with plant-craft. When fire destroys their seedforge and years of research, they discover that from the ashes, the most resilient creations emerge—both in their work and in their bond as a family.</p>
+          <div class="story-meta">
+            <div class="story-actions">
+              <a href="story-0010/index.html" class="read-button">Read Story</a>
+              <div class="download-options">
+                <a href="story-0010/index.html" class="download-option creative-fantasy">Creative Fantasy</a>
+                <a href="story-0010/index.html" class="download-option digital-edition-upper">DIGITAL EDITION</a>
               </div>
-			</div>
-		  </div>
-		</div>
-	  </div>
+            </div>
+          </div>
+        </div>
+      </div>
   
-	<div class="story-card">
-		<div class="story-image">
-		  <a href="story-0011/index.html">
-		    <img src="story-0011/PhoenixFlame.jpg" alt="The Phoenix Flame">
-		  </a>
-		  <span class="new-badge">New</span>
-          <div class="audio-badge">
+      <div class="story-card">
+        <div class="story-image">
+          <a href="story-0011/index.html">
+            <img src="story-0011/PhoenixFlame.jpg" alt="The Phoenix Flame">
+          </a>
+          <span class="new-badge">New</span>
+          <span class="audio-badge">
             <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-           </svg>
-           Audio Available
-         </div>
-   	</div>
-   	<div class="story-content">
-   	  <div class="story-sequence">
-   		<span>Part 11 of Brokkr's Saga</span>
-   	  </div>
-   	  <h3 class="story-title">The Phoenix Flame</h3>
-   	  <p class="story-description">After the devastating fire, Brokkr and Elri discover that many had preserved fragments of their work. These "ember carriers" become the foundation of a special honor—the Phoenix Flame. Recipients are gifted handcrafted wooden boxes containing the rarest seeds, including mysterious "Lost and Found" varieties with unknown potential. Not purchased but freely given out of respect, this tradition celebrates those who stood with Brokkr when others wouldn't, forming a sacred circle of trust that transcends the boundaries between realms.</p>
-   	  <div class="story-meta">
-   		<div class="story-actions">
-   		  <a href="story-0011/index.html" class="read-button">Read Story</a>
-   		  <div class="download-options">
-               <a href="story-0011/index.html" class="download-option-fantasy">Creative Fantasy</a>
-               <a href="story-0011/index.html" class="download-option-audio">DIGITAL EDITION</a>
-             </div>
-   		</div>
-   	  </div>
-   	</div>
-     </div>
+            </svg>
+            Audio Available
+          </span>
+        </div>
+        <div class="story-content">
+          <div class="story-sequence">
+            <span>Part 11 of Brokkr's Saga</span>
+          </div>
+          <h3 class="story-title">The Phoenix Flame</h3>
+          <p class="story-description">After the devastating fire, Brokkr and Elri discover that many had preserved fragments of their work. These "ember carriers" become the foundation of a special honor—the Phoenix Flame. Recipients are gifted handcrafted wooden boxes containing the rarest seeds, including mysterious "Lost and Found" varieties with unknown potential. Not purchased but freely given out of respect, this tradition celebrates those who stood with Brokkr when others wouldn't, forming a sacred circle of trust that transcends the boundaries between realms.</p>
+          <div class="story-meta">
+            <div class="story-actions">
+              <a href="story-0011/index.html" class="read-button">Read Story</a>
+              <div class="download-options">
+                <a href="story-0011/index.html" class="download-option creative-fantasy">Creative Fantasy</a>
+                <a href="story-0011/index.html" class="download-option digital-edition-upper">DIGITAL EDITION</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-	<div class="story-card">
-			<div class="story-image">
-			  <img src="story-0012/ForgeMemory.jpg" alt="The Forge Memory">
-			  <span class="new-badge">New</span>
-			</div>
-			<div class="story-content">
-			  <div class="story-sequence">
-				<span>Part 12 of Brokkr's Saga</span>
-			  </div>
-			  <h3 class="story-title">The Forge Memory</h3>
-			  <p class="story-description">As Brokkr's seedcraft grows increasingly complex, his traditional methods of documentation prove inadequate. When Eddan the chronicler brings him a mysterious "memory tablet" combining elven crystal-work with dwarven metallurgy, Brokkr reluctantly embraces this new tool. Through his struggles to adapt, he discovers that the tablet reveals hidden patterns in his phoenix seeds—connections that transform not just how he records his knowledge, but how he understands the very nature of his craft.</p>
-			  <div class="story-meta">
-				<div class="story-actions">
-				  <a href="story-0012/index.html" class="read-button">Read Story</a>
-				  <div class="download-options">
-					<a href="#" class="download-option">Digital Edition</a>
-					<a href="#" class="download-option">Digital Fiction</a>
-				  </div>
-				</div>
-			  </div>
-			</div>
-		  </div>
- 
-   </div>
+      <div class="story-card">
+        <div class="story-image">
+          <a href="story-0012/index.html">
+            <img src="story-0012/ForgeMemory.jpg" alt="The Forge Memory">
+          </a>
+          <span class="new-badge">New</span>
+        </div>
+        <div class="story-content">
+          <div class="story-sequence">
+            <span>Part 12 of Brokkr's Saga</span>
+          </div>
+          <h3 class="story-title">The Forge Memory</h3>
+          <p class="story-description">As Brokkr's seedcraft grows increasingly complex, his traditional methods of documentation prove inadequate. When Eddan the chronicler brings him a mysterious "memory tablet" combining elven crystal-work with dwarven metallurgy, Brokkr reluctantly embraces this new tool. Through his struggles to adapt, he discovers that the tablet reveals hidden patterns in his phoenix seeds—connections that transform not just how he records his knowledge, but how he understands the very nature of his craft.</p>
+          <div class="story-meta">
+            <div class="story-actions">
+              <a href="story-0012/index.html" class="read-button">Read Story</a>
+              <div class="download-options">
+                <a href="story-0012/index.html" class="download-option creative-fantasy">Creative Fantasy</a>
+                <a href="story-0012/index.html" class="download-option digital-edition-upper">DIGITAL EDITION</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
    
-   <footer>
-     <p>© 2025 Dwarven Forged. All stories are original works and part of the Dwarven Forged universe.</p>
-	 <p>Image and Audio Generation provided by: Pollinations.ai - Powering Creativity</p>
-   </footer>
- </div>
+    <footer>
+      <p>© 2025 Dwarven Forged. All stories are original works and part of the Dwarven Forged universe.</p>
+      <p>Image and Audio Generation provided by: Pollinations.ai - Powering Creativity</p>
+    </footer>
+  </div>
 </body>
 </html>
