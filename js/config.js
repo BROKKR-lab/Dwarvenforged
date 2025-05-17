@@ -509,7 +509,7 @@
                 "enableHoverImage": false,
                 "hoverImage": "",
                 "hidden": false,
-                "displayOrder": 18
+                "displayOrder": 19
             },
             "product-1746999759173": {
                 "id": "product-1746999759173",
@@ -531,7 +531,7 @@
                 "enableHoverImage": false,
                 "hoverImage": "",
                 "hidden": false,
-                "displayOrder": 19
+                "displayOrder": 20
             },
             "product-1747018112345": {
                 "id": "product-1747018112345",
@@ -565,7 +565,7 @@
                 "id": "product-1747018175265",
                 "name": "Burdens Bliss",
                 "type": "Crafted Genetics",
-                "status": "available",
+                "status": "coming-soon",
                 "delivery": "physical",
                 "digitalContent": "",
                 "image": "/img/strains/BurdensBliss-logo.jpg",
@@ -587,7 +587,7 @@
                 "enableHoverImage": false,
                 "hoverImage": "",
                 "hidden": false,
-                "displayOrder": 14
+                "displayOrder": 16
             },
             "product-1747018271296": {
                 "id": "product-1747018271296",
@@ -620,7 +620,7 @@
                 "enableHoverImage": true,
                 "hoverImage": "",
                 "hidden": false,
-                "displayOrder": 15
+                "displayOrder": 14
             },
             "product-1747018323542": {
                 "id": "product-1747018323542",
@@ -651,13 +651,13 @@
                 "enableHoverImage": true,
                 "hoverImage": "/img/strains/ForgePickles-detail2.jpg",
                 "hidden": false,
-                "displayOrder": 16
+                "displayOrder": 15
             },
             "product-1747018356805": {
                 "id": "product-1747018356805",
                 "name": "Mirth Berries",
                 "type": "Crafted Genetics",
-                "status": "available",
+                "status": "coming-soon",
                 "delivery": "physical",
                 "digitalContent": "",
                 "image": "/img/strains/MirthBerries-logo.jpg",
@@ -672,6 +672,34 @@
                 "packOptions": [
                     {
                         "size": "6",
+                        "regularPrice": 30,
+                        "salePrice": 25
+                    }
+                ],
+                "enableHoverImage": false,
+                "hoverImage": "",
+                "hidden": false,
+                "displayOrder": 18
+            },
+            "product-1747522841132": {
+                "id": "product-1747522841132",
+                "name": "Cloudberry",
+                "type": "Crafted Genetics",
+                "status": "coming-soon",
+                "delivery": "physical",
+                "digitalContent": "",
+                "image": "/img/strains/Cloudberry-logo.jpg",
+                "additionalImages": [],
+                "description": "Cloudberry",
+                "variety": "",
+                "rating": "4.9/5",
+                "origin": "",
+                "rarity": "Rare",
+                "details": "Cloudberry",
+                "notes": "",
+                "packOptions": [
+                    {
+                        "size": "6 Pack",
                         "regularPrice": 30,
                         "salePrice": 25
                     }
@@ -721,6 +749,6 @@
         "checkoutMethod": "email",
         "externalCheckoutUrl": "",
         "analyticsId": "",
-        "orderEmail": "dwarvenforgedshop@sitepackages.net"
+        "orderEmail": "orders@example.com"
     }
 };
