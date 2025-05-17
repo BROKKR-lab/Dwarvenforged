@@ -302,6 +302,60 @@ hr {
   margin-right: 10px;
 }
 
+/* New Badge */
+.new-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: #ffc107; /* yellow color */
+  color: #000;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+/* Audio Available Badge */
+.audio-badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: #2196F3; /* blue color */
+  color: white;
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+.audio-badge:before {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+/* You might need to adjust the positioning for story cards in the grid */
+.story-card .story-image {
+  position: relative; /* Ensure this is present so badges position correctly */
+}
+
+/* Optional hover effect for badges */
+.audio-badge:hover {
+  background-color: #1976D2; /* slightly darker blue on hover */
+}
+
 /* Media queries */
 @media (max-width: 600px) {
   .section-title-sticky {
