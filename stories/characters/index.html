@@ -13,6 +13,8 @@
             --secondary-text: #a5a9b7;
             --border-color: #2a2c37;
             --search-bg: #2a2c37;
+            --inconsistency-color: #ff6b6b;
+            --notes-color: #4ecdc4;
         }
 
         * {
@@ -29,7 +31,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -52,11 +54,18 @@
             font-size: 1.1em;
         }
 
+        .loading-message {
+            text-align: center;
+            padding: 40px;
+            color: var(--secondary-text);
+        }
+
         .search-controls {
             display: flex;
             gap: 15px;
             margin-bottom: 30px;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         .search-box {
@@ -94,7 +103,7 @@
 
         .content-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 20px;
         }
 
@@ -103,7 +112,7 @@
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 20px;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .entry-card:hover {
@@ -111,9 +120,13 @@
             border-color: var(--accent-color);
         }
 
+        .entry-card.has-inconsistency {
+            border-left: 4px solid var(--inconsistency-color);
+        }
+
         .entry-header {
             display: flex;
-            justify-content: between;
+            justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
         }
@@ -143,11 +156,19 @@
             margin-bottom: 5px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 2px;
+            font-size: 0.95em;
         }
 
         .section-content {
             color: var(--primary-text);
-            font-size: 0.95em;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .inconsistency-highlight {
+            background-color: rgba(255, 107, 107, 0.2);
+            padding: 2px 4px;
+            border-radius: 3px;
         }
 
         .story-references {
@@ -165,22 +186,36 @@
             margin-bottom: 3px;
         }
 
-        .edit-controls {
+        .notes-section {
+            background-color: rgba(78, 205, 196, 0.1);
+            border-left: 3px solid var(--notes-color);
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+
+        .notes-section .section-title {
+            color: var(--notes-color);
+            border-bottom-color: var(--notes-color);
+        }
+
+        .controls {
             position: fixed;
             bottom: 20px;
             right: 20px;
             display: flex;
+            flex-direction: column;
             gap: 10px;
         }
 
         .control-button {
-            padding: 12px;
+            padding: 15px;
             background-color: var(--accent-color);
             color: var(--primary-text);
             border: none;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             cursor: pointer;
             font-size: 18px;
             transition: all 0.3s ease;
@@ -192,76 +227,6 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-        }
-
-        .modal-content {
-            position: relative;
-            max-width: 600px;
-            width: 90%;
-            margin: 5% auto;
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 30px;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .close-button {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 24px;
-            color: var(--secondary-text);
-            cursor: pointer;
-        }
-
-        .close-button:hover {
-            color: var(--accent-color);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 5px;
-            color: var(--accent-color);
-            font-weight: bold;
-        }
-
-        .form-input,
-        .form-textarea,
-        .form-select {
-            width: 100%;
-            padding: 10px;
-            background-color: var(--search-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            color: var(--primary-text);
-            font-size: 14px;
-        }
-
-        .form-textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .form-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-        }
-
         .button {
             padding: 10px 20px;
             border: none;
@@ -269,6 +234,8 @@
             cursor: pointer;
             font-size: 14px;
             transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
         }
 
         .button-primary {
@@ -285,19 +252,23 @@
             opacity: 0.8;
         }
 
-        .export-section {
-            margin-top: 30px;
+        .file-controls {
+            margin: 20px 0;
             padding: 20px;
-            background-color: var(--search-bg);
-            border-radius: 6px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
         }
 
-        .notice {
-            background-color: rgba(187, 140, 101, 0.1);
-            border-left: 4px solid var(--accent-color);
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 4px;
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--secondary-text);
+        }
+
+        .empty-state h3 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
         }
 
         @media (max-width: 768px) {
@@ -309,7 +280,7 @@
                 grid-template-columns: 1fr;
             }
 
-            .edit-controls {
+            .controls {
                 bottom: 10px;
                 right: 10px;
             }
@@ -320,265 +291,189 @@
     <div class="container">
         <header>
             <h1>Brokkr Saga Character Bible</h1>
-            <p class="subtitle">Comprehensive reference for characters, timeline, and world-building</p>
+            <p class="subtitle">Load and manage story consistency data from JSON files</p>
         </header>
 
-        <div class="notice">
-            <p><strong>Note:</strong> This Character Bible is designed to help maintain consistency across all Brokkr Saga stories. Use the search and filter features to quickly find information, and the edit controls to add or modify entries.</p>
+        <div class="file-controls">
+            <h3>Load Character Bible Data</h3>
+            <p>Import a JSON file containing your character bible data:</p>
+            <div style="margin-top: 15px;">
+                <input type="file" id="jsonFile" accept=".json" style="margin-right: 15px;">
+                <button class="button button-primary" onclick="loadJsonFile()">Load JSON</button>
+                <button class="button button-secondary" onclick="exportData()">Export Current Data</button>
+            </div>
         </div>
 
-        <div class="search-controls">
-            <input type="text" class="search-box" id="searchBox" placeholder="Search characters, locations, concepts...">
+        <div class="search-controls" id="searchControls" style="display: none;">
+            <input type="text" class="search-box" id="searchBox" placeholder="Search entries...">
             <div class="filter-tabs">
                 <button class="tab-button active" data-type="all">All</button>
-                <button class="tab-button" data-type="character">Characters</button>
-                <button class="tab-button" data-type="location">Locations</button>
-                <button class="tab-button" data-type="concept">Concepts</button>
+                <button class="tab-button" data-type="characters">Characters</button>
+                <button class="tab-button" data-type="locations">Locations</button>
+                <button class="tab-button" data-type="concepts">Concepts</button>
                 <button class="tab-button" data-type="timeline">Timeline</button>
             </div>
         </div>
 
         <div class="content-grid" id="contentGrid">
-            <!-- Content will be dynamically loaded here -->
-        </div>
-
-        <div class="export-section">
-            <h3>Export & Backup</h3>
-            <p>Download your Character Bible data for backup or sharing:</p>
-            <div class="form-buttons" style="margin-top: 10px;">
-                <button class="button button-primary" onclick="exportData()">Export JSON</button>
-                <button class="button button-secondary" onclick="document.getElementById('importFile').click()">Import JSON</button>
-                <input type="file" id="importFile" style="display: none;" accept=".json" onchange="importData(event)">
+            <div class="empty-state">
+                <h3>No Data Loaded</h3>
+                <p>Please load a JSON file containing your character bible data to begin.</p>
             </div>
         </div>
     </div>
 
-    <div class="edit-controls">
-        <button class="control-button" onclick="openAddModal()" title="Add New Entry">+</button>
-        <button class="control-button" onclick="saveData()" title="Save Changes">💾</button>
-    </div>
-
-    <!-- Modal for adding/editing entries -->
-    <div class="modal" id="entryModal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal()">&times;</span>
-            <h2 id="modalTitle">Add New Entry</h2>
-            <form id="entryForm">
-                <div class="form-group">
-                    <label class="form-label" for="entryName">Name</label>
-                    <input type="text" class="form-input" id="entryName" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="entryType">Type</label>
-                    <select class="form-select" id="entryType" required>
-                        <option value="character">Character</option>
-                        <option value="location">Location</option>
-                        <option value="concept">Concept</option>
-                        <option value="timeline">Timeline Event</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="entryDescription">Description</label>
-                    <textarea class="form-textarea" id="entryDescription" placeholder="Brief description..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="entryPhysical">Physical Description / Key Details</label>
-                    <textarea class="form-textarea" id="entryPhysical" placeholder="Appearance, key characteristics..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="entryBackground">Background / History</label>
-                    <textarea class="form-textarea" id="entryBackground" placeholder="History, relationships, important events..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="entryReferences">Story References</label>
-                    <input type="text" class="form-input" id="entryReferences" placeholder="Comma-separated story titles or numbers...">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="entryNotes">Additional Notes</label>
-                    <textarea class="form-textarea" id="entryNotes" placeholder="Inconsistencies to fix, future story ideas..."></textarea>
-                </div>
-                <div class="form-buttons">
-                    <button type="button" class="button button-secondary" onclick="closeModal()">Cancel</button>
-                    <button type="submit" class="button button-primary">Save Entry</button>
-                </div>
-            </form>
-        </div>
+    <div class="controls">
+        <button class="control-button" onclick="exportData()" title="Export Data">💾</button>
     </div>
 
     <script>
-        // Character Bible Data Storage
         let characterBible = {
-            entries: [],
-            lastModified: new Date().toISOString()
+            characters: [],
+            locations: [],
+            concepts: [],
+            timeline: [],
+            metadata: {}
         };
 
-        // Initialize with sample data
-        const sampleData = {
-            entries: [
-                {
-                    id: 'brokkr',
-                    name: 'Brokkr',
-                    type: 'character',
-                    description: 'Master craftsman and creator of seedcraft, central character of the saga',
-                    physical: 'Hair color: [NEEDS CONFIRMATION - brown in images?], Dwarf/humanoid, tattoos/rune-scars from captivity',
-                    background: 'Known for creating Mjölnir, imprisoned in Muspelheim, developed seedcraft, formed Forge Council',
-                    references: ['The Forge Wager', 'The Forge Trial', 'The Forge Council', 'All stories'],
-                    notes: 'CONSISTENCY CHECK: Hair color, exact duration of imprisonments, timeline of major events'
-                },
-                {
-                    id: 'elri',
-                    name: 'Elri',
-                    type: 'character',
-                    description: 'Brokkr\'s wife, seed-tender with Vanir heritage',
-                    physical: 'Hair color: [INCONSISTENT - copper-red in text vs brown/blonde in images?], Human or half-dwarf',
-                    background: 'From Vanaheim, works with growth-magic, mother to Nostri',
-                    references: ['The Forge Bond', 'The Phoenix Flame'],
-                    notes: 'MAJOR INCONSISTENCY: Physical description needs standardization across all appearances'
-                },
-                {
-                    id: 'nostri',
-                    name: 'Nostri',
-                    type: 'character',
-                    description: 'Brokkr and Elri\'s daughter, inherits seedcraft abilities',
-                    physical: 'Hair color: [NEEDS CONFIRMATION], Age progression throughout stories',
-                    background: 'Birth-day mentioned as three weeks after Brokkr\'s in Story 10',
-                    references: ['The Forge Daughter', 'The Forge Bond'],
-                    notes: 'Track age progression and ability development across timeline'
-                },
-                {
-                    id: 'muspelheim_imprisonment',
-                    name: 'Muspelheim Imprisonment',
-                    type: 'timeline',
-                    description: 'Brokkr\'s captivity among the fire giants',
-                    physical: 'Duration: [NEEDS VERIFICATION - 8 years in Bond, other durations mentioned elsewhere?]',
-                    background: 'Led to learning fire-giant techniques, influenced his craft development',
-                    references: ['The Forge Trial', 'The Forge Bond'],
-                    notes: 'CRITICAL: Verify exact duration and timing relative to other events'
-                },
-                {
-                    id: 'phoenix_seeds',
-                    name: 'Phoenix Seeds',
-                    type: 'concept',
-                    description: 'Fire-resistant seeds that grew stronger after the seedforge fire',
-                    physical: 'Born from destruction, carrying memory of what was lost',
-                    background: 'Developed after fire destroyed Brokkr and Elri\'s homestead',
-                    references: ['The Forge Bond', 'The Phoenix Flame', 'The Forge Memory'],
-                    notes: 'Track origin story consistency and properties across mentions'
-                }
-            ],
-            lastModified: new Date().toISOString()
-        };
-
-        // Load data from localStorage or use sample data
-        function loadData() {
-            const saved = localStorage.getItem('brokkr-character-bible');
-            if (saved) {
-                try {
-                    characterBible = JSON.parse(saved);
-                } catch (e) {
-                    console.error('Error loading saved data:', e);
-                    characterBible = sampleData;
-                }
-            } else {
-                characterBible = sampleData;
-            }
-            renderEntries();
-        }
-
-        // Save data to localStorage
-        function saveData() {
-            characterBible.lastModified = new Date().toISOString();
-            localStorage.setItem('brokkr-character-bible', JSON.stringify(characterBible));
+        function loadJsonFile() {
+            const fileInput = document.getElementById('jsonFile');
+            const file = fileInput.files[0];
             
-            // Visual feedback
-            const button = event.target;
-            const originalText = button.innerHTML;
-            button.innerHTML = '✓';
-            button.style.backgroundColor = '#4CAF50';
-            setTimeout(() => {
-                button.innerHTML = originalText;
-                button.style.backgroundColor = 'var(--accent-color)';
-            }, 1000);
-        }
-
-        // Render entries in the grid
-        function renderEntries(filteredEntries = null) {
-            const grid = document.getElementById('contentGrid');
-            const entries = filteredEntries || characterBible.entries;
-            
-            if (entries.length === 0) {
-                grid.innerHTML = '<p style="text-align: center; color: var(--secondary-text); grid-column: 1 / -1;">No entries found. Add some entries to get started!</p>';
+            if (!file) {
+                alert('Please select a JSON file first.');
                 return;
             }
             
-            grid.innerHTML = entries.map(entry => `
-                <div class="entry-card" data-type="${entry.type}">
-                    <div class="entry-header">
-                        <div class="entry-name">${entry.name}</div>
-                        <div class="entry-type">${entry.type}</div>
-                    </div>
-                    ${entry.description ? `
-                        <div class="entry-section">
-                            <div class="section-title">Description</div>
-                            <div class="section-content">${entry.description}</div>
-                        </div>
-                    ` : ''}
-                    ${entry.physical ? `
-                        <div class="entry-section">
-                            <div class="section-title">Physical/Key Details</div>
-                            <div class="section-content">${entry.physical}</div>
-                        </div>
-                    ` : ''}
-                    ${entry.background ? `
-                        <div class="entry-section">
-                            <div class="section-title">Background</div>
-                            <div class="section-content">${entry.background}</div>
-                        </div>
-                    ` : ''}
-                    ${entry.references && entry.references.length > 0 ? `
-                        <div class="entry-section">
-                            <div class="section-title">Story References</div>
-                            <div class="story-references">
-                                ${entry.references.map(ref => `<span class="story-tag">${ref}</span>`).join('')}
-                            </div>
-                        </div>
-                    ` : ''}
-                    ${entry.notes ? `
-                        <div class="entry-section">
-                            <div class="section-title">Notes</div>
-                            <div class="section-content">${entry.notes}</div>
-                        </div>
-                    ` : ''}
-                    <div style="margin-top: 15px; text-align: right;">
-                        <button class="button button-secondary" onclick="editEntry('${entry.id}')" style="margin-right: 10px;">Edit</button>
-                        <button class="button button-secondary" onclick="deleteEntry('${entry.id}')">Delete</button>
-                    </div>
-                </div>
-            `).join('');
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    characterBible = data;
+                    renderAll();
+                    document.getElementById('searchControls').style.display = 'flex';
+                    alert('Data loaded successfully!');
+                } catch (error) {
+                    alert('Error parsing JSON file: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
         }
 
-        // Search and filter functionality
+        function renderAll() {
+            const allEntries = [
+                ...(characterBible.characters || []),
+                ...(characterBible.locations || []), 
+                ...(characterBible.concepts || []),
+                ...(characterBible.timeline || [])
+            ];
+            renderEntries(allEntries);
+        }
+
+        function renderEntries(entries) {
+            const grid = document.getElementById('contentGrid');
+            
+            if (!entries || entries.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No Entries Found</h3>
+                        <p>The loaded data contains no entries matching your search.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = entries.map(entry => {
+                const hasInconsistency = (entry.notes && entry.notes.includes('INCONSISTENCY')) || 
+                                         (entry.physical && entry.physical.includes('INCONSISTENCY')) ||
+                                         (entry.details && entry.details.includes('INCONSISTENCY'));
+                
+                return `
+                    <div class="entry-card ${hasInconsistency ? 'has-inconsistency' : ''}" data-type="${entry.type}">
+                        <div class="entry-header">
+                            <div class="entry-name">${entry.name || 'Unnamed'}</div>
+                            <div class="entry-type">${entry.type || 'unknown'}</div>
+                        </div>
+                        
+                        ${renderSection('Description', entry.description)}
+                        ${renderSection('Physical Description', entry.physical)}
+                        ${renderSection('Details', entry.details)}
+                        ${renderSection('Background', entry.background)}
+                        ${renderSection('Relationships', entry.relationships)}
+                        ${renderSection('Timeline', entry.timeline)}
+                        ${renderSection('Abilities', entry.abilities)}
+                        ${renderSection('Significance', entry.significance)}
+                        
+                        ${entry.storyReferences && entry.storyReferences.length > 0 ? `
+                            <div class="entry-section">
+                                <div class="section-title">Story References</div>
+                                <div class="story-references">
+                                    ${entry.storyReferences.map(ref => `<span class="story-tag">${ref}</span>`).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        ${entry.notes ? `
+                            <div class="entry-section notes-section">
+                                <div class="section-title">Notes</div>
+                                <div class="section-content">${highlightInconsistencies(entry.notes)}</div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderSection(title, content) {
+            if (!content) return '';
+            return `
+                <div class="entry-section">
+                    <div class="section-title">${title}</div>
+                    <div class="section-content">${highlightInconsistencies(content)}</div>
+                </div>
+            `;
+        }
+
+        function highlightInconsistencies(text) {
+            if (!text) return '';
+            return text.replace(/(INCONSISTENCY|CRITICAL|RESOLVE|MAJOR)/gi, 
+                '<span class="inconsistency-highlight">$1</span>');
+        }
+
+        // Search functionality
         document.getElementById('searchBox').addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
             const activeType = document.querySelector('.tab-button.active').dataset.type;
             
-            let filtered = characterBible.entries;
+            let allEntries = [];
             
-            if (activeType !== 'all') {
-                filtered = filtered.filter(entry => entry.type === activeType);
+            if (activeType === 'all') {
+                allEntries = [
+                    ...(characterBible.characters || []),
+                    ...(characterBible.locations || []),
+                    ...(characterBible.concepts || []),
+                    ...(characterBible.timeline || [])
+                ];
+            } else {
+                allEntries = characterBible[activeType] || [];
             }
             
             if (searchTerm) {
-                filtered = filtered.filter(entry => 
-                    entry.name.toLowerCase().includes(searchTerm) ||
-                    entry.description.toLowerCase().includes(searchTerm) ||
-                    entry.physical.toLowerCase().includes(searchTerm) ||
-                    entry.background.toLowerCase().includes(searchTerm) ||
-                    entry.notes.toLowerCase().includes(searchTerm)
-                );
+                allEntries = allEntries.filter(entry => {
+                    const searchableText = [
+                        entry.name,
+                        entry.description,
+                        entry.physical,
+                        entry.background,
+                        entry.details,
+                        entry.notes
+                    ].filter(text => text).join(' ').toLowerCase();
+                    
+                    return searchableText.includes(searchTerm);
+                });
             }
             
-            renderEntries(filtered);
+            renderEntries(allEntries);
         });
 
         // Tab filtering
@@ -587,146 +482,56 @@
                 document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 
-                const searchTerm = document.getElementById('searchBox').value.toLowerCase();
                 const type = this.dataset.type;
+                const searchTerm = document.getElementById('searchBox').value.toLowerCase();
                 
-                let filtered = characterBible.entries;
-                
-                if (type !== 'all') {
-                    filtered = filtered.filter(entry => entry.type === type);
+                let entries = [];
+                if (type === 'all') {
+                    entries = [
+                        ...(characterBible.characters || []),
+                        ...(characterBible.locations || []),
+                        ...(characterBible.concepts || []),
+                        ...(characterBible.timeline || [])
+                    ];
+                } else {
+                    entries = characterBible[type] || [];
                 }
                 
                 if (searchTerm) {
-                    filtered = filtered.filter(entry => 
-                        entry.name.toLowerCase().includes(searchTerm) ||
-                        entry.description.toLowerCase().includes(searchTerm) ||
-                        entry.physical.toLowerCase().includes(searchTerm) ||
-                        entry.background.toLowerCase().includes(searchTerm) ||
-                        entry.notes.toLowerCase().includes(searchTerm)
-                    );
+                    entries = entries.filter(entry => {
+                        const searchableText = [
+                            entry.name,
+                            entry.description,
+                            entry.physical,
+                            entry.background,
+                            entry.details,
+                            entry.notes
+                        ].filter(text => text).join(' ').toLowerCase();
+                        
+                        return searchableText.includes(searchTerm);
+                    });
                 }
                 
-                renderEntries(filtered);
+                renderEntries(entries);
             });
         });
 
-        // Modal functions
-        function openAddModal() {
-            document.getElementById('modalTitle').textContent = 'Add New Entry';
-            document.getElementById('entryForm').reset();
-            document.getElementById('entryForm').removeAttribute('data-editing');
-            document.getElementById('entryModal').style.display = 'block';
-        }
-
-        function editEntry(id) {
-            const entry = characterBible.entries.find(e => e.id === id);
-            if (!entry) return;
-            
-            document.getElementById('modalTitle').textContent = 'Edit Entry';
-            document.getElementById('entryName').value = entry.name;
-            document.getElementById('entryType').value = entry.type;
-            document.getElementById('entryDescription').value = entry.description || '';
-            document.getElementById('entryPhysical').value = entry.physical || '';
-            document.getElementById('entryBackground').value = entry.background || '';
-            document.getElementById('entryReferences').value = entry.references ? entry.references.join(', ') : '';
-            document.getElementById('entryNotes').value = entry.notes || '';
-            
-            document.getElementById('entryForm').setAttribute('data-editing', id);
-            document.getElementById('entryModal').style.display = 'block';
-        }
-
-        function deleteEntry(id) {
-            if (confirm('Are you sure you want to delete this entry?')) {
-                characterBible.entries = characterBible.entries.filter(e => e.id !== id);
-                renderEntries();
-                saveData();
-            }
-        }
-
-        function closeModal() {
-            document.getElementById('entryModal').style.display = 'none';
-        }
-
-        // Form submission
-        document.getElementById('entryForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const form = e.target;
-            const editingId = form.getAttribute('data-editing');
-            
-            const entry = {
-                id: editingId || Date.now().toString(),
-                name: document.getElementById('entryName').value.trim(),
-                type: document.getElementById('entryType').value,
-                description: document.getElementById('entryDescription').value.trim(),
-                physical: document.getElementById('entryPhysical').value.trim(),
-                background: document.getElementById('entryBackground').value.trim(),
-                references: document.getElementById('entryReferences').value
-                    .split(',')
-                    .map(ref => ref.trim())
-                    .filter(ref => ref.length > 0),
-                notes: document.getElementById('entryNotes').value.trim()
-            };
-            
-            if (editingId) {
-                const index = characterBible.entries.findIndex(e => e.id === editingId);
-                if (index !== -1) {
-                    characterBible.entries[index] = entry;
-                }
-            } else {
-                characterBible.entries.push(entry);
-            }
-            
-            renderEntries();
-            closeModal();
-            saveData();
-        });
-
-        // Export/Import functions
         function exportData() {
+            if (!characterBible || Object.keys(characterBible).length === 0) {
+                alert('No data to export. Please load a JSON file first.');
+                return;
+            }
+
             const dataStr = JSON.stringify(characterBible, null, 2);
             const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
             
-            const exportFileDefaultName = `brokkr-character-bible-${new Date().toISOString().split('T')[0]}.json`;
+            const exportFileDefaultName = `character-bible-${new Date().toISOString().split('T')[0]}.json`;
             
             const linkElement = document.createElement('a');
             linkElement.setAttribute('href', dataUri);
             linkElement.setAttribute('download', exportFileDefaultName);
             linkElement.click();
         }
-
-        function importData(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const importedData = JSON.parse(e.target.result);
-                    if (confirm('This will replace all current data. Are you sure?')) {
-                        characterBible = importedData;
-                        renderEntries();
-                        saveData();
-                    }
-                } catch (error) {
-                    alert('Error importing file: ' + error.message);
-                }
-            };
-            reader.readAsText(file);
-        }
-
-        // Close modal when clicking outside
-        window.addEventListener('click', function(event) {
-            const modal = document.getElementById('entryModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        });
-
-        // Initialize the application
-        document.addEventListener('DOMContentLoaded', function() {
-            loadData();
-        });
     </script>
 </body>
 </html>

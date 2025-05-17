@@ -1,0 +1,124 @@
+{
+  "characters": [
+    {
+      "id": "brokkr",
+      "name": "Brokkr",
+      "type": "character",
+      "description": "Master craftsman, creator of seedcraft, central character of the saga",
+      "physical": "INCONSISTENCY: Text mentions 'flame-red beard' but your images show brown hair. Deep-set eyes reflecting forge-fire. Rune-scars from captivity. Young: 'beard too short', later: 'flame-red with silver streaks'",
+      "background": "Imprisoned in Muspelheim, learned fire-giant techniques, created Mjölnir, formed Forge Council, developed seedcraft, sacrificed for Seed of Renewal",
+      "relationships": "Husband to Elri, father to Nostri, brother to Eitri",
+      "timeline": "CONFLICT: Story 3 says 60 seasons (15 years) imprisonment, Story 10 says 8 years. Birth-day 7 days after Elri's, 3 weeks before Nostri's",
+      "abilities": "Master metallurgy, seedcraft, fire-giant techniques",
+      "storyReferences": ["All stories 1-12"],
+      "notes": "MAJOR INCONSISTENCIES: Hair color must match images. Resolve imprisonment duration conflict."
+    },
+    {
+      "id": "elri",
+      "name": "Elri",
+      "type": "character", 
+      "description": "Brokkr's wife, seed-tender with Vanir heritage",
+      "physical": "MAJOR INCONSISTENCY: Text says 'deep copper-red hair like quenched metal' but your images show brown/blonde. Tall for dwarf-kind, Vanir features, plant-work calluses",
+      "background": "From Vanaheim, greenhouse forges of Nidavellir, had Nostri before meeting Brokkr, combines Vanir growth-magic with dwarven metallurgy",
+      "relationships": "Wife to Brokkr, mother to Nostri",
+      "timeline": "Birth-day 7 days before Brokkr's, met him when Nostri was 11 months old",
+      "abilities": "Seed-tending, Vanir growth-magic, greenhouse cultivation, rune-stitching",
+      "storyReferences": ["Story 1", "Story 4", "Story 10", "Story 11", "Story 12"],
+      "notes": "CRITICAL: Hair color description must be updated to match visual canon"
+    },
+    {
+      "id": "nostri",
+      "name": "Nostri",
+      "type": "character",
+      "description": "Elri's daughter, adopted by Brokkr, inherits crafting abilities",
+      "physical": "Eyes with 'copper gleam like mother's hair' - needs update based on Elri's final hair color",
+      "background": "Born to Elri pre-Brokkr, raised by both, shows seedcraft and metallurgy aptitude, found Brokkr after sacrifice",
+      "relationships": "Daughter to Elri, adopted by Brokkr",
+      "timeline": "11 months when parents met, birth-day 3 weeks after Brokkr's",
+      "abilities": "Developing seedcraft, metallurgy understanding, determined and brave",
+      "storyReferences": ["Story 1", "Story 2", "Story 6", "Story 10", "Story 11", "Story 12"],
+      "notes": "Track age progression. Clarify adoption relationship details."
+    }
+  ],
+  "locations": [
+    {
+      "id": "svartalfheim",
+      "name": "Svartalfheim",
+      "type": "location",
+      "description": "Realm of dwarves, underground forges and cities",
+      "details": "Deep caverns, forge chambers, Council of Smiths, eastern settlements, greenhouse forges",
+      "significance": "Brokkr's homeland, Forge Council location",
+      "storyReferences": ["Multiple stories"],
+      "notes": "Primary setting"
+    },
+    {
+      "id": "muspelheim", 
+      "name": "Muspelheim",
+      "type": "location",
+      "description": "Fire giant realm where Brokkr was imprisoned",
+      "details": "Volcanic environment, fire giant prisons, extreme heat, fire-seed source",
+      "significance": "Transformed Brokkr's craft understanding",
+      "storyReferences": ["Story 3", "Story 10"],
+      "notes": "Key to Brokkr's development"
+    }
+  ],
+  "concepts": [
+    {
+      "id": "seedcraft",
+      "name": "Seedcraft", 
+      "type": "concept",
+      "description": "Brokkr's combination of metallurgy and plant cultivation",
+      "details": "Living seeds with specific properties, fire and growth combination, adaptive systems",
+      "significance": "Central innovation transforming agriculture across realms",
+      "storyReferences": ["All stories"],
+      "notes": "Core concept - track development"
+    },
+    {
+      "id": "phoenix_seeds",
+      "name": "Phoenix Seeds",
+      "type": "concept",
+      "description": "Fire-resistant seeds emerging stronger after destruction",
+      "details": "Born from seedforge fire, carry memory of loss, extreme adaptation",
+      "significance": "Symbol of resilience, Phoenix Flame honor basis",
+      "storyReferences": ["Story 10", "Story 11", "Story 12"],
+      "notes": "Track origin consistency"
+    }
+  ],
+  "timeline": [
+    {
+      "id": "muspelheim_imprisonment",
+      "name": "Muspelheim Imprisonment", 
+      "type": "timeline",
+      "description": "Brokkr's captivity learning fire-giant techniques",
+      "details": "INCONSISTENCY: Story 3 = 60 seasons (15 years), Story 10 = 8 years",
+      "significance": "Transformed his craft, introduced fire-seeds",
+      "order": 1,
+      "storyReferences": ["Story 3", "Story 10"],
+      "notes": "RESOLVE: Pick canonical duration"
+    },
+    {
+      "id": "great_withering",
+      "name": "The Great Withering",
+      "type": "timeline", 
+      "description": "Blight threatening Yggdrasil requiring Seed of Renewal",
+      "details": "Brokkr's ultimate sacrifice to save realms",
+      "significance": "Climactic saga event, Brokkr's greatest achievement",
+      "order": 5,
+      "storyReferences": ["Story 1"],
+      "notes": "Central crisis"
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "totalStories": 12,
+    "lastUpdated": "2024-12-28",
+    "majorInconsistencies": [
+      "Elri: copper-red hair (text) vs brown/blonde (images)",
+      "Brokkr: flame-red beard (text) vs brown hair (images)", 
+      "Imprisonment: 15 years vs 8 years duration conflict",
+      "Timeline sequence needs clarification"
+    ],
+    "source": "Extracted from 12 Brokkr Saga stories",
+    "purpose": "Maintain consistency for story editing and audio recording"
+  }
+}
