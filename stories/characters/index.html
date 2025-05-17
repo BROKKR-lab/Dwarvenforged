@@ -336,6 +336,40 @@
             metadata: {}
         };
 
+        // Auto-load the JSON file from the site on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFromSite();
+        });
+
+        async function loadFromSite() {
+            try {
+                const response = await fetch('/stories/characters/brokkr-character-bible.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    characterBible = data;
+                    renderAll();
+                    document.getElementById('searchControls').style.display = 'flex';
+                    console.log('Character bible loaded from site');
+                } else {
+                    console.warn('Could not load character bible from site:', response.status);
+                    showEmptyState();
+                }
+            } catch (error) {
+                console.warn('Error loading character bible from site:', error);
+                showEmptyState();
+            }
+        }
+
+        function showEmptyState() {
+            document.getElementById('contentGrid').innerHTML = `
+                <div class="empty-state">
+                    <h3>Character Bible Not Found</h3>
+                    <p>Could not load from <code>/stories/characters/brokkr-character-bible.json</code></p>
+                    <p>You can manually load a JSON file using the controls above.</p>
+                </div>
+            `;
+        }
+
         function loadJsonFile() {
             const fileInput = document.getElementById('jsonFile');
             const file = fileInput.files[0];
