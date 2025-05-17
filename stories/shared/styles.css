@@ -392,10 +392,22 @@ footer {
   display: block;
 }
 
+/* Link colors */
+a:visited {
+  color: #8a2be2; /* Default purple for visited links */
+}
+
+.nav-links a:visited {
+  color: white; /* Keep nav links white even when visited */
+}
+
+.dropdown-content a:visited {
+  color: #333; /* Keep dropdown links dark even when visited */
+}
+
 .dropdown-content a:hover {
   background-color: #f8f2e9;
 }
-
 .dropdown-content .story-item {
   display: flex;
   align-items: center;
