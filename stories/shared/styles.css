@@ -27,7 +27,7 @@ body {
 
 .container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 70px auto 0; /* Added top margin to prevent content hiding under nav */
   padding: 20px;
 }
 
@@ -72,6 +72,10 @@ header {
 
 .home-button:hover {
   background-color: var(--button-hover);
+}
+
+.home-button:visited {
+  color: white;
 }
 
 .page-title {
@@ -228,6 +232,10 @@ header {
   background-color: var(--button-hover);
 }
 
+.read-button:visited {
+  color: white;
+}
+
 .download-options {
   display: flex;
   justify-content: space-between;
@@ -262,8 +270,16 @@ header {
   background-color: #8bc470;
 }
 
+.download-option-fantasy:visited {
+  color: white;
+}
+
 .download-option-audio:hover {
   background-color: #7cb9e8;
+}
+
+.download-option-audio:visited {
+  color: white;
 }
 
 .reading-order {
@@ -343,9 +359,22 @@ footer {
   text-decoration: none;
 }
 
+.site-title a:visited {
+  color: white;
+}
+
 .nav-links {
   display: flex;
   gap: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.nav-links a:visited {
+  color: white;
 }
 
 .nav-dropdown {
@@ -392,22 +421,14 @@ footer {
   display: block;
 }
 
-/* Link colors */
-a:visited {
-  color: #8a2be2; /* Default purple for visited links */
-}
-
-.nav-links a:visited {
-  color: white; /* Keep nav links white even when visited */
-}
-
 .dropdown-content a:visited {
-  color: #333; /* Keep dropdown links dark even when visited */
+  color: #333;
 }
 
 .dropdown-content a:hover {
   background-color: #f8f2e9;
 }
+
 .dropdown-content .story-item {
   display: flex;
   align-items: center;
@@ -645,6 +666,10 @@ h1 {
   background-color: #7b5a49;
 }
 
+.listen-button:visited {
+  color: white;
+}
+
 .listen-icon {
   margin-right: 5px;
 }
@@ -674,6 +699,10 @@ h1 {
 
 .nav-button:hover {
   background-color: #7b5a49;
+}
+
+.nav-button:visited {
+  color: white;
 }
 
 .nav-button.disabled {
