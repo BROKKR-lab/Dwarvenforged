@@ -2,23 +2,27 @@
 document.addEventListener('DOMContentLoaded', function() {
   const navPlaceholder = document.getElementById('nav-placeholder');
   
-  // Create the navigation HTML base
-  const navHTML = `
-    <nav class="site-nav">
-      <div class="nav-container">
-        <h1 class="site-title"><a href="https://www.dwarvenforged.com">Dwarven Forged</a></h1>
-        <div class="nav-links">
-          <div class="nav-dropdown">
-            <button class="dropdown-button">Stories</button>
-            <div class="dropdown-content" id="stories-dropdown">
-              <!-- Story links will be inserted here dynamically -->
-            </div>
-          </div>
-          <a href="/stories/" class="nav-button">All Stories</a>
-        </div>
+// Create the navigation HTML base
+const navHTML = `
+  <nav class="site-nav">
+    <div class="nav-container">
+      <div class="logo">
+        <img src="https://www.dwarvenforged.com/img/logo.jpg" alt="Dwarven Forged Logo">
+        <h1 class="site-title"><a href="https://www.dwarvenforged.com">Dwarven Forged Stories</a></h1>
       </div>
-    </nav>
-  `;
+      <div class="nav-links">
+        <div class="nav-dropdown">
+          <button class="dropdown-button">Stories</button>
+          <div class="dropdown-content" id="stories-dropdown">
+            <!-- Story links will be inserted here dynamically -->
+          </div>
+        </div>
+        <a href="/stories/" class="nav-button">All Stories</a>
+        <a href="https://www.dwarvenforged.com" class="home-button">Return to Main Site</a>
+      </div>
+    </div>
+  </nav>
+`;
   
   // Insert navigation
   navPlaceholder.innerHTML = navHTML;
