@@ -439,29 +439,89 @@ h1 {
   margin-bottom: 30px;
   position: relative;
   padding: 20px;
-  background-color: #fff;
+  background-color: #1e2028; /* Dark background to match site theme */
+  color: #ffffff; /* Light text color for readability */
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .story-section.active {
-  background-color: #f8f2e9;
+  background-color: #2a2c37; /* Slightly lighter background for active sections */
   border-left: 4px solid #bb8c65;
 }
 
-.section-title {
-  font-size: 0.8em;
-  color: #bb8c65;
+/* Ember Carriers Story Styling */
+.the-ember-carriers {
+  color: #bb8c65; /* Accent color for the title */
+  font-size: 1.5rem;
+  margin-bottom: 20px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 10px;
+  font-weight: bold;
+  text-align: left;
+  padding-left: 10px;
+  border-left: 3px solid #bb8c65;
 }
 
-hr {
+/* Audio Player Styling */
+.audio-player {
+  background-color: rgba(91, 58, 41, 0.9);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.play-button {
+  background-color: #bb8c65;
+  color: white;
   border: none;
-  height: 1px;
-  background-color: #ddd;
-  margin: 20px 0;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.play-button:hover {
+  background-color: #d9a681;
+}
+
+.audio-title {
+  color: white;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.audio-progress {
+  flex-grow: 1;
+  background-color: rgba(255, 255, 255, 0.2);
+  height: 5px;
+  border-radius: 3px;
+  position: relative;
+}
+
+.progress-indicator {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: #bb8c65;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.audio-time {
+  color: white;
+  font-size: 0.8rem;
+  min-width: 80px;
+  text-align: right;
 }
 
 /* Audio controls */
