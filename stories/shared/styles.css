@@ -439,14 +439,14 @@ h1 {
   margin-bottom: 30px;
   position: relative;
   padding: 20px;
-  background-color: #1e2028; /* Dark background to match site theme */
-  color: #ffffff; /* Light text color for readability */
+  background-color: #f8f2e9; /* Tan/light background color */
+  color: #333; /* Dark text for contrast */
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .story-section.active {
-  background-color: #2a2c37; /* Slightly lighter background for active sections */
+  background-color: #f0e6d9; /* Slightly darker tan for active sections */
   border-left: 4px solid #bb8c65;
 }
 
