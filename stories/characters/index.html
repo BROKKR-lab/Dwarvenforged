@@ -324,6 +324,7 @@
                 <button class="tab-button" data-type="locations">Locations</button>
                 <button class="tab-button" data-type="concepts">Concepts</button>
                 <button class="tab-button" data-type="timeline">Timeline</button>
+                <button class="tab-button" data-type="stories">Stories</button>
             </div>
         </div>
 
@@ -345,6 +346,7 @@
             locations: [],
             concepts: [],
             timeline: [],
+            stories: [],
             metadata: {}
         };
 
@@ -411,7 +413,8 @@
                 ...(characterBible.characters || []),
                 ...(characterBible.locations || []), 
                 ...(characterBible.concepts || []),
-                ...(characterBible.timeline || [])
+                ...(characterBible.timeline || []),
+                ...(characterBible.stories || [])
             ];
             renderEntries(allEntries);
         }
@@ -544,7 +547,8 @@
                         ...(characterBible.characters || []),
                         ...(characterBible.locations || []),
                         ...(characterBible.concepts || []),
-                        ...(characterBible.timeline || [])
+                        ...(characterBible.timeline || []),
+                        ...(characterBible.stories || [])
                     ];
                 } else {
                     entries = characterBible[type] || [];
