@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dwarven Forge Genetics - The Halls of Asgard</title>
-    <link rel="stylesheet" href="/css/pricing-styles.css">
+    <link rel="stylesheet" href="pricing-styles.css">
 </head>
 <body>
     <div class="container">
@@ -18,19 +18,6 @@
             </p>
         </header>
 
-        <div class="membership-toggle">
-            <div class="toggle-container">
-                <div class="toggle-switch">
-                    <div class="toggle-option active" data-type="member">
-                        🗡️ Member Pricing
-                    </div>
-                    <div class="toggle-option" data-type="guest">
-                        👤 Guest Pricing
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Annual Subscription Tiers -->
         <div class="section">
             <h2 class="section-title">Annual Brotherhood Memberships</h2>
@@ -42,25 +29,24 @@
                     <div class="card-title">Einherjar</div>
                     <div class="card-subtitle">The Starter Warriors</div>
                     <div class="price-display">
-                        <span class="price member-price">$99</span>
-                        <span class="price guest-price hidden">$129</span>
+                        <span class="price">$99</span>
                         <span class="price-period">/ year</span>
                         <div class="value-breakdown">
-                            <div class="pack-value">6 packs (worth $180)</div>
+                            <div class="pack-value">6 packs (worth $150)</div>
                             <div class="merch-value">+ Lanyard ($10 value)</div>
                             <div class="shipping-note">+ Free shipping on included items</div>
+                            <div class="savings-highlight">Save $61 + get exclusive perks!</div>
                         </div>
                     </div>
                     <ul class="features">
                         <li>6 Pack Choices from Annual Releases</li>
-                        <li>20% Discount on Additional Packs ($24 vs $30)</li>
+                        <li>20% Discount on Additional Packs ($20 vs $25)</li>
                         <li>Early Access (48h before public)</li>
                         <li>Digital Growing Guides & Strain Notes</li>
                         <li>Members-Only Discord Channel</li>
                         <li>Dwarven Forge Lanyard Included</li>
                     </ul>
                     <button class="cta-button" onclick="selectPlan('einherjar')">Join the Warriors</button>
-                    <div class="shipping-info">Includes $5 shipping on seed orders</div>
                 </div>
 
                 <!-- Valkyrie Tier -->
@@ -69,18 +55,18 @@
                     <div class="card-title">Valkyrie</div>
                     <div class="card-subtitle">The Dedicated Collectors</div>
                     <div class="price-display">
-                        <span class="price member-price">$199</span>
-                        <span class="price guest-price hidden">$249</span>
+                        <span class="price">$199</span>
                         <span class="price-period">/ year</span>
                         <div class="value-breakdown">
-                            <div class="pack-value">All ~12 releases (worth $360)</div>
+                            <div class="pack-value">All ~12 releases (worth $300)</div>
                             <div class="merch-value">+ Choice of Beanie/Bandana/Tank ($15-25 value)</div>
-                            <div class="shipping-note">+ Free shipping on all included items</div>
+                            <div class="shipping-note">+ Free shipping on all orders</div>
+                            <div class="savings-highlight">Save $100+ plus exclusive access!</div>
                         </div>
                     </div>
                     <ul class="features">
                         <li>All ~12 Annual Releases Included</li>
-                        <li>25% Discount on Additional Packs ($22.50 vs $30)</li>
+                        <li>25% Discount on Additional Packs ($18.75 vs $25)</li>
                         <li>Choice of Merch: Beanie, Bandana, or Tank Top</li>
                         <li>Exclusive Limited Edition Access</li>
                         <li>Priority Customer Support</li>
@@ -88,7 +74,6 @@
                         <li>Beta Tester Consideration</li>
                     </ul>
                     <button class="cta-button" onclick="selectPlan('valkyrie')">Ascend to Valhalla</button>
-                    <div class="shipping-info">Free shipping on all orders</div>
                 </div>
 
                 <!-- AllFather Tier -->
@@ -96,18 +81,18 @@
                     <div class="card-title">AllFather</div>
                     <div class="card-subtitle">The Vault Keepers</div>
                     <div class="price-display">
-                        <span class="price member-price">$399</span>
-                        <span class="price guest-price hidden">$499</span>
+                        <span class="price">$399</span>
                         <span class="price-period">/ year</span>
                         <div class="value-breakdown">
-                            <div class="pack-value">All releases + 3-4 bonus (~15+ packs worth $450+)</div>
+                            <div class="pack-value">All releases + 3-4 bonus (~15+ packs worth $375+)</div>
                             <div class="merch-value">+ Premium Hoodie ($45 value)</div>
                             <div class="shipping-note">+ Collector's Box + Free shipping</div>
+                            <div class="savings-highlight">Save $100+ plus ultimate perks!</div>
                         </div>
                     </div>
                     <ul class="features">
                         <li>All Releases + 3-4 Exclusive Bonus Packs</li>
-                        <li>30% Discount on Additional Packs ($21 vs $30)</li>
+                        <li>30% Discount on Additional Packs ($17.50 vs $25)</li>
                         <li>Annual Collector's Box with Custom Packaging</li>
                         <li>Premium Dwarven Forge Hoodie Included</li>
                         <li>Direct Breeder Communication Access</li>
@@ -116,7 +101,6 @@
                         <li>Exclusive Event Invitations</li>
                     </ul>
                     <button class="cta-button" onclick="selectPlan('allfather')">Rule the Realm</button>
-                    <div class="shipping-info">Free shipping worldwide on everything</div>
                 </div>
             </div>
             <div class="disclaimer">
@@ -134,12 +118,7 @@
                     <div class="pack-name">Regular 6-Pack</div>
                     <div class="pack-description">Standard Genetics</div>
                     <div class="pack-details">6 regular seeds<br>(~3-4 females expected)</div>
-                    <div class="price-display">
-                        <div class="pack-price member-price">$24</div>
-                        <div class="pack-price guest-price">$30</div>
-                        <div class="original-price guest-price">$30 MSRP</div>
-                        <div class="on-sale member-price">Member Price</div>
-                    </div>
+                    <div class="pack-price">$25</div>
                     <button class="cta-button" onclick="buyPack('regular-6')">Add to Cart</button>
                 </div>
                 
@@ -147,12 +126,7 @@
                     <div class="pack-name">Regular 12-Pack</div>
                     <div class="pack-description">Standard Genetics</div>
                     <div class="pack-details">12 regular seeds<br>(~6-8 females expected)</div>
-                    <div class="price-display">
-                        <div class="pack-price member-price">$45</div>
-                        <div class="pack-price guest-price">$55</div>
-                        <div class="original-price guest-price">$60 MSRP</div>
-                        <div class="on-sale member-price">Member Price</div>
-                    </div>
+                    <div class="pack-price">$45</div>
                     <button class="cta-button" onclick="buyPack('regular-12')">Add to Cart</button>
                 </div>
 
@@ -160,12 +134,7 @@
                     <div class="pack-name">Feminized 5-Pack</div>
                     <div class="pack-description">Premium Feminized</div>
                     <div class="pack-details">5 feminized seeds<br>(99% female guarantee)</div>
-                    <div class="price-display">
-                        <div class="pack-price member-price">$35</div>
-                        <div class="pack-price guest-price">$45</div>
-                        <div class="original-price guest-price">$50 MSRP</div>
-                        <div class="on-sale member-price">Member Price</div>
-                    </div>
+                    <div class="pack-price">$35</div>
                     <button class="cta-button" onclick="buyPack('fem-5')">Add to Cart</button>
                 </div>
                 
@@ -173,12 +142,7 @@
                     <div class="pack-name">Feminized 10-Pack</div>
                     <div class="pack-description">Premium Feminized</div>
                     <div class="pack-details">10 feminized seeds<br>(99% female guarantee)</div>
-                    <div class="price-display">
-                        <div class="pack-price member-price">$65</div>
-                        <div class="pack-price guest-price">$85</div>
-                        <div class="original-price guest-price">$90 MSRP</div>
-                        <div class="on-sale member-price">Member Price</div>
-                    </div>
+                    <div class="pack-price">$65</div>
                     <button class="cta-button" onclick="buyPack('fem-10')">Add to Cart</button>
                 </div>
 
@@ -186,12 +150,7 @@
                     <div class="pack-name">Tester 3-Pack</div>
                     <div class="pack-description">Try Before You Buy</div>
                     <div class="pack-details">3 premium seeds<br>(sample new genetics)</div>
-                    <div class="price-display">
-                        <div class="pack-price member-price">$15</div>
-                        <div class="pack-price guest-price">$20</div>
-                        <div class="original-price guest-price">$25 MSRP</div>
-                        <div class="on-sale member-price">Member Price</div>
-                    </div>
+                    <div class="pack-price">$15</div>
                     <button class="cta-button" onclick="buyPack('tester-3')">Add to Cart</button>
                 </div>
 
@@ -199,17 +158,12 @@
                     <div class="pack-name">Breeder's Mixed</div>
                     <div class="pack-description">Curator's Selection</div>
                     <div class="pack-details">6 handpicked seeds<br>(breeder's favorites)</div>
-                    <div class="price-display">
-                        <div class="pack-price member-price">$45</div>
-                        <div class="pack-price guest-price">$55</div>
-                        <div class="original-price guest-price">$65 MSRP</div>
-                        <div class="on-sale member-price">Member Price</div>
-                    </div>
+                    <div class="pack-price">$45</div>
                     <button class="cta-button" onclick="buyPack('mixed')">Add to Cart</button>
                 </div>
             </div>
             <div class="shipping-info-section">
-                <p><strong>Shipping:</strong> $5 for seed orders | $10 when adding merch | Free shipping on subscription orders</p>
+                <p><strong>Shipping:</strong> $5 for seed orders | $10 when adding merch | Free shipping on subscriptions</p>
             </div>
         </div>
 
@@ -222,27 +176,27 @@
                 <div class="merch-card">
                     <div class="merch-name">Premium Hoodie</div>
                     <div class="merch-price">$45</div>
-                    <div class="merch-note">Included with AllFather tier</div>
+                    <div class="merch-note">Included with AllFather</div>
                 </div>
                 <div class="merch-card">
                     <div class="merch-name">T-Shirt / Shorts / Tank</div>
                     <div class="merch-price">$25 each</div>
-                    <div class="merch-note">Tank included with Valkyrie tier</div>
+                    <div class="merch-note">Tank included with Valkyrie</div>
                 </div>
                 <div class="merch-card">
                     <div class="merch-name">Beanie</div>
                     <div class="merch-price">$15</div>
-                    <div class="merch-note">Choice option with Valkyrie tier</div>
+                    <div class="merch-note">Choice option with Valkyrie</div>
                 </div>
                 <div class="merch-card">
                     <div class="merch-name">Bandana</div>
                     <div class="merch-price">$10</div>
-                    <div class="merch-note">Choice option with Valkyrie tier</div>
+                    <div class="merch-note">Choice option with Valkyrie</div>
                 </div>
                 <div class="merch-card">
                     <div class="merch-name">Lanyard</div>
                     <div class="merch-price">$10</div>
-                    <div class="merch-note">Included with Einherjar tier</div>
+                    <div class="merch-note">Included with Einherjar</div>
                 </div>
             </div>
         </div>
@@ -259,9 +213,8 @@
                     <div class="pack-name" style="color: #ff6b35;">Vault Exclusive</div>
                     <div class="pack-description">Ultra-Limited Release</div>
                     <div class="pack-details">3-5 seeds only<br>Hand-selected phenotypes<br>Limited to 25-50 packs worldwide</div>
-                    <div class="pack-price member-price" style="color: #ff6b35;">$70</div>
-                    <div class="pack-price guest-price" style="color: #ff6b35;">$100</div>
-                    <div class="member-note">AllFather members get first access</div>
+                    <div class="pack-price" style="color: #ff6b35;">$100</div>
+                    <div class="subscription-note">AllFather members get first access</div>
                     <button class="cta-button" style="background: linear-gradient(135deg, #ff6b35, #f7931e);" onclick="buyPack('vault')">Get Exclusive Access</button>
                 </div>
                 
@@ -269,9 +222,8 @@
                     <div class="pack-name" style="color: #ff6b35;">F1 Prototype</div>
                     <div class="pack-description">First-Generation Cross</div>
                     <div class="pack-details">5 prototype seeds<br>Never-before-released genetics<br>Limited seasonal releases</div>
-                    <div class="pack-price member-price" style="color: #ff6b35;">$50</div>
-                    <div class="pack-price guest-price" style="color: #ff6b35;">$75</div>
-                    <div class="member-note">Valkyrie+ members get early access</div>
+                    <div class="pack-price" style="color: #ff6b35;">$75</div>
+                    <div class="subscription-note">Valkyrie+ members get early access</div>
                     <button class="cta-button" style="background: linear-gradient(135deg, #ff6b35, #f7931e);" onclick="buyPack('f1')">Secure Prototype</button>
                 </div>
             </div>
@@ -317,7 +269,7 @@
         <!-- Savings Calculator -->
         <div class="calculator">
             <h3 class="calculator-title">Annual Savings Calculator</h3>
-            <p>See how much you save with membership versus individual purchases:</p>
+            <p>See how much you save with subscriptions versus individual purchases:</p>
             
             <div class="calculator-input">
                 <label for="packs-per-year">Packs per Year:</label>
@@ -327,11 +279,11 @@
             <div class="calculator-input">
                 <label for="pack-type-calc">Preferred Pack Type:</label>
                 <select id="pack-type-calc">
-                    <option value="regular-6">Regular 6-Pack</option>
-                    <option value="regular-12">Regular 12-Pack</option>
-                    <option value="fem-5">Feminized 5-Pack</option>
-                    <option value="fem-10">Feminized 10-Pack</option>
-                    <option value="mixed">Breeder's Mixed</option>
+                    <option value="regular-6">Regular 6-Pack ($25)</option>
+                    <option value="regular-12">Regular 12-Pack ($45)</option>
+                    <option value="fem-5">Feminized 5-Pack ($35)</option>
+                    <option value="fem-10">Feminized 10-Pack ($65)</option>
+                    <option value="mixed">Breeder's Mixed ($45)</option>
                 </select>
             </div>
             
@@ -346,32 +298,9 @@
     </div>
 
     <script>
-        // Toggle between member and guest pricing
-        document.querySelectorAll('.toggle-option').forEach(option => {
-            option.addEventListener('click', function() {
-                // Remove active class from all options
-                document.querySelectorAll('.toggle-option').forEach(opt => opt.classList.remove('active'));
-                
-                // Add active class to clicked option
-                this.classList.add('active');
-                
-                // Get the type (member or guest)
-                const type = this.dataset.type;
-                
-                // Toggle pricing display
-                if (type === 'member') {
-                    document.querySelectorAll('.member-price, .member-original, .member-savings, .member-note').forEach(el => el.classList.remove('hidden'));
-                    document.querySelectorAll('.guest-price, .guest-original, .guest-savings').forEach(el => el.classList.add('hidden'));
-                } else {
-                    document.querySelectorAll('.guest-price, .guest-original, .guest-savings').forEach(el => el.classList.remove('hidden'));
-                    document.querySelectorAll('.member-price, .member-original, .member-savings, .member-note').forEach(el => el.classList.add('hidden'));
-                }
-            });
-        });
-
         // Plan selection
         function selectPlan(plan) {
-            alert(`Selected ${plan.charAt(0).toUpperCase() + plan.slice(1)} annual membership! Redirecting to checkout...`);
+            alert(`Selected ${plan.charAt(0).toUpperCase() + plan.slice(1)} annual subscription! Redirecting to checkout...`);
             // Here you would integrate with your payment processor
         }
 
@@ -391,33 +320,31 @@
         function calculateSavings() {
             const packsPerYear = parseInt(document.getElementById('packs-per-year').value);
             const packType = document.getElementById('pack-type-calc').value;
-            const isMember = document.querySelector('.toggle-option[data-type="member"]').classList.contains('active');
             
-            // Pack prices (member/guest)
+            // Pack prices (same for everyone)
             const packPrices = {
-                'regular-6': [24, 30],
-                'regular-12': [45, 55],
-                'fem-5': [35, 45],
-                'fem-10': [65, 85],
-                'mixed': [45, 55]
+                'regular-6': 25,
+                'regular-12': 45,
+                'fem-5': 35,
+                'fem-10': 65,
+                'mixed': 45
             };
             
-            // Annual subscription costs (member/guest)
+            // Annual subscription costs
             const subscriptionCosts = {
-                einherjar: [99, 129],
-                valkyrie: [199, 249], 
-                allfather: [399, 499]
+                einherjar: 99,
+                valkyrie: 199, 
+                allfather: 399
             };
             
-            // Included packs per membership
+            // Included packs per subscription
             const includedPacks = {
                 einherjar: 6,
                 valkyrie: 12,
                 allfather: 15
             };
             
-            const priceIndex = isMember ? 0 : 1;
-            const packPrice = packPrices[packType][priceIndex];
+            const packPrice = packPrices[packType];
             const totalPackCost = packsPerYear * packPrice;
             
             let bestSavings = 0;
@@ -425,29 +352,27 @@
             let recommendationText = '';
             
             // Check each subscription tier
-            Object.entries(subscriptionCosts).forEach(([plan, costs]) => {
-                const subscriptionCost = costs[priceIndex];
+            Object.entries(subscriptionCosts).forEach(([plan, cost]) => {
                 const packsIncluded = includedPacks[plan];
                 
                 if (packsPerYear <= packsIncluded) {
                     // All packs covered by subscription
-                    const savings = totalPackCost - subscriptionCost;
+                    const savings = totalPackCost - cost;
                     if (savings > bestSavings) {
                         bestSavings = savings;
                         bestPlan = plan;
-                        recommendationText = `${plan.charAt(0).toUpperCase() + plan.slice(1)} covers all ${packsPerYear} packs you want + merch value`;
+                        recommendationText = `${plan.charAt(0).toUpperCase() + plan.slice(1)} covers all ${packsPerYear} packs + merch + perks`;
                     }
                 } else {
-                    // Some packs covered, calculate additional cost with member discount
+                    // Some packs covered, calculate additional cost with subscription discount
                     const additionalPacks = packsPerYear - packsIncluded;
                     let discount = 0;
                     if (plan === 'einherjar') discount = 0.20;
                     else if (plan === 'valkyrie') discount = 0.25;
                     else if (plan === 'allfather') discount = 0.30;
                     
-                    const memberPrice = packPrices[packType][0]; // member price
-                    const additionalCost = additionalPacks * memberPrice * (1 - discount);
-                    const totalCost = subscriptionCost + additionalCost;
+                    const additionalCost = additionalPacks * packPrice * (1 - discount);
+                    const totalCost = cost + additionalCost;
                     const savings = totalPackCost - totalCost;
                     
                     if (savings > bestSavings) {
