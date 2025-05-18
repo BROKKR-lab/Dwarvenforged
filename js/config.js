@@ -717,8 +717,8 @@
             "url": "#catalog"
         },
         {
-            "name": "Seed Catalog",
-            "url": "#seed-catalog"
+            "name": "Membership",
+            "url": "/pricing.html"
         },
         {
             "name": "Genetics Explorer",
