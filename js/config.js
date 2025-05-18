@@ -565,7 +565,7 @@
                 "id": "product-1747018175265",
                 "name": "Burdens Bliss",
                 "type": "Crafted Genetics",
-                "status": "coming-soon",
+                "status": "available",
                 "delivery": "physical",
                 "digitalContent": "",
                 "image": "/img/strains/BurdensBliss-logo.jpg",
@@ -587,13 +587,13 @@
                 "enableHoverImage": false,
                 "hoverImage": "",
                 "hidden": false,
-                "displayOrder": 16
+                "displayOrder": 15
             },
             "product-1747018271296": {
                 "id": "product-1747018271296",
                 "name": "Valkyrie's Banner",
                 "type": "Crafted Genetics",
-                "status": "available",
+                "status": "coming-soon",
                 "delivery": "physical",
                 "digitalContent": "",
                 "image": "/img/strains/ValkyriesBanner-logo.jpg",
@@ -620,7 +620,7 @@
                 "enableHoverImage": true,
                 "hoverImage": "",
                 "hidden": false,
-                "displayOrder": 14
+                "displayOrder": 16
             },
             "product-1747018323542": {
                 "id": "product-1747018323542",
@@ -651,7 +651,7 @@
                 "enableHoverImage": true,
                 "hoverImage": "/img/strains/ForgePickles-detail2.jpg",
                 "hidden": false,
-                "displayOrder": 15
+                "displayOrder": 14
             },
             "product-1747018356805": {
                 "id": "product-1747018356805",
