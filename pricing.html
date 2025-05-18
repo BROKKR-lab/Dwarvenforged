@@ -114,12 +114,39 @@
         .toggle-option:not(.active) {
             color: #e8d5b7;
         }
+
+        .section {
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: #ffd700;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #d4af37;
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
         
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
-            margin-bottom: 4rem;
+            margin-bottom: 2rem;
+        }
+
+        .regular-packs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
         }
         
         .pricing-card {
@@ -131,6 +158,20 @@
             overflow: hidden;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+        }
+
+        .regular-pack-card {
+            background: linear-gradient(145deg, rgba(139, 69, 19, 0.15), rgba(160, 82, 45, 0.05));
+            border: 1px solid #8B4513;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .regular-pack-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.15);
         }
         
         .pricing-card::before {
@@ -253,52 +294,111 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
         }
-        
-        .one-time-section {
-            margin-top: 4rem;
-            text-align: center;
-        }
-        
-        .section-title {
-            font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
-            color: #ffd700;
-            margin-bottom: 2rem;
-        }
-        
-        .one-time-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .one-time-card {
-            background: linear-gradient(145deg, rgba(139, 69, 19, 0.15), rgba(160, 82, 45, 0.05));
-            border: 1px solid #8B4513;
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-        }
-        
-        .one-time-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.15);
-        }
-        
+
         .pack-name {
             font-family: 'Cinzel', serif;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: #ffd700;
             margin-bottom: 0.5rem;
         }
-        
-        .pack-price {
-            font-size: 1.5rem;
+
+        .pack-description {
             color: #d4af37;
+            font-style: italic;
             margin-bottom: 1rem;
         }
-        
+
+        .pack-details {
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .pack-price {
+            font-size: 1.8rem;
+            color: #ffd700;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .tester-section {
+            background: linear-gradient(145deg, rgba(255, 215, 0, 0.1), rgba(212, 175, 55, 0.05));
+            border: 2px solid #d4af37;
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        .tester-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            color: #ffd700;
+            margin-bottom: 1rem;
+        }
+
+        .tester-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #e8d5b7;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tester-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .tester-benefit {
+            background: rgba(139, 69, 19, 0.2);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid #8B4513;
+        }
+
+        .tester-benefit h4 {
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+            font-family: 'Cinzel', serif;
+        }
+
+        .limited-releases {
+            background: linear-gradient(145deg, rgba(255, 69, 0, 0.1), rgba(255, 140, 0, 0.05));
+            border: 2px solid #ff6b35;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 3rem 0;
+        }
+
+        .limited-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .limited-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: #ff6b35;
+            margin-bottom: 0.5rem;
+        }
+
+        .limited-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .limited-card {
+            background: rgba(139, 69, 19, 0.15);
+            border: 1px solid #ff6b35;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
         .calculator {
             background: rgba(139, 69, 19, 0.2);
             border: 2px solid #8B4513;
@@ -389,143 +489,243 @@
             </div>
         </div>
 
-        <div class="pricing-grid">
-            <!-- Einherjar Tier -->
-            <div class="pricing-card">
-                <div class="card-title">Einherjar</div>
-                <div class="card-subtitle">The Chosen Warriors</div>
-                <div class="price-display">
-                    <span class="price member-price">$89</span>
-                    <span class="price guest-price hidden">$119</span>
-                    <span class="price-period">/ month</span>
-                    <div>
-                        <span class="original-price member-original">$150</span>
-                        <span class="original-price guest-original hidden">$180</span>
-                        <span class="savings member-savings">Save $61/mo</span>
-                        <span class="savings guest-savings hidden">Save $61/mo</span>
+        <!-- Annual Subscription Tiers -->
+        <div class="section">
+            <h2 class="section-title">Annual Brotherhood Memberships</h2>
+            <p class="section-subtitle">Secure your place in Valhalla for the full breeding season (12+ releases per year)</p>
+            
+            <div class="pricing-grid">
+                <!-- Einherjar Tier -->
+                <div class="pricing-card">
+                    <div class="card-title">Einherjar</div>
+                    <div class="card-subtitle">The Chosen Warriors</div>
+                    <div class="price-display">
+                        <span class="price member-price">$99</span>
+                        <span class="price guest-price hidden">$129</span>
+                        <span class="price-period">/ year</span>
+                        <div style="margin-top: 1rem;">
+                            <span class="original-price member-original">$180</span>
+                            <span class="original-price guest-original hidden">$210</span>
+                            <span class="savings member-savings">Save $81</span>
+                            <span class="savings guest-savings hidden">Save $81</span>
+                        </div>
                     </div>
+                    <ul class="features">
+                        <li>6 Premium Packs per Year (your choice)</li>
+                        <li>20% Discount on All Additional Purchases</li>
+                        <li>Early Access (48h before public)</li>
+                        <li>Exclusive Growing Guides</li>
+                        <li>Members-Only Discord Channel</li>
+                        <li>Birthday Pack Special</li>
+                    </ul>
+                    <button class="cta-button" onclick="selectPlan('einherjar')">Join the Warriors</button>
                 </div>
-                <ul class="features">
-                    <li>2 Premium Packs Monthly</li>
-                    <li>Early Access (48h before public)</li>
-                    <li>15% Discount on All Additional Purchases</li>
-                    <li>Exclusive Strain Notes & Growing Tips</li>
-                    <li>Members-Only Discord Channel</li>
-                    <li>Skip the Line for Limited Drops</li>
-                </ul>
-                <button class="cta-button" onclick="selectPlan('einherjar')">Join the Warriors</button>
-            </div>
 
-            <!-- Valkyrie Tier -->
-            <div class="pricing-card">
-                <div class="popular-badge">Most Popular</div>
-                <div class="card-title">Valkyrie</div>
-                <div class="card-subtitle">The Divine Collectors</div>
-                <div class="price-display">
-                    <span class="price member-price">$199</span>
-                    <span class="price guest-price hidden">$249</span>
-                    <span class="price-period">/ month</span>
-                    <div>
-                        <span class="original-price member-original">$350</span>
-                        <span class="original-price guest-original hidden">$400</span>
-                        <span class="savings member-savings">Save $151/mo</span>
-                        <span class="savings guest-savings hidden">Save $151/mo</span>
+                <!-- Valkyrie Tier -->
+                <div class="pricing-card">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="card-title">Valkyrie</div>
+                    <div class="card-subtitle">The Divine Collectors</div>
+                    <div class="price-display">
+                        <span class="price member-price">$199</span>
+                        <span class="price guest-price hidden">$249</span>
+                        <span class="price-period">/ year</span>
+                        <div style="margin-top: 1rem;">
+                            <span class="original-price member-original">$360</span>
+                            <span class="original-price guest-original hidden">$420</span>
+                            <span class="savings member-savings">Save $161</span>
+                            <span class="savings guest-savings hidden">Save $171</span>
+                        </div>
                     </div>
+                    <ul class="features">
+                        <li>All 12+ Annual Releases Included</li>
+                        <li>30% Discount on Additional Purchases</li>
+                        <li>Exclusive Limited Edition Access</li>
+                        <li>Quarterly Breeder's Choice Bonus</li>
+                        <li>Priority Customer Support</li>
+                        <li>Beta Tester Consideration</li>
+                        <li>Annual Vault Collection Box</li>
+                    </ul>
+                    <button class="cta-button" onclick="selectPlan('valkyrie')">Ascend to Valhalla</button>
                 </div>
-                <ul class="features">
-                    <li>5 Premium Packs Monthly</li>
-                    <li>Exclusive Limited Edition Strains</li>
-                    <li>25% Discount on All Purchases</li>
-                    <li>Priority Customer Support</li>
-                    <li>Quarterly Breeder's Choice Bonus Pack</li>
-                    <li>Access to Beta Testing Program</li>
-                    <li>Custom Breeding Consultation (1hr/quarter)</li>
-                </ul>
-                <button class="cta-button" onclick="selectPlan('valkyrie')">Ascend to Valhalla</button>
-            </div>
 
-            <!-- AllFather Tier -->
-            <div class="pricing-card">
-                <div class="card-title">AllFather</div>
-                <div class="card-subtitle">The Supreme Council</div>
-                <div class="price-display">
-                    <span class="price member-price">$399</span>
-                    <span class="price guest-price hidden">$499</span>
-                    <span class="price-period">/ month</span>
-                    <div>
-                        <span class="original-price member-original">$750</span>
-                        <span class="original-price guest-original hidden">$850</span>
-                        <span class="savings member-savings">Save $351/mo</span>
-                        <span class="savings guest-savings hidden">Save $351/mo</span>
+                <!-- AllFather Tier -->
+                <div class="pricing-card">
+                    <div class="card-title">AllFather</div>
+                    <div class="card-subtitle">The Supreme Council</div>
+                    <div class="price-display">
+                        <span class="price member-price">$399</span>
+                        <span class="price guest-price hidden">$499</span>
+                        <span class="price-period">/ year</span>
+                        <div style="margin-top: 1rem;">
+                            <span class="original-price member-original">$750</span>
+                            <span class="original-price guest-original hidden">$900</span>
+                            <span class="savings member-savings">Save $351</span>
+                            <span class="savings guest-savings hidden">Save $401</span>
+                        </div>
                     </div>
+                    <ul class="features">
+                        <li>All Releases + Extra Packs (18+ packs/year)</li>
+                        <li>40% Discount on Everything</li>
+                        <li>First Access to ALL Limited Drops</li>
+                        <li>Exclusive One-of-One Strains</li>
+                        <li>Direct Breeder Communication</li>
+                        <li>Custom Breeding Input</li>
+                        <li>Annual Genetics Vault Collection</li>
+                        <li>Exclusive Event Invitations</li>
+                    </ul>
+                    <button class="cta-button" onclick="selectPlan('allfather')">Rule the Realm</button>
                 </div>
-                <ul class="features">
-                    <li>10 Premium Packs Monthly</li>
-                    <li>First Access to ALL New Releases</li>
-                    <li>35% Discount on Everything</li>
-                    <li>Exclusive One-of-One Strains</li>
-                    <li>Monthly Video Call with Head Breeder</li>
-                    <li>Custom Strain Development Project</li>
-                    <li>Annual Genetics Vault Box</li>
-                    <li>Invitation to Exclusive Events</li>
-                </ul>
-                <button class="cta-button" onclick="selectPlan('allfather')">Rule the Realm</button>
             </div>
         </div>
 
-        <div class="one-time-section">
-            <h2 class="section-title">Single Pack Adventures</h2>
-            <p style="margin-bottom: 2rem; font-size: 1.1rem;">
-                Perfect for those who prefer to forge their own path, one pack at a time.
-            </p>
+        <!-- Regular Seed Packs -->
+        <div class="section">
+            <h2 class="section-title">Individual Pack Adventures</h2>
+            <p class="section-subtitle">Perfect for those who prefer to forge their own path, one pack at a time</p>
             
-            <div class="one-time-grid">
-                <div class="one-time-card">
-                    <div class="pack-name">Standard Pack</div>
+            <div class="regular-packs-grid">
+                <div class="regular-pack-card">
+                    <div class="pack-name">Regular 6-Pack</div>
+                    <div class="pack-description">Standard Genetics</div>
+                    <div class="pack-details">6 regular seeds<br>(~3-4 females expected)</div>
                     <div class="pack-price member-price">$25</div>
                     <div class="pack-price guest-price hidden">$30</div>
-                    <p>6 premium seeds<br>Classic selection</p>
-                    <button class="cta-button" onclick="buyPack('standard')">Add to Cart</button>
+                    <button class="cta-button" onclick="buyPack('regular-6')">Add to Cart</button>
                 </div>
                 
-                <div class="one-time-card">
-                    <div class="pack-name">Limited Edition</div>
+                <div class="regular-pack-card">
+                    <div class="pack-name">Regular 12-Pack</div>
+                    <div class="pack-description">Standard Genetics</div>
+                    <div class="pack-details">12 regular seeds<br>(~6-8 females expected)</div>
                     <div class="pack-price member-price">$45</div>
                     <div class="pack-price guest-price hidden">$55</div>
-                    <p>6 seeds + bonus<br>Rare genetics</p>
-                    <button class="cta-button" onclick="buyPack('limited')">Add to Cart</button>
+                    <button class="cta-button" onclick="buyPack('regular-12')">Add to Cart</button>
+                </div>
+
+                <div class="regular-pack-card">
+                    <div class="pack-name">Feminized 5-Pack</div>
+                    <div class="pack-description">Premium Feminized</div>
+                    <div class="pack-details">5 feminized seeds<br>(99% female guarantee)</div>
+                    <div class="pack-price member-price">$35</div>
+                    <div class="pack-price guest-price hidden">$45</div>
+                    <button class="cta-button" onclick="buyPack('fem-5')">Add to Cart</button>
                 </div>
                 
-                <div class="one-time-card">
-                    <div class="pack-name">Breeder's Select</div>
-                    <div class="pack-price member-price">$75</div>
-                    <div class="pack-price guest-price hidden">$95</div>
-                    <p>6 elite seeds<br>Curator's choice</p>
-                    <button class="cta-button" onclick="buyPack('select')">Add to Cart</button>
+                <div class="regular-pack-card">
+                    <div class="pack-name">Feminized 10-Pack</div>
+                    <div class="pack-description">Premium Feminized</div>
+                    <div class="pack-details">10 feminized seeds<br>(99% female guarantee)</div>
+                    <div class="pack-price member-price">$65</div>
+                    <div class="pack-price guest-price hidden">$85</div>
+                    <button class="cta-button" onclick="buyPack('fem-10')">Add to Cart</button>
+                </div>
+
+                <div class="regular-pack-card">
+                    <div class="pack-name">Tester 3-Pack</div>
+                    <div class="pack-description">Try Before You Buy</div>
+                    <div class="pack-details">3 premium seeds<br>(sample new genetics)</div>
+                    <div class="pack-price member-price">$15</div>
+                    <div class="pack-price guest-price hidden">$20</div>
+                    <button class="cta-button" onclick="buyPack('tester-3')">Add to Cart</button>
+                </div>
+
+                <div class="regular-pack-card">
+                    <div class="pack-name">Breeder's Mixed</div>
+                    <div class="pack-description">Curator's Selection</div>
+                    <div class="pack-details">6 handpicked seeds<br>(breeder's favorites)</div>
+                    <div class="pack-price member-price">$50</div>
+                    <div class="pack-price guest-price hidden">$65</div>
+                    <button class="cta-button" onclick="buyPack('mixed')">Add to Cart</button>
                 </div>
             </div>
         </div>
 
+        <!-- Limited Releases -->
+        <div class="limited-releases">
+            <div class="limited-header">
+                <h3 class="limited-title">🔥 Limited Edition Releases</h3>
+                <p style="color: #e8d5b7; font-style: italic;">Ultra-rare genetics in extremely limited quantities</p>
+            </div>
+            
+            <div class="limited-grid">
+                <div class="limited-card">
+                    <div class="pack-name" style="color: #ff6b35;">Vault Exclusive</div>
+                    <div class="pack-description">Ultra-Limited Release</div>
+                    <div class="pack-details">3-5 seeds only<br>Hand-selected phenotypes<br>Limited to 50 packs worldwide</div>
+                    <div class="pack-price member-price" style="color: #ff6b35;">$100</div>
+                    <div class="pack-price guest-price hidden" style="color: #ff6b35;">$135</div>
+                    <button class="cta-button" style="background: linear-gradient(135deg, #ff6b35, #f7931e);" onclick="buyPack('vault')">Get Exclusive Access</button>
+                </div>
+                
+                <div class="limited-card">
+                    <div class="pack-name" style="color: #ff6b35;">F1 Prototype</div>
+                    <div class="pack-description">First-Generation Cross</div>
+                    <div class="pack-details">5 prototype seeds<br>Never-before-released genetics<br>Limited to breeding season</div>
+                    <div class="pack-price member-price" style="color: #ff6b35;">$75</div>
+                    <div class="pack-price guest-price hidden" style="color: #ff6b35;">$100</div>
+                    <button class="cta-button" style="background: linear-gradient(135deg, #ff6b35, #f7931e);" onclick="buyPack('f1')">Secure Prototype</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tester Program -->
+        <div class="tester-section">
+            <h3 class="tester-title">🧪 Official Tester Program</h3>
+            <p class="tester-description">
+                Join our elite testing team and help shape the future of Dwarven genetics. 
+                Get exclusive access to unreleased strains in exchange for detailed grow reports.
+            </p>
+            
+            <div class="tester-benefits">
+                <div class="tester-benefit">
+                    <h4>Free Test Seeds</h4>
+                    <p>Receive 3-5 prototype seeds quarterly for testing and feedback</p>
+                </div>
+                <div class="tester-benefit">
+                    <h4>50% Off Everything</h4>
+                    <p>Massive discount on all regular and limited releases</p>
+                </div>
+                <div class="tester-benefit">
+                    <h4>Direct Breeder Access</h4>
+                    <p>Communicate directly with our breeding team</p>
+                </div>
+                <div class="tester-benefit">
+                    <h4>Name Recognition</h4>
+                    <p>Top testers get strains named after them</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 2rem;">
+                <button class="cta-button" style="width: auto; padding: 1rem 3rem;" onclick="applyTester()">
+                    Apply for Tester Program - $99/year
+                </button>
+            </div>
+        </div>
+
+        <!-- Savings Calculator -->
         <div class="calculator">
-            <h3 class="calculator-title">Savings Calculator</h3>
-            <p>See how much you save compared to buying individual packs:</p>
+            <h3 class="calculator-title">Annual Savings Calculator</h3>
+            <p>See how much you save with membership versus individual purchases:</p>
             
             <div class="calculator-input">
-                <label for="packs-per-month">Packs per Month:</label>
-                <input type="number" id="packs-per-month" min="1" max="20" value="2">
+                <label for="packs-per-year">Packs per Year:</label>
+                <input type="number" id="packs-per-year" min="1" max="25" value="6">
             </div>
             
             <div class="calculator-input">
-                <label for="pack-type">Pack Type:</label>
-                <select id="pack-type">
-                    <option value="standard">Standard ($25/$30)</option>
-                    <option value="limited">Limited Edition ($45/$55)</option>
-                    <option value="select">Breeder's Select ($75/$95)</option>
+                <label for="pack-type-calc">Preferred Pack Type:</label>
+                <select id="pack-type-calc">
+                    <option value="regular-6">Regular 6-Pack</option>
+                    <option value="regular-12">Regular 12-Pack</option>
+                    <option value="fem-5">Feminized 5-Pack</option>
+                    <option value="fem-10">Feminized 10-Pack</option>
+                    <option value="mixed">Breeder's Mixed</option>
                 </select>
             </div>
             
             <button class="cta-button" onclick="calculateSavings()" style="width: auto; margin: 1rem;">
-                Calculate Savings
+                Calculate My Savings
             </button>
             
             <div id="calculator-result" class="calculator-result hidden">
@@ -558,9 +758,9 @@
             });
         });
 
-        // Plan selection
+		// Plan selection
         function selectPlan(plan) {
-            alert(`Selected ${plan.charAt(0).toUpperCase() + plan.slice(1)} plan! Redirecting to checkout...`);
+            alert(`Selected ${plan.charAt(0).toUpperCase() + plan.slice(1)} annual membership! Redirecting to checkout...`);
             // Here you would integrate with your payment processor
         }
 
@@ -570,51 +770,78 @@
             // Here you would integrate with your shopping cart
         }
 
+        // Tester application
+        function applyTester() {
+            alert('Opening tester application form... This would redirect to a detailed application page.');
+            // Here you would open application form or redirect
+        }
+
         // Savings calculator
         function calculateSavings() {
-            const packsPerMonth = parseInt(document.getElementById('packs-per-month').value);
-            const packType = document.getElementById('pack-type').value;
+            const packsPerYear = parseInt(document.getElementById('packs-per-year').value);
+            const packType = document.getElementById('pack-type-calc').value;
             const isMember = document.querySelector('.toggle-option[data-type="member"]').classList.contains('active');
             
             // Pack prices (member/guest)
             const packPrices = {
-                standard: [25, 30],
-                limited: [45, 55],
-                select: [75, 95]
+                'regular-6': [25, 30],
+                'regular-12': [45, 55],
+                'fem-5': [35, 45],
+                'fem-10': [65, 85],
+                'mixed': [50, 65]
             };
             
-            // Subscription costs per month (member/guest)
+            // Annual subscription costs (member/guest)
             const subscriptionCosts = {
-                einherjar: [89, 119],
-                valkyrie: [199, 249],
+                einherjar: [99, 129],
+                valkyrie: [199, 249], 
                 allfather: [399, 499]
+            };
+            
+            // Included packs per membership
+            const includedPacks = {
+                einherjar: 6,
+                valkyrie: 12,
+                allfather: 18
             };
             
             const priceIndex = isMember ? 0 : 1;
             const packPrice = packPrices[packType][priceIndex];
-            const totalPackCost = packsPerMonth * packPrice;
+            const totalPackCost = packsPerYear * packPrice;
             
             let bestSavings = 0;
             let bestPlan = '';
-            let planDetails = '';
+            let recommendationText = '';
             
             // Check each subscription tier
             Object.entries(subscriptionCosts).forEach(([plan, costs]) => {
                 const subscriptionCost = costs[priceIndex];
-                let packsIncluded = 0;
+                const packsIncluded = includedPacks[plan];
                 
-                switch(plan) {
-                    case 'einherjar': packsIncluded = 2; break;
-                    case 'valkyrie': packsIncluded = 5; break;
-                    case 'allfather': packsIncluded = 10; break;
-                }
-                
-                if (packsPerMonth <= packsIncluded) {
+                if (packsPerYear <= packsIncluded) {
+                    // All packs covered by subscription
                     const savings = totalPackCost - subscriptionCost;
                     if (savings > bestSavings) {
                         bestSavings = savings;
                         bestPlan = plan;
-                        planDetails = `${plan.charAt(0).toUpperCase() + plan.slice(1)} plan includes ${packsIncluded} packs`;
+                        recommendationText = `${plan.charAt(0).toUpperCase() + plan.slice(1)} covers all ${packsPerYear} packs you want`;
+                    }
+                } else {
+                    // Some packs covered, calculate additional cost with member discount
+                    const additionalPacks = packsPerYear - packsIncluded;
+                    let discount = 0;
+                    if (plan === 'einherjar') discount = 0.20;
+                    else if (plan === 'valkyrie') discount = 0.30;
+                    else if (plan === 'allfather') discount = 0.40;
+                    
+                    const additionalCost = additionalPacks * packPrice * (1 - discount);
+                    const totalCost = subscriptionCost + additionalCost;
+                    const savings = totalPackCost - totalCost;
+                    
+                    if (savings > bestSavings) {
+                        bestSavings = savings;
+                        bestPlan = plan;
+                        recommendationText = `${plan.charAt(0).toUpperCase() + plan.slice(1)} + ${additionalPacks} additional packs at ${Math.round(discount*100)}% discount`;
                     }
                 }
             });
@@ -624,23 +851,27 @@
             
             if (bestSavings > 0) {
                 resultDiv.innerHTML = `
-                    <h4 style="color: #ffd700; margin-bottom: 1rem;">💰 You Could Save $${bestSavings}/month!</h4>
-                    <p><strong>Individual Packs:</strong> $${totalPackCost}/month</p>
-                    <p><strong>Best Subscription:</strong> ${planDetails}</p>
+                    <h4 style="color: #ffd700; margin-bottom: 1rem;">💰 You Could Save $${Math.round(bestSavings)}/year!</h4>
+                    <p><strong>Individual Packs:</strong> $${totalPackCost}/year</p>
+                    <p><strong>Best Option:</strong> ${recommendationText}</p>
+                    <p><strong>Annual Cost:</strong> $${Math.round(totalPackCost - bestSavings)}</p>
                     <p style="color: #90EE90; font-weight: 600; margin-top: 1rem;">
-                        Annual Savings: $${bestSavings * 12}
+                        💎 Plus you get exclusive members benefits worth even more!
                     </p>
                 `;
             } else {
                 resultDiv.innerHTML = `
-                    <h4 style="color: #ffd700; margin-bottom: 1rem;">Individual Packs Best for You</h4>
-                    <p>Based on your usage, individual pack purchases work best for your needs.</p>
-                    <p><strong>Monthly Cost:</strong> $${totalPackCost}</p>
+                    <h4 style="color: #ffd700; margin-bottom: 1rem;">Individual Packs Work Best</h4>
+                    <p>Based on ${packsPerYear} packs per year, individual purchases are most cost-effective.</p>
+                    <p><strong>Annual Cost:</strong> $${totalPackCost}</p>
+                    <p style="margin-top: 1rem; color: #d4af37;">
+                        💡 Consider our tester program for 50% discounts!
+                    </p>
                 `;
             }
         }
 
-        // Add some interactive animations
+        // Add interactive animations
         document.addEventListener('DOMContentLoaded', function() {
             // Animate cards on scroll
             const observerOptions = {
@@ -658,13 +889,185 @@
             }, observerOptions);
             
             // Initially hide cards for animation
-            document.querySelectorAll('.pricing-card, .one-time-card').forEach(card => {
+            document.querySelectorAll('.pricing-card, .regular-pack-card, .limited-card').forEach(card => {
                 card.style.opacity = '0';
                 card.style.transform = 'translateY(30px)';
                 card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                 observer.observe(card);
             });
+
+            // Add subtle hover effects to buttons
+            document.querySelectorAll('.cta-button').forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px) scale(1.02)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Add sparkle effect on hover for limited cards
+            document.querySelectorAll('.limited-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 15px 40px rgba(255, 107, 53, 0.3)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = 'none';
+                });
+            });
         });
     </script>
 </body>
 </html>
+
+		// Tester application
+		function applyTester() {
+			alert('Opening tester application form... This would redirect to a detailed application page.');
+			// Here you would open application form or redirect
+		}
+
+		// Savings calculator
+		function calculateSavings() {
+			const packsPerYear = parseInt(document.getElementById('packs-per-year').value);
+			const packType = document.getElementById('pack-type-calc').value;
+			const isMember = document.querySelector('.toggle-option[data-type="member"]').classList.contains('active');
+			
+			// Pack prices (member/guest)
+			const packPrices = {
+				'regular-6': [25, 30],
+				'regular-12': [45, 55],
+				'fem-5': [35, 45],
+				'fem-10': [65, 85],
+				'mixed': [50, 65]
+			};
+			
+			// Annual subscription costs (member/guest)
+			const subscriptionCosts = {
+				einherjar: [99, 129],
+				valkyrie: [199, 249], 
+				allfather: [399, 499]
+			};
+			
+			// Included packs per membership
+			const includedPacks = {
+				einherjar: 6,
+				valkyrie: 12,
+				allfather: 18
+			};
+			
+			const priceIndex = isMember ? 0 : 1;
+			const packPrice = packPrices[packType][priceIndex];
+			const totalPackCost = packsPerYear * packPrice;
+			
+			let bestSavings = 0;
+			let bestPlan = '';
+			let recommendationText = '';
+			
+			// Check each subscription tier
+			Object.entries(subscriptionCosts).forEach(([plan, costs]) => {
+				const subscriptionCost = costs[priceIndex];
+				const packsIncluded = includedPacks[plan];
+				
+				if (packsPerYear <= packsIncluded) {
+					// All packs covered by subscription
+					const savings = totalPackCost - subscriptionCost;
+					if (savings > bestSavings) {
+						bestSavings = savings;
+						bestPlan = plan;
+						recommendationText = `${plan.charAt(0).toUpperCase() + plan.slice(1)} covers all ${packsPerYear} packs you want`;
+					}
+				} else {
+					// Some packs covered, calculate additional cost with member discount
+					const additionalPacks = packsPerYear - packsIncluded;
+					let discount = 0;
+					if (plan === 'einherjar') discount = 0.20;
+					else if (plan === 'valkyrie') discount = 0.30;
+					else if (plan === 'allfather') discount = 0.40;
+					
+					const additionalCost = additionalPacks * packPrice * (1 - discount);
+					const totalCost = subscriptionCost + additionalCost;
+					const savings = totalPackCost - totalCost;
+					
+					if (savings > bestSavings) {
+						bestSavings = savings;
+						bestPlan = plan;
+						recommendationText = `${plan.charAt(0).toUpperCase() + plan.slice(1)} + ${additionalPacks} additional packs at ${Math.round(discount*100)}% discount`;
+					}
+				}
+			});
+			
+			const resultDiv = document.getElementById('calculator-result');
+			resultDiv.classList.remove('hidden');
+			
+			if (bestSavings > 0) {
+				resultDiv.innerHTML = `
+					<h4 style="color: #ffd700; margin-bottom: 1rem;">💰 You Could Save $${Math.round(bestSavings)}/year!</h4>
+					<p><strong>Individual Packs:</strong> $${totalPackCost}/year</p>
+					<p><strong>Best Option:</strong> ${recommendationText}</p>
+					<p><strong>Annual Cost:</strong> $${Math.round(totalPackCost - bestSavings)}</p>
+					<p style="color: #90EE90; font-weight: 600; margin-top: 1rem;">
+						💎 Plus you get exclusive members benefits worth even more!
+					</p>
+				`;
+			} else {
+				resultDiv.innerHTML = `
+					<h4 style="color: #ffd700; margin-bottom: 1rem;">Individual Packs Work Best</h4>
+					<p>Based on ${packsPerYear} packs per year, individual purchases are most cost-effective.</p>
+					<p><strong>Annual Cost:</strong> $${totalPackCost}</p>
+					<p style="margin-top: 1rem; color: #d4af37;">
+						💡 Consider our tester program for 50% discounts!
+					</p>
+				`;
+			}
+		}
+
+		// Add interactive animations
+		document.addEventListener('DOMContentLoaded', function() {
+			// Animate cards on scroll
+			const observerOptions = {
+				threshold: 0.1,
+				rootMargin: '0px 0px -50px 0px'
+			};
+			
+			const observer = new IntersectionObserver(function(entries) {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.style.opacity = '1';
+						entry.target.style.transform = 'translateY(0)';
+					}
+				});
+			}, observerOptions);
+			
+			// Initially hide cards for animation
+			document.querySelectorAll('.pricing-card, .regular-pack-card, .limited-card').forEach(card => {
+				card.style.opacity = '0';
+				card.style.transform = 'translateY(30px)';
+				card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+				observer.observe(card);
+			});
+
+			// Add subtle hover effects to buttons
+			document.querySelectorAll('.cta-button').forEach(button => {
+				button.addEventListener('mouseenter', function() {
+					this.style.transform = 'translateY(-2px) scale(1.02)';
+				});
+				
+				button.addEventListener('mouseleave', function() {
+					this.style.transform = 'translateY(0) scale(1)';
+				});
+			});
+
+			// Add sparkle effect on hover for limited cards
+			document.querySelectorAll('.limited-card').forEach(card => {
+				card.addEventListener('mouseenter', function() {
+					this.style.boxShadow = '0 15px 40px rgba(255, 107, 53, 0.3)';
+				});
+				
+				card.addEventListener('mouseleave', function() {
+					this.style.boxShadow = 'none';
+				});
+			});
+		});
+	</script>			
