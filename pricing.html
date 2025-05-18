@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dwarven Forge Genetics - The Halls of Asgard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:wght@400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Crimson Text', serif;
+            background: linear-gradient(135deg, #1a1611 0%, #2d2419 50%, #1a1611 100%);
+            color: #e8d5b7;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 140, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 69, 0, 0.1) 0%, transparent 50%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.02"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .main-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #ffd700;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: #d4af37;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            color: #e8d5b7;
+        }
+        
+        .membership-toggle {
+            display: flex;
+            justify-content: center;
+            margin: 3rem 0;
+            position: relative;
+        }
+        
+        .toggle-container {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 50px;
+            padding: 4px;
+            border: 2px solid #8B4513;
+            position: relative;
+        }
+        
+        .toggle-switch {
+            display: flex;
+            position: relative;
+        }
+        
+        .toggle-option {
+            padding: 12px 24px;
+            border-radius: 46px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .toggle-option.active {
+            color: #1a1611;
+            background: linear-gradient(135deg, #ffd700, #d4af37);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .toggle-option:not(.active) {
+            color: #e8d5b7;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .pricing-card {
+            background: linear-gradient(145deg, rgba(139, 69, 19, 0.2), rgba(160, 82, 45, 0.1));
+            border: 2px solid #8B4513;
+            border-radius: 15px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ffd700, #d4af37, #ffd700);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2);
+            border-color: #d4af37;
+        }
+        
+        .pricing-card:hover::before {
+            opacity: 1;
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -1px;
+            right: -1px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 0 15px 0 15px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .card-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        .card-subtitle {
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: #d4af37;
+        }
+        
+        .price-display {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffd700;
+        }
+        
+        .price-period {
+            font-size: 1rem;
+            color: #b8860b;
+            margin-left: 0.5rem;
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: #888;
+            font-size: 1.2rem;
+            margin-right: 1rem;
+        }
+        
+        .savings {
+            color: #90EE90;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .features li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .features li::before {
+            content: '⚒️';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+        }
+        
+        .cta-button {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #ffd700, #d4af37);
+            color: #1a1611;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cta-button:hover {
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+        
+        .one-time-section {
+            margin-top: 4rem;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: #ffd700;
+            margin-bottom: 2rem;
+        }
+        
+        .one-time-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .one-time-card {
+            background: linear-gradient(145deg, rgba(139, 69, 19, 0.15), rgba(160, 82, 45, 0.05));
+            border: 1px solid #8B4513;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .one-time-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.15);
+        }
+        
+        .pack-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pack-price {
+            font-size: 1.5rem;
+            color: #d4af37;
+            margin-bottom: 1rem;
+        }
+        
+        .calculator {
+            background: rgba(139, 69, 19, 0.2);
+            border: 2px solid #8B4513;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 4rem 0;
+            text-align: center;
+        }
+        
+        .calculator-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: #ffd700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .calculator-input {
+            display: inline-block;
+            margin: 1rem;
+        }
+        
+        .calculator-input label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #d4af37;
+            font-weight: 600;
+        }
+        
+        .calculator-input input, .calculator-input select {
+            padding: 0.75rem;
+            border: 2px solid #8B4513;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #e8d5b7;
+            font-size: 1rem;
+            width: 150px;
+        }
+        
+        .calculator-result {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(212, 175, 55, 0.1));
+            border-radius: 10px;
+            border: 1px solid #d4af37;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="main-title">The Halls of Asgard</h1>
+            <p class="subtitle">Join the Brotherhood of Elite Cultivators</p>
+            <p class="description">
+                Welcome to the sacred halls where only the most dedicated seed collectors gather. 
+                Choose your path in the realm of premium genetics, forged by dwarven masters 
+                and blessed by the gods themselves.
+            </p>
+        </header>
+
+        <div class="membership-toggle">
+            <div class="toggle-container">
+                <div class="toggle-switch">
+                    <div class="toggle-option active" data-type="member">
+                        🗡️ Member Pricing
+                    </div>
+                    <div class="toggle-option" data-type="guest">
+                        👤 Guest Pricing
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pricing-grid">
+            <!-- Einherjar Tier -->
+            <div class="pricing-card">
+                <div class="card-title">Einherjar</div>
+                <div class="card-subtitle">The Chosen Warriors</div>
+                <div class="price-display">
+                    <span class="price member-price">$89</span>
+                    <span class="price guest-price hidden">$119</span>
+                    <span class="price-period">/ month</span>
+                    <div>
+                        <span class="original-price member-original">$150</span>
+                        <span class="original-price guest-original hidden">$180</span>
+                        <span class="savings member-savings">Save $61/mo</span>
+                        <span class="savings guest-savings hidden">Save $61/mo</span>
+                    </div>
+                </div>
+                <ul class="features">
+                    <li>2 Premium Packs Monthly</li>
+                    <li>Early Access (48h before public)</li>
+                    <li>15% Discount on All Additional Purchases</li>
+                    <li>Exclusive Strain Notes & Growing Tips</li>
+                    <li>Members-Only Discord Channel</li>
+                    <li>Skip the Line for Limited Drops</li>
+                </ul>
+                <button class="cta-button" onclick="selectPlan('einherjar')">Join the Warriors</button>
+            </div>
+
+            <!-- Valkyrie Tier -->
+            <div class="pricing-card">
+                <div class="popular-badge">Most Popular</div>
+                <div class="card-title">Valkyrie</div>
+                <div class="card-subtitle">The Divine Collectors</div>
+                <div class="price-display">
+                    <span class="price member-price">$199</span>
+                    <span class="price guest-price hidden">$249</span>
+                    <span class="price-period">/ month</span>
+                    <div>
+                        <span class="original-price member-original">$350</span>
+                        <span class="original-price guest-original hidden">$400</span>
+                        <span class="savings member-savings">Save $151/mo</span>
+                        <span class="savings guest-savings hidden">Save $151/mo</span>
+                    </div>
+                </div>
+                <ul class="features">
+                    <li>5 Premium Packs Monthly</li>
+                    <li>Exclusive Limited Edition Strains</li>
+                    <li>25% Discount on All Purchases</li>
+                    <li>Priority Customer Support</li>
+                    <li>Quarterly Breeder's Choice Bonus Pack</li>
+                    <li>Access to Beta Testing Program</li>
+                    <li>Custom Breeding Consultation (1hr/quarter)</li>
+                </ul>
+                <button class="cta-button" onclick="selectPlan('valkyrie')">Ascend to Valhalla</button>
+            </div>
+
+            <!-- AllFather Tier -->
+            <div class="pricing-card">
+                <div class="card-title">AllFather</div>
+                <div class="card-subtitle">The Supreme Council</div>
+                <div class="price-display">
+                    <span class="price member-price">$399</span>
+                    <span class="price guest-price hidden">$499</span>
+                    <span class="price-period">/ month</span>
+                    <div>
+                        <span class="original-price member-original">$750</span>
+                        <span class="original-price guest-original hidden">$850</span>
+                        <span class="savings member-savings">Save $351/mo</span>
+                        <span class="savings guest-savings hidden">Save $351/mo</span>
+                    </div>
+                </div>
+                <ul class="features">
+                    <li>10 Premium Packs Monthly</li>
+                    <li>First Access to ALL New Releases</li>
+                    <li>35% Discount on Everything</li>
+                    <li>Exclusive One-of-One Strains</li>
+                    <li>Monthly Video Call with Head Breeder</li>
+                    <li>Custom Strain Development Project</li>
+                    <li>Annual Genetics Vault Box</li>
+                    <li>Invitation to Exclusive Events</li>
+                </ul>
+                <button class="cta-button" onclick="selectPlan('allfather')">Rule the Realm</button>
+            </div>
+        </div>
+
+        <div class="one-time-section">
+            <h2 class="section-title">Single Pack Adventures</h2>
+            <p style="margin-bottom: 2rem; font-size: 1.1rem;">
+                Perfect for those who prefer to forge their own path, one pack at a time.
+            </p>
+            
+            <div class="one-time-grid">
+                <div class="one-time-card">
+                    <div class="pack-name">Standard Pack</div>
+                    <div class="pack-price member-price">$25</div>
+                    <div class="pack-price guest-price hidden">$30</div>
+                    <p>6 premium seeds<br>Classic selection</p>
+                    <button class="cta-button" onclick="buyPack('standard')">Add to Cart</button>
+                </div>
+                
+                <div class="one-time-card">
+                    <div class="pack-name">Limited Edition</div>
+                    <div class="pack-price member-price">$45</div>
+                    <div class="pack-price guest-price hidden">$55</div>
+                    <p>6 seeds + bonus<br>Rare genetics</p>
+                    <button class="cta-button" onclick="buyPack('limited')">Add to Cart</button>
+                </div>
+                
+                <div class="one-time-card">
+                    <div class="pack-name">Breeder's Select</div>
+                    <div class="pack-price member-price">$75</div>
+                    <div class="pack-price guest-price hidden">$95</div>
+                    <p>6 elite seeds<br>Curator's choice</p>
+                    <button class="cta-button" onclick="buyPack('select')">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="calculator">
+            <h3 class="calculator-title">Savings Calculator</h3>
+            <p>See how much you save compared to buying individual packs:</p>
+            
+            <div class="calculator-input">
+                <label for="packs-per-month">Packs per Month:</label>
+                <input type="number" id="packs-per-month" min="1" max="20" value="2">
+            </div>
+            
+            <div class="calculator-input">
+                <label for="pack-type">Pack Type:</label>
+                <select id="pack-type">
+                    <option value="standard">Standard ($25/$30)</option>
+                    <option value="limited">Limited Edition ($45/$55)</option>
+                    <option value="select">Breeder's Select ($75/$95)</option>
+                </select>
+            </div>
+            
+            <button class="cta-button" onclick="calculateSavings()" style="width: auto; margin: 1rem;">
+                Calculate Savings
+            </button>
+            
+            <div id="calculator-result" class="calculator-result hidden">
+                <!-- Results will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle between member and guest pricing
+        document.querySelectorAll('.toggle-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove active class from all options
+                document.querySelectorAll('.toggle-option').forEach(opt => opt.classList.remove('active'));
+                
+                // Add active class to clicked option
+                this.classList.add('active');
+                
+                // Get the type (member or guest)
+                const type = this.dataset.type;
+                
+                // Toggle pricing display
+                if (type === 'member') {
+                    document.querySelectorAll('.member-price, .member-original, .member-savings').forEach(el => el.classList.remove('hidden'));
+                    document.querySelectorAll('.guest-price, .guest-original, .guest-savings').forEach(el => el.classList.add('hidden'));
+                } else {
+                    document.querySelectorAll('.guest-price, .guest-original, .guest-savings').forEach(el => el.classList.remove('hidden'));
+                    document.querySelectorAll('.member-price, .member-original, .member-savings').forEach(el => el.classList.add('hidden'));
+                }
+            });
+        });
+
+        // Plan selection
+        function selectPlan(plan) {
+            alert(`Selected ${plan.charAt(0).toUpperCase() + plan.slice(1)} plan! Redirecting to checkout...`);
+            // Here you would integrate with your payment processor
+        }
+
+        // Pack purchase
+        function buyPack(type) {
+            alert(`Added ${type} pack to cart! Redirecting to checkout...`);
+            // Here you would integrate with your shopping cart
+        }
+
+        // Savings calculator
+        function calculateSavings() {
+            const packsPerMonth = parseInt(document.getElementById('packs-per-month').value);
+            const packType = document.getElementById('pack-type').value;
+            const isMember = document.querySelector('.toggle-option[data-type="member"]').classList.contains('active');
+            
+            // Pack prices (member/guest)
+            const packPrices = {
+                standard: [25, 30],
+                limited: [45, 55],
+                select: [75, 95]
+            };
+            
+            // Subscription costs per month (member/guest)
+            const subscriptionCosts = {
+                einherjar: [89, 119],
+                valkyrie: [199, 249],
+                allfather: [399, 499]
+            };
+            
+            const priceIndex = isMember ? 0 : 1;
+            const packPrice = packPrices[packType][priceIndex];
+            const totalPackCost = packsPerMonth * packPrice;
+            
+            let bestSavings = 0;
+            let bestPlan = '';
+            let planDetails = '';
+            
+            // Check each subscription tier
+            Object.entries(subscriptionCosts).forEach(([plan, costs]) => {
+                const subscriptionCost = costs[priceIndex];
+                let packsIncluded = 0;
+                
+                switch(plan) {
+                    case 'einherjar': packsIncluded = 2; break;
+                    case 'valkyrie': packsIncluded = 5; break;
+                    case 'allfather': packsIncluded = 10; break;
+                }
+                
+                if (packsPerMonth <= packsIncluded) {
+                    const savings = totalPackCost - subscriptionCost;
+                    if (savings > bestSavings) {
+                        bestSavings = savings;
+                        bestPlan = plan;
+                        planDetails = `${plan.charAt(0).toUpperCase() + plan.slice(1)} plan includes ${packsIncluded} packs`;
+                    }
+                }
+            });
+            
+            const resultDiv = document.getElementById('calculator-result');
+            resultDiv.classList.remove('hidden');
+            
+            if (bestSavings > 0) {
+                resultDiv.innerHTML = `
+                    <h4 style="color: #ffd700; margin-bottom: 1rem;">💰 You Could Save $${bestSavings}/month!</h4>
+                    <p><strong>Individual Packs:</strong> $${totalPackCost}/month</p>
+                    <p><strong>Best Subscription:</strong> ${planDetails}</p>
+                    <p style="color: #90EE90; font-weight: 600; margin-top: 1rem;">
+                        Annual Savings: $${bestSavings * 12}
+                    </p>
+                `;
+            } else {
+                resultDiv.innerHTML = `
+                    <h4 style="color: #ffd700; margin-bottom: 1rem;">Individual Packs Best for You</h4>
+                    <p>Based on your usage, individual pack purchases work best for your needs.</p>
+                    <p><strong>Monthly Cost:</strong> $${totalPackCost}</p>
+                `;
+            }
+        }
+
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate cards on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Initially hide cards for animation
+            document.querySelectorAll('.pricing-card, .one-time-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
