@@ -10,7 +10,7 @@
       "relationships": "Husband to Elri, father to Nostri, brother to Eitri",
       "timeline": "CONFLICT: Story 3 says 60 seasons (15 years) imprisonment, Story 10 says 8 years. Birth-day 7 days after Elri's, 3 weeks before Nostri's",
       "abilities": "Master metallurgy, seedcraft, fire-giant techniques",
-      "storyReferences": ["All stories 1-12"],
+      "storyReferences": ["Story 1: The Forge Root Flame", "Story 2: The Forge Daughter", "Story 3: The Forge Trial", "Story 4: The Forge Council", "Story 5: The Forge Wager", "Story 6: The Forge Journey", "Story 7: The Forge Detail", "Story 8: The Forge Chronicle", "Story 9: The Forge Reunion", "Story 10: The Forge Bond", "Story 11: The Phoenix Flame", "Story 12: The Forge Memory"],
       "notes": "MAJOR INCONSISTENCIES: Hair color must match images. Resolve imprisonment duration conflict."
     },
     {
@@ -23,7 +23,7 @@
       "relationships": "Wife to Brokkr, mother to Nostri",
       "timeline": "Birth-day 7 days before Brokkr's, met him when Nostri was 11 months old",
       "abilities": "Seed-tending, Vanir growth-magic, greenhouse cultivation, rune-stitching",
-      "storyReferences": ["Story 1", "Story 4", "Story 10", "Story 11", "Story 12"],
+      "storyReferences": ["Story 1: The Forge Root Flame", "Story 4: The Forge Council", "Story 10: The Forge Bond", "Story 11: The Phoenix Flame", "Story 12: The Forge Memory"],
       "notes": "CRITICAL: Hair color description must be updated to match visual canon"
     },
     {
@@ -36,8 +36,73 @@
       "relationships": "Daughter to Elri, adopted by Brokkr",
       "timeline": "11 months when parents met, birth-day 3 weeks after Brokkr's",
       "abilities": "Developing seedcraft, metallurgy understanding, determined and brave",
-      "storyReferences": ["Story 1", "Story 2", "Story 6", "Story 10", "Story 11", "Story 12"],
+      "storyReferences": ["Story 1: The Forge Root Flame", "Story 2: The Forge Daughter", "Story 6: The Forge Journey", "Story 10: The Forge Bond", "Story 11: The Phoenix Flame", "Story 12: The Forge Memory"],
       "notes": "Track age progression. Clarify adoption relationship details."
+    },
+    {
+      "id": "eitri",
+      "name": "Eitri",
+      "type": "character",
+      "description": "Brokkr's brother, master craftsman, partner in legendary creations",
+      "physical": "Dwarf, craftsman build, works with intricate designs and enchantments",
+      "background": "Brother to Brokkr, collaborated on Mjölnir, Gullinbursti, and Draupnir during Loki's wager",
+      "relationships": "Brother to Brokkr, crafting partner",
+      "timeline": "Present during the wager with Loki",
+      "abilities": "Master metallurgy, enchantment work, precision crafting",
+      "storyReferences": ["Story 5: The Forge Wager"],
+      "notes": "Only appears in Forge Wager - could expand role"
+    },
+    {
+      "id": "loki",
+      "name": "Loki",
+      "type": "character",
+      "description": "Trickster god, catalyst for Brokkr's greatest works",
+      "physical": "Shapeshifter, appears as fly during Mjölnir creation, usual tall humanoid form",
+      "background": "Cut Sif's hair leading to wager, interfered with Mjölnir's creation, helped Nostri find Brokkr",
+      "relationships": "Complex relationship with Brokkr - adversary but sometimes ally",
+      "timeline": "Present in wager, helps during Great Withering period",
+      "abilities": "Shapeshifting, trickery, magic, access to rare materials",
+      "storyReferences": ["Story 1: The Forge Root Flame", "Story 2: The Forge Daughter", "Story 5: The Forge Wager"],
+      "notes": "Character development from antagonist to reluctant ally"
+    },
+    {
+      "id": "odin",
+      "name": "Odin",
+      "type": "character",
+      "description": "All-Father, ruler of Asgard, patron of Brokkr's work",
+      "physical": "Single eye, long beard, bears Gungnir spear",
+      "background": "Commissioned work from Brokkr, negotiated his release from Muspelheim, established Realm-Bridge Initiative",
+      "relationships": "Patron and sometimes ally to Brokkr",
+      "timeline": "Multiple interactions throughout saga",
+      "abilities": "Divine magic, wisdom, far-sight, command over realms",
+      "storyReferences": ["Story 1: The Forge Root Flame", "Story 3: The Forge Trial", "Story 5: The Forge Wager", "Story 8: The Forge Chronicle"],
+      "notes": "Represents divine authority recognizing Brokkr's importance"
+    },
+    {
+      "id": "eddan",
+      "name": "Eddan",
+      "type": "character",
+      "description": "Former court scribe turned traveling chronicler",
+      "physical": "Neither young nor old, ink-stained fingers, telescoping staff, well-worn satchel",
+      "background": "Left White Hall comfort to record meaningful stories, collaborated with Brokkr to spread seedcraft knowledge",
+      "relationships": "Collaborator and friend to Brokkr, knowledge-sharing partner",
+      "timeline": "Meets Brokkr during teaching journeys, provides memory tablet",
+      "abilities": "Expert documentation, storytelling, created memory tablet network",
+      "storyReferences": ["Story 8: The Forge Chronicle", "Story 12: The Forge Memory"],
+      "notes": "Key to knowledge preservation and distribution"
+    },
+    {
+      "id": "lonetree",
+      "name": "Lonetree",
+      "type": "character",
+      "description": "Tall, tattooed human who leads knowledge-sharing fellowships",
+      "physical": "Taller than most humans, lean build, shaved head, flame-red beard, intricate tattoos covering skin",
+      "background": "Led Wandering Exchange fellowships, survived homeland burning, reconnected with Brokkr decades later",
+      "relationships": "Fellow knowledge-seeker, eventual collaborator with Brokkr",
+      "timeline": "Early travels with Brokkr, separated during Great Withering, later reunion",
+      "abilities": "Realm navigation, cultural bridge-building, understanding connections",
+      "storyReferences": ["Story 9: The Forge Reunion"],
+      "notes": "Represents alternative approach to knowledge sharing"
     }
   ],
   "locations": [
@@ -48,8 +113,8 @@
       "description": "Realm of dwarves, underground forges and cities",
       "details": "Deep caverns, forge chambers, Council of Smiths, eastern settlements, greenhouse forges",
       "significance": "Brokkr's homeland, Forge Council location",
-      "storyReferences": ["Multiple stories"],
-      "notes": "Primary setting"
+      "storyReferences": ["Story 1: The Forge Root Flame", "Story 2: The Forge Daughter", "Story 3: The Forge Trial", "Story 4: The Forge Council", "Story 10: The Forge Bond"],
+      "notes": "Primary setting for most stories"
     },
     {
       "id": "muspelheim", 
@@ -57,9 +122,39 @@
       "type": "location",
       "description": "Fire giant realm where Brokkr was imprisoned",
       "details": "Volcanic environment, fire giant prisons, extreme heat, fire-seed source",
-      "significance": "Transformed Brokkr's craft understanding",
-      "storyReferences": ["Story 3", "Story 10"],
-      "notes": "Key to Brokkr's development"
+      "significance": "Transformed Brokkr's craft understanding, taught him fire techniques",
+      "storyReferences": ["Story 3: The Forge Trial", "Story 10: The Forge Bond"],
+      "notes": "Key to Brokkr's development as craftsman"
+    },
+    {
+      "id": "penumbral_haven",
+      "name": "Penumbral Haven",
+      "type": "location",
+      "description": "Hidden dark elf settlement in Alfheim's shadow valleys",
+      "details": "Engineered darkness, crystal-light manipulation, terraced gardens, precision workshops",
+      "significance": "Where Brokkr learned precision craft and scaling principles",
+      "storyReferences": ["Story 7: The Forge Detail"],
+      "notes": "Secret location representing hidden realm connections"
+    },
+    {
+      "id": "convergence_garden",
+      "name": "Convergence Garden",
+      "type": "location",
+      "description": "Lonetree's settlement where three landscapes meet",
+      "details": "Junction of forest, highlands, and plains; integrated multi-realm traditions",
+      "significance": "Model for Forge Gardens, permanent knowledge-sharing community",
+      "storyReferences": ["Story 9: The Forge Reunion"],
+      "notes": "Template for collaborative settlements"
+    },
+    {
+      "id": "library_of_growing",
+      "name": "Library of Growing",
+      "type": "location",
+      "description": "Living library created by Brokkr and Eddan",
+      "details": "Structure grown from Yggdrasil seed, adaptive architecture, knowledge circulation system",
+      "significance": "Central hub for knowledge sharing between realms",
+      "storyReferences": ["Story 8: The Forge Chronicle"],
+      "notes": "Represents evolution of knowledge preservation"
     }
   ],
   "concepts": [
@@ -70,18 +165,48 @@
       "description": "Brokkr's combination of metallurgy and plant cultivation",
       "details": "Living seeds with specific properties, fire and growth combination, adaptive systems",
       "significance": "Central innovation transforming agriculture across realms",
-      "storyReferences": ["All stories"],
-      "notes": "Core concept - track development"
+      "storyReferences": ["Story 1: The Forge Root Flame", "Story 2: The Forge Daughter", "Story 3: The Forge Trial", "Story 4: The Forge Council", "Story 6: The Forge Journey", "Story 7: The Forge Detail", "Story 8: The Forge Chronicle", "Story 10: The Forge Bond", "Story 11: The Phoenix Flame", "Story 12: The Forge Memory"],
+      "notes": "Core concept - track development across stories"
     },
     {
       "id": "phoenix_seeds",
       "name": "Phoenix Seeds",
       "type": "concept",
       "description": "Fire-resistant seeds emerging stronger after destruction",
-      "details": "Born from seedforge fire, carry memory of loss, extreme adaptation",
-      "significance": "Symbol of resilience, Phoenix Flame honor basis",
-      "storyReferences": ["Story 10", "Story 11", "Story 12"],
-      "notes": "Track origin consistency"
+      "details": "Born from seedforge fire, carry memory of loss, extreme adaptation capabilities",
+      "significance": "Symbol of resilience, basis for Phoenix Flame honor system",
+      "storyReferences": ["Story 10: The Forge Bond", "Story 11: The Phoenix Flame", "Story 12: The Forge Memory"],
+      "notes": "Track origin story and properties consistently"
+    },
+    {
+      "id": "forge_council_principles",
+      "name": "Forge Council Principles",
+      "type": "concept",
+      "description": "Nine guiding principles established by Brokkr for the Council",
+      "details": "Dignity, fellowship, communication, diligence, resilience, accountability, reliability, commitment limits, patience",
+      "significance": "Foundation for knowledge-sharing community ethics",
+      "storyReferences": ["Story 4: The Forge Council"],
+      "notes": "Core philosophy driving Council actions"
+    },
+    {
+      "id": "memory_tablet",
+      "name": "Memory Tablet",
+      "type": "concept",
+      "description": "Crystal-metal device for storing complex information",
+      "details": "Combines elven crystal-work with dwarven metallurgy, network connectivity, adaptive interface",
+      "significance": "Revolutionizes knowledge preservation and reveals hidden patterns",
+      "storyReferences": ["Story 12: The Forge Memory"],
+      "notes": "Shows collaboration between different crafting traditions"
+    },
+    {
+      "id": "realm_bridge_initiative",
+      "name": "Realm-Bridge Initiative",
+      "type": "concept",
+      "description": "Network of exchange points connecting all Nine Realms",
+      "details": "Exchange points in each realm, facilitates knowledge and material sharing, transcends traditional boundaries",
+      "significance": "Creates unprecedented cooperation between realms",
+      "storyReferences": ["Story 6: The Forge Journey"],
+      "notes": "Political and cultural significance beyond craft"
     }
   ],
   "timeline": [
@@ -90,26 +215,92 @@
       "name": "Muspelheim Imprisonment", 
       "type": "timeline",
       "description": "Brokkr's captivity learning fire-giant techniques",
-      "details": "INCONSISTENCY: Story 3 = 60 seasons (15 years), Story 10 = 8 years",
-      "significance": "Transformed his craft, introduced fire-seeds",
+      "details": "INCONSISTENCY: Story 3 = 60 seasons (15 years), Story 10 = 8 years duration",
+      "significance": "Transformed his craft, introduced fire-seed techniques to dwarven work",
       "order": 1,
-      "storyReferences": ["Story 3", "Story 10"],
-      "notes": "RESOLVE: Pick canonical duration"
+      "storyReferences": ["Story 3: The Forge Trial", "Story 10: The Forge Bond"],
+      "notes": "RESOLVE: Choose canonical duration - affects all subsequent timeline"
+    },
+    {
+      "id": "mjolnir_creation",
+      "name": "Creation of Mjölnir",
+      "type": "timeline",
+      "description": "Wager with Loki resulting in legendary hammer",
+      "details": "Three-day contest, Loki's fly interference, shortened handle flaw, victory established reputation",
+      "significance": "Brokkr's first major recognition among the gods",
+      "order": 2,
+      "storyReferences": ["Story 5: The Forge Wager"],
+      "notes": "Key early achievement setting up later events"
+    },
+    {
+      "id": "second_confinement",
+      "name": "Second Confinement", 
+      "type": "timeline",
+      "description": "Council imprisonment for fire-seed experiments",
+      "details": "10 months duration, during realm-wide plague, isolation but continued development",
+      "significance": "Led to official recognition of fire-seed healing properties",
+      "order": 3,
+      "storyReferences": ["Story 10: The Forge Bond"],
+      "notes": "Different from Muspelheim - dwarven Council punishment"
+    },
+    {
+      "id": "meeting_elri_nostri",
+      "name": "Meeting Elri and Nostri",
+      "type": "timeline",
+      "description": "Formation of Brokkr's family during supervision period",
+      "details": "Nostri 11 months old, courtship and collaboration with Elri, family formation",
+      "significance": "Personal life integration with craft development",
+      "order": 4,
+      "storyReferences": ["Story 10: The Forge Bond"],
+      "notes": "Establishes family dynamics important for later stories"
+    },
+    {
+      "id": "forge_council_formation",
+      "name": "Forge Council Formation",
+      "type": "timeline",
+      "description": "Brokkr establishes community of seedcraft practitioners",
+      "details": "Nine principles established, seekers gather, grows into permanent institution",
+      "significance": "Creates lasting framework for knowledge preservation and sharing",
+      "order": 5,
+      "storyReferences": ["Story 4: The Forge Council"],
+      "notes": "Foundation for all later collaborative efforts"
     },
     {
       "id": "great_withering",
       "name": "The Great Withering",
       "type": "timeline", 
       "description": "Blight threatening Yggdrasil requiring Seed of Renewal",
-      "details": "Brokkr's ultimate sacrifice to save realms",
-      "significance": "Climactic saga event, Brokkr's greatest achievement",
-      "order": 5,
-      "storyReferences": ["Story 1"],
-      "notes": "Central crisis"
+      "details": "Realm-wide crisis, Brokkr's ultimate sacrifice to forge saving seed",
+      "significance": "Climactic event, Brokkr's greatest achievement and sacrifice",
+      "order": 6,
+      "storyReferences": ["Story 1: The Forge Root Flame"],
+      "notes": "Central crisis around which saga revolves"
+    },
+    {
+      "id": "brokkr_sacrifice_rebirth",
+      "name": "Brokkr's Sacrifice and Rebirth",
+      "type": "timeline",
+      "description": "Death creating Seed of Renewal, later resurrection by Nostri",
+      "details": "Fusion with forge to complete seed, years of dormancy, Nostri's journey to find him",
+      "significance": "Transformation from individual craftsman to eternal principle",
+      "order": 7,
+      "storyReferences": ["Story 1: The Forge Root Flame", "Story 2: The Forge Daughter"],
+      "notes": "Pivotal transformation affecting all subsequent events"
+    },
+    {
+      "id": "realm_expansion",
+      "name": "Realm-wide Expansion",
+      "type": "timeline",
+      "description": "Seedcraft knowledge spreads across all Nine Realms",
+      "details": "Teaching journeys, Midgard Model, Three Trials, Sponsor Circle, Seed Exchange",
+      "significance": "Transforms agriculture and cooperation between realms",
+      "order": 8,
+      "storyReferences": ["Story 6: The Forge Journey", "Story 7: The Forge Detail", "Story 8: The Forge Chronicle"],
+      "notes": "Period of greatest expansion and influence"
     }
   ],
   "metadata": {
-    "version": "1.0",
+    "version": "1.1",
     "totalStories": 12,
     "lastUpdated": "2024-12-28",
     "majorInconsistencies": [
@@ -118,7 +309,21 @@
       "Imprisonment: 15 years vs 8 years duration conflict",
       "Timeline sequence needs clarification"
     ],
-    "source": "Extracted from 12 Brokkr Saga stories",
-    "purpose": "Maintain consistency for story editing and audio recording"
+    "source": "Detailed extraction from 12 Brokkr Saga stories",
+    "purpose": "Maintain consistency for story editing and audio recording",
+    "storyUrls": {
+      "Story 1: The Forge Root Flame": "/stories/story-0001/",
+      "Story 2: The Forge Daughter": "/stories/story-0002/", 
+      "Story 3: The Forge Trial": "/stories/story-0003/",
+      "Story 4: The Forge Council": "/stories/story-0004/",
+      "Story 5: The Forge Wager": "/stories/story-0005/",
+      "Story 6: The Forge Journey": "/stories/story-0006/",
+      "Story 7: The Forge Detail": "/stories/story-0007/",
+      "Story 8: The Forge Chronicle": "/stories/story-0008/",
+      "Story 9: The Forge Reunion": "/stories/story-0009/",
+      "Story 10: The Forge Bond": "/stories/story-0010/",
+      "Story 11: The Phoenix Flame": "/stories/story-0011/",
+      "Story 12: The Forge Memory": "/stories/story-0012/"
+    }
   }
 }

@@ -184,6 +184,18 @@
             font-size: 0.8em;
             margin-right: 5px;
             margin-bottom: 3px;
+            text-decoration: none;
+        }
+
+        .story-link {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .story-link:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-text);
+            transform: translateY(-1px);
         }
 
         .notes-section {
@@ -442,7 +454,14 @@
                             <div class="entry-section">
                                 <div class="section-title">Story References</div>
                                 <div class="story-references">
-                                    ${entry.storyReferences.map(ref => `<span class="story-tag">${ref}</span>`).join('')}
+                                    ${entry.storyReferences.map(ref => {
+                                        const storyUrl = characterBible.metadata?.storyUrls?.[ref];
+                                        if (storyUrl) {
+                                            return `<a href="${storyUrl}" target="_blank" class="story-tag story-link">${ref}</a>`;
+                                        } else {
+                                            return `<span class="story-tag">${ref}</span>`;
+                                        }
+                                    }).join('')}
                                 </div>
                             </div>
                         ` : ''}
