@@ -1,4 +1,4 @@
-// Updated navigation.js with automatic next/previous links and proper chronology
+// Updated navigation.js with automatic next/previous links and proper chronology for multiple collections
 document.addEventListener('DOMContentLoaded', function() {
   const navPlaceholder = document.getElementById('nav-placeholder');
   
@@ -31,13 +31,16 @@ const navHTML = `
   const storiesDropdown = document.getElementById('stories-dropdown');
   
   // Master story data - central place for all story information
-  // Complete Brokkr Saga reading order
+  // Complete Brokkr Saga reading order with collections
   const masterStoryData = {
-    // The reading order array - this controls sequence throughout the site
-    readingOrder: ['0005', '0003', '0004', '0001', '0002', '0006', '0007', '0008', '0009', '0010', '0011', '0012'],
+    // Collection I reading order
+    collection1Order: ['0005', '0003', '0004', '0001', '0002', '0006', '0007', '0008', '0009', '0010', '0011', '0012'],
     
-    // Complete story information
-    stories: {
+    // Collection II reading order  
+    collection2Order: ['2001'],
+    
+    // Complete story information for Collection I
+    collection1Stories: {
       '0001': {
         title: 'The Forge Root Flame',
         path: '/stories/story-0001/index.html',
@@ -98,13 +101,30 @@ const navHTML = `
         path: '/stories/story-0012/index.html',
         description: 'As Brokkr\'s seedcraft grows increasingly complex, his traditional methods of documentation prove inadequate. When Eddan the chronicler brings him a mysterious "memory tablet" combining elven crystal-work with dwarven metallurgy, Brokkr reluctantly embraces this new tool. Through his struggles to adapt, he discovers that the tablet reveals hidden patterns in his phoenix seeds—connections that transform not just how he records his knowledge, but how he understands the very nature of his craft.'
       }
+    },
+    
+    // Complete story information for Collection II
+    collection2Stories: {
+      '2001': {
+        title: 'The Tattooed Seed',
+        path: '/stories/story-2001/index.html',
+        description: 'During his years in Muspelheim\'s prisons, Brokkr discovered more than just fire-craft—he found his gift for artistic creation. When he combines his newfound skills with his seedcraft mastery, the result is something unprecedented: seeds that carry not just genetic memory, but visual stories etched into their very shells. These living artworks become a new form of communication between realms, where each sprouting tells a tale.'
+      }
     }
   };
   
+  // Helper function to determine which collection a story belongs to
+  function getStoryCollection(storyId) {
+    if (masterStoryData.collection1Stories[storyId]) {
+      return { collection: 1, stories: masterStoryData.collection1Stories, order: masterStoryData.collection1Order };
+    } else if (masterStoryData.collection2Stories[storyId]) {
+      return { collection: 2, stories: masterStoryData.collection2Stories, order: masterStoryData.collection2Order };
+    }
+    return null;
+  }
+  
   // This function will attempt to find stories by checking if directories exist
   function detectStories() {
-    // Maximum number of stories to check for (increased to accommodate more stories)
-    const maxStoriesToCheck = 15;
     let foundStories = [];
     
     // Helper function to check if a URL exists
@@ -121,10 +141,24 @@ const navHTML = `
     
     // Process all story folders we've found
     function processFoundStories() {
-      // Sort stories by reading order if possible
+      // Sort stories by collection and reading order
       foundStories.sort((a, b) => {
-        const aIndex = masterStoryData.readingOrder.indexOf(a.id);
-        const bIndex = masterStoryData.readingOrder.indexOf(b.id);
+        const aCollectionInfo = getStoryCollection(a.id);
+        const bCollectionInfo = getStoryCollection(b.id);
+        
+        if (!aCollectionInfo || !bCollectionInfo) {
+          return a.id.localeCompare(b.id);
+        }
+        
+        // If different collections, sort by collection number
+        if (aCollectionInfo.collection !== bCollectionInfo.collection) {
+          return aCollectionInfo.collection - bCollectionInfo.collection;
+        }
+        
+        // If same collection, sort by reading order
+        const aIndex = aCollectionInfo.order.indexOf(a.id);
+        const bIndex = bCollectionInfo.order.indexOf(b.id);
+        
         if (aIndex !== -1 && bIndex !== -1) {
           return aIndex - bIndex;
         } else if (aIndex !== -1) {
@@ -136,11 +170,32 @@ const navHTML = `
         }
       });
       
-      // Generate HTML for each story
+      // Generate HTML for each story with collection headers
       let storiesHTML = '';
+      let currentCollection = null;
+      
       foundStories.forEach((story, index) => {
-        // The display number is based on the position in the sorted array
-        const displayNumber = (index + 1).toString().padStart(2, '0');
+        const collectionInfo = getStoryCollection(story.id);
+        
+        // Add collection header if we're starting a new collection
+        if (collectionInfo && collectionInfo.collection !== currentCollection) {
+          currentCollection = collectionInfo.collection;
+          const collectionTitle = currentCollection === 1 ? 'Collection I: The Early Years' : 'Collection II: The Master\'s Art';
+          storiesHTML += `
+            <div class="collection-header">
+              <strong>${collectionTitle}</strong>
+            </div>
+          `;
+        }
+        
+        // Calculate display number within the collection
+        let displayNumber;
+        if (collectionInfo) {
+          const positionInCollection = collectionInfo.order.indexOf(story.id) + 1;
+          displayNumber = positionInCollection.toString().padStart(2, '0');
+        } else {
+          displayNumber = (index + 1).toString().padStart(2, '0');
+        }
         
         storiesHTML += `
           <a href="${story.path}">
@@ -196,13 +251,16 @@ const navHTML = `
       if (!storyMatch) return;
       
       const currentStoryId = storyMatch[1];
-      const currentIndex = masterStoryData.readingOrder.indexOf(currentStoryId);
+      const currentCollectionInfo = getStoryCollection(currentStoryId);
       
+      if (!currentCollectionInfo) return; // Story not in any collection
+      
+      const currentIndex = currentCollectionInfo.order.indexOf(currentStoryId);
       if (currentIndex === -1) return; // Story not in reading order
       
-      // Get previous and next story IDs
-      const prevStoryId = currentIndex > 0 ? masterStoryData.readingOrder[currentIndex - 1] : null;
-      const nextStoryId = currentIndex < masterStoryData.readingOrder.length - 1 ? masterStoryData.readingOrder[currentIndex + 1] : null;
+      // Get previous and next story IDs within the same collection
+      const prevStoryId = currentIndex > 0 ? currentCollectionInfo.order[currentIndex - 1] : null;
+      const nextStoryId = currentIndex < currentCollectionInfo.order.length - 1 ? currentCollectionInfo.order[currentIndex + 1] : null;
       
       // Update the navigation links
       const prevButton = seriesNav.querySelector('.nav-prev');
@@ -210,7 +268,7 @@ const navHTML = `
       
       if (prevButton) {
         if (prevStoryId) {
-          const prevStory = masterStoryData.stories[prevStoryId];
+          const prevStory = currentCollectionInfo.stories[prevStoryId];
           let prevPath = prevStory.path.replace('/stories/', '../');
           prevButton.href = prevPath;
           prevButton.textContent = prevStory.title;
@@ -224,7 +282,7 @@ const navHTML = `
       
       if (nextButton) {
         if (nextStoryId) {
-          const nextStory = masterStoryData.stories[nextStoryId];
+          const nextStory = currentCollectionInfo.stories[nextStoryId];
           let nextPath = nextStory.path.replace('/stories/', '../');
           nextButton.href = nextPath;
           nextButton.textContent = nextStory.title;
@@ -239,9 +297,11 @@ const navHTML = `
     
     // Try to fetch the title from an HTML page, or use master data
     function getPageTitle(url, storyId, callback) {
-      // If we already have data for this story, use it
-      if (masterStoryData.stories[storyId]) {
-        callback(masterStoryData.stories[storyId].title);
+      // Check both collections for existing data
+      let storyData = masterStoryData.collection1Stories[storyId] || masterStoryData.collection2Stories[storyId];
+      
+      if (storyData) {
+        callback(storyData.title);
         return;
       }
       
@@ -267,40 +327,53 @@ const navHTML = `
         });
     }
     
-    // Counter for checking story existence
+    // Story ranges to check
+    const storyRanges = [
+      { start: 1, end: 15, prefix: '0' },     // Collection I stories (0001-0015)
+      { start: 2001, end: 2015, prefix: '' }  // Collection II stories (2001-2015)
+    ];
+    
+    let totalStoriesToCheck = 0;
     let checkedCount = 0;
     
+    // Count total stories to check
+    storyRanges.forEach(range => {
+      totalStoriesToCheck += (range.end - range.start + 1);
+    });
+    
     // Check each potential story folder
-    for (let i = 1; i <= maxStoriesToCheck; i++) {
-      const storyId = i.toString().padStart(4, '0');
-      const folderPath = `/stories/story-${storyId}/`;
-      const indexPath = `${folderPath}index.html`;
-      
-      // Check if this story exists
-      urlExists(indexPath, (exists) => {
-        if (exists) {
-          // If the index file exists, get the story title
-          getPageTitle(indexPath, storyId, (title) => {
-            // Add the story to our found stories
-            foundStories.push({
-              id: storyId,
-              title: title,
-              path: indexPath
+    storyRanges.forEach(range => {
+      for (let i = range.start; i <= range.end; i++) {
+        const storyId = range.prefix === '0' ? i.toString().padStart(4, '0') : i.toString();
+        const folderPath = `/stories/story-${storyId}/`;
+        const indexPath = `${folderPath}index.html`;
+        
+        // Check if this story exists
+        urlExists(indexPath, (exists) => {
+          if (exists) {
+            // If the index file exists, get the story title
+            getPageTitle(indexPath, storyId, (title) => {
+              // Add the story to our found stories
+              foundStories.push({
+                id: storyId,
+                title: title,
+                path: indexPath
+              });
+              
+              checkedCount++;
+              if (checkedCount === totalStoriesToCheck) {
+                processFoundStories();
+              }
             });
-            
+          } else {
             checkedCount++;
-            if (checkedCount === maxStoriesToCheck) {
+            if (checkedCount === totalStoriesToCheck) {
               processFoundStories();
             }
-          });
-        } else {
-          checkedCount++;
-          if (checkedCount === maxStoriesToCheck) {
-            processFoundStories();
           }
-        }
-      });
-    }
+        });
+      }
+    });
   }
   
   // Start the story detection
