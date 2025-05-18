@@ -554,48 +554,100 @@
         }
 
         function renderDisplayContent(entry) {
+            const isStory = entry.type === 'story';
             let content = '';
             
             // Basic fields
-            const fields = [
-                ['Description', entry.description],
-                ['Physical Description', entry.physical],
-                ['Details', entry.details],
-                ['Background', entry.background],
-                ['Relationships', entry.relationships],
-                ['Timeline', entry.timeline],
-                ['Abilities', entry.abilities],
-                ['Significance', entry.significance]
-            ];
+            if (entry.description) {
+                content += `
+                    <div class="entry-section">
+                        <div class="section-title">Description</div>
+                        <div class="section-content">${highlightInconsistencies(entry.description)}</div>
+                    </div>
+                `;
+            }
 
-            fields.forEach(([title, value]) => {
-                if (value) {
+            if (isStory && entry.number) {
+                content += `
+                    <div class="entry-section">
+                        <div class="section-title">Story Number</div>
+                        <div class="section-content">${entry.number}</div>
+                    </div>
+                `;
+            }
+
+            // Non-story fields
+            if (!isStory) {
+                const fields = [
+                    ['Physical Description', entry.physical],
+                    ['Details', entry.details],
+                    ['Background', entry.background],
+                    ['Relationships', entry.relationships],
+                    ['Timeline', entry.timeline],
+                    ['Abilities', entry.abilities],
+                    ['Significance', entry.significance]
+                ];
+
+                fields.forEach(([title, value]) => {
+                    if (value) {
+                        content += `
+                            <div class="entry-section">
+                                <div class="section-title">${title}</div>
+                                <div class="section-content">${highlightInconsistencies(value)}</div>
+                            </div>
+                        `;
+                    }
+                });
+            }
+
+            // Story-specific array fields
+            if (isStory) {
+                const storyArrayFields = [
+                    ['Main Characters', entry.mainCharacters],
+                    ['Key Locations', entry.keyLocations],
+                    ['Key Concepts', entry.keyConcepts],
+                    ['Timeline Events', entry.timelineEvents]
+                ];
+
+                storyArrayFields.forEach(([title, arr]) => {
+                    if (arr && arr.length > 0) {
+                        content += `
+                            <div class="entry-section">
+                                <div class="section-title">${title}</div>
+                                <div class="edit-array">
+                                    ${arr.map(item => `<span class="array-item">${item}</span>`).join('')}
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+
+                // Story Outline
+                if (entry.outline && Object.keys(entry.outline).length > 0) {
                     content += `
                         <div class="entry-section">
-                            <div class="section-title">${title}</div>
-                            <div class="section-content">${highlightInconsistencies(value)}</div>
+                            <div class="section-title">Story Outline</div>
+                            <div class="section-content">
+                                <pre style="background: var(--search-bg); padding: 10px; border-radius: 4px; overflow-x: auto; font-size: 0.8em;">${JSON.stringify(entry.outline, null, 2)}</pre>
+                            </div>
                         </div>
                     `;
                 }
-            });
+            }
 
-            // Array fields
-            const arrayFields = [
-                ['Main Characters', entry.mainCharacters],
-                ['Key Locations', entry.keyLocations],
-                ['Key Concepts', entry.keyConcepts],
-                ['Timeline Events', entry.timelineEvents],
+            // Common array fields
+            const commonArrayFields = [
                 ['Story References', entry.storyReferences],
                 ['Inconsistencies', entry.inconsistencies]
             ];
 
-            arrayFields.forEach(([title, arr]) => {
+            commonArrayFields.forEach(([title, arr]) => {
                 if (arr && arr.length > 0) {
                     content += `
                         <div class="entry-section">
                             <div class="section-title">${title}</div>
                             <div class="edit-array">
-                                ${arr.map(item => `<span class="array-item">${item}</span>`).join('')}
+                                ${arr.map(item => `<span class="array-item">${highlightInconsistencies(item)}</span>`).join('')}
                             </div>
                         </div>
                     `;
@@ -616,6 +668,8 @@
         }
 
         function renderEditForm(entry) {
+            const isStory = entry.type === 'story';
+            
             return `
                 <div class="edit-form">
                     <div class="form-group">
@@ -623,15 +677,93 @@
                         <textarea class="edit-field edit-textarea" onchange="updateField('${entry.id}', 'description', this.value)">${entry.description || ''}</textarea>
                     </div>
                     
-                    <div class="form-group">
-                        <label class="form-label">Physical Description</label>
-                        <textarea class="edit-field edit-textarea" onchange="updateField('${entry.id}', 'physical', this.value)">${entry.physical || ''}</textarea>
-                    </div>
+                    ${!isStory ? `
+                        <div class="form-group">
+                            <label class="form-label">Physical Description</label>
+                            <textarea class="edit-field edit-textarea" onchange="updateField('${entry.id}', 'physical', this.value)">${entry.physical || ''}</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Background</label>
+                            <textarea class="edit-field edit-textarea" onchange="updateField('${entry.id}', 'background', this.value)">${entry.background || ''}</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Relationships</label>
+                            <textarea class="edit-field edit-textarea" onchange="updateField('${entry.id}', 'relationships', this.value)">${entry.relationships || ''}</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Abilities</label>
+                            <textarea class="edit-field edit-textarea" onchange="updateField('${entry.id}', 'abilities', this.value)">${entry.abilities || ''}</textarea>
+                        </div>
+                    ` : ''}
                     
-                    <div class="form-group">
-                        <label class="form-label">Background</label>
-                        <textarea class="edit-field edit-textarea" onchange="updateField('${entry.id}', 'background', this.value)">${entry.background || ''}</textarea>
-                    </div>
+                    ${isStory ? `
+                        <div class="form-group">
+                            <label class="form-label">Story Number</label>
+                            <input type="number" class="edit-field" onchange="updateField('${entry.id}', 'number', parseInt(this.value))" value="${entry.number || ''}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Main Characters</label>
+                            <div class="edit-array">
+                                ${(entry.mainCharacters || []).map((char, index) => `
+                                    <div class="array-item">
+                                        ${char} <span class="remove-item" onclick="removeArrayItem('${entry.id}', 'mainCharacters', ${index})">×</span>
+                                    </div>
+                                `).join('')}
+                                <input type="text" class="edit-field add-item-input" placeholder="Add character" 
+                                       onkeypress="if(event.key==='Enter') addArrayItem('${entry.id}', 'mainCharacters', this)">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Key Locations</label>
+                            <div class="edit-array">
+                                ${(entry.keyLocations || []).map((loc, index) => `
+                                    <div class="array-item">
+                                        ${loc} <span class="remove-item" onclick="removeArrayItem('${entry.id}', 'keyLocations', ${index})">×</span>
+                                    </div>
+                                `).join('')}
+                                <input type="text" class="edit-field add-item-input" placeholder="Add location" 
+                                       onkeypress="if(event.key==='Enter') addArrayItem('${entry.id}', 'keyLocations', this)">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Key Concepts</label>
+                            <div class="edit-array">
+                                ${(entry.keyConcepts || []).map((concept, index) => `
+                                    <div class="array-item">
+                                        ${concept} <span class="remove-item" onclick="removeArrayItem('${entry.id}', 'keyConcepts', ${index})">×</span>
+                                    </div>
+                                `).join('')}
+                                <input type="text" class="edit-field add-item-input" placeholder="Add concept" 
+                                       onkeypress="if(event.key==='Enter') addArrayItem('${entry.id}', 'keyConcepts', this)">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Timeline Events</label>
+                            <div class="edit-array">
+                                ${(entry.timelineEvents || []).map((event, index) => `
+                                    <div class="array-item">
+                                        ${event} <span class="remove-item" onclick="removeArrayItem('${entry.id}', 'timelineEvents', ${index})">×</span>
+                                    </div>
+                                `).join('')}
+                                <input type="text" class="edit-field add-item-input" placeholder="Add timeline event" 
+                                       onkeypress="if(event.key==='Enter') addArrayItem('${entry.id}', 'timelineEvents', this)">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Story Outline (JSON format)</label>
+                            <textarea class="edit-field edit-textarea" style="min-height: 120px; font-family: monospace;" 
+                                      onchange="updateOutline('${entry.id}', this.value)">${JSON.stringify(entry.outline || {}, null, 2)}</textarea>
+                            <small style="color: var(--secondary-text);">Format: {"act1": {"scene1": "description", "scene2": "description"}, "act2": {...}}</small>
+                        </div>
+                    ` : ''}
                     
                     <div class="form-group">
                         <label class="form-label">Story References</label>
@@ -689,6 +821,18 @@
             }
         }
 
+        function updateOutline(id, value) {
+            const entry = findEntryById(id);
+            if (entry) {
+                try {
+                    entry.outline = JSON.parse(value);
+                } catch (e) {
+                    console.warn('Invalid JSON for outline:', e);
+                    // Keep the text as-is if it's not valid JSON yet
+                }
+            }
+        }
+
         function addArrayItem(id, field, input) {
             const entry = findEntryById(id);
             if (entry && input.value.trim()) {
@@ -703,7 +847,7 @@
             const entry = findEntryById(id);
             if (entry && entry[field]) {
                 entry[field].splice(index, 1);
-                renderAll();
+renderAll();
             }
         }
 
@@ -735,8 +879,61 @@
 
         function addNewEntry() {
             document.getElementById('modalTitle').textContent = 'Add New Entry';
-            document.getElementById('entryForm').reset();
+            document.getElementById('entryForm').innerHTML = `
+                <div class="form-group">
+                    <label class="form-label">Name/Title</label>
+                    <input type="text" class="edit-field" id="entryName" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Type</label>
+                    <select class="edit-field" id="entryType" required onchange="toggleStoryFields()">
+                        <option value="character">Character</option>
+                        <option value="location">Location</option>
+                        <option value="concept">Concept</option>
+                        <option value="timeline">Timeline Event</option>
+                        <option value="story">Story</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="edit-field edit-textarea" id="entryDescription"></textarea>
+                </div>
+                <div id="storyFields" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">Story Number</label>
+                        <input type="number" class="edit-field" id="entryNumber">
+                    </div>
+                </div>
+                <div id="characterFields">
+                    <div class="form-group">
+                        <label class="form-label">Physical Description</label>
+                        <textarea class="edit-field edit-textarea" id="entryPhysical"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Background</label>
+                        <textarea class="edit-field edit-textarea" id="entryBackground"></textarea>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <button type="button" class="button button-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="button button-primary">Create Entry</button>
+                </div>
+            `;
             document.getElementById('entryModal').style.display = 'block';
+        }
+
+        function toggleStoryFields() {
+            const type = document.getElementById('entryType').value;
+            const storyFields = document.getElementById('storyFields');
+            const characterFields = document.getElementById('characterFields');
+            
+            if (type === 'story') {
+                storyFields.style.display = 'block';
+                characterFields.style.display = 'none';
+            } else {
+                storyFields.style.display = 'none';
+                characterFields.style.display = 'block';
+            }
         }
 
         function closeModal() {
@@ -760,9 +957,46 @@
                 inconsistencies: [],
                 notes: ''
             };
+
+            // Add type-specific fields
+            if (type === 'story') {
+                const number = document.getElementById('entryNumber')?.value;
+                if (number) newEntry.number = parseInt(number);
+                newEntry.mainCharacters = [];
+                newEntry.keyLocations = [];
+                newEntry.keyConcepts = [];
+                newEntry.timelineEvents = [];
+                newEntry.outline = {};
+            } else {
+                const physical = document.getElementById('entryPhysical')?.value?.trim();
+                const background = document.getElementById('entryBackground')?.value?.trim();
+                if (physical) newEntry.physical = physical;
+                if (background) newEntry.background = background;
+                
+                // Add other fields based on type
+                if (type === 'character') {
+                    newEntry.relationships = '';
+                    newEntry.abilities = '';
+                }
+                if (type === 'location') {
+                    newEntry.details = '';
+                    newEntry.significance = '';
+                }
+                if (type === 'concept') {
+                    newEntry.details = '';
+                    newEntry.significance = '';
+                }
+                if (type === 'timeline') {
+                    newEntry.details = '';
+                    newEntry.significance = '';
+                    newEntry.order = 1;
+                }
+            }
             
-            characterBible[type + 's'] = characterBible[type + 's'] || [];
-            characterBible[type + 's'].push(newEntry);
+            // Add to appropriate array
+            const targetArray = type + 's';
+            characterBible[targetArray] = characterBible[targetArray] || [];
+            characterBible[targetArray].push(newEntry);
             
             closeModal();
             renderAll();
@@ -864,4 +1098,4 @@
         });
     </script>
 </body>
-</html>
+</html>				
