@@ -11,40 +11,43 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function loadConfiguration() {
-    // First, try localStorage
-    const savedConfig = localStorage.getItem('storiesConfig');
-    if (savedConfig) {
-        try {
-            window.storiesConfig = JSON.parse(savedConfig);
-            console.log('=== LOADED FROM LOCALSTORAGE ===', window.storiesConfig);
-            populateEverything();
-            return;
-        } catch (e) {
-            console.error('=== LOCALSTORAGE PARSE ERROR ===', e);
-        }
-    }
-    
-    // If no localStorage, load from script
-    console.log('=== LOADING FROM SCRIPT ===');
+    // ALWAYS load from the config file first, ignore localStorage initially
+    console.log('=== LOADING FROM SCRIPT FIRST ===');
     const script = document.createElement('script');
-    script.src = '/stories/js/stories-config.js';
+    script.src = '/stories/js/stories-config.js?v=' + Date.now(); // Cache busting
     script.onload = function() {
         console.log('=== CONFIG SCRIPT LOADED ===');
         console.log('=== WINDOW.STORIESCONFIG IMMEDIATELY AFTER LOAD ===', window.storiesConfig);
         
-        if (window.storiesConfig) {
-            console.log('=== CONFIG FOUND ===');
-            console.log('=== SITE TITLE ===', window.storiesConfig.site?.title);
-            console.log('=== SITE SUBTITLE ===', window.storiesConfig.site?.subtitle);
+        if (window.storiesConfig && window.storiesConfig.site && window.storiesConfig.site.title) {
+            console.log('=== CONFIG FOUND AND HAS DATA ===');
+            console.log('=== SITE TITLE ===', window.storiesConfig.site.title);
+            console.log('=== SITE SUBTITLE ===', window.storiesConfig.site.subtitle);
             console.log('=== COLLECTIONS ===', Object.keys(window.storiesConfig.collections || {}));
+            
+            // Save the good config to localStorage for later
+            localStorage.setItem('storiesConfig', JSON.stringify(window.storiesConfig));
             
             // Wait a bit more to ensure everything is fully loaded
             setTimeout(() => {
                 populateEverything();
             }, 50);
         } else {
-            console.error('=== NO CONFIG IN WINDOW ===');
-            // Initialize with empty config
+            console.error('=== NO CONFIG IN WINDOW OR CONFIG IS EMPTY ===');
+            // Try localStorage as fallback
+            const savedConfig = localStorage.getItem('storiesConfig');
+            if (savedConfig) {
+                try {
+                    window.storiesConfig = JSON.parse(savedConfig);
+                    console.log('=== FALLBACK TO LOCALSTORAGE ===', window.storiesConfig);
+                    populateEverything();
+                    return;
+                } catch (e) {
+                    console.error('=== LOCALSTORAGE PARSE ERROR ===', e);
+                }
+            }
+            
+            // Initialize with empty config as last resort
             window.storiesConfig = {
                 site: {
                     title: "",
@@ -61,7 +64,20 @@ function loadConfiguration() {
     };
     script.onerror = function() {
         console.error('=== SCRIPT LOAD FAILED ===');
-        // Initialize with empty config
+        // Try localStorage as fallback
+        const savedConfig = localStorage.getItem('storiesConfig');
+        if (savedConfig) {
+            try {
+                window.storiesConfig = JSON.parse(savedConfig);
+                console.log('=== FALLBACK TO LOCALSTORAGE AFTER SCRIPT ERROR ===', window.storiesConfig);
+                populateEverything();
+                return;
+            } catch (e) {
+                console.error('=== LOCALSTORAGE PARSE ERROR ===', e);
+            }
+        }
+        
+        // Initialize with empty config as last resort
         window.storiesConfig = {
             site: {
                 title: "",
