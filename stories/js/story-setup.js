@@ -1,5 +1,21 @@
 console.log('=== STORY-SETUP.JS LOADING ===');
 
+// Declare storiesConfig FIRST before anything else
+var storiesConfig = {
+    site: {
+        title: "",
+        subtitle: "",
+        description: "",
+        logoUrl: "",
+        homeUrl: "",
+        audioNote: ""
+    },
+    collections: {}
+};
+
+let currentEditingStory = null;
+let currentEditingCollection = null;
+
 // Load the config IMMEDIATELY when the script loads, not waiting for DOM
 (function() {
     console.log('=== IMMEDIATE CONFIG LOAD ATTEMPT ===');
@@ -38,21 +54,6 @@ console.log('=== STORY-SETUP.JS LOADING ===');
     
     document.head.appendChild(script);
 })();
-
-var storiesConfig = {
-    site: {
-        title: "",
-        subtitle: "",
-        description: "",
-        logoUrl: "",
-        homeUrl: "",
-        audioNote: ""
-    },
-    collections: {}
-};
-
-let currentEditingStory = null;
-let currentEditingCollection = null;
 
 function populateEverything() {
     console.log('=== POPULATING EVERYTHING ===', storiesConfig);
@@ -468,7 +469,6 @@ window.storiesConfig = storiesConfig;`;
     alert('Configuration file generated and downloaded!');
 }
 
-// Fixed updateConfigFromForm function
 function updateConfigFromForm() {
     storiesConfig.site.title = document.getElementById('site-title').value;
     storiesConfig.site.subtitle = document.getElementById('site-subtitle').value;
