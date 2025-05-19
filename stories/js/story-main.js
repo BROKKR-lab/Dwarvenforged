@@ -27,7 +27,7 @@ function loadStoriesConfig() {
         }
         
         const script = document.createElement('script');
-        script.src = 'js/stories-config.js';
+        script.src = '/stories/js/stories-config.js';
         script.onload = () => {
             if (window.storiesConfig) {
                 resolve(window.storiesConfig);
