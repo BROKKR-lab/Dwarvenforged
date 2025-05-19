@@ -1,6 +1,80 @@
-document.addEventListener('DOMContentLoaded', function() {
-    initializeSetup();
+console.log('=== STORY-SETUP.JS LOADING ===');
+
+// Load the config IMMEDIATELY when the script loads, not waiting for DOM
+(function() {
+    console.log('=== IMMEDIATE CONFIG LOAD ATTEMPT ===');
     
+    // First try to load the script synchronously
+    const script = document.createElement('script');
+    script.src = '/stories/js/stories-config.js';
+    script.async = false; // Force synchronous loading
+    
+    script.onload = function() {
+        console.log('=== CONFIG SCRIPT LOADED ===');
+        if (window.storiesConfig) {
+            console.log('=== CONFIG FOUND ===', window.storiesConfig);
+            
+            // Set the config immediately
+            storiesConfig = JSON.parse(JSON.stringify(window.storiesConfig));
+            
+            // If DOM is ready, populate immediately
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', function() {
+                    console.log('=== DOM READY, POPULATING FIELDS ===');
+                    populateEverything();
+                });
+            } else {
+                console.log('=== DOM ALREADY READY, POPULATING NOW ===');
+                populateEverything();
+            }
+        } else {
+            console.error('=== CONFIG SCRIPT LOADED BUT NO WINDOW.STORIESCONFIG ===');
+        }
+    };
+    
+    script.onerror = function() {
+        console.error('=== FAILED TO LOAD CONFIG SCRIPT ===');
+    };
+    
+    document.head.appendChild(script);
+})();
+
+var storiesConfig = {
+    site: {
+        title: "",
+        subtitle: "",
+        description: "",
+        logoUrl: "",
+        homeUrl: "",
+        audioNote: ""
+    },
+    collections: {}
+};
+
+let currentEditingStory = null;
+let currentEditingCollection = null;
+
+function populateEverything() {
+    console.log('=== POPULATING EVERYTHING ===', storiesConfig);
+    
+    try {
+        populateFormFields();
+        renderCollections();
+        populateCollectionSelector();
+        if (Object.keys(storiesConfig.collections).length > 0) {
+            renderStories(Object.keys(storiesConfig.collections)[0]);
+        }
+        
+        // Setup all event listeners
+        setupEventListeners();
+        
+        console.log('=== POPULATION COMPLETE ===');
+    } catch (error) {
+        console.error('=== ERROR DURING POPULATION ===', error);
+    }
+}
+
+function setupEventListeners() {
     document.querySelectorAll('.config-tab').forEach(tab => {
         tab.addEventListener('click', function() {
             switchTab(this.getAttribute('data-tab'));
@@ -23,88 +97,86 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('current-collection').addEventListener('change', function() {
         renderStories(this.value);
     });
-});
+}
 
-var storiesConfig = {
-    site: {
-        title: "",
-        subtitle: "",
-        description: "",
-        logoUrl: "",
-        homeUrl: "",
-        audioNote: ""
-    },
-    collections: {}
-};
-
-let currentEditingStory = null;
-let currentEditingCollection = null;
-
-function initializeSetup() {
-    // Try to load existing config first
-    loadExistingConfig().then(() => {
-        populateFormFields();
-        renderCollections();
-        populateCollectionSelector();
-        if (Object.keys(storiesConfig.collections).length > 0) {
-            renderStories(Object.keys(storiesConfig.collections)[0]);
-        }
-    }).catch(error => {
-        console.log('No existing config found, starting fresh');
-        // Check localStorage as fallback
+// Fallback DOM ready listener
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('=== DOM CONTENT LOADED FALLBACK ===');
+    
+    // If config hasn't been loaded yet, try again
+    if (!storiesConfig.site.title && !window.storiesConfig) {
+        console.log('=== NO CONFIG YET, TRYING FALLBACK LOAD ===');
+        
+        // Try localStorage first
         const savedConfig = localStorage.getItem('storiesConfig');
         if (savedConfig) {
             try {
                 storiesConfig = JSON.parse(savedConfig);
+                console.log('=== LOADED FROM LOCALSTORAGE ===', storiesConfig);
+                populateEverything();
+                return;
             } catch (e) {
-                console.warn('Failed to parse saved config:', e);
+                console.error('=== LOCALSTORAGE PARSE ERROR ===', e);
             }
         }
-        populateFormFields();
-        renderCollections();
-        populateCollectionSelector();
-        if (Object.keys(storiesConfig.collections).length > 0) {
-            renderStories(Object.keys(storiesConfig.collections)[0]);
-        }
-    });
-}
-
-function loadExistingConfig() {
-    return new Promise((resolve, reject) => {
-        // First check if config is already loaded globally
-        if (window.storiesConfig) {
-            storiesConfig = JSON.parse(JSON.stringify(window.storiesConfig));
-            resolve(storiesConfig);
-            return;
-        }
         
-        // Try to load the same config file that the main site uses
+        // Try one more time to load the script
+        loadConfigScriptFallback().then(() => {
+            populateEverything();
+        }).catch(error => {
+            console.error('=== FINAL FALLBACK FAILED ===', error);
+            populateEverything(); // Populate with empty config
+        });
+    } else if (window.storiesConfig && !storiesConfig.site.title) {
+        console.log('=== FOUND WINDOW CONFIG, COPYING ===');
+        storiesConfig = JSON.parse(JSON.stringify(window.storiesConfig));
+        populateEverything();
+    } else {
+        console.log('=== CONFIG ALREADY LOADED, JUST SETUP LISTENERS ===');
+        setupEventListeners();
+    }
+});
+
+function loadConfigScriptFallback() {
+    return new Promise((resolve, reject) => {
+        console.log('=== FALLBACK SCRIPT LOAD ===');
         const script = document.createElement('script');
         script.src = '/stories/js/stories-config.js';
         script.onload = () => {
             if (window.storiesConfig) {
                 storiesConfig = JSON.parse(JSON.stringify(window.storiesConfig));
-                console.log('Loaded existing config:', storiesConfig);
+                console.log('=== FALLBACK SUCCESS ===', storiesConfig);
                 resolve(storiesConfig);
             } else {
-                reject(new Error('Config not found after loading script'));
+                reject(new Error('No config in window'));
             }
         };
-        script.onerror = () => {
-            console.log('Failed to load config from /stories/js/stories-config.js');
-            reject(new Error('Failed to load config script'));
-        };
+        script.onerror = () => reject(new Error('Script load failed'));
         document.head.appendChild(script);
     });
 }
 
 function populateFormFields() {
-    document.getElementById('site-title').value = storiesConfig.site.title || '';
-    document.getElementById('site-subtitle').value = storiesConfig.site.subtitle || '';
-    document.getElementById('site-description').value = storiesConfig.site.description || '';
-    document.getElementById('site-logo').value = storiesConfig.site.logoUrl || '';
-    document.getElementById('home-url').value = storiesConfig.site.homeUrl || '';
-    document.getElementById('audio-note').value = storiesConfig.site.audioNote || '';
+    console.log('=== POPULATING FORM FIELDS ===', storiesConfig.site);
+    
+    const fields = [
+        { id: 'site-title', value: storiesConfig.site.title || '' },
+        { id: 'site-subtitle', value: storiesConfig.site.subtitle || '' },
+        { id: 'site-description', value: storiesConfig.site.description || '' },
+        { id: 'site-logo', value: storiesConfig.site.logoUrl || '' },
+        { id: 'home-url', value: storiesConfig.site.homeUrl || '' },
+        { id: 'audio-note', value: storiesConfig.site.audioNote || '' }
+    ];
+    
+    fields.forEach(field => {
+        const element = document.getElementById(field.id);
+        if (element) {
+            element.value = field.value;
+            console.log(`Set ${field.id} to: ${field.value}`);
+        } else {
+            console.error(`Element ${field.id} not found`);
+        }
+    });
 }
 
 function switchTab(tabId) {
@@ -116,7 +188,13 @@ function switchTab(tabId) {
 }
 
 function renderCollections() {
+    console.log('=== RENDERING COLLECTIONS ===', storiesConfig.collections);
     const container = document.getElementById('collections-list');
+    if (!container) {
+        console.error('=== COLLECTIONS CONTAINER NOT FOUND ===');
+        return;
+    }
+    
     container.innerHTML = '';
     
     Object.values(storiesConfig.collections).forEach(collection => {
@@ -135,10 +213,17 @@ function renderCollections() {
         `;
         container.appendChild(collectionEl);
     });
+    
+    console.log(`=== RENDERED ${Object.keys(storiesConfig.collections).length} COLLECTIONS ===`);
 }
 
 function populateCollectionSelector() {
     const select = document.getElementById('current-collection');
+    if (!select) {
+        console.error('=== COLLECTION SELECT NOT FOUND ===');
+        return;
+    }
+    
     select.innerHTML = '';
     
     Object.values(storiesConfig.collections).forEach(collection => {
@@ -147,18 +232,28 @@ function populateCollectionSelector() {
         option.textContent = collection.title;
         select.appendChild(option);
     });
+    
+    console.log(`=== POPULATED SELECTOR WITH ${Object.keys(storiesConfig.collections).length} OPTIONS ===`);
 }
 
 function renderStories(collectionId) {
     const container = document.getElementById('stories-list');
+    if (!container) {
+        console.error('=== STORIES CONTAINER NOT FOUND ===');
+        return;
+    }
+    
     container.innerHTML = '';
     
     if (!collectionId || !storiesConfig.collections[collectionId]) {
+        console.log('=== NO COLLECTION OR INVALID ID ===', collectionId);
         return;
     }
     
     const stories = storiesConfig.collections[collectionId].stories || {};
     const storiesArray = Object.values(stories).sort((a, b) => (a.displayOrder || 999) - (b.displayOrder || 999));
+    
+    console.log(`=== RENDERING ${storiesArray.length} STORIES FOR ${collectionId} ===`);
     
     storiesArray.forEach(story => {
         const storyEl = document.createElement('div');
@@ -266,8 +361,8 @@ function openStoryEditor(collectionId = null, storyId = null) {
         document.getElementById('story-display-order').value = story.displayOrder || 1;
         document.getElementById('story-has-audio').checked = story.hasAudio || false;
         document.getElementById('story-is-new').checked = story.isNew || false;
-		document.getElementById('download-fantasy').checked = (story.downloadOptions || []).includes('fantasy');
-		document.getElementById('download-audio').checked = (story.downloadOptions || []).includes('audio');
+        document.getElementById('download-fantasy').checked = (story.downloadOptions || []).includes('fantasy');
+        document.getElementById('download-audio').checked = (story.downloadOptions || []).includes('audio');
         document.getElementById('story-id').disabled = true;
     } else {
         document.getElementById('story-id').value = '';
@@ -382,437 +477,8 @@ function updateConfigFromForm() {
     storiesConfig.site.audioNote = document.getElementById('audio-note').value;
 }
 
-function previewChanges() {
+function saveConfiguration() {
     updateConfigFromForm();
     saveToLocalStorage();
-    
-    const previewHtml = generatePreviewHtml();
-    const blob = new Blob([previewHtml], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    
-    document.getElementById('preview-frame').src = url;
-    switchTab('preview');
-    
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    alert('Configuration saved to browser storage!');
 }
-
-function generatePreviewHtml() {
-    const config = storiesConfig;
-    
-    let collectionTabs = '';
-    let collectionContent = '';
-    let isFirst = true;
-    
-    Object.values(config.collections).forEach(collection => {
-        collectionTabs += `
-            <button class="tab-button ${isFirst ? 'active' : ''}" onclick="showCollection('${collection.id}')">${collection.title}</button>
-        `;
-        
-        let storiesHtml = '';
-        const stories = Object.values(collection.stories || {}).sort((a, b) => (a.displayOrder || 999) - (b.displayOrder || 999));
-        
-        stories.forEach(story => {
-            const downloadOptions = (story.downloadOptions || []).map(option => {
-                const className = option === 'fantasy' ? 'download-option-fantasy' : 'download-option-audio';
-                const text = option === 'fantasy' ? 'Creative Fantasy' : 'DIGITAL EDITION';
-                return `<a href="${story.id}/index.html" class="${className}">${text}</a>`;
-            }).join('');
-            
-            storiesHtml += `
-                <div class="story-card">
-                    <div class="story-image">
-                        <a href="${story.id}/index.html">
-                            <img src="${story.image}" alt="${story.title}">
-                        </a>
-                        ${story.isNew ? '<span class="new-badge">New</span>' : ''}
-                        ${story.hasAudio ? `
-                            <div class="audio-badge">
-                                <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-                                </svg>
-                                Audio Available
-                            </div>
-                        ` : ''}
-                    </div>
-                    <div class="story-content">
-                        <div class="story-sequence">
-                            <span>${story.sequence}</span>
-                        </div>
-                        <h3 class="story-title">${story.title}</h3>
-                        <p class="story-description">${story.description}</p>
-                        <div class="story-meta">
-                            <div class="story-actions">
-                                <a href="${story.id}/index.html" class="read-button">Read Story</a>
-                                <div class="download-options">
-                                    ${downloadOptions}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        });
-        
-        collectionContent += `
-            <div id="${collection.id}" class="collection-content ${isFirst ? 'active' : ''}">
-                <div class="reading-order">
-                    <h3>${collection.title}</h3>
-                    <p>${collection.description}</p>
-                </div>
-                <div class="stories-grid">
-                    ${storiesHtml}
-                </div>
-            </div>
-        `;
-        
-        isFirst = false;
-    });
-    
-    return `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>${config.site.title}</title>
-   <style>
-       :root {
-           --primary-bg: #0d0e12;
-           --card-bg: #1e2028;
-           --accent-color: #bb8c65;
-           --primary-text: #ffffff;
-           --secondary-text: #a5a9b7;
-           --button-color: #bb8c65;
-           --card-border: #2a2c37;
-           --badge-color: #ffc107;
-           --fantasy-badge: #70ad47;
-           --audio-badge: #5b9bd5;
-       }
-       
-       body {
-           font-family: Arial, sans-serif;
-           background-color: var(--primary-bg);
-           color: var(--primary-text);
-           margin: 0;
-           padding: 0;
-       }
-       
-       .container {
-           max-width: 1200px;
-           margin: 0 auto;
-           padding: 20px;
-       }
-       
-       header {
-           display: flex;
-           justify-content: space-between;
-           align-items: center;
-           padding: 20px 0;
-           border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-           margin-bottom: 40px;
-       }
-       
-       .logo {
-           display: flex;
-           align-items: center;
-       }
-       
-       .logo img {
-           height: 40px;
-           margin-right: 10px;
-       }
-       
-       .logo h1 {
-           font-size: 24px;
-           margin: 0;
-       }
-       
-       .home-button {
-           background-color: var(--button-color);
-           color: white;
-           text-decoration: none;
-           padding: 8px 16px;
-           border-radius: 4px;
-       }
-       
-       .page-title {
-           text-align: center;
-           margin-bottom: 30px;
-       }
-       
-       .page-title h2 {
-           font-size: 32px;
-           margin-bottom: 10px;
-       }
-       
-       .collection-tabs {
-           display: flex;
-           justify-content: center;
-           margin: 2rem 0;
-           border-bottom: 2px solid #8B4513;
-       }
-       
-       .tab-button {
-           padding: 1rem 2rem;
-           background: none;
-           border: none;
-           color: #8B4513;
-           font-size: 1.1rem;
-           font-weight: bold;
-           cursor: pointer;
-           border-bottom: 3px solid transparent;
-           transition: all 0.3s ease;
-       }
-       
-       .tab-button.active {
-           color: #A0522D;
-           border-bottom-color: #A0522D;
-           background-color: rgba(139, 69, 19, 0.05);
-       }
-       
-       .collection-content {
-           display: none;
-       }
-       
-       .collection-content.active {
-           display: block;
-       }
-       
-       .reading-order {
-           text-align: center;
-           margin-bottom: 30px;
-           background-color: var(--card-bg);
-           padding: 15px;
-           border-radius: 8px;
-       }
-       
-       .reading-order h3 {
-           color: #8B4513;
-           margin-bottom: 10px;
-       }
-       
-       .stories-grid {
-           display: grid;
-           grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-           gap: 25px;
-           margin-top: 40px;
-       }
-       
-       .story-card {
-           background-color: var(--card-bg);
-           border-radius: 8px;
-           overflow: hidden;
-           border: 1px solid var(--card-border);
-           transition: transform 0.3s;
-       }
-       
-       .story-card:hover {
-           transform: translateY(-5px);
-       }
-       
-       .story-image {
-           position: relative;
-           height: 200px;
-           overflow: hidden;
-       }
-       
-       .story-image img {
-           width: 100%;
-           height: 100%;
-           object-fit: cover;
-       }
-       
-       .new-badge {
-           position: absolute;
-           top: 15px;
-           right: 15px;
-           background-color: var(--badge-color);
-           color: #000;
-           padding: 3px 8px;
-           border-radius: 4px;
-           font-size: 12px;
-           font-weight: bold;
-       }
-       
-       .audio-badge {
-           position: absolute;
-           top: 15px;
-           left: 15px;
-           background-color: var(--audio-badge);
-           color: white;
-           padding: 5px 10px;
-           border-radius: 4px;
-           font-size: 12px;
-           display: flex;
-           align-items: center;
-           gap: 5px;
-       }
-       
-       .audio-icon {
-           width: 16px;
-           height: 16px;
-           fill: currentColor;
-       }
-       
-       .story-content {
-           padding: 20px;
-       }
-       
-       .story-sequence {
-           background-color: rgba(187, 140, 101, 0.1);
-           padding: 8px 12px;
-           border-radius: 4px;
-           margin-bottom: 15px;
-           text-align: center;
-       }
-       
-       .story-sequence span {
-           font-size: 14px;
-           font-weight: bold;
-           color: var(--accent-color);
-       }
-       
-       .story-title {
-           font-size: 20px;
-           margin-bottom: 10px;
-       }
-       
-       .story-description {
-           color: var(--secondary-text);
-           font-size: 14px;
-           margin-bottom: 15px;
-       }
-       
-       .story-meta {
-           padding-top: 15px;
-           border-top: 1px solid rgba(255, 255, 255, 0.1);
-       }
-       
-       .story-actions {
-           display: flex;
-           flex-direction: column;
-           gap: 10px;
-       }
-       
-       .read-button {
-           background-color: var(--button-color);
-           color: white;
-           text-decoration: none;
-           padding: 10px;
-           border-radius: 4px;
-           text-align: center;
-           font-weight: bold;
-       }
-       
-       .download-options {
-           display: flex;
-           gap: 10px;
-       }
-       
-       .download-option-fantasy {
-           flex: 1;
-           background-color: var(--fantasy-badge);
-           color: white;
-           text-decoration: none;
-           padding: 8px;
-           border-radius: 4px;
-           text-align: center;
-       }
-       
-       .download-option-audio {
-           flex: 1;
-           background-color: var(--audio-badge);
-           color: white;
-           text-decoration: none;
-           padding: 8px;
-           border-radius: 4px;
-           text-align: center;
-       }
-       
-       .audio-note {
-           background-color: rgba(91, 155, 213, 0.1);
-           border-left: 4px solid var(--audio-badge);
-           padding: 15px;
-           margin: 30px 0;
-           border-radius: 4px;
-       }
-       
-       .audio-note h3 {
-           color: var(--audio-badge);
-           margin-bottom: 10px;
-           display: flex;
-           align-items: center;
-           gap: 10px;
-       }
-       
-       footer {
-           text-align: center;
-           padding: 30px 0;
-           margin-top: 60px;
-           border-top: 1px solid rgba(255, 255, 255, 0.1);
-           color: var(--secondary-text);
-           font-size: 13px;
-       }
-   </style>
-</head>
-<body>
-   <div class="container">
-       <header>
-           <div class="logo">
-               <img src="${config.site.logoUrl}" alt="Logo">
-               <h1>${config.site.title}</h1>
-           </div>
-           <a href="${config.site.homeUrl}" class="home-button">Return to Main Site</a>
-       </header>
-
-       <div class="page-title">
-           <h2>${config.site.subtitle}</h2>
-           <p>${config.site.description}</p>
-       </div>
-       
-       <div class="collection-tabs">
-           ${collectionTabs}
-       </div>
-
-       <div class="audio-note">
-           <h3>
-               <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                   <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-               </svg>
-               Immersive Audio Experience
-           </h3>
-           <p>${config.site.audioNote}</p>
-       </div>
-
-       ${collectionContent}
-       
-       <footer>
-           <p>© 2025 Stories. All stories are original works.</p>
-           <p>Image and Audio Generation provided by: Pollinations.ai - Powering Creativity</p>
-       </footer>
-   </div>
-
-   <script>
-       function showCollection(collectionId) {
-           const collections = document.querySelectorAll('.collection-content');
-           collections.forEach(collection => {
-               collection.classList.remove('active');
-           });
-           
-           const tabs = document.querySelectorAll('.tab-button');
-           tabs.forEach(tab => {
-               tab.classList.remove('active');
-           });
-           
-           document.getElementById(collectionId).classList.add('active');
-           event.target.classList.add('active');
-       }
-   </script>
-</body>
-</html>`;
-}
-
-function saveConfiguration() {
-   updateConfigFromForm();
-   saveToLocalStorage();
-   alert('Configuration saved to browser storage!');
-}	
