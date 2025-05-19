@@ -25,7 +25,10 @@ const storiesConfig = {
                     "displayOrder": 1,
                     "hasAudio": true,
                     "isNew": false,
-                    "downloadOptions": ["fantasy", "audio"]
+                    "downloadOptions": [
+                        "fantasy",
+                        "audio"
+                    ]
                 },
                 "story-0003": {
                     "id": "story-0003",
@@ -36,7 +39,10 @@ const storiesConfig = {
                     "displayOrder": 2,
                     "hasAudio": true,
                     "isNew": false,
-                    "downloadOptions": ["fantasy", "audio"]
+                    "downloadOptions": [
+                        "fantasy",
+                        "audio"
+                    ]
                 },
                 "story-0004": {
                     "id": "story-0004",
@@ -47,7 +53,10 @@ const storiesConfig = {
                     "displayOrder": 3,
                     "hasAudio": true,
                     "isNew": false,
-                    "downloadOptions": ["fantasy", "audio"]
+                    "downloadOptions": [
+                        "fantasy",
+                        "audio"
+                    ]
                 },
                 "story-0001": {
                     "id": "story-0001",
@@ -58,7 +67,10 @@ const storiesConfig = {
                     "displayOrder": 4,
                     "hasAudio": true,
                     "isNew": false,
-                    "downloadOptions": ["fantasy", "audio"]
+                    "downloadOptions": [
+                        "fantasy",
+                        "audio"
+                    ]
                 },
                 "story-0002": {
                     "id": "story-0002",
@@ -69,7 +81,10 @@ const storiesConfig = {
                     "displayOrder": 5,
                     "hasAudio": true,
                     "isNew": false,
-                    "downloadOptions": ["fantasy", "audio"]
+                    "downloadOptions": [
+                        "fantasy",
+                        "audio"
+                    ]
                 },
                 "story-0006": {
                     "id": "story-0006",
@@ -80,7 +95,10 @@ const storiesConfig = {
                     "displayOrder": 6,
                     "hasAudio": true,
                     "isNew": false,
-                    "downloadOptions": ["fantasy", "audio"]
+                    "downloadOptions": [
+                        "fantasy",
+                        "audio"
+                    ]
                 },
                 "story-0007": {
                     "id": "story-0007",
@@ -91,7 +109,10 @@ const storiesConfig = {
                     "displayOrder": 7,
                     "hasAudio": true,
                     "isNew": false,
-                    "downloadOptions": ["fantasy", "audio"]
+                    "downloadOptions": [
+                        "fantasy",
+                        "audio"
+                    ]
                 },
                 "story-0008": {
                     "id": "story-0008",
@@ -102,7 +123,10 @@ const storiesConfig = {
                     "displayOrder": 8,
                     "hasAudio": true,
                     "isNew": false,
-                    "downloadOptions": ["fantasy", "audio"]
+                    "downloadOptions": [
+                        "fantasy",
+                        "audio"
+                    ]
                 },
                 "story-0009": {
                     "id": "story-0009",
@@ -113,7 +137,10 @@ const storiesConfig = {
                     "displayOrder": 9,
                     "hasAudio": true,
                     "isNew": false,
-                    "downloadOptions": ["fantasy", "audio"]
+                    "downloadOptions": [
+                        "fantasy",
+                        "audio"
+                    ]
                 },
                 "story-0010": {
                     "id": "story-0010",
@@ -124,7 +151,10 @@ const storiesConfig = {
                     "displayOrder": 10,
                     "hasAudio": true,
                     "isNew": false,
-                    "downloadOptions": ["fantasy", "audio"]
+                    "downloadOptions": [
+                        "fantasy",
+                        "audio"
+                    ]
                 },
                 "story-0011": {
                     "id": "story-0011",
@@ -135,46 +165,69 @@ const storiesConfig = {
                     "displayOrder": 11,
                     "hasAudio": true,
                     "isNew": true,
-                    "downloadOptions": ["fantasy", "audio"]
+                    "downloadOptions": [
+                        "fantasy",
+                        "audio"
+                    ]
                 },
-				"story-0012": {
-					"id": "story-0012",
-					"title": "The Forge Memory",
-					"sequence": "Part 12 of Brokkr's Saga",
-					"description": "As Brokkr's seedcraft grows increasingly complex, his traditional methods of documentation prove inadequate. When Eddan the chronicler brings him a mysterious \"memory tablet\" combining elven crystal-work with dwarven metallurgy, Brokkr reluctantly embraces this new tool. Through his struggles to adapt, he discovers that the tablet reveals hidden patterns in his phoenix seeds—connections that transform not just how he records his knowledge, but how he understands the very nature of his craft.",
-					"image": "story-0012/ForgeMemory.jpg",
-					"displayOrder": 12,
-					"hasAudio": true,
-					"isNew": true,
-					"downloadOptions": ["fantasy", "audio"]
-				}
-           }
-       },
-       "collection2": {
-           "id": "collection2",
-           "title": "Collection II: The Master's Art",
-           "description": "Delve deeper into Brokkr's mastery as he combines his crafts in ways that blur the boundaries between creation, artistry, and magic itself.",
-           "stories": {
-               "story-2001": {
-                   "id": "story-2001",
-                   "title": "The Tattooed Seed",
-                   "sequence": "Collection II - Part 1",
-                   "description": "During his years in Muspelheim's prisons, Brokkr discovered more than just fire-craft—he found his gift for artistic creation. When he combines his newfound skills with his seedcraft mastery, the result is something unprecedented: seeds that carry not just genetic memory, but visual stories etched into their very shells. These living artworks become a new form of communication between realms, where each sprouting tells a tale.",
-                   "image": "story-2001/TattooedSeed.jpg",
-                   "displayOrder": 1,
-                   "hasAudio": true,
-                   "isNew": true,
-                   "downloadOptions": ["fantasy", "audio"]
-               }
-           }
-       }
-   }
+                "story-0012": {
+                    "id": "story-0012",
+                    "title": "The Forge Memory",
+                    "sequence": "Part 12 of Brokkr's Saga",
+                    "description": "As Brokkr's seedcraft grows increasingly complex, his traditional methods of documentation prove inadequate. When Eddan the chronicler brings him a mysterious \"memory tablet\" combining elven crystal-work with dwarven metallurgy, Brokkr reluctantly embraces this new tool. Through his struggles to adapt, he discovers that the tablet reveals hidden patterns in his phoenix seeds—connections that transform not just how he records his knowledge, but how he understands the very nature of his craft.",
+                    "image": "story-0012/ForgeMemory.jpg",
+                    "displayOrder": 12,
+                    "hasAudio": true,
+                    "isNew": true,
+                    "downloadOptions": [
+                        "fantasy",
+                        "audio"
+                    ]
+                }
+            }
+        },
+        "collection2": {
+            "id": "collection2",
+            "title": "Collection II: The Master's Art",
+            "description": "Delve deeper into Brokkr's mastery as he combines his crafts in ways that blur the boundaries between creation, artistry, and magic itself.",
+            "stories": {
+                "story-2001": {
+                    "id": "story-2001",
+                    "title": "The Tattooed Seed",
+                    "sequence": "Collection II - Part 1",
+                    "description": "During his years in Muspelheim's prisons, Brokkr discovered more than just fire-craft—he found his gift for artistic creation. When he combines his newfound skills with his seedcraft mastery, the result is something unprecedented: seeds that carry not just genetic memory, but visual stories etched into their very shells. These living artworks become a new form of communication between realms, where each sprouting tells a tale.",
+                    "image": "story-2001/TattooedSeed.jpg",
+                    "displayOrder": 1,
+                    "hasAudio": true,
+                    "isNew": true,
+                    "downloadOptions": [
+                        "fantasy",
+                        "audio"
+                    ]
+                },
+                "story-2002": {
+                    "id": "story-2002",
+                    "title": "The Greenworld Envoys",
+                    "sequence": "Collection II - Part 2",
+                    "description": "When mysterious refugees from the distant world of Viridian Prime arrive through Heimdall's Rainbow Bridge, they bring with them a desperate plea and alien seeds that refuse to grow in foreign soil. Brokkr is called upon to help these Greenworld envoys establish sustainable agriculture to save their dying people. Through innovative fusion of dwarven seedcraft and alien bio-engineering, he creates the revolutionary \"Bridge Seeds\" - plants that remember their origin while embracing their new home. This collaboration not only saves the refugees but transforms Brokkr into an architect of inter-dimensional integration, eventually leading to the founding of the Council of Worlds.",
+                    "image": "story-2002/GreenworldEnvoys.jpg",
+                    "displayOrder": 2,
+                    "hasAudio": true,
+                    "isNew": true,
+                    "downloadOptions": [
+                        "fantasy",
+                        "audio"
+                    ]
+                }
+            }
+        }
+    }
 };
 
 // Export for use in modules
 if (typeof module !== 'undefined' && module.exports) {
-   module.exports = storiesConfig;
+    module.exports = storiesConfig;
 }
 
 // Make available globally
-window.storiesConfig = storiesConfig;					
+window.storiesConfig = storiesConfig;
