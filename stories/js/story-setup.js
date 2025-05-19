@@ -1,69 +1,83 @@
 console.log('=== STORY-SETUP.JS LOADING ===');
 
-// Declare storiesConfig FIRST before anything else
-var storiesConfig = {
-    site: {
-        title: "",
-        subtitle: "",
-        description: "",
-        logoUrl: "",
-        homeUrl: "",
-        audioNote: ""
-    },
-    collections: {}
-};
-
+// DO NOT declare storiesConfig here - let it be loaded from the external file
 let currentEditingStory = null;
 let currentEditingCollection = null;
 
-// Load the config IMMEDIATELY when the script loads, not waiting for DOM
-(function() {
-    console.log('=== IMMEDIATE CONFIG LOAD ATTEMPT ===');
+// Load configuration when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('=== DOM READY - STARTING CONFIG LOAD ===');
+    loadConfiguration();
+});
+
+function loadConfiguration() {
+    // First, try localStorage
+    const savedConfig = localStorage.getItem('storiesConfig');
+    if (savedConfig) {
+        try {
+            window.storiesConfig = JSON.parse(savedConfig);
+            console.log('=== LOADED FROM LOCALSTORAGE ===', window.storiesConfig);
+            populateEverything();
+            return;
+        } catch (e) {
+            console.error('=== LOCALSTORAGE PARSE ERROR ===', e);
+        }
+    }
     
-    // First try to load the script synchronously
+    // If no localStorage, load from script
+    console.log('=== LOADING FROM SCRIPT ===');
     const script = document.createElement('script');
     script.src = '/stories/js/stories-config.js';
-    script.async = false; // Force synchronous loading
-    
     script.onload = function() {
         console.log('=== CONFIG SCRIPT LOADED ===');
         if (window.storiesConfig) {
             console.log('=== CONFIG FOUND ===', window.storiesConfig);
-            
-            // Set the config immediately
-            storiesConfig = JSON.parse(JSON.stringify(window.storiesConfig));
-            
-            // If DOM is ready, populate immediately
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', function() {
-                    console.log('=== DOM READY, POPULATING FIELDS ===');
-                    populateEverything();
-                });
-            } else {
-                console.log('=== DOM ALREADY READY, POPULATING NOW ===');
-                populateEverything();
-            }
+            populateEverything();
         } else {
-            console.error('=== CONFIG SCRIPT LOADED BUT NO WINDOW.STORIESCONFIG ===');
+            console.error('=== NO CONFIG IN WINDOW ===');
+            // Initialize with empty config
+            window.storiesConfig = {
+                site: {
+                    title: "",
+                    subtitle: "",
+                    description: "",
+                    logoUrl: "",
+                    homeUrl: "",
+                    audioNote: ""
+                },
+                collections: {}
+            };
+            populateEverything();
         }
     };
-    
     script.onerror = function() {
-        console.error('=== FAILED TO LOAD CONFIG SCRIPT ===');
+        console.error('=== SCRIPT LOAD FAILED ===');
+        // Initialize with empty config
+        window.storiesConfig = {
+            site: {
+                title: "",
+                subtitle: "",
+                description: "",
+                logoUrl: "",
+                homeUrl: "",
+                audioNote: ""
+            },
+            collections: {}
+        };
+        populateEverything();
     };
-    
     document.head.appendChild(script);
-})();
+}
 
 function populateEverything() {
-    console.log('=== POPULATING EVERYTHING ===', storiesConfig);
+    console.log('=== POPULATING EVERYTHING ===', window.storiesConfig);
     
     try {
         populateFormFields();
         renderCollections();
         populateCollectionSelector();
-        if (Object.keys(storiesConfig.collections).length > 0) {
-            renderStories(Object.keys(storiesConfig.collections)[0]);
+        if (Object.keys(window.storiesConfig.collections).length > 0) {
+            renderStories(Object.keys(window.storiesConfig.collections)[0]);
         }
         
         // Setup all event listeners
@@ -100,73 +114,16 @@ function setupEventListeners() {
     });
 }
 
-// Fallback DOM ready listener
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('=== DOM CONTENT LOADED FALLBACK ===');
-    
-    // If config hasn't been loaded yet, try again
-    if (!storiesConfig.site.title && !window.storiesConfig) {
-        console.log('=== NO CONFIG YET, TRYING FALLBACK LOAD ===');
-        
-        // Try localStorage first
-        const savedConfig = localStorage.getItem('storiesConfig');
-        if (savedConfig) {
-            try {
-                storiesConfig = JSON.parse(savedConfig);
-                console.log('=== LOADED FROM LOCALSTORAGE ===', storiesConfig);
-                populateEverything();
-                return;
-            } catch (e) {
-                console.error('=== LOCALSTORAGE PARSE ERROR ===', e);
-            }
-        }
-        
-        // Try one more time to load the script
-        loadConfigScriptFallback().then(() => {
-            populateEverything();
-        }).catch(error => {
-            console.error('=== FINAL FALLBACK FAILED ===', error);
-            populateEverything(); // Populate with empty config
-        });
-    } else if (window.storiesConfig && !storiesConfig.site.title) {
-        console.log('=== FOUND WINDOW CONFIG, COPYING ===');
-        storiesConfig = JSON.parse(JSON.stringify(window.storiesConfig));
-        populateEverything();
-    } else {
-        console.log('=== CONFIG ALREADY LOADED, JUST SETUP LISTENERS ===');
-        setupEventListeners();
-    }
-});
-
-function loadConfigScriptFallback() {
-    return new Promise((resolve, reject) => {
-        console.log('=== FALLBACK SCRIPT LOAD ===');
-        const script = document.createElement('script');
-        script.src = '/stories/js/stories-config.js';
-        script.onload = () => {
-            if (window.storiesConfig) {
-                storiesConfig = JSON.parse(JSON.stringify(window.storiesConfig));
-                console.log('=== FALLBACK SUCCESS ===', storiesConfig);
-                resolve(storiesConfig);
-            } else {
-                reject(new Error('No config in window'));
-            }
-        };
-        script.onerror = () => reject(new Error('Script load failed'));
-        document.head.appendChild(script);
-    });
-}
-
 function populateFormFields() {
-    console.log('=== POPULATING FORM FIELDS ===', storiesConfig.site);
+    console.log('=== POPULATING FORM FIELDS ===', window.storiesConfig.site);
     
     const fields = [
-        { id: 'site-title', value: storiesConfig.site.title || '' },
-        { id: 'site-subtitle', value: storiesConfig.site.subtitle || '' },
-        { id: 'site-description', value: storiesConfig.site.description || '' },
-        { id: 'site-logo', value: storiesConfig.site.logoUrl || '' },
-        { id: 'home-url', value: storiesConfig.site.homeUrl || '' },
-        { id: 'audio-note', value: storiesConfig.site.audioNote || '' }
+        { id: 'site-title', value: window.storiesConfig.site.title || '' },
+        { id: 'site-subtitle', value: window.storiesConfig.site.subtitle || '' },
+        { id: 'site-description', value: window.storiesConfig.site.description || '' },
+        { id: 'site-logo', value: window.storiesConfig.site.logoUrl || '' },
+        { id: 'home-url', value: window.storiesConfig.site.homeUrl || '' },
+        { id: 'audio-note', value: window.storiesConfig.site.audioNote || '' }
     ];
     
     fields.forEach(field => {
@@ -189,7 +146,7 @@ function switchTab(tabId) {
 }
 
 function renderCollections() {
-    console.log('=== RENDERING COLLECTIONS ===', storiesConfig.collections);
+    console.log('=== RENDERING COLLECTIONS ===', window.storiesConfig.collections);
     const container = document.getElementById('collections-list');
     if (!container) {
         console.error('=== COLLECTIONS CONTAINER NOT FOUND ===');
@@ -198,7 +155,7 @@ function renderCollections() {
     
     container.innerHTML = '';
     
-    Object.values(storiesConfig.collections).forEach(collection => {
+    Object.values(window.storiesConfig.collections).forEach(collection => {
         const collectionEl = document.createElement('div');
         collectionEl.className = 'story-item';
         collectionEl.innerHTML = `
@@ -215,7 +172,7 @@ function renderCollections() {
         container.appendChild(collectionEl);
     });
     
-    console.log(`=== RENDERED ${Object.keys(storiesConfig.collections).length} COLLECTIONS ===`);
+    console.log(`=== RENDERED ${Object.keys(window.storiesConfig.collections).length} COLLECTIONS ===`);
 }
 
 function populateCollectionSelector() {
@@ -227,14 +184,14 @@ function populateCollectionSelector() {
     
     select.innerHTML = '';
     
-    Object.values(storiesConfig.collections).forEach(collection => {
+    Object.values(window.storiesConfig.collections).forEach(collection => {
         const option = document.createElement('option');
         option.value = collection.id;
         option.textContent = collection.title;
         select.appendChild(option);
     });
     
-    console.log(`=== POPULATED SELECTOR WITH ${Object.keys(storiesConfig.collections).length} OPTIONS ===`);
+    console.log(`=== POPULATED SELECTOR WITH ${Object.keys(window.storiesConfig.collections).length} OPTIONS ===`);
 }
 
 function renderStories(collectionId) {
@@ -246,12 +203,12 @@ function renderStories(collectionId) {
     
     container.innerHTML = '';
     
-    if (!collectionId || !storiesConfig.collections[collectionId]) {
+    if (!collectionId || !window.storiesConfig.collections[collectionId]) {
         console.log('=== NO COLLECTION OR INVALID ID ===', collectionId);
         return;
     }
     
-    const stories = storiesConfig.collections[collectionId].stories || {};
+    const stories = window.storiesConfig.collections[collectionId].stories || {};
     const storiesArray = Object.values(stories).sort((a, b) => (a.displayOrder || 999) - (b.displayOrder || 999));
     
     console.log(`=== RENDERING ${storiesArray.length} STORIES FOR ${collectionId} ===`);
@@ -284,7 +241,7 @@ function openCollectionEditor(collectionId = null) {
     const isEdit = collectionId !== null;
     
     if (isEdit) {
-        const collection = storiesConfig.collections[collectionId];
+        const collection = window.storiesConfig.collections[collectionId];
         document.getElementById('collection-id').value = collection.id;
         document.getElementById('collection-title').value = collection.title;
         document.getElementById('collection-description').value = collection.description;
@@ -318,10 +275,10 @@ function saveCollection() {
         id: id,
         title: title,
         description: description,
-        stories: storiesConfig.collections[id]?.stories || {}
+        stories: window.storiesConfig.collections[id]?.stories || {}
     };
     
-    storiesConfig.collections[id] = collection;
+    window.storiesConfig.collections[id] = collection;
     
     closeCollectionEditor();
     renderCollections();
@@ -335,11 +292,11 @@ function editCollection(collectionId) {
 
 function deleteCollection(collectionId) {
     if (confirm('Are you sure you want to delete this collection and all its stories?')) {
-        delete storiesConfig.collections[collectionId];
+        delete window.storiesConfig.collections[collectionId];
         renderCollections();
         populateCollectionSelector();
-        if (Object.keys(storiesConfig.collections).length > 0) {
-            renderStories(Object.keys(storiesConfig.collections)[0]);
+        if (Object.keys(window.storiesConfig.collections).length > 0) {
+            renderStories(Object.keys(window.storiesConfig.collections)[0]);
         }
         saveToLocalStorage();
     }
@@ -353,7 +310,7 @@ function openStoryEditor(collectionId = null, storyId = null) {
     currentEditingStory = { collectionId: currentCollection, storyId: storyId };
     
     if (isEdit) {
-        const story = storiesConfig.collections[currentCollection].stories[storyId];
+        const story = window.storiesConfig.collections[currentCollection].stories[storyId];
         document.getElementById('story-id').value = story.id;
         document.getElementById('story-title').value = story.title;
         document.getElementById('story-sequence').value = story.sequence;
@@ -418,7 +375,7 @@ function saveStory() {
         downloadOptions: downloadOptions
     };
     
-    storiesConfig.collections[currentEditingStory.collectionId].stories[id] = story;
+    window.storiesConfig.collections[currentEditingStory.collectionId].stories[id] = story;
     
     closeStoryEditor();
     renderStories(currentEditingStory.collectionId);
@@ -431,20 +388,20 @@ function editStory(collectionId, storyId) {
 
 function deleteStory(collectionId, storyId) {
     if (confirm('Are you sure you want to delete this story?')) {
-        delete storiesConfig.collections[collectionId].stories[storyId];
+        delete window.storiesConfig.collections[collectionId].stories[storyId];
         renderStories(collectionId);
         saveToLocalStorage();
     }
 }
 
 function saveToLocalStorage() {
-    localStorage.setItem('storiesConfig', JSON.stringify(storiesConfig));
+    localStorage.setItem('storiesConfig', JSON.stringify(window.storiesConfig));
 }
 
 function generateConfiguration() {
     updateConfigFromForm();
     
-    const configJson = JSON.stringify(storiesConfig, null, 4);
+    const configJson = JSON.stringify(window.storiesConfig, null, 4);
     const configCode = `// Stories Configuration
 // Generated by Story Configuration Tool
 
@@ -470,12 +427,12 @@ window.storiesConfig = storiesConfig;`;
 }
 
 function updateConfigFromForm() {
-    storiesConfig.site.title = document.getElementById('site-title').value;
-    storiesConfig.site.subtitle = document.getElementById('site-subtitle').value;
-    storiesConfig.site.description = document.getElementById('site-description').value;
-    storiesConfig.site.logoUrl = document.getElementById('site-logo').value;
-    storiesConfig.site.homeUrl = document.getElementById('home-url').value;
-    storiesConfig.site.audioNote = document.getElementById('audio-note').value;
+    window.storiesConfig.site.title = document.getElementById('site-title').value;
+    window.storiesConfig.site.subtitle = document.getElementById('site-subtitle').value;
+    window.storiesConfig.site.description = document.getElementById('site-description').value;
+    window.storiesConfig.site.logoUrl = document.getElementById('site-logo').value;
+    window.storiesConfig.site.homeUrl = document.getElementById('home-url').value;
+    window.storiesConfig.site.audioNote = document.getElementById('audio-note').value;
 }
 
 function saveConfiguration() {
