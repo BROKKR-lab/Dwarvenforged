@@ -351,9 +351,14 @@ function saveCollection() {
     renderCollections();
     populateCollectionSelector();
     
+    // After saving a collection, automatically select it and show its stories
+    const collectionSelect = document.getElementById('current-collection');
+    collectionSelect.value = id;
+    renderStories(id);
+    
     // Auto-save after every change
     saveToLocalStorage();
-    console.log('=== COLLECTION SAVED AND AUTO-SAVED TO LOCALSTORAGE ===');
+    console.log('=== COLLECTION SAVED, UI UPDATED, AND AUTO-SAVED TO LOCALSTORAGE ===');
 }
 
 function editCollection(collectionId) {
@@ -414,12 +419,17 @@ function openStoryEditor(collectionId = null, storyId = null) {
         document.getElementById('download-audio').checked = (story.downloadOptions || []).includes('audio');
         document.getElementById('story-id').disabled = true;
     } else {
+        // Calculate the next display order for new stories
+        const existingStories = Object.values(window.storiesConfig.collections[currentCollection].stories || {});
+        const maxOrder = existingStories.length > 0 ? Math.max(...existingStories.map(s => s.displayOrder || 0)) : 0;
+        const nextOrder = maxOrder + 1;
+        
         document.getElementById('story-id').value = '';
         document.getElementById('story-title').value = '';
         document.getElementById('story-sequence').value = '';
         document.getElementById('story-description').value = '';
         document.getElementById('story-image').value = '';
-        document.getElementById('story-display-order').value = 1;
+        document.getElementById('story-display-order').value = nextOrder;
         document.getElementById('story-has-audio').checked = true;
         document.getElementById('story-is-new').checked = false;
         document.getElementById('download-fantasy').checked = true;
@@ -428,6 +438,13 @@ function openStoryEditor(collectionId = null, storyId = null) {
     }
     
     modal.style.display = 'block';
+    
+    // Focus on the first input field for better UX
+    setTimeout(() => {
+        if (!isEdit) {
+            document.getElementById('story-id').focus();
+        }
+    }, 100);
 }
 
 function closeStoryEditor() {
@@ -481,12 +498,19 @@ function saveStory() {
     console.log('=== STORY SAVED ===', story);
     console.log('=== CURRENT CONFIG AFTER SAVE ===', window.storiesConfig);
     
-    closeStoryEditor();
-    renderStories(currentEditingStory.collectionId);
-    
     // Auto-save after every change
     saveToLocalStorage();
-    console.log('=== STORY SAVED AND AUTO-SAVED TO LOCALSTORAGE ===');
+    
+    // Update the collection selector to show the correct collection
+    const collectionSelect = document.getElementById('current-collection');
+    collectionSelect.value = currentEditingStory.collectionId;
+    
+    closeStoryEditor();
+    
+    // Render the stories for the collection we just added to
+    renderStories(currentEditingStory.collectionId);
+    
+    console.log('=== STORY SAVED, UI UPDATED, AND AUTO-SAVED TO LOCALSTORAGE ===');
 }
 
 function editStory(collectionId, storyId) {
