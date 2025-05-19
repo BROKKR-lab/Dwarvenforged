@@ -1,541 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dwarven Forged Stories - Legends of the Seeds</title>
-  
-  <!-- Open Graph / Facebook / Discord -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.dwarvenforged.com/stories/">
-  <meta property="og:title" content="Dwarven Forged Stories">
-  <meta property="og:description" content="Explore the mythic tales behind our seed strains, forged in the ancient traditions of the dwarven masters and the secrets of nature's deepest magic.">
-  <meta property="og:image" content="https://www.dwarvenforged.com/stories/social-preview.jpg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stories</title>
+    
+    <!-- Open Graph / Facebook / Discord -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="">
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://www.dwarvenforged.com/stories/">
-  <meta property="twitter:title" content="Dwarven Forged Stories">
-  <meta property="twitter:description" content="Explore the mythic tales behind our seed strains, forged in the ancient traditions of the dwarven masters and the secrets of nature's deepest magic.">
-  <meta property="twitter:image" content="https://www.dwarvenforged.com/stories/social-preview.jpg">
-  
-  <!-- Link to External CSS -->
- <link rel="stylesheet" href="/stories/shared/styles.css">
- 
- <style>
-   .collection-tabs {
-     display: flex;
-     justify-content: center;
-     margin: 2rem 0;
-     border-bottom: 2px solid #8B4513;
-   }
-   
-   .tab-button {
-     padding: 1rem 2rem;
-     background: none;
-     border: none;
-     color: #8B4513;
-     font-size: 1.1rem;
-     font-weight: bold;
-     cursor: pointer;
-     border-bottom: 3px solid transparent;
-     transition: all 0.3s ease;
-   }
-   
-   .tab-button:hover {
-     background-color: rgba(139, 69, 19, 0.1);
-   }
-   
-   .tab-button.active {
-     color: #A0522D;
-     border-bottom-color: #A0522D;
-     background-color: rgba(139, 69, 19, 0.05);
-   }
-   
-   .collection-content {
-     display: none;
-   }
-   
-   .collection-content.active {
-     display: block;
-   }
-   
-   .reading-order h3 {
-     color: #8B4513;
-   }
- </style>
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="">
+    <meta property="twitter:title" content="">
+    <meta property="twitter:description" content="">
+    <meta property="twitter:image" content="">
+    
+    <!-- Link to External CSS -->
+    <link rel="stylesheet" href="/stories/shared/styles.css">
+    
+    <style>
+        .collection-tabs {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+            border-bottom: 2px solid #8B4513;
+        }
+        
+        .tab-button {
+            padding: 1rem 2rem;
+            background: none;
+            border: none;
+            color: #8B4513;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-button:hover {
+            background-color: rgba(139, 69, 19, 0.1);
+        }
+        
+        .tab-button.active {
+            color: #A0522D;
+            border-bottom-color: #A0522D;
+            background-color: rgba(139, 69, 19, 0.05);
+        }
+        
+        .collection-content {
+            display: none;
+        }
+        
+        .collection-content.active {
+            display: block;
+        }
+        
+        .reading-order h3 {
+            color: #8B4513;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #8B4513;
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="" alt="Logo">
+                <h1>Story Site</h1>
+            </div>
+            <a href="#" class="home-button">Return to Main Site</a>
+        </header>
 
-  <div class="container">
-    <header>
-      <div class="logo">
-        <img src="https://www.dwarvenforged.com/img/logo.jpg" alt="Dwarven Forged Logo">
-        <h1>Dwarven Forged Stories</h1>
-      </div>
-      <a href="https://www.dwarvenforged.com" class="home-button">Return to Main Site</a>
-    </header>
-
-    <div class="page-title">
-      <h2>Legends of the Seeds</h2>
-      <p>Explore the mythic tales behind our seed strains, forged in the ancient traditions of the dwarven masters and the secrets of nature's deepest magic.</p>
-    </div>
-    
-    <div class="collection-tabs">
-      <button class="tab-button active" onclick="showCollection('collection1')">Collection I: The Early Years</button>
-      <button class="tab-button" onclick="showCollection('collection2')">Collection II: The Master's Art</button>
-    </div>
-
-    <div class="audio-note">
-      <h3>
-        <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-        </svg>
-        Immersive Audio Experience
-      </h3>
-      <p>All stories in the Brokkr Saga are available as audio recordings, bringing these mythic tales to life through sound.<br>
-      - Listen to the audio editions for an immersive journey through the Nine Realms.</p>
-    </div>
-
-    <!-- Collection I Content -->
-    <div id="collection1" class="collection-content active">
-      <div class="reading-order">
-        <h3>The Brokkr Saga: Collection I - The Early Years</h3>
-        <p>Follow the journey of the master craftsman Brokkr, from his legendary beginnings to his greatest creation and lasting legacy.</p>
-      </div>
-
-      <div class="stories-grid">
-        <div class="story-card">
-          <div class="story-image">
-            <a href="story-0005/index.html">
-              <img src="story-0005/ForgeWager.jpg" alt="The Forge Wager">
-            </a>
-            <div class="audio-badge">
-              <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-              </svg>
-              Audio Available
-            </div>
-          </div>
-          <div class="story-content">
-            <div class="story-sequence">
-              <span>Part 1 of Brokkr's Saga</span>
-            </div>
-            <h3 class="story-title">The Forge Wager</h3>
-            <p class="story-description">When Loki cuts off Sif's golden hair, Brokkr is drawn into a dangerous wager that will test his craft against the legendary Sons of Ivaldi. The result: the creation of Mjolnir, the most powerful weapon in the Nine Realms.</p>
-            <div class="story-meta">
-              <div class="story-actions">
-                <a href="story-0005/index.html" class="read-button">Read Story</a>
-                <div class="download-options">
-                  <a href="story-0005/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                  <a href="story-0005/index.html" class="download-option-audio">DIGITAL EDITION</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="story-card">
-          <div class="story-image">
-            <a href="story-0003/index.html">
-              <img src="story-0003/ForgeTrial.jpg" alt="The Forge Trial">
-            </a>
-            <div class="audio-badge">
-              <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-              </svg>
-              Audio Available
-            </div>
-          </div>
-          <div class="story-content">
-            <div class="story-sequence">
-              <span>Part 2 of Brokkr's Saga</span>
-            </div>
-            <h3 class="story-title">The Forge Trial</h3>
-            <p class="story-description">Before becoming the legendary craftsman of the Nine Realms, Brokkr must endure imprisonment by the fire giants of Muspelheim. Through cunning, knowledge, and innovation, he transforms his captivity into an opportunity that will change the nature of his craft forever.</p>
-            <div class="story-meta">
-              <div class="story-actions">
-                <a href="story-0003/index.html" class="read-button">Read Story</a>
-                <div class="download-options">
-                  <a href="story-0003/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                  <a href="story-0003/index.html" class="download-option-audio">DIGITAL EDITION</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="story-card">
-          <div class="story-image">
-            <a href="story-0004/index.html">
-              <img src="story-0004/ForgeCouncil.jpg" alt="The Forge Council">
-            </a>
-            <div class="audio-badge">
-              <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-              </svg>
-              Audio Available
-            </div>
-          </div>
-          <div class="story-content">
-            <div class="story-sequence">
-              <span>Part 3 of Brokkr's Saga</span>
-            </div>
-            <h3 class="story-title">The Forge Council</h3>
-            <p class="story-description">After his return from captivity, Brokkr establishes the Forge Council, a community of craftsmen dedicated to the art of seedcraft. Through nine sacred principles, he builds a legacy that will outlast him and shape the future of the Nine Realms.</p>
-            <div class="story-meta">
-              <div class="story-actions">
-                <a href="story-0004/index.html" class="read-button">Read Story</a>
-                <div class="download-options">
-                  <a href="story-0004/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                  <a href="story-0004/index.html" class="download-option-audio">DIGITAL EDITION</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="story-card">
-          <div class="story-image">
-            <a href="story-0001/index.html">
-              <img src="story-0001/ForgeRootFlame.jpg" alt="The Forge Root Flame">
-            </a>
-            <div class="audio-badge">
-              <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-              </svg>
-              Audio Available
-            </div>
-          </div>
-          <div class="story-content">
-            <div class="story-sequence">
-              <span>Part 4 of Brokkr's Saga</span>
-            </div>
-            <h3 class="story-title">The Forge Root Flame</h3>
-            <p class="story-description">When a blight threatens the Nine Realms, master craftsman Brokkr must forge a Seed of Renewal in his legendary anvil deep beneath Svartalfheim. But the price of creation may be higher than even a dwarf can bear.</p>
-            <div class="story-meta">
-              <div class="story-actions">
-                <a href="story-0001/index.html" class="read-button">Read Story</a>
-                <div class="download-options">
-                  <a href="story-0001/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                  <a href="story-0001/index.html" class="download-option-audio">DIGITAL EDITION</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="story-card">
-          <div class="story-image">
-            <a href="story-0002/index.html">
-              <img src="story-0002/ForgeDaughter.jpg" alt="The Forge Daughter">
-            </a>
-            <div class="audio-badge">
-              <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-              </svg>
-              Audio Available
-            </div>
-          </div>
-          <div class="story-content">
-            <div class="story-sequence">
-              <span>Part 5 of Brokkr's Saga</span>
-            </div>
-            <h3 class="story-title">Daughter of the Forge</h3>
-            <p class="story-description">Years after her father's sacrifice, Nostri journeys into the depths of Svartalfheim to find what remains of Brokkr. With unlikely help from Loki, she discovers that the fires of creation never truly die—they only wait to be relit.</p>
-            <div class="story-meta">
-              <div class="story-actions">
-                <a href="story-0002/index.html" class="read-button">Read Story</a>
-                <div class="download-options">
-                  <a href="story-0002/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                  <a href="story-0002/index.html" class="download-option-audio">DIGITAL EDITION</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="story-card">
-          <div class="story-image">
-            <a href="story-0006/index.html">
-              <img src="story-0006/ForgeJourney.jpg" alt="The Forge Journey">
-            </a>
-            <div class="audio-badge">
-              <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-              </svg>
-              Audio Available
-            </div>
-          </div>
-          <div class="story-content">
-            <div class="story-sequence">
-              <span>Part 6 of Brokkr's Saga</span>
-            </div>
-            <h3 class="story-title">The Forge Journey</h3>
-            <p class="story-description">After his rebirth, Brokkr embarks on a mission to share his craft across the Nine Realms. Teaching others to adapt seedcraft to their own environments, he creates a network of knowledge exchange that transforms not just how seeds grow, but how realms connect.</p>
-            <div class="story-meta">
-              <div class="story-actions">
-                <a href="story-0006/index.html" class="read-button">Read Story</a>
-                <div class="download-options">
-                  <a href="story-0006/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                  <a href="story-0006/index.html" class="download-option-audio">DIGITAL EDITION</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="story-card">
-          <div class="story-image">
-            <a href="story-0007/index.html">
-              <img src="story-0007/ForgeDetail.jpg" alt="The Forge Detail">
-            </a>
-            <div class="audio-badge">
-              <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-              </svg>
-              Audio Available
-            </div>
-          </div>
-          <div class="story-content">
-            <div class="story-sequence">
-              <span>Part 7 of Brokkr's Saga</span>
-            </div>
-            <h3 class="story-title">The Forge Detail</h3>
-            <p class="story-description">While establishing seed exchanges in Alfheim, Brokkr discovers dark elves living in secret. As he learns their mastery of precision and microscopic detail, they in turn discover his knowledge of scaling work across different magnitudes. Together, they create a hidden alliance that bridges realms in unexpected ways.</p>
-            <div class="story-meta">
-              <div class="story-actions">
-                <a href="story-0007/index.html" class="read-button">Read Story</a>
-                <div class="download-options">
-                  <a href="story-0007/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                  <a href="story-0007/index.html" class="download-option-audio">DIGITAL EDITION</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="story-card">
-          <div class="story-image">
-            <a href="story-0008/index.html">
-              <img src="story-0008/ForgeChronicle.jpg" alt="The Forge Chronicle">
-            </a>
-            <div class="audio-badge">
-              <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-              </svg>
-              Audio Available
-            </div>
-          </div>
-          <div class="story-content">
-            <div class="story-sequence">
-              <span>Part 8 of Brokkr's Saga</span>
-            </div>
-            <h3 class="story-title">The Forge Chronicle</h3>
-            <p class="story-description">Brokkr encounters Eddan, a court scribe who abandoned comfort to record tales worth telling. What begins as Brokkr offering aid to a traveler transforms into an unexpected partnership, as Eddan's gift for storytelling helps spread seedcraft knowledge across the realms far beyond what Brokkr could achieve alone.</p>
-            <div class="story-meta">
-              <div class="story-actions">
-                <a href="story-0008/index.html" class="read-button">Read Story</a>
-                <div class="download-options">
-                  <a href="story-0008/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                  <a href="story-0008/index.html" class="download-option-audio">DIGITAL EDITION</a>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="page-title">
+            <h2>Story Collection</h2>
+            <p>Welcome to our story collection.</p>
         </div>
         
-        <div class="story-card">
-          <div class="story-image">
-            <a href="story-0009/index.html">
-              <img src="story-0009/ForgeReunion.jpg" alt="The Forge Reunion">
-            </a>
-            <div class="audio-badge">
-              <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-              </svg>
-              Audio Available
-            </div>
-          </div>
-          <div class="story-content">
-            <div class="story-sequence">
-              <span>Part 9 of Brokkr's Saga</span>
-            </div>
-            <h3 class="story-title">The Forge Reunion</h3>
-            <p class="story-description">Brokkr recounts the tale of Lonetree, a towering, tattooed human who once led a fellowship of knowledge-sharers across the realms. Separated by the Great Withering, they reunite decades later to establish Forge Gardens—permanent communities where their different approaches to craft and growth combine to create something greater than either could achieve alone.</p>
-            <div class="story-meta">
-              <div class="story-actions">
-                <a href="story-0009/index.html" class="read-button">Read Story</a>
-                <div class="download-options">
-                  <a href="story-0009/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                  <a href="story-0009/index.html" class="download-option-audio">DIGITAL EDITION</a>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="collection-tabs">
+            <div class="loading">Loading collections...</div>
         </div>
 
-        <div class="story-card">
-          <div class="story-image">
-            <a href="story-0010/index.html">
-              <img src="story-0010/ForgeBond.jpg" alt="The Forge Bond">
-            </a>
-            <div class="audio-badge">
-              <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-              </svg>
-              Audio Available
-            </div>
-          </div>
-          <div class="story-content">
-            <div class="story-sequence">
-              <span>Part 10 of Brokkr's Saga</span>
-            </div>
-            <h3 class="story-title">The Forge Bond</h3>
-            <p class="story-description">After his imprisonment among the fire giants, Brokkr meets Elri, a seed-tender with Vanir heritage, and her young daughter Nostri. Despite facing a second confinement for forbidden experiments, they build a life combining dwarven metallurgy with plant-craft. When fire destroys their seedforge and years of research, they discover that from the ashes, the most resilient creations emerge—both in their work and in their bond as a family.</p>
-            <div class="story-meta">
-              <div class="story-actions">
-                <a href="story-0010/index.html" class="read-button">Read Story</a>
-                <div class="download-options">
-                  <a href="story-0010/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                  <a href="story-0010/index.html" class="download-option-audio">DIGITAL EDITION</a>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="audio-note">
+            <h3>
+                <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                </svg>
+                Audio Experience
+            </h3>
+            <p>Enjoy stories with audio narration.</p>
         </div>
-    
-        <div class="story-card">
-          <div class="story-image">
-            <a href="story-0011/index.html">
-              <img src="story-0011/PhoenixFlame.jpg" alt="The Phoenix Flame">
-            </a>
-            <span class="new-badge">New</span>
-            <div class="audio-badge">
-              <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-              </svg>
-              Audio Available
-            </div>
-          </div>
-          <div class="story-content">
-            <div class="story-sequence">
-              <span>Part 11 of Brokkr's Saga</span>
-            </div>
-            <h3 class="story-title">The Phoenix Flame</h3>
-            <p class="story-description">After the devastating fire, Brokkr and Elri discover that many had preserved fragments of their work. These "ember carriers" become the foundation of a special honor—the Phoenix Flame. Recipients are gifted handcrafted wooden boxes containing the rarest seeds, including mysterious "Lost and Found" varieties with unknown potential. Not purchased but freely given out of respect, this tradition celebrates those who stood with Brokkr when others wouldn't, forming a sacred circle of trust that transcends the boundaries between realms.</p>
-            <div class="story-meta">
-              <div class="story-actions">
-                <a href="story-0011/index.html" class="read-button">Read Story</a>
-                <div class="download-options">
-                  <a href="story-0011/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                  <a href="story-0011/index.html" class="download-option-audio">DIGITAL EDITION</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-     
-        <div class="story-card">
-          <div class="story-image">
-            <a href="story-0012/index.html">
-              <img src="story-0012/ForgeMemory.jpg" alt="The Forge Memory">
-            </a>
-            <span class="new-badge">New</span>
-            <div class="audio-badge">
-              <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-              </svg>
-              Audio Available
-            </div>
-          </div>
-          <div class="story-content">
-            <div class="story-sequence">
-              <span>Part 12 of Brokkr's Saga</span>
-            </div>
-            <h3 class="story-title">The Forge Memory</h3>
-            <p class="story-description">As Brokkr's seedcraft grows increasingly complex, his traditional methods of documentation prove inadequate. When Eddan the chronicler brings him a mysterious "memory tablet" combining elven crystal-work with dwarven metallurgy, Brokkr reluctantly embraces this new tool. Through his struggles to adapt, he discovers that the tablet reveals hidden patterns in his phoenix seeds—connections that transform not just how he records his knowledge, but how he understands the very nature of his craft.</p>
-            <div class="story-meta">
-              <div class="story-actions">
-                <a href="story-0012/index.html" class="read-button">Read Story</a>
-                <div class="download-options">
-                  <a href="story-0012/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                  <a href="story-0012/index.html" class="download-option-audio">DIGITAL EDITION</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+        <footer>
+            <p>© 2025 Stories. All stories are original works.</p>
+            <p>Image and Audio Generation provided by: Pollinations.ai - Powering Creativity</p>
+        </footer>
     </div>
 
-    <!-- Collection II Content -->
-    <div id="collection2" class="collection-content">
-      <div class="reading-order">
-        <h3>The Brokkr Saga: Collection II - The Master's Art</h3>
-        <p>Delve deeper into Brokkr's mastery as he combines his crafts in ways that blur the boundaries between creation, artistry, and magic itself.</p>
-      </div>
-
-      <div class="stories-grid">
-        <div class="story-card">
-          <div class="story-image">
-            <a href="story-2001/index.html">
-              <img src="story-2001/TattooedSeed.jpg" alt="The Tattooed Seed">
-            </a>
-            <span class="new-badge">New</span>
-            <div class="audio-badge">
-              <svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-              </svg>
-              Audio Available
-            </div>
-          </div>
-          <div class="story-content">
-            <div class="story-sequence">
-              <span>Collection II - Part 1</span>
-            </div>
-            <h3 class="story-title">The Tattooed Seed</h3>
-            <p class="story-description">During his years in Muspelheim's prisons, Brokkr discovered more than just fire-craft—he found his gift for artistic creation. When he combines his newfound skills with his seedcraft mastery, the result is something unprecedented: seeds that carry not just genetic memory, but visual stories etched into their very shells. These living artworks become a new form of communication between realms, where each sprouting tells a tale.</p>
-            <div class="story-meta">
-              <div class="story-actions">
-                <a href="story-2001/index.html" class="read-button">Read Story</a>
-                <div class="download-options">
-                  <a href="story-2001/index.html" class="download-option-fantasy">Creative Fantasy</a>
-                  <a href="story-2001/index.html" class="download-option-audio">DIGITAL EDITION</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-   
-   <footer>
-     <p>© 2025 Dwarven Forged. All stories are original works and part of the Dwarven Forged universe.</p>
-     <p>Image and Audio Generation provided by: Pollinations.ai - Powering Creativity</p>
-   </footer>
-  </div>
-
-  <script>
-    function showCollection(collectionId) {
-      // Hide all collection content
-      const collections = document.querySelectorAll('.collection-content');
-      collections.forEach(collection => {
-        collection.classList.remove('active');
-      });
-      
-      // Remove active class from all tabs
-      const tabs = document.querySelectorAll('.tab-button');
-      tabs.forEach(tab => {
-        tab.classList.remove('active');
-      });
-      
-      // Show selected collection
-      document.getElementById(collectionId).classList.add('active');
-      
-      // Add active class to clicked tab
-      event.target.classList.add('active');
-    }
-  </script>
+    <script src="js/stories-config.js"></script>
+    <script src="js/story-main.js"></script>
 </body>
 </html>
