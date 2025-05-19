@@ -88,7 +88,7 @@ function loadExistingConfig() {
             }
         };
         script.onerror = () => {
-            console.log('No config file found at js/stories-config.js');
+            console.log('No config file found at /stories/js/stories-config.js');
             reject(new Error('Failed to load config script'));
         };
         document.head.appendChild(script);

@@ -75,11 +75,14 @@ function renderCollectionTabs(collections) {
     });
 }
 
-function renderCollectionContent(collections) {
-    const audioNote = document.querySelector('.audio-note');
-    const existingCollections = document.querySelectorAll('.collection-content');
+function renderCollectionTabs(collections) {
+    const tabsContainer = document.querySelector('.collection-tabs');
+    tabsContainer.innerHTML = '';
     
-    existingCollections.forEach(el => el.remove());
+    if (!collections || Object.keys(collections).length === 0) {
+        tabsContainer.innerHTML = '<div class="loading">No collections available</div>';
+        return;
+    }
     
     let isFirst = true;
     Object.values(collections).forEach(collection => {
