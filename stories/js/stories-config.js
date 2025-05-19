@@ -224,8 +224,22 @@ const storiesConfig = {
                     "title": "The Divine Harvest Contest",
                     "sequence": "Collection II - Part 3",
                     "description": "When Asgard's sacred stores of sweetleaf herb run dangerously low, Odin calls for the Great Cultivation Contest - a legendary competition where master growers from across the Nine Realms compete to restock the gods' private reserves. Brokkr enters the contest not just to prove his seedcraft mastery, but to demonstrate that his hybrid techniques can produce varieties beyond anything the realms have seen. Facing off against Vanir nature-witches, Alfheim botanical experts, and mysterious competitors from distant corners of the cosmos, Brokkr must craft the perfect sweetleaf - one that carries not just potency, but the very essence of divine inspiration. The winner will earn the honor of becoming the official Royal Cultivator to the Aesir, and their strain will be preserved in Odin's personal garden for eternity.",
-                    "image": "story-2003/DivineHarvestContest.jpg",
+                    "image": "/stories/story-2003/DivineHarvestContest.jpg",
                     "displayOrder": 3,
+                    "hasAudio": true,
+                    "isNew": true,
+                    "downloadOptions": [
+                        "fantasy",
+                        "audio"
+                    ]
+                },
+                "story-2004": {
+                    "id": "story-2004",
+                    "title": "The Spore Awakening",
+                    "sequence": "Collection II - Part 4",
+                    "description": "When mysterious mushrooms spontaneously appear alongside Brokkr's seed containers after a humid morning, he discovers that some of his hybrid seeds carry unexpected spores. Seeking expertise, he visits his old friend Lonetree in Midgard, where they encounter the Mycelian Collective—a society that has built their entire civilization around mushroom cultivation and consumption. Under the guidance of ancient Oracles who commune through fungal networks, Brokkr learns that mushrooms represent an entirely unexplored frontier in his craft. Together with Lonetree, he develops revolutionary strains that catch the attention of the gods themselves, elevating mushrooms to the same sacred status as the divine sweetleaf and establishing a new chapter in inter-realm botanical mastery.",
+                    "image": "story-2004/SporeAwakening.jpg",
+                    "displayOrder": 4,
                     "hasAudio": true,
                     "isNew": true,
                     "downloadOptions": [
