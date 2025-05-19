@@ -384,6 +384,11 @@ function openStoryEditor(collectionId = null, storyId = null) {
     const modal = document.getElementById('story-editor-modal');
     const isEdit = storyId !== null;
     
+    console.log('=== OPENING STORY EDITOR ===');
+    console.log('=== COLLECTION ID ===', currentCollection);
+    console.log('=== STORY ID ===', storyId);
+    console.log('=== IS EDIT ===', isEdit);
+    
     if (!currentCollection) {
         alert('Please select or create a collection first');
         return;
@@ -392,6 +397,7 @@ function openStoryEditor(collectionId = null, storyId = null) {
     // Ensure the collection exists and has a stories object
     if (!window.storiesConfig.collections[currentCollection]) {
         console.error('Collection does not exist:', currentCollection);
+        alert('Selected collection does not exist. Please refresh the page and try again.');
         return;
     }
     
@@ -399,19 +405,27 @@ function openStoryEditor(collectionId = null, storyId = null) {
         window.storiesConfig.collections[currentCollection].stories = {};
     }
     
-    currentEditingStory = { collectionId: currentCollection, storyId: storyId };
+    // Always set currentEditingStory properly
+    currentEditingStory = { 
+        collectionId: currentCollection, 
+        storyId: storyId,
+        isEdit: isEdit
+    };
+    
+    console.log('=== CURRENT EDITING STORY SET TO ===', currentEditingStory);
     
     if (isEdit) {
         const story = window.storiesConfig.collections[currentCollection].stories[storyId];
         if (!story) {
             console.error('Story not found:', storyId);
+            alert('Story not found. Please refresh the page and try again.');
             return;
         }
         document.getElementById('story-id').value = story.id;
         document.getElementById('story-title').value = story.title;
-        document.getElementById('story-sequence').value = story.sequence;
-        document.getElementById('story-description').value = story.description;
-        document.getElementById('story-image').value = story.image;
+        document.getElementById('story-sequence').value = story.sequence || '';
+        document.getElementById('story-description').value = story.description || '';
+        document.getElementById('story-image').value = story.image || '';
         document.getElementById('story-display-order').value = story.displayOrder || 1;
         document.getElementById('story-has-audio').checked = story.hasAudio || false;
         document.getElementById('story-is-new').checked = story.isNew || false;
@@ -445,6 +459,8 @@ function openStoryEditor(collectionId = null, storyId = null) {
             document.getElementById('story-id').focus();
         }
     }, 100);
+    
+    console.log('=== STORY EDITOR OPENED SUCCESSFULLY ===');
 }
 
 function closeStoryEditor() {
@@ -466,10 +482,25 @@ function saveStory() {
     if (document.getElementById('download-fantasy').checked) downloadOptions.push('fantasy');
     if (document.getElementById('download-audio').checked) downloadOptions.push('audio');
     
-    if (!id || !title || !currentEditingStory) {
+    if (!id || !title) {
         alert('Please fill in all required fields');
         return;
     }
+    
+    // Get the current collection if currentEditingStory is not set
+    let targetCollectionId;
+    if (currentEditingStory && currentEditingStory.collectionId) {
+        targetCollectionId = currentEditingStory.collectionId;
+    } else {
+        // Fallback to the currently selected collection
+        targetCollectionId = document.getElementById('current-collection').value;
+        if (!targetCollectionId) {
+            alert('Please select a collection first');
+            return;
+        }
+    }
+    
+    console.log('=== SAVING STORY TO COLLECTION ===', targetCollectionId);
     
     const story = {
         id: id,
@@ -484,18 +515,20 @@ function saveStory() {
     };
     
     // Ensure the collection and stories object exist
-    if (!window.storiesConfig.collections[currentEditingStory.collectionId]) {
-        console.error('Collection does not exist:', currentEditingStory.collectionId);
+    if (!window.storiesConfig.collections[targetCollectionId]) {
+        console.error('Collection does not exist:', targetCollectionId);
+        alert('Selected collection does not exist. Please refresh the page and try again.');
         return;
     }
     
-    if (!window.storiesConfig.collections[currentEditingStory.collectionId].stories) {
-        window.storiesConfig.collections[currentEditingStory.collectionId].stories = {};
+    if (!window.storiesConfig.collections[targetCollectionId].stories) {
+        window.storiesConfig.collections[targetCollectionId].stories = {};
     }
     
-    window.storiesConfig.collections[currentEditingStory.collectionId].stories[id] = story;
+    window.storiesConfig.collections[targetCollectionId].stories[id] = story;
     
     console.log('=== STORY SAVED ===', story);
+    console.log('=== SAVED TO COLLECTION ===', targetCollectionId);
     console.log('=== CURRENT CONFIG AFTER SAVE ===', window.storiesConfig);
     
     // Auto-save after every change
@@ -503,12 +536,12 @@ function saveStory() {
     
     // Update the collection selector to show the correct collection
     const collectionSelect = document.getElementById('current-collection');
-    collectionSelect.value = currentEditingStory.collectionId;
+    collectionSelect.value = targetCollectionId;
     
     closeStoryEditor();
     
     // Render the stories for the collection we just added to
-    renderStories(currentEditingStory.collectionId);
+    renderStories(targetCollectionId);
     
     console.log('=== STORY SAVED, UI UPDATED, AND AUTO-SAVED TO LOCALSTORAGE ===');
 }
