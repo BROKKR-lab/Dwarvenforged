@@ -468,6 +468,7 @@ window.storiesConfig = storiesConfig;`;
     alert('Configuration file generated and downloaded!');
 }
 
+// Fixed updateConfigFromForm function
 function updateConfigFromForm() {
     storiesConfig.site.title = document.getElementById('site-title').value;
     storiesConfig.site.subtitle = document.getElementById('site-subtitle').value;
