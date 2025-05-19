@@ -55,7 +55,7 @@ function initializeSetup() {
         // Check localStorage as fallback
         const savedConfig = localStorage.getItem('storiesConfig');
         if (savedConfig) {
-            storiesConfig = JSON.parse(savedConfig);
+            storiesConfig = JSON.parse(JSON.stringify(window.storiesConfig));
         }
         populateFormFields();
         renderCollections();
@@ -80,7 +80,7 @@ function loadExistingConfig() {
         script.src = '/stories/js/stories-config.js';
         script.onload = () => {
             if (window.storiesConfig) {
-                storiesConfig = window.storiesConfig;
+                storiesConfig = JSON.parse(JSON.stringify(window.storiesConfig));
                 console.log('Loaded existing config:', storiesConfig);
                 resolve(storiesConfig);
             } else {
@@ -154,7 +154,7 @@ function renderStories(collectionId) {
         return;
     }
     
-    const stories = storiesConfig.collections[collectionId].stories;
+    const stories = storiesConfig.collections[collectionId].stories || {};
     const storiesArray = Object.values(stories).sort((a, b) => (a.displayOrder || 999) - (b.displayOrder || 999));
     
     storiesArray.forEach(story => {
@@ -263,8 +263,8 @@ function openStoryEditor(collectionId = null, storyId = null) {
         document.getElementById('story-display-order').value = story.displayOrder || 1;
         document.getElementById('story-has-audio').checked = story.hasAudio || false;
         document.getElementById('story-is-new').checked = story.isNew || false;
-        document.getElementById('download-fantasy').checked = story.downloadOptions.includes('fantasy');
-        document.getElementById('download-audio').checked = story.downloadOptions.includes('audio');
+		document.getElementById('download-fantasy').checked = (story.downloadOptions || []).includes('fantasy');
+		document.getElementById('download-audio').checked = (story.downloadOptions || []).includes('audio');
         document.getElementById('story-id').disabled = true;
     } else {
         document.getElementById('story-id').value = '';
@@ -406,10 +406,10 @@ function generatePreviewHtml() {
         `;
         
         let storiesHtml = '';
-        const stories = Object.values(collection.stories).sort((a, b) => (a.displayOrder || 999) - (b.displayOrder || 999));
+        const stories = Object.values(collection.stories || {}).sort((a, b) => (a.displayOrder || 999) - (b.displayOrder || 999));
         
         stories.forEach(story => {
-            const downloadOptions = story.downloadOptions.map(option => {
+            const downloadOptions = (story.downloadOptions || []).map(option => {
                 const className = option === 'fantasy' ? 'download-option-fantasy' : 'download-option-audio';
                 const text = option === 'fantasy' ? 'Creative Fantasy' : 'DIGITAL EDITION';
                 return `<a href="${story.id}/index.html" class="${className}">${text}</a>`;
