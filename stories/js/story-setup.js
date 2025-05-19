@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('add-collection-btn').addEventListener('click', () => openCollectionEditor());
     document.getElementById('add-story-btn').addEventListener('click', () => openStoryEditor());
     document.getElementById('generate-btn').addEventListener('click', generateConfiguration);
-    document.getElementById('preview-btn').addEventListener('click', previewChanges);
     document.getElementById('save-btn').addEventListener('click', saveConfiguration);
     
     document.getElementById('close-story-editor').addEventListener('click', closeStoryEditor);
@@ -55,7 +54,11 @@ function initializeSetup() {
         // Check localStorage as fallback
         const savedConfig = localStorage.getItem('storiesConfig');
         if (savedConfig) {
-            storiesConfig = JSON.parse(JSON.stringify(window.storiesConfig));
+            try {
+                storiesConfig = JSON.parse(savedConfig);
+            } catch (e) {
+                console.warn('Failed to parse saved config:', e);
+            }
         }
         populateFormFields();
         renderCollections();
@@ -70,14 +73,14 @@ function loadExistingConfig() {
     return new Promise((resolve, reject) => {
         // First check if config is already loaded globally
         if (window.storiesConfig) {
-            storiesConfig = window.storiesConfig;
+            storiesConfig = JSON.parse(JSON.stringify(window.storiesConfig));
             resolve(storiesConfig);
             return;
         }
         
-        // Try to load from the config file
+        // Try to load from the config file on the actual website
         const script = document.createElement('script');
-        script.src = '/stories/js/stories-config.js';
+        script.src = 'https://www.dwarvenforged.com/stories/js/stories-config.js';
         script.onload = () => {
             if (window.storiesConfig) {
                 storiesConfig = JSON.parse(JSON.stringify(window.storiesConfig));
@@ -88,8 +91,20 @@ function loadExistingConfig() {
             }
         };
         script.onerror = () => {
-            console.log('No config file found at /stories/js/stories-config.js');
-            reject(new Error('Failed to load config script'));
+            console.log('No config file found at website URL, trying local fallback');
+            // Try local as fallback
+            const localScript = document.createElement('script');
+            localScript.src = '/stories/js/stories-config.js';
+            localScript.onload = () => {
+                if (window.storiesConfig) {
+                    storiesConfig = JSON.parse(JSON.stringify(window.storiesConfig));
+                    resolve(storiesConfig);
+                } else {
+                    reject(new Error('Config not found'));
+                }
+            };
+            localScript.onerror = () => reject(new Error('Failed to load config script'));
+            document.head.appendChild(localScript);
         };
         document.head.appendChild(script);
     });

@@ -64,6 +64,11 @@ function renderCollectionTabs(collections) {
     const tabsContainer = document.querySelector('.collection-tabs');
     tabsContainer.innerHTML = '';
     
+    if (!collections || Object.keys(collections).length === 0) {
+        tabsContainer.innerHTML = '<div class="loading">No collections available</div>';
+        return;
+    }
+    
     let isFirst = true;
     Object.values(collections).forEach(collection => {
         const button = document.createElement('button');
@@ -75,12 +80,10 @@ function renderCollectionTabs(collections) {
     });
 }
 
-function renderCollectionTabs(collections) {
-    const tabsContainer = document.querySelector('.collection-tabs');
-    tabsContainer.innerHTML = '';
+function renderCollectionContent(collections) {
+    const audioNote = document.querySelector('.audio-note');
     
     if (!collections || Object.keys(collections).length === 0) {
-        tabsContainer.innerHTML = '<div class="loading">No collections available</div>';
         return;
     }
     
