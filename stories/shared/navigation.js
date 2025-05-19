@@ -158,7 +158,7 @@ const navHTML = `
   // Master story data - same as before
   const masterStoryData = {
     collection1Order: ['0005', '0003', '0004', '0001', '0002', '0006', '0007', '0008', '0009', '0010', '0011', '0012'],
-    collection2Order: ['2001', '2002'],
+    collection2Order: ['2001', '2002', '2003'],
     
     collection1Stories: {
       '0001': { title: 'The Forge Root Flame', path: '/stories/story-0001/index.html' },
@@ -177,7 +177,8 @@ const navHTML = `
     
     collection2Stories: {
 	  '2001': { title: 'The Tattooed Seed', path: '/stories/story-2001/index.html' },
-	  '2002': { title: 'The Greenworld Envoys', path: '/stories/story-2002/index.html' }
+	  '2002': { title: 'The Greenworld Envoys', path: '/stories/story-2002/index.html' },
+	  '2003': { title: 'The Divine Harvest Contest', path: '/stories/story-2003/index.html' }
     }
   };
   
