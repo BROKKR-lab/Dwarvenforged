@@ -176,7 +176,8 @@ const navHTML = `
     },
     
     collection2Stories: {
-      '2001': { title: 'The Tattooed Seed', path: '/stories/story-2001/index.html' }
+	  '2001': { title: 'The Tattooed Seed', path: '/stories/story-2001/index.html' },
+	  '2002': { title: 'The Greenworld Envoys', path: '/stories/story-2002/index.html' }
     }
   };
   
