@@ -77,7 +77,7 @@ function loadExistingConfig() {
         
         // Try to load from the config file
         const script = document.createElement('script');
-        script.src = 'js/stories-config.js';
+        script.src = '/stories/js/stories-config.js';
         script.onload = () => {
             if (window.storiesConfig) {
                 storiesConfig = window.storiesConfig;
