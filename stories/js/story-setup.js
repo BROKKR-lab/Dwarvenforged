@@ -124,7 +124,12 @@ function setupEventListeners() {
     document.getElementById('add-collection-btn').addEventListener('click', () => openCollectionEditor());
     document.getElementById('add-story-btn').addEventListener('click', () => openStoryEditor());
     document.getElementById('generate-btn').addEventListener('click', generateConfiguration);
-    document.getElementById('save-btn').addEventListener('click', saveConfiguration);
+    
+    // Remove the separate save button since auto-save handles everything
+    const saveBtn = document.getElementById('save-btn');
+    if (saveBtn) {
+        saveBtn.remove();
+    }
     
     document.getElementById('close-story-editor').addEventListener('click', closeStoryEditor);
     document.getElementById('close-collection-editor').addEventListener('click', closeCollectionEditor);
@@ -137,6 +142,22 @@ function setupEventListeners() {
     document.getElementById('current-collection').addEventListener('change', function() {
         renderStories(this.value);
     });
+    
+    // Add auto-save listeners for form fields
+    const formFields = ['site-title', 'site-subtitle', 'site-description', 'site-logo', 'home-url', 'audio-note'];
+    formFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            field.addEventListener('input', autoSave);
+            field.addEventListener('change', autoSave);
+        }
+    });
+}
+
+function autoSave() {
+    updateConfigFromForm();
+    saveToLocalStorage();
+    console.log('=== AUTO-SAVED TO LOCALSTORAGE ===');
 }
 
 function populateFormFields() {
@@ -222,6 +243,7 @@ function populateCollectionSelector() {
         return;
     }
     
+    const currentValue = select.value;
     select.innerHTML = '';
     
     Object.values(window.storiesConfig.collections).forEach(collection => {
@@ -230,6 +252,11 @@ function populateCollectionSelector() {
         option.textContent = collection.title;
         select.appendChild(option);
     });
+    
+    // Restore the previously selected value if it still exists
+    if (currentValue && window.storiesConfig.collections[currentValue]) {
+        select.value = currentValue;
+    }
     
     console.log(`=== POPULATED SELECTOR WITH ${Object.keys(window.storiesConfig.collections).length} OPTIONS ===`);
 }
@@ -323,7 +350,10 @@ function saveCollection() {
     closeCollectionEditor();
     renderCollections();
     populateCollectionSelector();
+    
+    // Auto-save after every change
     saveToLocalStorage();
+    console.log('=== COLLECTION SAVED AND AUTO-SAVED TO LOCALSTORAGE ===');
 }
 
 function editCollection(collectionId) {
@@ -338,7 +368,9 @@ function deleteCollection(collectionId) {
         if (Object.keys(window.storiesConfig.collections).length > 0) {
             renderStories(Object.keys(window.storiesConfig.collections)[0]);
         }
+        // Auto-save after deletion
         saveToLocalStorage();
+        console.log('=== COLLECTION DELETED AND AUTO-SAVED TO LOCALSTORAGE ===');
     }
 }
 
@@ -347,10 +379,29 @@ function openStoryEditor(collectionId = null, storyId = null) {
     const modal = document.getElementById('story-editor-modal');
     const isEdit = storyId !== null;
     
+    if (!currentCollection) {
+        alert('Please select or create a collection first');
+        return;
+    }
+    
+    // Ensure the collection exists and has a stories object
+    if (!window.storiesConfig.collections[currentCollection]) {
+        console.error('Collection does not exist:', currentCollection);
+        return;
+    }
+    
+    if (!window.storiesConfig.collections[currentCollection].stories) {
+        window.storiesConfig.collections[currentCollection].stories = {};
+    }
+    
     currentEditingStory = { collectionId: currentCollection, storyId: storyId };
     
     if (isEdit) {
         const story = window.storiesConfig.collections[currentCollection].stories[storyId];
+        if (!story) {
+            console.error('Story not found:', storyId);
+            return;
+        }
         document.getElementById('story-id').value = story.id;
         document.getElementById('story-title').value = story.title;
         document.getElementById('story-sequence').value = story.sequence;
@@ -415,11 +466,27 @@ function saveStory() {
         downloadOptions: downloadOptions
     };
     
+    // Ensure the collection and stories object exist
+    if (!window.storiesConfig.collections[currentEditingStory.collectionId]) {
+        console.error('Collection does not exist:', currentEditingStory.collectionId);
+        return;
+    }
+    
+    if (!window.storiesConfig.collections[currentEditingStory.collectionId].stories) {
+        window.storiesConfig.collections[currentEditingStory.collectionId].stories = {};
+    }
+    
     window.storiesConfig.collections[currentEditingStory.collectionId].stories[id] = story;
+    
+    console.log('=== STORY SAVED ===', story);
+    console.log('=== CURRENT CONFIG AFTER SAVE ===', window.storiesConfig);
     
     closeStoryEditor();
     renderStories(currentEditingStory.collectionId);
+    
+    // Auto-save after every change
     saveToLocalStorage();
+    console.log('=== STORY SAVED AND AUTO-SAVED TO LOCALSTORAGE ===');
 }
 
 function editStory(collectionId, storyId) {
@@ -430,12 +497,19 @@ function deleteStory(collectionId, storyId) {
     if (confirm('Are you sure you want to delete this story?')) {
         delete window.storiesConfig.collections[collectionId].stories[storyId];
         renderStories(collectionId);
+        // Auto-save after deletion
         saveToLocalStorage();
+        console.log('=== STORY DELETED AND AUTO-SAVED TO LOCALSTORAGE ===');
     }
 }
 
 function saveToLocalStorage() {
-    localStorage.setItem('storiesConfig', JSON.stringify(window.storiesConfig));
+    try {
+        localStorage.setItem('storiesConfig', JSON.stringify(window.storiesConfig));
+        console.log('=== SAVED TO LOCALSTORAGE ===', window.storiesConfig);
+    } catch (error) {
+        console.error('=== ERROR SAVING TO LOCALSTORAGE ===', error);
+    }
 }
 
 function generateConfiguration() {
@@ -467,16 +541,14 @@ window.storiesConfig = storiesConfig;`;
 }
 
 function updateConfigFromForm() {
+    if (!window.storiesConfig.site) {
+        window.storiesConfig.site = {};
+    }
+    
     window.storiesConfig.site.title = document.getElementById('site-title').value;
     window.storiesConfig.site.subtitle = document.getElementById('site-subtitle').value;
     window.storiesConfig.site.description = document.getElementById('site-description').value;
     window.storiesConfig.site.logoUrl = document.getElementById('site-logo').value;
     window.storiesConfig.site.homeUrl = document.getElementById('home-url').value;
     window.storiesConfig.site.audioNote = document.getElementById('audio-note').value;
-}
-
-function saveConfiguration() {
-    updateConfigFromForm();
-    saveToLocalStorage();
-    alert('Configuration saved to browser storage!');
 }
