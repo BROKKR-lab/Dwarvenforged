@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-let storiesConfig = {
+var storiesConfig = {
     site: {
         title: "",
         subtitle: "",
