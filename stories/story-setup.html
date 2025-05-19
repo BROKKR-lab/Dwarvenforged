@@ -223,6 +223,17 @@
             border-radius: 10px;
             background: var(--background-color);
         }
+
+        .auto-save-note {
+            text-align: center;
+            color: var(--secondary-color);
+            font-style: italic;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(139, 69, 19, 0.1);
+            border-radius: 5px;
+            border: 1px solid var(--tertiary-color);
+        }
     </style>
 </head>
 <body>
@@ -230,6 +241,9 @@
         <header>
             <h1>Story Configuration Tool</h1>
             <p>Manage your story collections and metadata</p>
+            <div class="auto-save-note">
+                ✨ All changes are automatically saved to browser storage. Use "Generate Configuration" to download your file.
+            </div>
         </header>
         
         <div class="config-container">
@@ -292,9 +306,7 @@
         </div>
         
         <div class="button-group">
-            <button class="btn btn-primary" id="generate-btn">Generate Configuration</button>
-            <button class="btn btn-primary" id="preview-btn">Preview Changes</button>
-            <button class="btn btn-primary" id="save-btn">Save Configuration</button>
+            <button class="btn btn-primary" id="generate-btn">Generate Configuration File</button>
         </div>
         
         <div id="story-editor-modal" class="modal">
