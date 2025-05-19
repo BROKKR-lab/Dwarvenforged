@@ -224,7 +224,7 @@ const storiesConfig = {
                     "title": "The Divine Harvest Contest",
                     "sequence": "Collection II - Part 3",
                     "description": "When Asgard's sacred stores of sweetleaf herb run dangerously low, Odin calls for the Great Cultivation Contest - a legendary competition where master growers from across the Nine Realms compete to restock the gods' private reserves. Brokkr enters the contest not just to prove his seedcraft mastery, but to demonstrate that his hybrid techniques can produce varieties beyond anything the realms have seen. Facing off against Vanir nature-witches, Alfheim botanical experts, and mysterious competitors from distant corners of the cosmos, Brokkr must craft the perfect sweetleaf - one that carries not just potency, but the very essence of divine inspiration. The winner will earn the honor of becoming the official Royal Cultivator to the Aesir, and their strain will be preserved in Odin's personal garden for eternity.",
-                    "image": "/story-2003/DivineHarvestContest.jpg",
+                    "image": "story-2003/DivineHarvestContest.jpg",
                     "displayOrder": 3,
                     "hasAudio": true,
                     "isNew": true,
