@@ -78,9 +78,9 @@ function loadExistingConfig() {
             return;
         }
         
-        // Try to load from the config file on the actual website
+        // Try to load the same config file that the main site uses
         const script = document.createElement('script');
-        script.src = 'https://www.dwarvenforged.com/stories/js/stories-config.js';
+        script.src = '/stories/js/stories-config.js';
         script.onload = () => {
             if (window.storiesConfig) {
                 storiesConfig = JSON.parse(JSON.stringify(window.storiesConfig));
@@ -91,20 +91,8 @@ function loadExistingConfig() {
             }
         };
         script.onerror = () => {
-            console.log('No config file found at website URL, trying local fallback');
-            // Try local as fallback
-            const localScript = document.createElement('script');
-            localScript.src = '/stories/js/stories-config.js';
-            localScript.onload = () => {
-                if (window.storiesConfig) {
-                    storiesConfig = JSON.parse(JSON.stringify(window.storiesConfig));
-                    resolve(storiesConfig);
-                } else {
-                    reject(new Error('Config not found'));
-                }
-            };
-            localScript.onerror = () => reject(new Error('Failed to load config script'));
-            document.head.appendChild(localScript);
+            console.log('Failed to load config from /stories/js/stories-config.js');
+            reject(new Error('Failed to load config script'));
         };
         document.head.appendChild(script);
     });
