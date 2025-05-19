@@ -42,17 +42,57 @@ let currentEditingStory = null;
 let currentEditingCollection = null;
 
 function initializeSetup() {
-    const savedConfig = localStorage.getItem('storiesConfig');
-    if (savedConfig) {
-        storiesConfig = JSON.parse(savedConfig);
-    }
-    
-    populateFormFields();
-    renderCollections();
-    populateCollectionSelector();
-    if (Object.keys(storiesConfig.collections).length > 0) {
-        renderStories(Object.keys(storiesConfig.collections)[0]);
-    }
+    // Try to load existing config first
+    loadExistingConfig().then(() => {
+        populateFormFields();
+        renderCollections();
+        populateCollectionSelector();
+        if (Object.keys(storiesConfig.collections).length > 0) {
+            renderStories(Object.keys(storiesConfig.collections)[0]);
+        }
+    }).catch(error => {
+        console.log('No existing config found, starting fresh');
+        // Check localStorage as fallback
+        const savedConfig = localStorage.getItem('storiesConfig');
+        if (savedConfig) {
+            storiesConfig = JSON.parse(savedConfig);
+        }
+        populateFormFields();
+        renderCollections();
+        populateCollectionSelector();
+        if (Object.keys(storiesConfig.collections).length > 0) {
+            renderStories(Object.keys(storiesConfig.collections)[0]);
+        }
+    });
+}
+
+function loadExistingConfig() {
+    return new Promise((resolve, reject) => {
+        // First check if config is already loaded globally
+        if (window.storiesConfig) {
+            storiesConfig = window.storiesConfig;
+            resolve(storiesConfig);
+            return;
+        }
+        
+        // Try to load from the config file
+        const script = document.createElement('script');
+        script.src = 'js/stories-config.js';
+        script.onload = () => {
+            if (window.storiesConfig) {
+                storiesConfig = window.storiesConfig;
+                console.log('Loaded existing config:', storiesConfig);
+                resolve(storiesConfig);
+            } else {
+                reject(new Error('Config not found after loading script'));
+            }
+        };
+        script.onerror = () => {
+            console.log('No config file found at js/stories-config.js');
+            reject(new Error('Failed to load config script'));
+        };
+        document.head.appendChild(script);
+    });
 }
 
 function populateFormFields() {
