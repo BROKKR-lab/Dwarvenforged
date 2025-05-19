@@ -30,9 +30,18 @@ function loadConfiguration() {
     script.src = '/stories/js/stories-config.js';
     script.onload = function() {
         console.log('=== CONFIG SCRIPT LOADED ===');
+        console.log('=== WINDOW.STORIESCONFIG IMMEDIATELY AFTER LOAD ===', window.storiesConfig);
+        
         if (window.storiesConfig) {
-            console.log('=== CONFIG FOUND ===', window.storiesConfig);
-            populateEverything();
+            console.log('=== CONFIG FOUND ===');
+            console.log('=== SITE TITLE ===', window.storiesConfig.site?.title);
+            console.log('=== SITE SUBTITLE ===', window.storiesConfig.site?.subtitle);
+            console.log('=== COLLECTIONS ===', Object.keys(window.storiesConfig.collections || {}));
+            
+            // Wait a bit more to ensure everything is fully loaded
+            setTimeout(() => {
+                populateEverything();
+            }, 50);
         } else {
             console.error('=== NO CONFIG IN WINDOW ===');
             // Initialize with empty config
@@ -115,26 +124,41 @@ function setupEventListeners() {
 }
 
 function populateFormFields() {
-    console.log('=== POPULATING FORM FIELDS ===', window.storiesConfig.site);
+    console.log('=== POPULATING FORM FIELDS ===');
+    console.log('=== FULL CONFIG ===', window.storiesConfig);
+    console.log('=== SITE CONFIG ===', window.storiesConfig.site);
     
-    const fields = [
-        { id: 'site-title', value: window.storiesConfig.site.title || '' },
-        { id: 'site-subtitle', value: window.storiesConfig.site.subtitle || '' },
-        { id: 'site-description', value: window.storiesConfig.site.description || '' },
-        { id: 'site-logo', value: window.storiesConfig.site.logoUrl || '' },
-        { id: 'home-url', value: window.storiesConfig.site.homeUrl || '' },
-        { id: 'audio-note', value: window.storiesConfig.site.audioNote || '' }
-    ];
-    
-    fields.forEach(field => {
-        const element = document.getElementById(field.id);
-        if (element) {
-            element.value = field.value;
-            console.log(`Set ${field.id} to: ${field.value}`);
-        } else {
-            console.error(`Element ${field.id} not found`);
-        }
-    });
+    // Use setTimeout to ensure the DOM elements are ready and the config is fully loaded
+    setTimeout(() => {
+        const fields = [
+            { id: 'site-title', value: window.storiesConfig.site.title || '' },
+            { id: 'site-subtitle', value: window.storiesConfig.site.subtitle || '' },
+            { id: 'site-description', value: window.storiesConfig.site.description || '' },
+            { id: 'site-logo', value: window.storiesConfig.site.logoUrl || '' },
+            { id: 'home-url', value: window.storiesConfig.site.homeUrl || '' },
+            { id: 'audio-note', value: window.storiesConfig.site.audioNote || '' }
+        ];
+        
+        console.log('=== FIELD VALUES TO SET ===', fields);
+        
+        fields.forEach(field => {
+            const element = document.getElementById(field.id);
+            if (element) {
+                element.value = field.value;
+                console.log(`Set ${field.id} to: "${field.value}"`);
+            } else {
+                console.error(`Element ${field.id} not found`);
+            }
+        });
+        
+        // Force a visual update
+        fields.forEach(field => {
+            const element = document.getElementById(field.id);
+            if (element) {
+                element.dispatchEvent(new Event('change'));
+            }
+        });
+    }, 100);
 }
 
 function switchTab(tabId) {
