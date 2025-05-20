@@ -244,20 +244,38 @@ const navHTML = `
     collection1Order: ['0005', '0003', '0004', '0001', '0002', '0006', '0007', '0008', '0009', '0010', '0011', '0012'],
     collection2Order: ['2001', '2002', '2003', '2004', '2005'],
     
-    collection1Stories: {
-      '0001': { title: 'The Forge Root Flame', path: '/stories/story-0001/index.html' },
-      '0002': { title: 'Daughter of the Forge', path: '/stories/story-0002/index.html' },
-      '0003': { title: 'The Forge Trial', path: '/stories/story-0003/index.html' },
-      '0004': { title: 'The Forge Council', path: '/stories/story-0004/index.html' },
-      '0005': { title: 'The Forge Wager', path: '/stories/story-0005/index.html' },
-      '0006': { title: 'The Forge Journey', path: '/stories/story-0006/index.html' },
-      '0007': { title: 'The Forge Detail', path: '/stories/story-0007/index.html' },
-      '0008': { title: 'The Forge Chronicle', path: '/stories/story-0008/index.html' },
-      '0009': { title: 'The Forge Reunion', path: '/stories/story-0009/index.html' },
-      '0010': { title: 'The Forge Bond', path: '/stories/story-0010/index.html' },
-      '0011': { title: 'The Phoenix Flame', path: '/stories/story-0011/index.html' },
-      '0012': { title: 'The Forge Memory', path: '/stories/story-0012/index.html' }
-    },
+	collection1Stories: {
+	  '0001': { title: 'The Forge Root Flame', path: '/stories/story-0001/index.html' },
+	  '0002': { title: 'Daughter of the Forge', path: '/stories/story-0002/index.html' },
+	  '0003': { title: 'The Forge Trial', path: '/stories/story-0003/index.html' },
+	  '0004': { title: 'The Forge Council', path: '/stories/story-0004/index.html' },
+	  '0005': { title: 'The Forge Wager', path: '/stories/story-0005/index.html' },
+	  '0006': { title: 'The Forge Journey', path: '/stories/story-0006/index.html' },
+	  '0007': { title: 'The Forge Detail', path: '/stories/story-0007/index.html' },
+	  '0008': { 
+		title: 'The Forge Chronicle', 
+		path: '/stories/story-0008/index.html',
+		partner: {
+		  name: 'StrainNavigator',
+		  image: 'https://www.dwarvenforged.com/stories/story-0008/StrainNavigator_Logo.jpg',
+		  link: 'https://strainnavigator.com',
+		  tagline: 'Your ultimate cannabis growing assistant and strain tracking tools'
+		}
+	  },
+	  '0009': { title: 'The Forge Reunion', path: '/stories/story-0009/index.html' },
+	  '0010': { title: 'The Forge Bond', path: '/stories/story-0010/index.html' },
+	  '0011': { title: 'The Phoenix Flame', path: '/stories/story-0011/index.html' },
+	  '0012': { 
+		title: 'The Forge Memory', 
+		path: '/stories/story-0012/index.html',
+		partner: {
+		  name: 'AI-Ministries',
+		  image: 'https://www.dwarvenforged.com/stories/story-0012/AI_Ministries_Logo.jpg',
+		  link: 'https://ai-ministries.com',
+		  tagline: 'Exploring the intersection of AI, writing, and creativity'
+		}
+	  }
+	},
     
     collection2Stories: {
       '2001': { title: 'The Tattooed Seed', path: '/stories/story-2001/index.html' },
