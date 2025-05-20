@@ -41,14 +41,8 @@ const navHTML = `
       </div>
     </div>
   </nav>
-`;
   
-  // Insert navigation
-  navPlaceholder.innerHTML = navHTML;
-  
-  // Add CSS for the enhanced dropdown and partner badges
-  const style = document.createElement('style');
-  style.textContent = `
+  <style>
     .collection-selector {
       padding: 0;
     }
@@ -165,72 +159,79 @@ const navHTML = `
       font-weight: bold;
     }
     
-    .partner-info {
-      position: absolute;
-      right: 35px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: white;
-      border: 1px solid #d4c4a8;
-      border-radius: 8px;
-      padding: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 1000;
-      width: 280px;
-      pointer-events: none;
-    }
-    
-    .story-item:hover .partner-info {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
+    .story-partner-attribution {
+      margin: 3rem 0 2rem 0;
+      padding: 2rem;
+      background: linear-gradient(135deg, #f8f2e9, #f0e8db);
+      border: 2px solid #d4c4a8;
+      border-radius: 12px;
+      text-align: center;
     }
     
     .partner-content {
       display: flex;
       align-items: center;
-      gap: 12px;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
     }
     
-    .partner-logo {
-      width: 40px;
-      height: 40px;
+    .story-partner-attribution .partner-logo {
+      max-width: 200px;
+      max-height: 100px;
       object-fit: contain;
-      border-radius: 4px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(139, 69, 19, 0.2);
     }
     
-    .partner-text h4 {
-      margin: 0 0 4px 0;
+    .story-partner-attribution .partner-text {
+      flex: 1;
+      min-width: 250px;
+      text-align: left;
+    }
+    
+    .story-partner-attribution h4 {
+      font-size: 1.1rem;
       color: #8B4513;
-      font-size: 14px;
+      margin: 0 0 0.5rem 0;
+      font-style: italic;
     }
     
-    .partner-text p {
-      margin: 0 0 8px 0;
+    .story-partner-attribution p {
       color: #5D4037;
-      font-size: 12px;
-      line-height: 1.3;
+      margin: 0 0 1rem 0;
+      font-size: 0.95rem;
     }
     
-    .partner-link {
+    .story-partner-attribution .partner-link {
       display: inline-block;
-      padding: 4px 8px;
-      background: #A0522D;
-      color: white !important;
+      padding: 8px 16px;
+      background-color: #A0522D;
+      color: white;
       text-decoration: none;
-      border-radius: 4px;
-      font-size: 11px;
-      transition: background 0.3s ease;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
     }
     
-    .partner-link:hover {
-      background: #8B4513;
+    .story-partner-attribution .partner-link:hover {
+      background-color: #8B4513;
     }
-  `;
-  document.head.appendChild(style);
+    
+    @media (max-width: 768px) {
+      .partner-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      .story-partner-attribution .partner-text {
+        text-align: center;
+      }
+    }
+  </style>
+`;
+
+  // Insert navigation
+  navPlaceholder.innerHTML = navHTML;
   
   // Get dropdown elements
   const storiesDropdown = document.getElementById('stories-dropdown');
@@ -329,27 +330,12 @@ const navHTML = `
         const isCurrentStory = currentPath.includes(`/story-${storyId}/`);
         const currentClass = isCurrentStory ? ' style="background-color: #f8f2e9; font-weight: bold;"' : '';
         
-        // Partner badge and info
+        // Partner badge only (no popup)
         let partnerHTML = '';
         if (story.partner) {
-          let partnerImagePath = story.partner.image;
-          // Don't adjust partner image paths since they're full URLs
-          
-          partnerHTML = `
-            <div class="partner-badge" title="Inspired by ${story.partner.name}">★</div>
-            <div class="partner-info">
-              <div class="partner-content">
-                <img src="${partnerImagePath}" alt="${story.partner.name}" class="partner-logo">
-                <div class="partner-text">
-                  <h4>Inspired by ${story.partner.name}</h4>
-                  <p>${story.partner.tagline}</p>
-                  <a href="${story.partner.link}" target="_blank" class="partner-link">Visit ${story.partner.name}</a>
-                </div>
-              </div>
-            </div>
-          `;
+          partnerHTML = `<div class="partner-badge" title="Inspired by ${story.partner.name}">★</div>`;
         }
-        
+
         storiesHTML += `
           <a href="${path}">
             <div class="story-item"${currentClass}>
@@ -386,7 +372,7 @@ const navHTML = `
     updateStoryNavigation(currentPath);
   }
   
-  // Navigation function (same logic as before but simplified)
+  // Navigation function
   function updateStoryNavigation(currentPath) {
     const seriesNav = document.querySelector('.series-navigation');
     if (!seriesNav) return;
@@ -444,4 +430,51 @@ const navHTML = `
       }
     }
   }
+  
+  // Display partner attribution on story pages
+  function displayPartnerAttribution() {
+    const currentPath = window.location.pathname;
+    const storyMatch = currentPath.match(/story-(\d{4})/);
+    if (!storyMatch) return;
+    
+    const currentStoryId = storyMatch[1];
+    let story = null;
+    
+    // Find the story and its partner info
+    if (masterStoryData.collection1Stories[currentStoryId]) {
+      story = masterStoryData.collection1Stories[currentStoryId];
+    } else if (masterStoryData.collection2Stories[currentStoryId]) {
+      story = masterStoryData.collection2Stories[currentStoryId];
+    }
+    
+    // If story has partner info, display it
+    if (story && story.partner) {
+      const partnerHTML = `
+        <div class="story-partner-attribution">
+          <div class="partner-content">
+            <img src="${story.partner.image}" alt="${story.partner.name}" class="partner-logo">
+            <div class="partner-text">
+              <h4>Inspired by ${story.partner.name}</h4>
+              <p>${story.partner.tagline}</p>
+              <a href="${story.partner.link}" target="_blank" class="partner-link">Visit ${story.partner.name} →</a>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // Insert before the series navigation
+      const seriesNav = document.querySelector('.series-navigation');
+      if (seriesNav) {
+        seriesNav.insertAdjacentHTML('beforebegin', partnerHTML);
+      } else {
+        const contentContainer = document.querySelector('.content-container');
+        if (contentContainer) {
+          contentContainer.insertAdjacentHTML('beforeend', partnerHTML);
+        }
+      }
+    }
+  }
+  
+  // Call the partner attribution function
+  displayPartnerAttribution();
 });
