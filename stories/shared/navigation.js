@@ -1,4 +1,4 @@
-// Updated navigation.js with two-level dropdown for collections
+// Updated navigation.js with two-level dropdown for collections and partner support
 document.addEventListener('DOMContentLoaded', function() {
   const navPlaceholder = document.getElementById('nav-placeholder');
   
@@ -46,7 +46,7 @@ const navHTML = `
   // Insert navigation
   navPlaceholder.innerHTML = navHTML;
   
-  // Add CSS for the enhanced dropdown
+  // Add CSS for the enhanced dropdown and partner badges
   const style = document.createElement('style');
   style.textContent = `
     .collection-selector {
@@ -120,6 +120,7 @@ const navHTML = `
       text-decoration: none;
       border-bottom: 1px solid #f0e8db;
       transition: background-color 0.2s ease;
+      position: relative;
     }
     
     .story-item:hover {
@@ -146,6 +147,88 @@ const navHTML = `
     .dropdown-content a:hover {
       color: inherit;
     }
+    
+    .partner-badge {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      background: #A0522D;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: white;
+      font-weight: bold;
+    }
+    
+    .partner-info {
+      position: absolute;
+      right: 35px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: white;
+      border: 1px solid #d4c4a8;
+      border-radius: 8px;
+      padding: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      width: 280px;
+      pointer-events: none;
+    }
+    
+    .story-item:hover .partner-info {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    
+    .partner-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .partner-logo {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+    
+    .partner-text h4 {
+      margin: 0 0 4px 0;
+      color: #8B4513;
+      font-size: 14px;
+    }
+    
+    .partner-text p {
+      margin: 0 0 8px 0;
+      color: #5D4037;
+      font-size: 12px;
+      line-height: 1.3;
+    }
+    
+    .partner-link {
+      display: inline-block;
+      padding: 4px 8px;
+      background: #A0522D;
+      color: white !important;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 11px;
+      transition: background 0.3s ease;
+    }
+    
+    .partner-link:hover {
+      background: #8B4513;
+    }
   `;
   document.head.appendChild(style);
   
@@ -155,7 +238,7 @@ const navHTML = `
   const collection1Stories = document.getElementById('collection1-stories');
   const collection2Stories = document.getElementById('collection2-stories');
   
-  // Master story data - same as before
+  // Master story data with partner information
   const masterStoryData = {
     collection1Order: ['0005', '0003', '0004', '0001', '0002', '0006', '0007', '0008', '0009', '0010', '0011', '0012'],
     collection2Order: ['2001', '2002', '2003', '2004', '2005'],
@@ -176,11 +259,29 @@ const navHTML = `
     },
     
     collection2Stories: {
-	  '2001': { title: 'The Tattooed Seed', path: '/stories/story-2001/index.html' },
-	  '2002': { title: 'The Greenworld Envoys', path: '/stories/story-2002/index.html' },
-	  '2003': { title: 'The Divine Harvest Contest', path: '/stories/story-2003/index.html' },
-	  '2004': { title: 'The Spore Awakening', path: '/stories/story-2004/index.html' },
-	  '2005': { title: 'The Knoppr-Haeli Partnership', path: '/stories/story-2005/index.html' }
+      '2001': { title: 'The Tattooed Seed', path: '/stories/story-2001/index.html' },
+      '2002': { 
+        title: 'The Greenworld Envoys', 
+        path: '/stories/story-2002/index.html',
+        partner: {
+          name: 'GreenWrld',
+          image: 'https://www.dwarvenforged.com/stories/story-2002/GreenWrld_Logo.jpg',
+          link: 'https://greenwrldexclusive.com',
+          tagline: 'Growing green solutions across realms'
+        }
+      },
+      '2003': { title: 'The Divine Harvest Contest', path: '/stories/story-2003/index.html' },
+      '2004': { title: 'The Spore Awakening', path: '/stories/story-2004/index.html' },
+      '2005': { 
+        title: 'The Knoppr-Haeli Partnership', 
+        path: '/stories/story-2005/index.html',
+        partner: {
+          name: 'Gambit Growing',
+          image: 'https://www.dwarvenforged.com/stories/story-2005/Gambit_Flag.jpg',
+          link: 'https://gambitgrowing.com',
+          tagline: 'Innovative cultivation solutions for every realm'
+        }
+      }
     }
   };
   
@@ -228,11 +329,33 @@ const navHTML = `
         const isCurrentStory = currentPath.includes(`/story-${storyId}/`);
         const currentClass = isCurrentStory ? ' style="background-color: #f8f2e9; font-weight: bold;"' : '';
         
+        // Partner badge and info
+        let partnerHTML = '';
+        if (story.partner) {
+          let partnerImagePath = story.partner.image;
+          // Don't adjust partner image paths since they're full URLs
+          
+          partnerHTML = `
+            <div class="partner-badge" title="Inspired by ${story.partner.name}">★</div>
+            <div class="partner-info">
+              <div class="partner-content">
+                <img src="${partnerImagePath}" alt="${story.partner.name}" class="partner-logo">
+                <div class="partner-text">
+                  <h4>Inspired by ${story.partner.name}</h4>
+                  <p>${story.partner.tagline}</p>
+                  <a href="${story.partner.link}" target="_blank" class="partner-link">Visit ${story.partner.name}</a>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+        
         storiesHTML += `
           <a href="${path}">
             <div class="story-item"${currentClass}>
               <span class="story-number">${displayNumber}</span>
               ${story.title}
+              ${partnerHTML}
             </div>
           </a>
         `;
