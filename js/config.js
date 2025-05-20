@@ -624,22 +624,22 @@
             },
             "product-1747018323542": {
                 "id": "product-1747018323542",
-                "name": "Forge Pickles",
+                "name": "Forged Pickles",
                 "type": "Crafted Genetics",
                 "status": "available",
                 "delivery": "physical",
                 "digitalContent": "",
-                "image": "/img/strains/ForgePickles-logo.jpg",
+                "image": "/img/strains/ForgedPickles-logo.jpg",
                 "additionalImages": [
-                    "/img/strains/ForgePickles-detail1.jpg",
-                    "/img/strains/ForgePickles-detail2.jpg"
+                    "/img/strains/ForgedPickles-detail1.jpg",
+                    "/img/strains/ForgedPickles-detail2.jpg"
                 ],
-                "description": "Forge Pickles",
+                "description": "Forged Pickles",
                 "variety": "Premium",
                 "rating": "4.8/5",
                 "origin": "Svartalfheim",
                 "rarity": "Rare",
-                "details": "Forge Pickles",
+                "details": "Forged Pickles",
                 "notes": "In Old Norse literature, the home of the dwarves is called either Nidavellir (pronounced “NID-uh-vell-ir;” Old Norse Niðavellir, “Low Fields” or “Dark Fields”) or Svartalfheim (pronounced “SVART-alf-hame;” Old Norse Svartálfaheimr, “Homeland of the Black Elves”).",
                 "packOptions": [
                     {
@@ -649,7 +649,7 @@
                     }
                 ],
                 "enableHoverImage": true,
-                "hoverImage": "/img/strains/ForgePickles-detail2.jpg",
+                "hoverImage": "",
                 "hidden": false,
                 "displayOrder": 14
             },
