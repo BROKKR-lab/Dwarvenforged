@@ -242,7 +242,7 @@ const navHTML = `
   // Master story data with partner information
   const masterStoryData = {
     collection1Order: ['0005', '0003', '0004', '0001', '0002', '0006', '0007', '0008', '0009', '0010', '0011', '0012'],
-    collection2Order: ['2001', '2002', '2003', '2004', '2005'],
+    collection2Order: ['2001', '2002', '2003', '2004', '2005', '2006'],
     
 	collection1Stories: {
 	  '0001': { title: 'The Forge Root Flame', path: '/stories/story-0001/index.html' },
@@ -277,31 +277,41 @@ const navHTML = `
 	  }
 	},
     
-    collection2Stories: {
-      '2001': { title: 'The Tattooed Seed', path: '/stories/story-2001/index.html' },
-      '2002': { 
-        title: 'The Greenworld Envoys', 
-        path: '/stories/story-2002/index.html',
-        partner: {
-          name: 'GreenWrld',
-          image: 'https://www.dwarvenforged.com/stories/story-2002/GreenWrld_Logo.jpg',
-          link: 'https://greenwrldexclusive.com',
-          tagline: 'Growing green solutions across realms'
-        }
-      },
-      '2003': { title: 'The Divine Harvest Contest', path: '/stories/story-2003/index.html' },
-      '2004': { title: 'The Spore Awakening', path: '/stories/story-2004/index.html' },
-      '2005': { 
-        title: 'The Knoppr-Haeli Partnership', 
-        path: '/stories/story-2005/index.html',
-        partner: {
-          name: 'Gambit Growing',
-          image: 'https://www.dwarvenforged.com/stories/story-2005/Gambit_Flag.jpg',
-          link: 'https://gambitgrowing.com',
-          tagline: 'Innovative cultivation solutions for every realm'
-        }
-      }
-    }
+	collection2Stories: {
+	  '2001': { title: 'The Tattooed Seed', path: '/stories/story-2001/index.html' },
+	  '2002': { 
+		title: 'The Greenworld Envoys', 
+		path: '/stories/story-2002/index.html',
+		partner: {
+		  name: 'GreenWrld',
+		  image: 'https://www.dwarvenforged.com/stories/story-2002/GreenWrld_Logo.jpg',
+		  link: 'https://greenwrldexclusive.com',
+		  tagline: 'Growing green solutions across realms'
+		}
+	  },
+	  '2003': { title: 'The Divine Harvest Contest', path: '/stories/story-2003/index.html' },
+	  '2004': { title: 'The Spore Awakening', path: '/stories/story-2004/index.html' },
+	  '2005': { 
+		title: 'The Knoppr-Haeli Partnership', 
+		path: '/stories/story-2005/index.html',
+		partner: {
+		  name: 'Gambit Growing',
+		  image: 'https://www.dwarvenforged.com/stories/story-2005/Gambit_Flag.jpg',
+		  link: 'https://gambitgrowing.com',
+		  tagline: 'Innovative cultivation solutions for every realm'
+		}
+	  },
+	  '2006': { 
+		title: 'The Healing Grove', 
+		path: '/stories/story-2006/index.html',
+		partner: {
+		  name: 'Tóke\'s Recovery',
+		  image: 'https://www.dwarvenforged.com/stories/story-2006/Tokes_Recovery_Logo.jpg',
+		  link: '#', // You can update this when/if they want the link active
+		  tagline: 'Supporting healing journeys with community and understanding'
+		}
+	  }
+	}
   };
   
   // Add click handlers for navigation
