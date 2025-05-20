@@ -246,6 +246,20 @@ const storiesConfig = {
                         "fantasy",
                         "audio"
                     ]
+                },
+                "story-2005": {
+                    "id": "story-2005",
+                    "title": "The Knoppr-Haeli Partnership",
+                    "sequence": "Collection II - Part 5",
+                    "description": "When growing demands across the Nine Realms outpace available natural spaces, Brokkr receives word of an innovative craftsman in Svartalfheim who has developed revolutionary cultivation chambers called \"Knoppr-Haeli\" (Bud Bunkers). Seeking to expand cultivation possibilities beyond traditional gardens, Brokkr journeys to his homeland to meet Gambit, a non-grower whose engineering genius has created tents woven from enchanted threads and illuminated by crystal matrices. Together, they forge a partnership that revolutionizes how sweetleaf, fireweed, mushrooms, and medicinal herbs can be cultivated in controlled environments throughout the realms, opening new possibilities for growers operating in challenging conditions from Jotunheim's ice fields to Alfheim's crystal caves.",
+                    "image": "story-2005/KnopprHaeliPartnership.jpg",
+                    "displayOrder": 5,
+                    "hasAudio": true,
+                    "isNew": true,
+                    "downloadOptions": [
+                        "fantasy",
+                        "audio"
+                    ]
                 }
             }
         }
