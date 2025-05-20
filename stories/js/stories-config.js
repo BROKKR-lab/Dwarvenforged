@@ -260,6 +260,20 @@ const storiesConfig = {
                         "fantasy",
                         "audio"
                     ]
+                },
+                "story-2006": {
+                    "id": "story-2006",
+                    "title": "The Healing Grove",
+                    "sequence": "Collection II - Part 6",
+                    "description": "When Brokkr encounters Tóke, a former warrior who chose healing herbs over destructive battle-mead, he discovers a community of individuals seeking recovery through natural means. Facing prejudice from those who misunderstand their journey, Brokkr helps establish a sanctuary where his medicinal strains provide genuine healing and hope. Through Tóke's leadership and Brokkr's cultivation expertise, they create a place that proves that choosing wellness over oblivion is a sign of strength, not weakness - challenging ancient stigmas and opening minds to the true nature of recovery and renewal.",
+                    "image": "story-2006/HealingGrove.jpg",
+                    "displayOrder": 6,
+                    "hasAudio": true,
+                    "isNew": true,
+                    "downloadOptions": [
+                        "fantasy",
+                        "audio"
+                    ]
                 }
             }
         }
