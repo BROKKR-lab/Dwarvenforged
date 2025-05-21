@@ -242,7 +242,7 @@ const navHTML = `
   // Master story data with partner information
   const masterStoryData = {
     collection1Order: ['0005', '0003', '0004', '0001', '0002', '0006', '0007', '0008', '0009', '0010', '0011', '0012'],
-    collection2Order: ['2001', '2002', '2003', '2004', '2005', '2006'],
+    collection2Order: ['2001', '2002', '2003', '2004', '2005', '2006', '2007'],
     
 	collection1Stories: {
 	  '0001': { title: 'The Forge Root Flame', path: '/stories/story-0001/index.html' },
@@ -310,7 +310,19 @@ const navHTML = `
 		  link: '#', // You can update this when/if they want the link active
 		  tagline: 'Supporting healing journeys with community and understanding'
 		}
-	  }
+	  },
+	  
+	  '2007': { 
+		title: 'Athena\'s Wisdom: The Balance of Growth', 
+		path: '/stories/story-2007/index.html',
+		partner: {
+		  name: 'Athena Nutrients',
+		  image: 'https://www.dwarvenforged.com/stories/story-2007/Athena_Nutrients_Logo.jpg',
+		  link: 'https://www.athenanutrientsusa.com',
+		  tagline: 'Perfect balance for professional results'
+		}
+	  }	  
+	  
 	}
   };
   
