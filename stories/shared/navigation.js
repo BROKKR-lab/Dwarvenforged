@@ -318,7 +318,7 @@ const navHTML = `
 		partner: {
 		  name: 'Athena Nutrients',
 		  image: 'https://www.dwarvenforged.com/stories/story-2007/Athena_Nutrients_Logo.jpg',
-		  link: 'https://www.athenanutrientsusa.com',
+		  link: 'https://www.athenaag.com/',
 		  tagline: 'Perfect balance for professional results'
 		}
 	  }	  
