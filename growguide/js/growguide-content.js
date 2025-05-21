@@ -5,7 +5,7 @@ const contentData = {
     // Introduction Section
     "intro": `
         <div class="content-header">
-            <img src="https://www.sitepackages.net/PUB/DWARVENFORGED/growguide/img/growing-guide.jpg" alt="Dwarven Forged Grow Guide" class="hero-image">
+            <img src="https://www.dwarvenforged.com/growguide/img/growing-guide.jpg" alt="Dwarven Forged Grow Guide" class="hero-image">
             <h1>DWARVEN FORGED MASTER GROW GUIDE</h1>
             <div class="subtitle">DIGITAL EDITION</div>
         </div>
