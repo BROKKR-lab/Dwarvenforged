@@ -307,7 +307,7 @@ const navHTML = `
 		partner: {
 		  name: 'Tóke\'s Recovery',
 		  image: 'https://www.dwarvenforged.com/stories/story-2006/Tokes_Recovery_Logo.jpg',
-		  link: '#', // You can update this when/if they want the link active
+		  link: 'https://discord.gg/hwy2yw7s6h', 
 		  tagline: 'Supporting healing journeys with community and understanding'
 		}
 	  },
