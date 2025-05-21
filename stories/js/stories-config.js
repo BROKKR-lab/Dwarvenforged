@@ -280,7 +280,7 @@ const storiesConfig = {
                     "title": "Athena's Wisdom: The Balance of Growth",
                     "sequence": "Collection II - Part 7",
                     "description": "When Brokkr and his fellow master growers face inconsistent harvests, they gather beneath Yggdrasil for a ceremony seeking guidance. Their offerings unexpectedly awaken Athena, a goddess of wisdom whose knowledge predates even Odin's. She reveals the ancient secrets of perfect balance in cultivation - how minerals, water, and light must exist in precise proportions to achieve optimal growth. Under her guidance, Brokkr creates revolutionary nutrient formulations that, when tested against traditional methods, produce harvests of unprecedented size and potency. As word of these balanced growing methods spreads, realms that once struggled with cultivation flourish, with even the most challenging environments yielding bountiful results when proper balance is achieved.",
-                    "image": "story-2007/Athena_Nutrients_Logo.jpg",
+                    "image": "story-2007/AthenasWisdom.jpg",
                     "displayOrder": 7,
                     "hasAudio": true,
                     "isNew": true,
