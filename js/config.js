@@ -735,12 +735,12 @@
             "url": "https://www.strainnavigator.com/"
         },
         {
-            "name": "BuildASoil",
-            "url": "https://buildasoil.com/"
+            "name": "Gambit Growing Solutions",
+            "url": "https://gambitgrowing.com/"
         },
         {
-            "name": "GrowDiaries",
-            "url": "https://growdiaries.com/"
+            "name": "Athena® Ag",
+            "url": "https://www.athenaag.com/"
         }
     ],
     "advanced": {
