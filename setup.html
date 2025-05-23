@@ -1048,6 +1048,27 @@ document.createElement = function(tagName) {
                 <h2>Advanced Settings</h2>
 
 				<div class="form-group">
+					<label for="enable-age-check">Enable Age Verification</label>
+					<select id="enable-age-check">
+						<option value="false" selected>No</option>
+						<option value="true">Yes</option>
+					</select>
+					<p class="help-text">Show an age verification popup when visitors first enter the site. Visitors must confirm they are 21+ to continue.</p>
+				</div>
+
+				<div class="form-group" id="age-check-settings" style="display: none;">
+					<label for="age-check-minimum">Minimum Age Required</label>
+					<input type="number" id="age-check-minimum" value="21" min="13" max="99">
+					<p class="help-text">Minimum age required to enter the site (default: 21)</p>
+				</div>
+
+				<div class="form-group" id="age-check-redirect" style="display: none;">
+					<label for="age-redirect-url">Redirect URL for Under-Age Users</label>
+					<input type="url" id="age-redirect-url" value="https://www.google.com" placeholder="https://www.google.com">
+					<p class="help-text">URL to redirect users who don't meet the age requirement</p>
+				</div>
+
+				<div class="form-group">
 					<label for="enable-shop">Enable Shopping Cart</label>
 					<select id="enable-shop">
 						<option value="true" selected>Yes</option>
@@ -1338,6 +1359,21 @@ document.createElement = function(tagName) {
     <script>
 	
         document.addEventListener('DOMContentLoaded', function() {
+		
+			// Show/hide age check settings based on selection
+			document.getElementById('enable-age-check').addEventListener('change', function() {
+				const ageCheckSettings = document.getElementById('age-check-settings');
+				const ageCheckRedirect = document.getElementById('age-check-redirect');
+				
+				if (this.value === 'true') {
+					ageCheckSettings.style.display = 'block';
+					ageCheckRedirect.style.display = 'block';
+				} else {
+					ageCheckSettings.style.display = 'none';
+					ageCheckRedirect.style.display = 'none';
+				}
+			});
+		
             // Tab switching
             document.querySelectorAll('.config-tab').forEach(tab => {
                 tab.addEventListener('click', function() {
@@ -3334,7 +3370,10 @@ document.createElement = function(tagName) {
 							checkoutMethod: document.getElementById('checkout-method').value,
 							externalCheckoutUrl: document.getElementById('external-checkout-url').value,
 							analyticsId: document.getElementById('analytics-id').value,
-							orderEmail: document.getElementById('order-email').value
+							orderEmail: document.getElementById('order-email').value,
+							enableAgeCheck: document.getElementById('enable-age-check').value === 'true',
+							ageCheckMinimum: parseInt(document.getElementById('age-check-minimum').value) || 21,
+							ageRedirectUrl: document.getElementById('age-redirect-url').value || 'https://www.google.com'
 						}
 					};
 				}
@@ -4335,6 +4374,16 @@ document.createElement = function(tagName) {
 						safeSetValue('checkout-method', config.advanced.checkoutMethod);
 						safeSetValue('external-checkout-url', config.advanced.externalCheckoutUrl);
 						safeSetValue('analytics-id', config.advanced.analyticsId);
+						safeSetValue('enable-age-check', config.advanced.enableAgeCheck ? 'true' : 'false');
+						safeSetValue('age-check-minimum', config.advanced.ageCheckMinimum || 21);
+						safeSetValue('age-redirect-url', config.advanced.ageRedirectUrl || 'https://www.google.com');
+						
+						// Trigger the change event to show/hide age check settings
+						const enableAgeCheckSelect = document.getElementById('enable-age-check');
+						if (enableAgeCheckSelect) {
+							const event = new Event('change');
+							enableAgeCheckSelect.dispatchEvent(event);
+						}							
 					}
 					
 					// Handle background images specifically
