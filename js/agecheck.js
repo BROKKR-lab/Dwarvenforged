@@ -3,7 +3,7 @@
 console.log('Age check script started');
 
 // DEPLOYMENT TIMESTAMP - Set this to when you deployed the age verification
-const AGE_CHECK_DEPLOYMENT_DATE = '2025-01-23'; // CHANGE THIS TO TODAY'S DATE
+const AGE_CHECK_DEPLOYMENT_DATE = '2025-05-23'; // CHANGE THIS TO TODAY'S DATE
 
 // Enhanced verification check that handles existing users
 function needsAgeVerification() {
