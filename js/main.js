@@ -676,65 +676,12 @@ function initializeAgeCheck() {
     
     // Check if age verification is enabled
     if (siteConfig.advanced && siteConfig.advanced.enableAgeCheck) {
-        console.log('Age verification is enabled');
-        
-        // Load the age check script dynamically
-        const ageCheckScript = document.createElement('script');
-        ageCheckScript.src = 'agecheck.js';
-        ageCheckScript.onload = function() {
-            console.log('Age verification script loaded');
-            
-            // Override the age verification settings with config values
-            if (typeof window.verifyAge === 'function') {
-                const originalVerifyAge = window.verifyAge;
-                
-                window.verifyAge = function(isOver21) {
-                    const minimumAge = siteConfig.advanced.ageCheckMinimum || 21;
-                    const redirectUrl = siteConfig.advanced.ageRedirectUrl || 'https://www.google.com';
-                    
-                    if (isOver21) {
-                        localStorage.setItem('ageVerified', 'true');
-                        const modal = document.getElementById('ageModal');
-                        if (modal) {
-                            modal.remove();
-                        }
-                    } else {
-                        window.location.href = redirectUrl;
-                    }
-                };
-            }
-            
-            // Update the modal text with the configured minimum age
-            setTimeout(function() {
-                const ageModal = document.getElementById('ageModal');
-                if (ageModal) {
-                    const minimumAge = siteConfig.advanced.ageCheckMinimum || 21;
-                    const ageText = ageModal.querySelector('.age-body p');
-                    if (ageText) {
-                        ageText.textContent = `You must be ${minimumAge} years or older to enter this site.`;
-                    }
-                    
-                    // Update button text
-                    const noButton = ageModal.querySelector('.age-no-disguised .btn-text');
-                    const yesButton = ageModal.querySelector('.age-yes-disguised .btn-text');
-                    
-                    if (noButton) {
-                        noButton.textContent = `I am NOT ${minimumAge}+ years old`;
-                    }
-                    if (yesButton) {
-                        yesButton.textContent = `I am ${minimumAge}+ years old`;
-                    }
-                }
-            }, 100);
-        };
-        
-        ageCheckScript.onerror = function() {
-            console.error('Failed to load age verification script');
-        };
-        
-        document.head.appendChild(ageCheckScript);
-    } else {
-        console.log('Age verification is disabled');
+        // Load the external age check script
+        const script = document.createElement('script');
+        script.src = './agecheck.js';  // Make sure path is correct
+        script.onload = () => console.log('Age check script loaded');
+        script.onerror = () => console.error('Failed to load age check script');
+        document.head.appendChild(script);
     }
 }
 
