@@ -749,6 +749,9 @@
         "checkoutMethod": "email",
         "externalCheckoutUrl": "",
         "analyticsId": "",
-        "orderEmail": "orders@example.com"
+        "orderEmail": "orders@example.com",
+        "enableAgeCheck": true,
+        "ageCheckMinimum": 21,
+        "ageRedirectUrl": "https://www.google.com"
     }
 };
