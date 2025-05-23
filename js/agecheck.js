@@ -1,38 +1,15 @@
-// Replace the age verification check in your js/agecheck.js with this:
+// Replace your js/agecheck.js with this simple version
 
 console.log('Age check script started');
 
-// DEPLOYMENT TIMESTAMP - Set this to when you deployed the age verification
-const AGE_CHECK_DEPLOYMENT_DATE = '2025-05-23'; // CHANGE THIS TO TODAY'S DATE
+// Use a UNIQUE key that no existing user could have
+const AGE_VERIFICATION_KEY = 'ageVerified_v2_2025'; // Unique key for this deployment
 
-// Enhanced verification check that handles existing users
-function needsAgeVerification() {
-    const ageVerified = localStorage.getItem('ageVerified');
-    const verificationDate = localStorage.getItem('ageVerificationDate');
-    
-    // If never verified at all, definitely need verification
-    if (!ageVerified || ageVerified !== 'true') {
-        console.log('User never verified - showing age check');
-        return true;
-    }
-    
-    // If verified but no date recorded, this is an OLD verification from before deployment
-    // OR if verification date is before deployment, force re-verification
-    if (!verificationDate || verificationDate < AGE_CHECK_DEPLOYMENT_DATE) {
-        console.log('User verified before age check deployment - forcing re-verification');
-        // Clear old verification
-        localStorage.removeItem('ageVerified');
-        localStorage.removeItem('ageVerificationDate');
-        return true;
-    }
-    
-    console.log('User properly verified after deployment - skipping age check');
-    return false;
-}
-
-// Check if user needs age verification
-if (needsAgeVerification()) {
-    console.log('Showing age verification modal');
+// Check if already verified with the NEW key
+if (localStorage.getItem(AGE_VERIFICATION_KEY) === 'true') {
+    console.log('User already age verified, skipping modal');
+} else {
+    console.log('User not verified with new system, showing age check modal');
     
     // Get configuration values (with defaults)
     const siteConfig = window.siteConfig || {};
@@ -42,8 +19,6 @@ if (needsAgeVerification()) {
     
     // Create modal immediately
     createAgeModal(minimumAge, redirectUrl);
-} else {
-    console.log('Age verification not needed');
 }
 
 function createAgeModal(minimumAge, redirectUrl) {
@@ -77,59 +52,178 @@ function createAgeModal(minimumAge, redirectUrl) {
         </div>
     `;
     
-    // Add styles (same as before - abbreviated for space)
+    // Add styles
     if (!document.getElementById('age-verification-styles')) {
         const style = document.createElement('style');
         style.id = 'age-verification-styles';
         style.textContent = `
             .age-verification-modal {
-                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-                background-color: rgba(0,0,0,0.95); z-index: 99999;
-                display: flex; justify-content: center; align-items: center;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.95);
+                z-index: 99999;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                backdrop-filter: blur(5px);
             }
+            
             .age-modal-content {
                 background: linear-gradient(135deg, #1e2b20, #2a3f2c);
-                border: 2px solid #3a7d44; border-radius: 12px;
-                max-width: 500px; width: 90%; padding: 30px; text-align: center;
-                color: #f2f7f3; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                border: 2px solid #3a7d44;
+                border-radius: 12px;
+                max-width: 500px;
+                width: 90%;
+                max-height: 90vh;
+                padding: 30px;
+                text-align: center;
+                color: #f2f7f3;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                animation: modalSlideIn 0.3s ease-out;
             }
-            .age-header h2 { color: #f9c74f; font-size: 1.8rem; margin-top: 0; }
-            .age-buttons { margin: 25px 0; display: flex; gap: 15px; flex-direction: column; }
+            
+            @keyframes modalSlideIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-50px) scale(0.9);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+            }
+            
+            @keyframes modalSlideOut {
+                from {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateY(-50px) scale(0.9);
+                }
+            }
+            
+            .age-header h2 {
+                margin-top: 0;
+                color: #f9c74f;
+                font-size: 1.8rem;
+                font-family: 'Orbitron', sans-serif;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            }
+            
+            .age-body p {
+                font-size: 1.1rem;
+                margin-bottom: 15px;
+                line-height: 1.5;
+            }
+            
+            .age-buttons {
+                margin: 25px 0;
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+                flex-direction: column;
+            }
+            
             .age-buttons button {
-                padding: 15px 20px; border: none; border-radius: 8px;
-                font-weight: bold; cursor: pointer; font-size: 1.1rem;
+                padding: 15px 20px;
+                border: none;
+                border-radius: 8px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-size: 1.1rem;
+                position: relative;
+                overflow: hidden;
+                font-family: 'Exo 2', sans-serif;
             }
-            .age-no-disguised { background: linear-gradient(135deg, #4CAF50, #2E7D32); color: white; }
-            .age-yes-disguised { background: linear-gradient(135deg, #F44336, #B71C1C); color: white; }
-            .btn-text { text-transform: uppercase; letter-spacing: 1px; }
+            
+            .age-buttons button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            }
+            
+            .age-no-disguised {
+                background: linear-gradient(135deg, #4CAF50, #2E7D32);
+                color: white;
+                border: 2px solid #2E7D32;
+            }
+            
+            .age-no-disguised:hover {
+                background: linear-gradient(135deg, #2E7D32, #1B5E20);
+            }
+            
+            .age-yes-disguised {
+                background: linear-gradient(135deg, #F44336, #B71C1C);
+                color: white;
+                border: 2px solid #B71C1C;
+            }
+            
+            .age-yes-disguised:hover {
+                background: linear-gradient(135deg, #B71C1C, #8C1A1A);
+            }
+            
+            .btn-text {
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                display: block;
+            }
+            
+            @media (max-width: 600px) {
+                .age-modal-content {
+                    padding: 20px;
+                    margin: 20px;
+                }
+                
+                .age-header h2 {
+                    font-size: 1.5rem;
+                }
+                
+                .age-body p {
+                    font-size: 1rem;
+                }
+                
+                .age-buttons button {
+                    font-size: 1rem;
+                    padding: 12px 16px;
+                }
+            }
         `;
         document.head.appendChild(style);
     }
     
     document.body.appendChild(modal);
     document.body.style.overflow = 'hidden';
+    
+    console.log('Age verification modal created and displayed');
 }
 
-// Updated verification function that records the date
+// Age verification function using the NEW unique key
 window.verifyAge = function(isOver21) {
     const siteConfig = window.siteConfig || {};
     const advanced = siteConfig.advanced || {};
     const redirectUrl = advanced.ageRedirectUrl || 'https://www.google.com';
     
     if (isOver21) {
-        // Store verification with current date
-        localStorage.setItem('ageVerified', 'true');
-        localStorage.setItem('ageVerificationDate', new Date().toISOString().split('T')[0]); // YYYY-MM-DD
+        // Store verification with the NEW unique key
+        localStorage.setItem(AGE_VERIFICATION_KEY, 'true');
         
         const modal = document.getElementById('ageModal');
         if (modal) {
-            modal.remove();
-            document.body.style.overflow = '';
+            modal.style.animation = 'modalSlideOut 0.3s ease-in';
+            setTimeout(() => {
+                modal.remove();
+                document.body.style.overflow = '';
+            }, 300);
         }
         
-        console.log('Age verification passed and recorded');
+        console.log('Age verification passed');
     } else {
-        console.log('Redirecting to:', redirectUrl);
+        console.log('Age verification failed, redirecting to:', redirectUrl);
         window.location.href = redirectUrl;
     }
 };
