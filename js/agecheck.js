@@ -1,14 +1,38 @@
-// Replace your entire js/agecheck.js file with this version
-// This version runs immediately when loaded, not waiting for DOM events
+// Replace the age verification check in your js/agecheck.js with this:
 
 console.log('Age check script started');
 
-// Check if already verified
-if (localStorage.getItem('ageVerified') === 'true') {
-    console.log('User already age verified, skipping modal');
-    // Don't show modal, user already verified
-} else {
-    console.log('User not verified, showing age check modal');
+// DEPLOYMENT TIMESTAMP - Set this to when you deployed the age verification
+const AGE_CHECK_DEPLOYMENT_DATE = '2025-01-23'; // CHANGE THIS TO TODAY'S DATE
+
+// Enhanced verification check that handles existing users
+function needsAgeVerification() {
+    const ageVerified = localStorage.getItem('ageVerified');
+    const verificationDate = localStorage.getItem('ageVerificationDate');
+    
+    // If never verified at all, definitely need verification
+    if (!ageVerified || ageVerified !== 'true') {
+        console.log('User never verified - showing age check');
+        return true;
+    }
+    
+    // If verified but no date recorded, this is an OLD verification from before deployment
+    // OR if verification date is before deployment, force re-verification
+    if (!verificationDate || verificationDate < AGE_CHECK_DEPLOYMENT_DATE) {
+        console.log('User verified before age check deployment - forcing re-verification');
+        // Clear old verification
+        localStorage.removeItem('ageVerified');
+        localStorage.removeItem('ageVerificationDate');
+        return true;
+    }
+    
+    console.log('User properly verified after deployment - skipping age check');
+    return false;
+}
+
+// Check if user needs age verification
+if (needsAgeVerification()) {
+    console.log('Showing age verification modal');
     
     // Get configuration values (with defaults)
     const siteConfig = window.siteConfig || {};
@@ -16,15 +40,13 @@ if (localStorage.getItem('ageVerified') === 'true') {
     const minimumAge = advanced.ageCheckMinimum || 21;
     const redirectUrl = advanced.ageRedirectUrl || 'https://www.google.com';
     
-    console.log('Age check config:', { minimumAge, redirectUrl });
-    
-    // Create modal immediately (don't wait for DOM events)
+    // Create modal immediately
     createAgeModal(minimumAge, redirectUrl);
+} else {
+    console.log('Age verification not needed');
 }
 
 function createAgeModal(minimumAge, redirectUrl) {
-    console.log('Creating age verification modal...');
-    
     // Remove any existing modal first
     const existingModal = document.getElementById('ageModal');
     if (existingModal) {
@@ -51,196 +73,63 @@ function createAgeModal(minimumAge, redirectUrl) {
                         <span class="btn-text">I am ${minimumAge}+ years old</span>
                     </button>
                 </div>
-                <div class="age-disclaimer">
-                    <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.7;">
-                        By clicking "I am ${minimumAge}+ years old", you confirm that you meet the age requirement.
-                    </p>
-                </div>
             </div>
         </div>
     `;
     
-    // Add modal styles if they don't exist
+    // Add styles (same as before - abbreviated for space)
     if (!document.getElementById('age-verification-styles')) {
         const style = document.createElement('style');
         style.id = 'age-verification-styles';
         style.textContent = `
             .age-verification-modal {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0,0,0,0.95);
-                z-index: 99999;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                backdrop-filter: blur(5px);
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background-color: rgba(0,0,0,0.95); z-index: 99999;
+                display: flex; justify-content: center; align-items: center;
             }
-            
             .age-modal-content {
                 background: linear-gradient(135deg, #1e2b20, #2a3f2c);
-                border: 2px solid #3a7d44;
-                border-radius: 12px;
-                max-width: 500px;
-                width: 90%;
-                max-height: 90vh;
-                padding: 30px;
-                text-align: center;
-                color: #f2f7f3;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-                animation: modalSlideIn 0.3s ease-out;
+                border: 2px solid #3a7d44; border-radius: 12px;
+                max-width: 500px; width: 90%; padding: 30px; text-align: center;
+                color: #f2f7f3; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             }
-            
-            @keyframes modalSlideIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(-50px) scale(0.9);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0) scale(1);
-                }
-            }
-            
-            @keyframes modalSlideOut {
-                from {
-                    opacity: 1;
-                    transform: translateY(0) scale(1);
-                }
-                to {
-                    opacity: 0;
-                    transform: translateY(-50px) scale(0.9);
-                }
-            }
-            
-            .age-header h2 {
-                margin-top: 0;
-                color: #f9c74f;
-                font-size: 1.8rem;
-                font-family: 'Orbitron', sans-serif;
-                text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            }
-            
-            .age-body p {
-                font-size: 1.1rem;
-                margin-bottom: 15px;
-                line-height: 1.5;
-            }
-            
-            .age-buttons {
-                margin: 25px 0;
-                display: flex;
-                justify-content: center;
-                gap: 15px;
-                flex-direction: column;
-            }
-            
+            .age-header h2 { color: #f9c74f; font-size: 1.8rem; margin-top: 0; }
+            .age-buttons { margin: 25px 0; display: flex; gap: 15px; flex-direction: column; }
             .age-buttons button {
-                padding: 15px 20px;
-                border: none;
-                border-radius: 8px;
-                font-weight: bold;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                font-size: 1.1rem;
-                position: relative;
-                overflow: hidden;
-                font-family: 'Exo 2', sans-serif;
+                padding: 15px 20px; border: none; border-radius: 8px;
+                font-weight: bold; cursor: pointer; font-size: 1.1rem;
             }
-            
-            .age-buttons button:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-            }
-            
-            .age-no-disguised {
-                background: linear-gradient(135deg, #4CAF50, #2E7D32);
-                color: white;
-                border: 2px solid #2E7D32;
-            }
-            
-            .age-no-disguised:hover {
-                background: linear-gradient(135deg, #2E7D32, #1B5E20);
-            }
-            
-            .age-yes-disguised {
-                background: linear-gradient(135deg, #F44336, #B71C1C);
-                color: white;
-                border: 2px solid #B71C1C;
-            }
-            
-            .age-yes-disguised:hover {
-                background: linear-gradient(135deg, #B71C1C, #8C1A1A);
-            }
-            
-            .btn-text {
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                display: block;
-            }
-            
-            .age-disclaimer {
-                border-top: 1px solid rgba(255,255,255,0.2);
-                padding-top: 15px;
-            }
-            
-            @media (max-width: 600px) {
-                .age-modal-content {
-                    padding: 20px;
-                    margin: 20px;
-                }
-                
-                .age-header h2 {
-                    font-size: 1.5rem;
-                }
-                
-                .age-body p {
-                    font-size: 1rem;
-                }
-                
-                .age-buttons button {
-                    font-size: 1rem;
-                    padding: 12px 16px;
-                }
-            }
+            .age-no-disguised { background: linear-gradient(135deg, #4CAF50, #2E7D32); color: white; }
+            .age-yes-disguised { background: linear-gradient(135deg, #F44336, #B71C1C); color: white; }
+            .btn-text { text-transform: uppercase; letter-spacing: 1px; }
         `;
         document.head.appendChild(style);
     }
     
-    // Add modal to body
     document.body.appendChild(modal);
-    
-    // Prevent body scrolling
     document.body.style.overflow = 'hidden';
-    
-    console.log('Age verification modal added to page');
 }
 
-// Age verification function (global)
+// Updated verification function that records the date
 window.verifyAge = function(isOver21) {
-    console.log('Age verification clicked:', isOver21 ? 'YES' : 'NO');
-    
     const siteConfig = window.siteConfig || {};
     const advanced = siteConfig.advanced || {};
     const redirectUrl = advanced.ageRedirectUrl || 'https://www.google.com';
     
     if (isOver21) {
+        // Store verification with current date
         localStorage.setItem('ageVerified', 'true');
+        localStorage.setItem('ageVerificationDate', new Date().toISOString().split('T')[0]); // YYYY-MM-DD
         
         const modal = document.getElementById('ageModal');
         if (modal) {
-            modal.style.animation = 'modalSlideOut 0.3s ease-in';
-            setTimeout(() => {
-                modal.remove();
-                document.body.style.overflow = '';
-            }, 300);
+            modal.remove();
+            document.body.style.overflow = '';
         }
         
-        console.log('Age verification passed - user can proceed');
+        console.log('Age verification passed and recorded');
     } else {
-        console.log('Age verification failed - redirecting to:', redirectUrl);
+        console.log('Redirecting to:', redirectUrl);
         window.location.href = redirectUrl;
     }
 };
