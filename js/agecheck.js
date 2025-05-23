@@ -1,9 +1,14 @@
-// Enhanced agecheck.js with configuration support
-document.addEventListener('DOMContentLoaded', function() {
-    // Check if already verified
-    if (localStorage.getItem('ageVerified') === 'true') {
-        return; // Already verified, don't show modal
-    }
+// Replace your entire js/agecheck.js file with this version
+// This version runs immediately when loaded, not waiting for DOM events
+
+console.log('Age check script started');
+
+// Check if already verified
+if (localStorage.getItem('ageVerified') === 'true') {
+    console.log('User already age verified, skipping modal');
+    // Don't show modal, user already verified
+} else {
+    console.log('User not verified, showing age check modal');
     
     // Get configuration values (with defaults)
     const siteConfig = window.siteConfig || {};
@@ -11,39 +16,54 @@ document.addEventListener('DOMContentLoaded', function() {
     const minimumAge = advanced.ageCheckMinimum || 21;
     const redirectUrl = advanced.ageRedirectUrl || 'https://www.google.com';
     
-    // Create modal if it doesn't exist
-    if (!document.getElementById('ageModal')) {
-        const modal = document.createElement('div');
-        modal.id = 'ageModal';
-        modal.className = 'age-verification-modal';
-        
-        modal.innerHTML = `
-            <div class="age-modal-content">
-                <div class="age-header">
-                    <h2>Age Verification Required</h2>
+    console.log('Age check config:', { minimumAge, redirectUrl });
+    
+    // Create modal immediately (don't wait for DOM events)
+    createAgeModal(minimumAge, redirectUrl);
+}
+
+function createAgeModal(minimumAge, redirectUrl) {
+    console.log('Creating age verification modal...');
+    
+    // Remove any existing modal first
+    const existingModal = document.getElementById('ageModal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+    
+    const modal = document.createElement('div');
+    modal.id = 'ageModal';
+    modal.className = 'age-verification-modal';
+    
+    modal.innerHTML = `
+        <div class="age-modal-content">
+            <div class="age-header">
+                <h2>Age Verification Required</h2>
+            </div>
+            <div class="age-body">
+                <p>You must be ${minimumAge} years or older to enter this site.</p>
+                <p>Please read carefully and select the appropriate option:</p>
+                <div class="age-buttons">
+                    <button onclick="window.verifyAge(false)" class="age-no-disguised">
+                        <span class="btn-text">I am NOT ${minimumAge}+ years old</span>
+                    </button>
+                    <button onclick="window.verifyAge(true)" class="age-yes-disguised">
+                        <span class="btn-text">I am ${minimumAge}+ years old</span>
+                    </button>
                 </div>
-                <div class="age-body">
-                    <p>You must be ${minimumAge} years or older to enter this site.</p>
-                    <p>Please read carefully and select the appropriate option:</p>
-                    <div class="age-buttons">
-                        <button onclick="window.verifyAge(false)" class="age-no-disguised">
-                            <span class="btn-text">I am NOT ${minimumAge}+ years old</span>
-                        </button>
-                        <button onclick="window.verifyAge(true)" class="age-yes-disguised">
-                            <span class="btn-text">I am ${minimumAge}+ years old</span>
-                        </button>
-                    </div>
-                    <div class="age-disclaimer">
-                        <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.7;">
-                            By clicking "I am ${minimumAge}+ years old", you confirm that you meet the age requirement and agree to proceed.
-                        </p>
-                    </div>
+                <div class="age-disclaimer">
+                    <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.7;">
+                        By clicking "I am ${minimumAge}+ years old", you confirm that you meet the age requirement.
+                    </p>
                 </div>
             </div>
-        `;
-        
-        // Add modal styles (enhanced with better responsiveness)
+        </div>
+    `;
+    
+    // Add modal styles if they don't exist
+    if (!document.getElementById('age-verification-styles')) {
         const style = document.createElement('style');
+        style.id = 'age-verification-styles';
         style.textContent = `
             .age-verification-modal {
                 position: fixed;
@@ -61,14 +81,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             .age-modal-content {
                 background: linear-gradient(135deg, #1e2b20, #2a3f2c);
-                border: 2px solid var(--secondary-color, #3a7d44);
+                border: 2px solid #3a7d44;
                 border-radius: 12px;
                 max-width: 500px;
                 width: 90%;
                 max-height: 90vh;
                 padding: 30px;
                 text-align: center;
-                color: var(--text-color, #f2f7f3);
+                color: #f2f7f3;
                 box-shadow: 0 10px 30px rgba(0,0,0,0.5);
                 animation: modalSlideIn 0.3s ease-out;
             }
@@ -84,11 +104,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             
+            @keyframes modalSlideOut {
+                from {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateY(-50px) scale(0.9);
+                }
+            }
+            
             .age-header h2 {
                 margin-top: 0;
-                color: var(--highlight-color, #f9c74f);
+                color: #f9c74f;
                 font-size: 1.8rem;
-                font-family: var(--font-heading, 'Orbitron', sans-serif);
+                font-family: 'Orbitron', sans-serif;
                 text-shadow: 0 2px 4px rgba(0,0,0,0.3);
             }
             
@@ -116,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 font-size: 1.1rem;
                 position: relative;
                 overflow: hidden;
-                font-family: var(--font-body, 'Exo 2', sans-serif);
+                font-family: 'Exo 2', sans-serif;
             }
             
             .age-buttons button:hover {
@@ -124,7 +155,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 box-shadow: 0 6px 15px rgba(0,0,0,0.3);
             }
             
-            /* Counter-intuitive colors: "NO" button is green (looks like "proceed") */
             .age-no-disguised {
                 background: linear-gradient(135deg, #4CAF50, #2E7D32);
                 color: white;
@@ -135,7 +165,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 background: linear-gradient(135deg, #2E7D32, #1B5E20);
             }
             
-            /* "YES" button is red (looks like "stop/cancel") */
             .age-yes-disguised {
                 background: linear-gradient(135deg, #F44336, #B71C1C);
                 color: white;
@@ -177,62 +206,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         `;
-        
-        // Add the modal and styles to the document
         document.head.appendChild(style);
-        document.body.appendChild(modal);
-        
-        // Prevent body scrolling when modal is open
-        document.body.style.overflow = 'hidden';
     }
-});
+    
+    // Add modal to body
+    document.body.appendChild(modal);
+    
+    // Prevent body scrolling
+    document.body.style.overflow = 'hidden';
+    
+    console.log('Age verification modal added to page');
+}
 
-// Age verification function (needs to be global) - Enhanced with config support
+// Age verification function (global)
 window.verifyAge = function(isOver21) {
+    console.log('Age verification clicked:', isOver21 ? 'YES' : 'NO');
+    
     const siteConfig = window.siteConfig || {};
     const advanced = siteConfig.advanced || {};
     const redirectUrl = advanced.ageRedirectUrl || 'https://www.google.com';
     
     if (isOver21) {
-        // Set verification with expiration (24 hours)
-        const verificationData = {
-            verified: true,
-            timestamp: Date.now(),
-            expires: Date.now() + (24 * 60 * 60 * 1000) // 24 hours
-        };
-        
         localStorage.setItem('ageVerified', 'true');
-        localStorage.setItem('ageVerificationData', JSON.stringify(verificationData));
         
         const modal = document.getElementById('ageModal');
         if (modal) {
-            // Animate out
             modal.style.animation = 'modalSlideOut 0.3s ease-in';
             setTimeout(() => {
                 modal.remove();
-                document.body.style.overflow = ''; // Restore body scrolling
+                document.body.style.overflow = '';
             }, 300);
         }
         
-        console.log('Age verification passed');
+        console.log('Age verification passed - user can proceed');
     } else {
-        console.log('Age verification failed, redirecting to:', redirectUrl);
+        console.log('Age verification failed - redirecting to:', redirectUrl);
         window.location.href = redirectUrl;
     }
 };
-
-// Add slide out animation
-const slideOutStyle = document.createElement('style');
-slideOutStyle.textContent = `
-    @keyframes modalSlideOut {
-        from {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-        to {
-            opacity: 0;
-            transform: translateY(-50px) scale(0.9);
-        }
-    }
-`;
-document.head.appendChild(slideOutStyle);
