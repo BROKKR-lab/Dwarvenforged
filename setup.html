@@ -3642,11 +3642,11 @@ document.createElement = function(tagName) {
 					const saveFormValues = debounce(function() {
 						const formValues = {};
 						
-						// Loop through all inputs and save their values
+						// Loop through all inputs and save their values - BUT EXCLUDE DYNAMIC FORM ITEMS
 						allInputs.forEach(input => {
 							// Get a unique identifier for each input
 							const id = input.id || input.name;
-							if (id) {
+							if (id && !input.closest('#social-links') && !input.closest('#nav-items') && !input.closest('#friend-links')) {
 								formValues[id] = input.type === 'checkbox' ? input.checked : input.value;
 							}
 						});
@@ -3678,7 +3678,7 @@ document.createElement = function(tagName) {
 						
 						// Save social links separately  
 						const socialLinks = [];
-						document.querySelectorAll('#social-links .form-group').forEach(item => {
+						document.querySelectorAll('#social-links .social-item').forEach(item => {
 							const inputs = item.querySelectorAll('input');
 							if (inputs.length >= 2 && inputs[0].value && inputs[1].value) {
 								socialLinks.push({
@@ -3699,7 +3699,7 @@ document.createElement = function(tagName) {
 						});
 						
 						// Then add other friend links
-						document.querySelectorAll('#friend-links .form-group').forEach(item => {
+						document.querySelectorAll('#friend-links .friend-item').forEach(item => {
 							const inputs = item.querySelectorAll('input');
 							if (inputs.length >= 2 && inputs[0].value && inputs[1].value) {
 								// Skip if duplicate of default
