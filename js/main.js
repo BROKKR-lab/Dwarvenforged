@@ -637,16 +637,14 @@ function applySiteConfig() {
    contactLinks.appendChild(emailItem);
    
    // Add social links if they exist
-   if (siteConfig.site.socialLinks) {
-       if (siteConfig.site.socialLinks.discord) {
-           contactLinks.innerHTML += `<li><a href="${siteConfig.site.socialLinks.discord}" target="_blank">Discord</a></li>`;
-       }
-       if (siteConfig.site.socialLinks.youtube) {
-           contactLinks.innerHTML += `<li><a href="${siteConfig.site.socialLinks.youtube}" target="_blank">YouTube</a></li>`;
-       }
-       if (siteConfig.site.socialLinks.tiktok) {
-           contactLinks.innerHTML += `<li><a href="${siteConfig.site.socialLinks.tiktok}" target="_blank">TikTok</a></li>`;
-       }
+   if (siteConfig.site.socialLinks && Array.isArray(siteConfig.site.socialLinks)) {
+       siteConfig.site.socialLinks.forEach(socialLink => {
+           if (socialLink.name && socialLink.url) {
+               const socialItem = document.createElement('li');
+               socialItem.innerHTML = `<a href="${socialLink.url}" target="_blank">${socialLink.name}</a>`;
+               contactLinks.appendChild(socialItem);
+           }
+       });
    }
    
    // Set footer nav
