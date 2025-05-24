@@ -4221,52 +4221,28 @@ document.createElement = function(tagName) {
 				function loadExistingConfig() {
 					console.log("Attempting to load existing config.js...");
 					
-					// Check if a path was previously saved in localStorage
-					const savedConfigPath = localStorage.getItem('savedConfigPath');
-					
 					// Only attempt to load if not already loaded
 					if (typeof window.siteConfig === 'undefined') {
-						// Common paths to try
-						const possiblePaths = [
-							// Local path - works for standard setups
-							'js/config.js',
-							
-							// Path based on current location
-							window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1) + 'js/config.js',
-							
-							// For /SITEPACKAGES/PUB/USERNAME/ structure
-							'/SITEPACKAGES/PUB/' + window.location.hostname.split('.')[0] + '/js/config.js',
-							
-							// For direct /SITEPACKAGES/ structure
-							'/SITEPACKAGES/js/config.js',
-							
-							// For username.github.io/reponame structure
-							'/' + window.location.pathname.split('/')[1] + '/js/config.js',
-							
-							// Absolute from domain root
-							'/js/config.js',
-							
-							// One level up (for setups in subdirectories)
-							'../js/config.js'
-						];
-						
-						// If we have a saved path, try it first
-						if (savedConfigPath) {
-							console.log("Using previously saved config path:", savedConfigPath);
-							loadConfigFromPath(savedConfigPath, function(success) {
-								if (!success) {
-									// If saved path failed, try to detect configs
-									detectConfigs(possiblePaths);
+						// Try to load directly from the website's js folder FIRST
+						loadConfigFromPath('js/config.js', function(success) {
+							if (success) {
+								console.log("Successfully loaded config from website");
+								populateFormFromConfig(window.siteConfig);
+							} else {
+								console.error('Failed to load config.js from website js/ folder');
+								// Show error message
+								const configOptions = document.getElementById('config-options');
+								if (configOptions) {
+									configOptions.innerHTML = '<div class="no-configs">Could not load config.js from website. Please enter path manually.</div>';
 								}
-							});
-						} else {
-							// Otherwise try to detect configs
-							detectConfigs(possiblePaths);
-						}
-						
+							}
+						});
 						return false;
+					} else {
+						// Config already loaded, populate the form
+						populateFormFromConfig(window.siteConfig);
+						return true;
 					}
-					return true;
 				}
 
 				// Function to detect configs from multiple paths
