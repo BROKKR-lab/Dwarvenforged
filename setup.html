@@ -554,22 +554,36 @@ document.createElement = function(tagName) {
 					<p class="help-text">Email address where orders will be sent. If left empty, the Contact Email will be used.</p>
 				</div>
                 
-                <h3>Social Links</h3>
-                
-                <div class="form-group">
-                    <label for="social-discord">Discord</label>
-                    <input type="url" id="social-discord" value="https://discord.gg/yourcollective">
-                </div>
-                
-                <div class="form-group">
-                    <label for="social-youtube">YouTube</label>
-                    <input type="url" id="social-youtube" value="https://youtube.com/@yourchannel">
-                </div>
-                
-                <div class="form-group">
-                    <label for="social-tiktok">TikTok</label>
-                    <input type="url" id="social-tiktok" value="https://tiktok.com/@yourhandle">
-                </div>
+				<h3>Social Links</h3>
+				<p>Add your social media links. These will appear in the footer contact section.</p>
+
+				<div id="social-links">
+					<div class="form-group social-item">
+						<div style="display: flex; gap: 10px;">
+							<input type="text" placeholder="Platform Name (e.g. Discord)" value="Discord" style="flex: 1;">
+							<input type="url" placeholder="URL" value="https://discord.gg/yourcollective" style="flex: 2;">
+							<button type="button" class="btn remove-social-btn">×</button>
+						</div>
+					</div>
+					
+					<div class="form-group social-item">
+						<div style="display: flex; gap: 10px;">
+							<input type="text" placeholder="Platform Name (e.g. YouTube)" value="YouTube" style="flex: 1;">
+							<input type="url" placeholder="URL" value="https://youtube.com/@yourchannel" style="flex: 2;">
+							<button type="button" class="btn remove-social-btn">×</button>
+						</div>
+					</div>
+					
+					<div class="form-group social-item">
+						<div style="display: flex; gap: 10px;">
+							<input type="text" placeholder="Platform Name (e.g. Instagram)" value="Instagram" style="flex: 1;">
+							<input type="url" placeholder="URL" value="https://instagram.com/yourhandle" style="flex: 2;">
+							<button type="button" class="btn remove-social-btn">×</button>
+						</div>
+					</div>
+				</div>
+
+				<button type="button" class="btn" id="add-social-btn">Add Social Link</button>
                 
                 <div class="form-group">
                     <label for="copyright-text">Copyright Text</label>
@@ -1492,6 +1506,38 @@ document.createElement = function(tagName) {
 							}
 						});
 						localStorage.setItem('friendLinks', JSON.stringify(currentLinks));
+					}
+				}
+			});
+
+			// Add social link
+			document.getElementById('add-social-btn').addEventListener('click', function() {
+				const socialLinks = document.getElementById('social-links');
+				
+				const newItem = document.createElement('div');
+				newItem.className = 'form-group social-item';
+				newItem.innerHTML = `
+					<div style="display: flex; gap: 10px;">
+						<input type="text" placeholder="Platform Name" style="flex: 1;">
+						<input type="url" placeholder="URL" style="flex: 2;">
+						<button type="button" class="btn remove-social-btn">×</button>
+					</div>
+				`;
+				
+				socialLinks.appendChild(newItem);
+				
+				// Add event listener to remove button
+				newItem.querySelector('.remove-social-btn').addEventListener('click', function() {
+					socialLinks.removeChild(newItem);
+				});
+			});
+
+			// Remove social link
+			document.querySelector('#social-links').addEventListener('click', function(e) {
+				if (e.target.classList.contains('remove-social-btn')) {
+					const socialItem = e.target.closest('.form-group');
+					if (socialItem) {
+						socialItem.remove();
 					}
 				}
 			});
@@ -3265,6 +3311,18 @@ document.createElement = function(tagName) {
 						}
 					});
 					
+					// Get social links
+					const socialLinks = [];
+					document.querySelectorAll('#social-links .form-group').forEach(item => {
+						const inputs = item.querySelectorAll('input');
+						if (inputs[0].value && inputs[1].value) {
+							socialLinks.push({
+								name: inputs[0].value,
+								url: inputs[1].value
+							});
+						}
+					});
+					
 					// Get friend links
 					const friendLinks = [];
 					document.querySelectorAll('#friend-links .form-group').forEach(item => {
@@ -3296,11 +3354,7 @@ document.createElement = function(tagName) {
 							heroBackground: document.getElementById('hero-background').value,
 							showHeroText: document.getElementById('show-hero-text').value === 'true',
 							email: document.getElementById('site-email').value,
-							socialLinks: {
-								discord: document.getElementById('social-discord').value,
-								youtube: document.getElementById('social-youtube').value,
-								tiktok: document.getElementById('social-tiktok').value
-							},
+							socialLinks: socialLinks,
 							copyright: document.getElementById('copyright-text').value
 						},
 						colors: {
@@ -3622,6 +3676,19 @@ document.createElement = function(tagName) {
 						});
 						formValues['nav-items'] = navItems;
 						
+						// Save social links separately  
+						const socialLinks = [];
+						document.querySelectorAll('#social-links .form-group').forEach(item => {
+							const inputs = item.querySelectorAll('input');
+							if (inputs.length >= 2 && inputs[0].value && inputs[1].value) {
+								socialLinks.push({
+									name: inputs[0].value,
+									url: inputs[1].value
+								});
+							}
+						});
+						formValues['social-links'] = socialLinks;
+						
 						// Save friend links separately with StrainNavigator as the default first link
 						const friendLinks = [];
 						
@@ -3706,7 +3773,6 @@ document.createElement = function(tagName) {
 					});
 				}
 
-				// Enhanced loadFormValues function
 				function loadFormValues() {
 					const savedValues = localStorage.getItem('siteConfigForm');
 					if (!savedValues) {
@@ -3740,6 +3806,12 @@ document.createElement = function(tagName) {
 							// Handle navigation items separately
 							if (id === 'nav-items') {
 								loadNavigationItems(formValues[id]);
+								return;
+							}
+							
+							// Handle social links separately
+							if (id === 'social-links') {
+								loadSocialLinks(formValues[id]);
 								return;
 							}
 							
@@ -3855,6 +3927,46 @@ document.createElement = function(tagName) {
 						});
 						
 						friendLinksContainer.appendChild(friendItem);
+					});
+				}
+
+				function loadSocialLinks(socialLinks) {
+					if (!Array.isArray(socialLinks)) socialLinks = [];
+					
+					const socialLinksContainer = document.getElementById('social-links');
+					if (!socialLinksContainer) return;
+					
+					// Clear existing items first
+					socialLinksContainer.innerHTML = '';
+					
+					// Add each saved social link (or create defaults if none exist)
+					if (socialLinks.length === 0) {
+						// Create default social links
+						socialLinks = [
+							{ name: 'Discord', url: 'https://discord.gg/yourcollective' },
+							{ name: 'YouTube', url: 'https://youtube.com/@yourchannel' },
+							{ name: 'Instagram', url: 'https://instagram.com/yourhandle' }
+						];
+					}
+					
+					socialLinks.forEach(link => {
+						const socialItem = document.createElement('div');
+						socialItem.className = 'form-group social-item';
+						socialItem.innerHTML = `
+							<div style="display: flex; gap: 10px;">
+								<input type="text" placeholder="Platform Name" value="${link.name || ''}" style="flex: 1;">
+								<input type="url" placeholder="URL" value="${link.url || ''}" style="flex: 2;">
+								<button type="button" class="btn remove-social-btn">×</button>
+							</div>
+						`;
+						
+						// Add event listener to remove button
+						const removeBtn = socialItem.querySelector('.remove-social-btn');
+						removeBtn.addEventListener('click', function() {
+							socialLinksContainer.removeChild(socialItem);
+						});
+						
+						socialLinksContainer.appendChild(socialItem);
 					});
 				}
 				
@@ -4310,13 +4422,6 @@ document.createElement = function(tagName) {
 						safeSetValue('show-hero-text', config.site.showHeroText === false ? 'false' : 'true');
 						safeSetValue('site-email', config.site.email);
 						safeSetValue('copyright-text', config.site.copyright);
-						
-						// Social links
-						if (config.site.socialLinks) {
-							safeSetValue('social-discord', config.site.socialLinks.discord);
-							safeSetValue('social-youtube', config.site.socialLinks.youtube);
-							safeSetValue('social-tiktok', config.site.socialLinks.tiktok);
-						}
 					}
 					
 					// Colors
@@ -4391,7 +4496,12 @@ document.createElement = function(tagName) {
 						safeSetValue('background-image', config.background.image || '');
 						safeSetValue('section-image', config.background.sectionImage || '');
 					}
-	
+
+					// Social links
+					if (config.site && config.site.socialLinks) {
+						loadSocialLinks(config.site.socialLinks);
+					}
+					
 					// Navigation items
 					if (config.navigation && config.navigation.length > 0) {
 						loadNavigationItems(config.navigation);
