@@ -8,12 +8,13 @@
         "logo": "img/logo.jpg",
         "heroBackground": "img/hero-bg.jpg",
         "showHeroText": false,
-        "email": "info@dwarvenforged.com",
-        "socialLinks": {
-            "discord": "https://discord.gg/dwarvenforged",
-            "youtube": "https://youtube.com/@dwarvenforged",
-            "tiktok": "https://tiktok.com/@dwarvenforged"
-        },
+        "email": "dwarvenforgedshop@sitepackages.net",
+        "socialLinks": [
+            {
+                "name": "Instagram",
+                "url": "https://www.instagram.com/dwarvenforged/"
+            }
+        ],
         "copyright": "© 2025 DwarvenForged / Brokkr Seeds. All rights reserved."
     },
     "colors": {
@@ -58,7 +59,7 @@
         }
     },
     "strainTree": {
-        "enabled": true,
+        "enabled": false,
         "title": "Strain Genetics Explorer",
         "description": "Explore the genetic relationships between our strains.",
         "dataPath": "data/straindata.json"
@@ -749,7 +750,7 @@
         "checkoutMethod": "email",
         "externalCheckoutUrl": "",
         "analyticsId": "",
-        "orderEmail": "orders@example.com",
+        "orderEmail": "dwarvenforgedshop@sitepackages.net",
         "enableAgeCheck": true,
         "ageCheckMinimum": 21,
         "ageRedirectUrl": "https://www.google.com"
