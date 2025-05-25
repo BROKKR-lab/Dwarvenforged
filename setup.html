@@ -1169,10 +1169,10 @@ document.createElement = function(tagName) {
 						<div style="display: flex; gap: 10px; margin-bottom: 10px;">
 							<input type="text" placeholder="Name" value="StrainNavigator" style="flex: 1;" readonly>
 							<input type="text" placeholder="URL" value="https://www.strainnavigator.com/" style="flex: 1;" readonly>
-							<button type="button" class="btn" disabled style="opacity: 0.5;">×</button>
+							<button type="button" class="btn" disabled style="opacity: 0.5; cursor: not-allowed;">×</button>
 						</div>
 						<div style="display: flex; gap: 10px;">
-							<input type="text" placeholder="Logo URL (optional)" value="friend-logos/strainnavigator.png" style="flex: 1;" readonly>
+							<input type="text" placeholder="Logo/Image URL (optional)" value="" style="flex: 1;" readonly>
 							<input type="text" placeholder="Description (optional)" value="Premium strain database" style="flex: 1;" readonly>
 						</div>
 					</div>
@@ -1508,6 +1508,17 @@ document.createElement = function(tagName) {
                 });
             });
 
+			// Show/hide partner showcase style options
+			document.getElementById('friend-links-enabled').addEventListener('change', function() {
+				const styleGroup = document.getElementById('friend-links-style-group');
+				
+				if (this.value === 'true') {
+					styleGroup.style.display = 'block';
+				} else {
+					styleGroup.style.display = 'none';
+				}
+			});
+
 			// Add friend link
 			document.getElementById('add-friend-btn').addEventListener('click', function() {
 				const friendLinks = document.getElementById('friend-links');
@@ -1515,10 +1526,14 @@ document.createElement = function(tagName) {
 				const newItem = document.createElement('div');
 				newItem.className = 'form-group friend-item';
 				newItem.innerHTML = `
-					<div style="display: flex; gap: 10px;">
-						<input type="text" placeholder="Friend" style="flex: 1;">
+					<div style="display: flex; gap: 10px; margin-bottom: 10px;">
+						<input type="text" placeholder="Friend Name" style="flex: 1;">
 						<input type="text" placeholder="URL" style="flex: 1;">
 						<button type="button" class="btn remove-friend-btn">×</button>
+					</div>
+					<div style="display: flex; gap: 10px;">
+						<input type="text" placeholder="Logo/Image URL (optional)" style="flex: 1;">
+						<input type="text" placeholder="Description (optional)" style="flex: 1;">
 					</div>
 				`;
 				
