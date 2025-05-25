@@ -542,6 +542,12 @@ document.createElement = function(tagName) {
 					</select>
 					<p class="help-text">Choose whether to show text over the hero image or display the full image without text overlay.</p>
 				</div>
+
+				<div class="form-group">
+					<label for="social-preview">Social Preview Image</label>
+					<input type="text" id="social-preview" placeholder="social-preview.jpg">
+					<p class="help-text">Image shown when your site is shared on social media. Recommended size: 1200x630px. Use the Image Generator tab to create one.</p>
+				</div>
                 
                 <div class="form-group">
                     <label for="site-email">Contact Email</label>
@@ -858,6 +864,7 @@ document.createElement = function(tagName) {
 					<select id="image-type">
 						<option value="logo">Logo (200x200)</option>
 						<option value="hero">Hero Background (1190x500)</option>
+						<option value="social">Social Preview (1200x630)</option>
 						<option value="product1">Product 1 (600x600)</option>
 						<option value="product2">Product 2 (600x600)</option>
 						<option value="product3">Product 3 (600x600)</option>
@@ -1159,10 +1166,14 @@ document.createElement = function(tagName) {
                 
 				<div id="friend-links">
 					<div class="form-group friend-item default-friend">
-						<div style="display: flex; gap: 10px;">
-							<input type="text" placeholder="Friend" value="StrainNavigator" style="flex: 1;" readonly>
+						<div style="display: flex; gap: 10px; margin-bottom: 10px;">
+							<input type="text" placeholder="Name" value="StrainNavigator" style="flex: 1;" readonly>
 							<input type="text" placeholder="URL" value="https://www.strainnavigator.com/" style="flex: 1;" readonly>
-							<button type="button" class="btn" disabled style="opacity: 0.5; cursor: not-allowed;">×</button>
+							<button type="button" class="btn" disabled style="opacity: 0.5;">×</button>
+						</div>
+						<div style="display: flex; gap: 10px;">
+							<input type="text" placeholder="Logo URL (optional)" value="friend-logos/strainnavigator.png" style="flex: 1;" readonly>
+							<input type="text" placeholder="Description (optional)" value="Premium strain database" style="flex: 1;" readonly>
 						</div>
 					</div>
 				</div>
@@ -1174,6 +1185,36 @@ document.createElement = function(tagName) {
                 <button type="button" class="btn" id="add-friend-btn">Add Friend Link</button>				
 				
             </div>
+
+			<h3>Partner/Friend Links Display</h3>
+
+			<div class="form-group">
+				<label for="friend-links-enabled">Enable Partner Showcase Section</label>
+				<select id="friend-links-enabled">
+					<option value="false" selected>No - Footer links only</option>
+					<option value="true">Yes - Add partner showcase section</option>
+				</select>
+				<p class="help-text">Add a visual partner section above the footer</p>
+			</div>
+
+			<div class="form-group" id="friend-links-style-group" style="display: none;">
+				<label for="friend-links-style">Partner Showcase Style</label>
+				<select id="friend-links-style">
+					<option value="cards">Enhanced Cards</option>
+					<option value="logos">Logo Strip</option>
+					<option value="banner">Sliding Banner</option>
+					<option value="grid">Compact Grid</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="footer-friend-links">Footer Friend Links</label>
+				<select id="footer-friend-links">
+					<option value="true" selected>Show text links in footer</option>
+					<option value="false">Hide footer friend links</option>
+				</select>
+				<p class="help-text">Keep the current text links in footer section</p>
+			</div>
 
 			<!-- STRAIN TREE SECTIONS -->
 			<div class="config-section" id="strainTree-section">
@@ -2840,6 +2881,10 @@ document.createElement = function(tagName) {
 						width = 1190;
 						height = 500;
 						break;
+					case 'social':
+						width = 1200;
+						height = 630;
+						break;						
 					case 'product1':
 					case 'product2':
 					case 'product3':
@@ -2913,6 +2958,9 @@ document.createElement = function(tagName) {
 						case 'hero':
 							filename = 'hero-bg.jpg';
 							break;
+						case 'social':
+							filename = 'social-preview.jpg';
+							break;							
 						case 'product1':
 						case 'product2':
 						case 'product3':
@@ -3302,11 +3350,9 @@ document.createElement = function(tagName) {
 					document.querySelectorAll('.nav-item').forEach(item => {
 						const inputs = item.querySelectorAll('input');
 						if (inputs[0].value && inputs[1].value) {
-							let navUrl = inputs[1].value;
-							
 							navItems.push({
 								name: inputs[0].value,
-								url: navUrl
+								url: inputs[1].value
 							});
 						}
 					});
@@ -3323,16 +3369,16 @@ document.createElement = function(tagName) {
 						}
 					});
 					
-					// Get friend links
+					// Get friend links WITH image and description support
 					const friendLinks = [];
 					document.querySelectorAll('#friend-links .form-group').forEach(item => {
 						const inputs = item.querySelectorAll('input');
 						if (inputs[0].value && inputs[1].value) {
-							let friendUrl = inputs[1].value;
-							
 							friendLinks.push({
 								name: inputs[0].value,
-								url: friendUrl
+								url: inputs[1].value,
+								image: inputs[2] ? inputs[2].value : '', // Third input for image
+								description: inputs[3] ? inputs[3].value : '' // Fourth input for description
 							});
 						}
 					});
@@ -3343,7 +3389,7 @@ document.createElement = function(tagName) {
 					// Get about section data
 					const aboutData = getAboutSectionConfig();
 					
-					// THIS IS THE FIX - Get strainTree value properly from the form
+					// Get strainTree value properly from the form
 					const strainTreeEnabled = document.getElementById('enable-strain-tree').value;
 					
 					return {
@@ -3352,6 +3398,7 @@ document.createElement = function(tagName) {
 							tagline: document.getElementById('site-tagline').value,
 							logo: document.getElementById('site-logo').value,                            
 							heroBackground: document.getElementById('hero-background').value,
+							socialPreview: document.getElementById('social-preview').value,
 							showHeroText: document.getElementById('show-hero-text').value === 'true',
 							email: document.getElementById('site-email').value,
 							socialLinks: socialLinks,
@@ -3418,6 +3465,13 @@ document.createElement = function(tagName) {
 						},
 						navigation: navItems,
 						friendLinks: friendLinks,
+						// ADD THESE INSIDE THE RETURN OBJECT:
+						friendLinksShowcase: {
+							enabled: document.getElementById('friend-links-enabled').value === 'true',
+							style: document.getElementById('friend-links-style').value || 'cards',
+							title: 'Our Partners'
+						},
+						showFooterFriendLinks: document.getElementById('footer-friend-links').value === 'true',
 						advanced: {
 							enableShop: document.getElementById('enable-shop').value === 'true',
 							enableLocalStorage: document.getElementById('enable-local-storage').value === 'true',
@@ -3939,34 +3993,26 @@ document.createElement = function(tagName) {
 					// Clear existing items first
 					socialLinksContainer.innerHTML = '';
 					
-					// Add each saved social link (or create defaults if none exist)
-					if (socialLinks.length === 0) {
-						// Create default social links
-						socialLinks = [
-							{ name: 'Discord', url: 'https://discord.gg/yourcollective' },
-							{ name: 'YouTube', url: 'https://youtube.com/@yourchannel' },
-							{ name: 'Instagram', url: 'https://instagram.com/yourhandle' }
-						];
-					}
-					
 					socialLinks.forEach(link => {
-						const socialItem = document.createElement('div');
-						socialItem.className = 'form-group social-item';
-						socialItem.innerHTML = `
-							<div style="display: flex; gap: 10px;">
-								<input type="text" placeholder="Platform Name" value="${link.name || ''}" style="flex: 1;">
-								<input type="url" placeholder="URL" value="${link.url || ''}" style="flex: 2;">
-								<button type="button" class="btn remove-social-btn">×</button>
-							</div>
-						`;
-						
-						// Add event listener to remove button
-						const removeBtn = socialItem.querySelector('.remove-social-btn');
-						removeBtn.addEventListener('click', function() {
-							socialLinksContainer.removeChild(socialItem);
-						});
-						
-						socialLinksContainer.appendChild(socialItem);
+						if (link.name && link.url) { // Only add if both name and URL exist
+							const socialItem = document.createElement('div');
+							socialItem.className = 'form-group social-item';
+							socialItem.innerHTML = `
+								<div style="display: flex; gap: 10px;">
+									<input type="text" placeholder="Platform Name" value="${link.name}" style="flex: 1;">
+									<input type="url" placeholder="URL" value="${link.url}" style="flex: 2;">
+									<button type="button" class="btn remove-social-btn">×</button>
+								</div>
+							`;
+							
+							// Add event listener to remove button
+							const removeBtn = socialItem.querySelector('.remove-social-btn');
+							removeBtn.addEventListener('click', function() {
+								socialLinksContainer.removeChild(socialItem);
+							});
+							
+							socialLinksContainer.appendChild(socialItem);
+						}
 					});
 				}
 				
@@ -4395,6 +4441,7 @@ document.createElement = function(tagName) {
 						safeSetValue('site-tagline', config.site.tagline);
 						safeSetValue('site-logo', config.site.logo);
 						safeSetValue('hero-background', config.site.heroBackground);
+						safeSetValue('social-preview', config.site.socialPreview);
 						safeSetValue('show-hero-text', config.site.showHeroText === false ? 'false' : 'true');
 						safeSetValue('site-email', config.site.email);
 						safeSetValue('copyright-text', config.site.copyright);
