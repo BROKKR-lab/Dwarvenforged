@@ -1184,37 +1184,39 @@ document.createElement = function(tagName) {
                 
                 <button type="button" class="btn" id="add-friend-btn">Add Friend Link</button>				
 				
+
+
+				<h3>Partner/Friend Links Display</h3>
+
+				<div class="form-group">
+					<label for="friend-links-enabled">Enable Partner Showcase Section</label>
+					<select id="friend-links-enabled">
+						<option value="false" selected>No - Footer links only</option>
+						<option value="true">Yes - Add partner showcase section</option>
+					</select>
+					<p class="help-text">Add a visual partner section above the footer</p>
+				</div>
+
+				<div class="form-group" id="friend-links-style-group" style="display: none;">
+					<label for="friend-links-style">Partner Showcase Style</label>
+					<select id="friend-links-style">
+						<option value="cards">Enhanced Cards</option>
+						<option value="logos">Logo Strip</option>
+						<option value="banner">Sliding Banner</option>
+						<option value="grid">Compact Grid</option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="footer-friend-links">Footer Friend Links</label>
+					<select id="footer-friend-links">
+						<option value="true" selected>Show text links in footer</option>
+						<option value="false">Hide footer friend links</option>
+					</select>
+					<p class="help-text">Keep the current text links in footer section</p>
+				</div>
+
             </div>
-
-			<h3>Partner/Friend Links Display</h3>
-
-			<div class="form-group">
-				<label for="friend-links-enabled">Enable Partner Showcase Section</label>
-				<select id="friend-links-enabled">
-					<option value="false" selected>No - Footer links only</option>
-					<option value="true">Yes - Add partner showcase section</option>
-				</select>
-				<p class="help-text">Add a visual partner section above the footer</p>
-			</div>
-
-			<div class="form-group" id="friend-links-style-group" style="display: none;">
-				<label for="friend-links-style">Partner Showcase Style</label>
-				<select id="friend-links-style">
-					<option value="cards">Enhanced Cards</option>
-					<option value="logos">Logo Strip</option>
-					<option value="banner">Sliding Banner</option>
-					<option value="grid">Compact Grid</option>
-				</select>
-			</div>
-
-			<div class="form-group">
-				<label for="footer-friend-links">Footer Friend Links</label>
-				<select id="footer-friend-links">
-					<option value="true" selected>Show text links in footer</option>
-					<option value="false">Hide footer friend links</option>
-				</select>
-				<p class="help-text">Keep the current text links in footer section</p>
-			</div>
 
 			<!-- STRAIN TREE SECTIONS -->
 			<div class="config-section" id="strainTree-section">
