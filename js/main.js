@@ -2183,11 +2183,21 @@ function setupEventListeners() {
 			// Hide the about section
 			document.getElementById('about').style.display = 'none';
 			
-			// Show the products section again
+			// Show the main content sections again
 			document.getElementById('products').style.display = 'block';
-			
-			// Make sure the filter buttons are visible too
 			document.querySelector('.filter-section').style.display = 'flex';
+			
+			// Restore the strain tree section if it should be visible
+			const strainTreeSection = document.getElementById('strain-tree-section');
+			if (strainTreeSection && window.siteConfig?.strainTree?.enabled === true) {
+				strainTreeSection.style.display = 'block';
+			}
+			
+			// Restore the partner showcase section if it should be visible
+			const partnerSection = document.getElementById('partner-showcase');
+			if (partnerSection && window.siteConfig?.friendLinksShowcase?.enabled === true) {
+				partnerSection.style.display = 'block';
+			}
 			
 			// Ensure the "All" filter is active to show all products
 			document.querySelectorAll('.filter-button').forEach(btn => {
