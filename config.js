@@ -741,13 +741,13 @@
         {
             "name": "Gambit Growing Solutions",
             "url": "https://gambitgrowing.com/",
-            "image": "/img/friends/Gambit_Flag.jpg",
+            "image": "Gambit_Flag.jpg",
             "description": "Innovative cultivation solutions for every realm"
         },
         {
             "name": "Athena® Ag",
             "url": "https://www.athenaag.com/",
-            "image": "/img/friends/Athena_Nutrients_Logo.jpg",
+            "image": "friends/Athena_Nutrients_Logo.jpg",
             "description": "Perfect balance for professional results"
         }
     ],
