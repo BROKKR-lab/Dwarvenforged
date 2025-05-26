@@ -181,23 +181,9 @@ nav a:hover::before {
     background: rgba(10, 14, 23, 0.9);
     border: 2px solid var(--primary-color);
     border-radius: 15px;
-    padding: 0;
-    text-decoration: none;
-    color: var(--text-color);
     overflow: hidden;
-    position: relative;
     transition: all 0.3s ease;
     display: block;
-}
-
-.partner-card-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(10, 14, 23, 0.9);
-    padding: 20px;
-    transition: all 0.3s ease;
 }
 
 .partner-card:hover {
@@ -213,8 +199,8 @@ nav a:hover::before {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-.partner-card-content {
-    padding: 20px;
+.partner-card-text {
+    padding: 15px;
     text-align: center;
 }
 
@@ -230,7 +216,6 @@ nav a:hover::before {
     opacity: 0.8;
     line-height: 1.4;
     color: var(--text-color);
-}
 }
 
 /* Logo Strip Style */
