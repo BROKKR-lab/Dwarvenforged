@@ -736,7 +736,7 @@
             "name": "StrainNavigator",
             "url": "https://www.strainnavigator.com/",
             "image": "img/friends/Strain_Navigator_Logo.jpg",
-            "description": "Premium strain database"
+            "description": "Your ultimate cannabis growing assistant"
         },
         {
             "name": "Gambit Growing Solutions",
@@ -754,7 +754,7 @@
     "friendLinksShowcase": {
         "enabled": true,
         "style": "cards",
-        "title": "Our Partners"
+        "title": "Friends and Sponsors"
     },
     "showFooterFriendLinks": true,
     "advanced": {
