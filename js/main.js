@@ -72,18 +72,52 @@ document.addEventListener('DOMContentLoaded', function() {
 			if (targetHref && targetHref.startsWith('#')) {
 				e.preventDefault();
 				
-				// Hide all sections first
-				document.querySelectorAll('section').forEach(section => {
-					section.style.display = 'none';
-				});
-				
-				// Show the target section
 				if (targetHref === '#about') {
+					// Hide all sections first
+					document.querySelectorAll('section').forEach(section => {
+						section.style.display = 'none';
+					});
+					// Show about section
 					document.getElementById('about').style.display = 'block';
-				} else if (targetHref === '#products') {
-					document.getElementById('products').style.display = 'block';
 				} else {
-					// Handle other sections...
+					// For ALL other # links, show the full main page
+					
+					// Hide about section if it's open
+					document.getElementById('about').style.display = 'none';
+					
+					// Show ALL main content sections
+					document.getElementById('products').style.display = 'block';
+					document.querySelector('.filter-section').style.display = 'flex';
+					
+					// Always show strain tree if enabled
+					const strainTreeSection = document.getElementById('strain-tree-section');
+					if (strainTreeSection && window.siteConfig?.strainTree?.enabled === true) {
+						strainTreeSection.style.display = 'block';
+					}
+					
+					// Always show partner section if enabled  
+					const partnerSection = document.getElementById('partner-showcase');
+					if (partnerSection && window.siteConfig?.friendLinksShowcase?.enabled === true) {
+						partnerSection.style.display = 'block';
+					}
+					
+					// Reset filter to show all products
+					document.querySelectorAll('.filter-button').forEach(btn => {
+						btn.classList.remove('active');
+					});
+					document.querySelector('.filter-button[data-filter="all"]').classList.add('active');
+					
+					document.querySelectorAll('.product-card').forEach(card => {
+						card.style.display = 'block';
+					});
+					
+					// Scroll to the target section if it exists
+					const targetSection = document.querySelector(targetHref);
+					if (targetSection) {
+						setTimeout(() => {
+							targetSection.scrollIntoView({ behavior: 'smooth' });
+						}, 100);
+					}
 				}
 			}
 			// External links (http://, https://) will work normally
