@@ -1454,7 +1454,7 @@ function initializePartnerShowcase() {
 // HELPER FUNCTIONS for the visual styles
 function generateCardsHTML(links) {
     const cardsHTML = links.map(link => {
-        const imagePath = link.image ? (link.image.startsWith('http') ? link.image : `img/${link.image}`) : 'https://via.placeholder.com/80x80/00FF9F/FFFFFF?text=' + link.name.charAt(0);
+        const imagePath = link.image ? (link.image.startsWith('http') ? link.image : link.image) : 'https://via.placeholder.com/80x80/00FF9F/FFFFFF?text=' + link.name.charAt(0);
         const description = link.description || '';
         
         return `
