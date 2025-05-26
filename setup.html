@@ -595,23 +595,22 @@ document.createElement = function(tagName) {
                     <label for="copyright-text">Copyright Text</label>
                     <input type="text" id="copyright-text" value="© 2025 Seed Collective. All rights reserved.">
                 </div>
-            </div>
 
-			<div class="form-group">
-				<label for="enable-legal-disclaimer">Legal Disclaimer</label>
-				<select id="enable-legal-disclaimer">
-					<option value="true" selected>Show legal disclaimer</option>
-					<option value="false">Hide legal disclaimer</option>
-				</select>
-				<p class="help-text">Displays legal disclaimer about product sales on all pages</p>
-			</div>
+				<div class="form-group">
+					<label for="enable-legal-disclaimer">Legal Disclaimer</label>
+					<select id="enable-legal-disclaimer">
+						<option value="true" selected>Show legal disclaimer</option>
+						<option value="false">Hide legal disclaimer</option>
+					</select>
+					<p class="help-text">Displays legal disclaimer about product sales on all pages</p>
+				</div>
 
-			<div class="form-group">
-				<label for="legal-disclaimer-text">Disclaimer Text</label>
-				<textarea id="legal-disclaimer-text" rows="4" placeholder="Enter your legal disclaimer text...">[Company Name] sells products for souvenir and collectible purposes only. Products may not be legal in some countries and [Company Name] strongly advises you not to take products where they are not permitted. [Company Name] does not accept any responsibility for any violation of customs regulations or local laws. All responsibility falls on the purchaser to determine the legal status of products in their country of residence. Any information provided is for educational purposes only.</textarea>
-				<p class="help-text">Customize the legal disclaimer text for your business. Use [Company Name] as placeholder.</p>
-			</div>
-            
+				<div class="form-group">
+					<label for="legal-disclaimer-text">Disclaimer Text</label>
+					<textarea id="legal-disclaimer-text" rows="4" placeholder="Enter your legal disclaimer text...">[Company Name] sells products for souvenir and collectible purposes only. Products may not be legal in some countries and [Company Name] strongly advises you not to take products where they are not permitted. [Company Name] does not accept any responsibility for any violation of customs regulations or local laws. All responsibility falls on the purchaser to determine the legal status of products in their country of residence. Any information provided is for educational purposes only.</textarea>
+					<p class="help-text">Customize the legal disclaimer text for your business. Use [Company Name] as placeholder.</p>
+				</div>
+            </div>            
             <!-- Colors & Theme Section -->
             <div class="config-section" id="colors-section">
                 <h2>Colors & Theme</h2>
@@ -1219,9 +1218,7 @@ document.createElement = function(tagName) {
 					Use '#section-name' for sections on the main page (e.g., #products, #about) or full URLs for external links.
 				</p>
                 
-                <button type="button" class="btn" id="add-friend-btn">Add Friend Link</button>				
-				
-
+                <button type="button" class="btn" id="add-friend-btn">Add Friend Link</button>								
 
 				<h3>Partner/Friend Links Display</h3>
 
@@ -3531,7 +3528,11 @@ document.createElement = function(tagName) {
 							title: document.getElementById('strain-tree-title').value,
 							description: document.getElementById('strain-tree-description').value,
 							dataPath: document.getElementById('strain-data-path').value || 'data/straindata.json'
-						},                  
+						},
+						legal: {
+							enableDisclaimer: document.getElementById('enable-legal-disclaimer').value === 'true',
+							disclaimerText: document.getElementById('legal-disclaimer-text').value
+						},						
 						about: aboutData,
 						products: {
 							defaultStatus: 'available',
@@ -4606,6 +4607,11 @@ document.createElement = function(tagName) {
 							const event = new Event('change');
 							enableAgeCheckSelect.dispatchEvent(event);
 						}							
+					}
+
+					if (config.legal) {
+						safeSetValue('enable-legal-disclaimer', config.legal.enableDisclaimer ? 'true' : 'false');
+						safeSetValue('legal-disclaimer-text', config.legal.disclaimerText || '');
 					}
 					
 					// Handle background images specifically
