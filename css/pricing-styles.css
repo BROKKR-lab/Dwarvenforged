@@ -1,4 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Lato:wght@300;400;600&display=swap');
+
+:root {
+    --primary-color: #b87333;
+    --secondary-color: #c69c6d;
+    --tertiary-color: #a23e25;
+    --highlight-color: #e6c200;
+    --alert-color: #a23e25;
+    --background-color: #2e2119;
+    --text-color: #f5f0e6;
+    
+    --font-heading: 'Oswald', sans-serif;
+    --font-body: 'Lato', sans-serif;
+}
 
 * {
     margin: 0;
@@ -7,14 +20,15 @@
 }
 
 body {
-    font-family: 'Crimson Text', serif;
-    background: linear-gradient(135deg, #1a1611 0%, #2d2419 50%, #1a1611 100%);
-    color: #e8d5b7;
-    min-height: 100vh;
-    position: relative;
+    font-family: var(--font-body);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
     overflow-x: hidden;
+    position: relative;
 }
 
+/* Match main site background with hero image and metal texture */
 body::before {
     content: '';
     position: fixed;
@@ -22,18 +36,124 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(255, 140, 0, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 69, 0, 0.1) 0%, transparent 50%),
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.02"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    background-image: url('/img/hero-bg.jpg');
+    background-size: 100% auto;
+    background-position: top center;
+    background-attachment: fixed;
+    z-index: -10;
     pointer-events: none;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/img/metal-texture.jpg');
+    background-repeat: repeat;
+    opacity: 0.5;
+    z-index: -15;
+    pointer-events: none;
+}
+
+/* Site Header Styles */
+.site-header {
+    padding: 20px 0;
+    background: rgba(46, 33, 25, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--primary-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.header-logo {
+    height: 60px;
+    width: auto;
+    margin-right: 15px;
+    border-radius: 10px;
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 0 15px rgba(184, 115, 51, 0.7);
+}
+
+.site-title {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--text-color);
+    text-shadow: 0 0 10px var(--secondary-color), 0 0 20px var(--secondary-color);
+    letter-spacing: 1px;
+}
+
+.main-navigation {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.main-navigation a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+    padding: 8px 12px;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.main-navigation a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(198, 156, 109, 0.2), transparent);
+    transition: all 0.5s;
     z-index: -1;
+}
+
+.main-navigation a:hover,
+.main-navigation a.active {
+    color: var(--secondary-color);
+    text-shadow: 0 0 5px var(--secondary-color);
+}
+
+.main-navigation a:hover::before,
+.main-navigation a.active::before {
+    left: 100%;
 }
 
 .container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 2rem;
+    position: relative;
+    z-index: 1;
 }
 
 .header {
@@ -43,10 +163,10 @@ body::before {
 }
 
 .main-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 3.5rem;
     font-weight: 700;
-    color: #ffd700;
+    color: var(--highlight-color);
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
     margin-bottom: 1rem;
     letter-spacing: 2px;
@@ -54,7 +174,7 @@ body::before {
 
 .subtitle {
     font-size: 1.5rem;
-    color: #d4af37;
+    color: var(--secondary-color);
     font-style: italic;
     margin-bottom: 1rem;
 }
@@ -64,48 +184,7 @@ body::before {
     max-width: 800px;
     margin: 0 auto;
     line-height: 1.6;
-    color: #e8d5b7;
-}
-
-.membership-toggle {
-    display: flex;
-    justify-content: center;
-    margin: 3rem 0;
-    position: relative;
-}
-
-.toggle-container {
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 50px;
-    padding: 4px;
-    border: 2px solid #8B4513;
-    position: relative;
-}
-
-.toggle-switch {
-    display: flex;
-    position: relative;
-}
-
-.toggle-option {
-    padding: 12px 24px;
-    border-radius: 46px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 600;
-    font-size: 1.1rem;
-    position: relative;
-    z-index: 2;
-}
-
-.toggle-option.active {
-    color: #1a1611;
-    background: linear-gradient(135deg, #ffd700, #d4af37);
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-}
-
-.toggle-option:not(.active) {
-    color: #e8d5b7;
+    color: var(--text-color);
 }
 
 .section {
@@ -113,17 +192,18 @@ body::before {
 }
 
 .section-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 2.5rem;
-    color: #ffd700;
+    color: var(--highlight-color);
     text-align: center;
     margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .section-subtitle {
     text-align: center;
     font-size: 1.2rem;
-    color: #d4af37;
+    color: var(--secondary-color);
     margin-bottom: 3rem;
     font-style: italic;
 }
@@ -150,9 +230,9 @@ body::before {
 }
 
 .pricing-card {
-    background: linear-gradient(145deg, rgba(139, 69, 19, 0.2), rgba(160, 82, 45, 0.1));
-    border: 2px solid #8B4513;
-    border-radius: 15px;
+    background: rgba(46, 33, 25, 0.8);
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
     padding: 2rem;
     position: relative;
     overflow: hidden;
@@ -161,17 +241,17 @@ body::before {
 }
 
 .regular-pack-card {
-    background: linear-gradient(145deg, rgba(139, 69, 19, 0.15), rgba(160, 82, 45, 0.05));
-    border: 1px solid #8B4513;
-    border-radius: 12px;
+    background: rgba(46, 33, 25, 0.6);
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
     padding: 1.5rem;
     text-align: center;
     transition: all 0.3s ease;
 }
 
 .merch-card {
-    background: linear-gradient(145deg, rgba(139, 69, 19, 0.1), rgba(160, 82, 45, 0.03));
-    border: 1px solid #8B4513;
+    background: rgba(46, 33, 25, 0.4);
+    border: 1px solid var(--primary-color);
     border-radius: 10px;
     padding: 1.5rem;
     text-align: center;
@@ -181,39 +261,24 @@ body::before {
 .regular-pack-card:hover,
 .merch-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(255, 215, 0, 0.15);
-}
-
-.pricing-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #ffd700, #d4af37, #ffd700);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    box-shadow: 0 10px 25px rgba(230, 194, 0, 0.15);
+    border-color: var(--secondary-color);
 }
 
 .pricing-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2);
-    border-color: #d4af37;
-}
-
-.pricing-card:hover::before {
-    opacity: 1;
+    box-shadow: 0 15px 40px rgba(230, 194, 0, 0.2);
+    border-color: var(--secondary-color);
 }
 
 .popular-badge {
     position: absolute;
     top: -1px;
     right: -1px;
-    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    background: linear-gradient(135deg, var(--alert-color), var(--tertiary-color));
     color: white;
     padding: 8px 20px;
-    border-radius: 0 15px 0 15px;
+    border-radius: 0 10px 0 15px;
     font-weight: 600;
     font-size: 0.9rem;
     text-transform: uppercase;
@@ -221,10 +286,10 @@ body::before {
 }
 
 .card-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 1.8rem;
     font-weight: 600;
-    color: #ffd700;
+    color: var(--highlight-color);
     margin-bottom: 0.5rem;
     text-align: center;
 }
@@ -233,7 +298,7 @@ body::before {
     text-align: center;
     font-style: italic;
     margin-bottom: 1.5rem;
-    color: #d4af37;
+    color: var(--secondary-color);
 }
 
 .price-display {
@@ -244,19 +309,19 @@ body::before {
 .price {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #ffd700;
+    color: var(--highlight-color);
 }
 
 .price-period {
     font-size: 1rem;
-    color: #b8860b;
+    color: var(--secondary-color);
     margin-left: 0.5rem;
 }
 
 .value-breakdown {
     margin-top: 1rem;
     font-size: 0.9rem;
-    color: #d4af37;
+    color: var(--secondary-color);
 }
 
 .pack-value {
@@ -269,27 +334,14 @@ body::before {
 }
 
 .shipping-note {
-    color: #b8860b;
+    color: var(--primary-color);
     font-style: italic;
 }
 
-.original-price {
-    text-decoration: line-through;
-    color: #888;
-    font-size: 1.2rem;
-    margin-right: 1rem;
-}
-
-.on-sale {
+.savings-highlight {
     color: #90EE90;
     font-weight: 600;
-    font-size: 0.9rem;
-}
-
-.savings {
-    color: #90EE90;
-    font-weight: 600;
-    font-size: 1.1rem;
+    margin-top: 0.5rem;
 }
 
 .features {
@@ -313,8 +365,8 @@ body::before {
 .cta-button {
     width: 100%;
     padding: 1rem 2rem;
-    background: linear-gradient(135deg, #ffd700, #d4af37);
-    color: #1a1611;
+    background: linear-gradient(135deg, var(--primary-color), var(--tertiary-color));
+    color: var(--text-color);
     border: none;
     border-radius: 8px;
     font-size: 1.1rem;
@@ -323,51 +375,44 @@ body::before {
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
+    font-family: var(--font-heading);
 }
 
 .cta-button:hover {
-    background: linear-gradient(135deg, #d4af37, #b8860b);
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
-}
-
-.shipping-info {
-    text-align: center;
-    margin-top: 1rem;
-    font-size: 0.8rem;
-    color: #b8860b;
-    font-style: italic;
+    box-shadow: 0 5px 15px rgba(230, 194, 0, 0.4);
 }
 
 .shipping-info-section {
     text-align: center;
     margin-top: 2rem;
     padding: 1rem;
-    background: rgba(139, 69, 19, 0.1);
+    background: rgba(46, 33, 25, 0.6);
     border-radius: 8px;
-    border: 1px solid #8B4513;
+    border: 1px solid var(--primary-color);
 }
 
 .disclaimer {
     text-align: center;
     margin-top: 2rem;
     padding: 1rem;
-    background: rgba(255, 215, 0, 0.05);
+    background: rgba(230, 194, 0, 0.05);
     border-radius: 8px;
-    border: 1px solid #d4af37;
+    border: 1px solid var(--secondary-color);
     font-size: 0.9rem;
-    color: #d4af37;
+    color: var(--secondary-color);
 }
 
 .pack-name {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 1.4rem;
-    color: #ffd700;
+    color: var(--highlight-color);
     margin-bottom: 0.5rem;
 }
 
 .pack-description {
-    color: #d4af37;
+    color: var(--secondary-color);
     font-style: italic;
     margin-bottom: 1rem;
 }
@@ -379,21 +424,21 @@ body::before {
 
 .pack-price {
     font-size: 1.8rem;
-    color: #ffd700;
+    color: var(--highlight-color);
     font-weight: 600;
     margin-bottom: 0.5rem;
 }
 
 .merch-name {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 1.2rem;
-    color: #ffd700;
+    color: var(--highlight-color);
     margin-bottom: 0.5rem;
 }
 
 .merch-price {
     font-size: 1.4rem;
-    color: #d4af37;
+    color: var(--secondary-color);
     font-weight: 600;
     margin-bottom: 0.5rem;
 }
@@ -404,7 +449,7 @@ body::before {
     font-style: italic;
 }
 
-.member-note {
+.subscription-note {
     font-size: 0.85rem;
     color: #90EE90;
     margin-bottom: 1rem;
@@ -412,25 +457,25 @@ body::before {
 }
 
 .tester-section {
-    background: linear-gradient(145deg, rgba(255, 215, 0, 0.1), rgba(212, 175, 55, 0.05));
-    border: 2px solid #d4af37;
-    border-radius: 15px;
+    background: rgba(46, 33, 25, 0.8);
+    border: 2px solid var(--secondary-color);
+    border-radius: 10px;
     padding: 3rem;
     text-align: center;
     margin: 4rem 0;
 }
 
 .tester-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 2.2rem;
-    color: #ffd700;
+    color: var(--highlight-color);
     margin-bottom: 1rem;
 }
 
 .tester-description {
     font-size: 1.2rem;
     margin-bottom: 2rem;
-    color: #e8d5b7;
+    color: var(--text-color);
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
@@ -444,22 +489,22 @@ body::before {
 }
 
 .tester-benefit {
-    background: rgba(139, 69, 19, 0.2);
+    background: rgba(46, 33, 25, 0.6);
     padding: 1.5rem;
     border-radius: 10px;
-    border: 1px solid #8B4513;
+    border: 1px solid var(--primary-color);
 }
 
 .tester-benefit h4 {
-    color: #ffd700;
+    color: var(--highlight-color);
     margin-bottom: 0.5rem;
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
 }
 
 .limited-releases {
-    background: linear-gradient(145deg, rgba(255, 69, 0, 0.1), rgba(255, 140, 0, 0.05));
-    border: 2px solid #ff6b35;
-    border-radius: 15px;
+    background: rgba(162, 62, 37, 0.1);
+    border: 2px solid var(--alert-color);
+    border-radius: 10px;
     padding: 2rem;
     margin: 3rem 0;
 }
@@ -470,9 +515,9 @@ body::before {
 }
 
 .limited-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 2rem;
-    color: #ff6b35;
+    color: var(--alert-color);
     margin-bottom: 0.5rem;
 }
 
@@ -483,26 +528,26 @@ body::before {
 }
 
 .limited-card {
-    background: rgba(139, 69, 19, 0.15);
-    border: 1px solid #ff6b35;
-    border-radius: 12px;
+    background: rgba(46, 33, 25, 0.6);
+    border: 1px solid var(--alert-color);
+    border-radius: 10px;
     padding: 1.5rem;
     text-align: center;
 }
 
 .calculator {
-    background: rgba(139, 69, 19, 0.2);
-    border: 2px solid #8B4513;
-    border-radius: 15px;
+    background: rgba(46, 33, 25, 0.8);
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
     padding: 2rem;
     margin: 4rem 0;
     text-align: center;
 }
 
 .calculator-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 2rem;
-    color: #ffd700;
+    color: var(--highlight-color);
     margin-bottom: 1.5rem;
 }
 
@@ -514,16 +559,16 @@ body::before {
 .calculator-input label {
     display: block;
     margin-bottom: 0.5rem;
-    color: #d4af37;
+    color: var(--secondary-color);
     font-weight: 600;
 }
 
 .calculator-input input, .calculator-input select {
     padding: 0.75rem;
-    border: 2px solid #8B4513;
+    border: 2px solid var(--primary-color);
     border-radius: 8px;
     background: rgba(0, 0, 0, 0.3);
-    color: #e8d5b7;
+    color: var(--text-color);
     font-size: 1rem;
     width: 150px;
 }
@@ -531,9 +576,9 @@ body::before {
 .calculator-result {
     margin-top: 2rem;
     padding: 1.5rem;
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(212, 175, 55, 0.1));
+    background: rgba(230, 194, 0, 0.1);
     border-radius: 10px;
-    border: 1px solid #d4af37;
+    border: 1px solid var(--secondary-color);
 }
 
 .hidden {
@@ -541,6 +586,16 @@ body::before {
 }
 
 @media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .main-navigation {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
     .main-title {
         font-size: 2.5rem;
     }
@@ -551,10 +606,5 @@ body::before {
     
     .container {
         padding: 1rem;
-    }
-    
-    .toggle-option {
-        padding: 10px 18px;
-        font-size: 1rem;
     }
 }
