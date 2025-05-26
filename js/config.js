@@ -7,6 +7,7 @@
         "tagline": "Cannabis Seeds Forged With Dwarven Precision",
         "logo": "img/logo.jpg",
         "heroBackground": "img/hero-bg.jpg",
+        "socialPreview": "",
         "showHeroText": false,
         "email": "dwarvenforgedshop@sitepackages.net",
         "socialLinks": [
@@ -733,24 +734,36 @@
     "friendLinks": [
         {
             "name": "StrainNavigator",
-            "url": "https://www.strainnavigator.com/"
+            "url": "https://www.strainnavigator.com/",
+            "image": "img/friends/Strain_Navigator_Logo.jpg",
+            "description": "Premium strain database"
         },
         {
             "name": "Gambit Growing Solutions",
-            "url": "https://gambitgrowing.com/"
+            "url": "https://gambitgrowing.com/",
+            "image": "img/friends/Gambit_Flag.jpg",
+            "description": "Innovative cultivation solutions for every realm"
         },
         {
             "name": "Athena® Ag",
-            "url": "https://www.athenaag.com/"
+            "url": "https://www.athenaag.com/",
+            "image": "img/friends/Athena_Nutrients_Logo.jpg",
+            "description": "Perfect balance for professional results"
         }
     ],
+    "friendLinksShowcase": {
+        "enabled": true,
+        "style": "cards",
+        "title": "Our Partners"
+    },
+    "showFooterFriendLinks": true,
     "advanced": {
         "enableShop": true,
         "enableLocalStorage": true,
         "checkoutMethod": "email",
         "externalCheckoutUrl": "",
         "analyticsId": "",
-        "orderEmail": "dwarvenforgedshop@sitepackages.net",
+        "orderEmail": "orders@example.com",
         "enableAgeCheck": true,
         "ageCheckMinimum": 21,
         "ageRedirectUrl": "https://www.google.com"
