@@ -65,6 +65,10 @@
         "description": "Explore the genetic relationships between our strains.",
         "dataPath": "data/straindata.json"
     },
+    "legal": {
+        "enableDisclaimer": true,
+        "disclaimerText": "[Company Name] sells products for souvenir and collectible purposes only. Products may not be legal in some countries and [Company Name] strongly advises you not to take products where they are not permitted. [Company Name] does not accept any responsibility for any violation of customs regulations or local laws. All responsibility falls on the purchaser to determine the legal status of products in their country of residence. Any information provided is for educational purposes only."
+    },
     "about": {
         "title": "The Brokkr Story",
         "subtitle": "Premium Genetics Forged with Dwarven Precision",
@@ -763,7 +767,7 @@
         "checkoutMethod": "email",
         "externalCheckoutUrl": "",
         "analyticsId": "",
-        "orderEmail": "orders@example.com",
+        "orderEmail": "dwarvenforgedshop@sitepackages.net",
         "enableAgeCheck": true,
         "ageCheckMinimum": 21,
         "ageRedirectUrl": "https://www.google.com"
