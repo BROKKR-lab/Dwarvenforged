@@ -595,6 +595,24 @@ function addDigitalProductStyles() {
     dynamicStyles.textContent += digitalStyles;
 }
 
+function addLegalDisclaimer(disclaimerText, siteName) {
+    // Replace [Company Name] placeholder with actual site name
+    const processedText = disclaimerText.replace(/\[Company Name\]/g, siteName);
+    
+    // Create disclaimer element
+    const disclaimer = document.createElement('div');
+    disclaimer.className = 'legal-disclaimer';
+    disclaimer.innerHTML = `<p><strong>Legal Disclaimer:</strong> ${processedText}</p>`;
+    
+    // Add to footer or end of body
+    const footer = document.querySelector('footer');
+    if (footer) {
+        footer.appendChild(disclaimer);
+    } else {
+        document.body.appendChild(disclaimer);
+    }
+}
+
 // Apply site configuration from config.js or preview config
 function applySiteConfig() {
    const siteConfig = window.siteConfig;
@@ -701,6 +719,12 @@ function applySiteConfig() {
            typeTag.setAttribute('content', 'image/jpeg'); // Assume JPEG, change if needed
            document.head.appendChild(typeTag);
        }
+	   
+		// Add legal disclaimer if enabled
+		if (siteConfig.legal && siteConfig.legal.enableDisclaimer && siteConfig.legal.disclaimerText) {
+			addLegalDisclaimer(siteConfig.legal.disclaimerText, siteConfig.site.name);
+		}
+	   
    }
    
    // Fix logo path handling
