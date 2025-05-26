@@ -1454,15 +1454,16 @@ function initializePartnerShowcase() {
 // HELPER FUNCTIONS for the visual styles
 function generateCardsHTML(links) {
     const cardsHTML = links.map(link => {
-        const imagePath = link.image ? (link.image.startsWith('http') ? link.image : link.image) : 'https://via.placeholder.com/80x80/00FF9F/FFFFFF?text=' + link.name.charAt(0);
+        const imagePath = link.image ? (link.image.startsWith('http') ? link.image : link.image) : 'https://via.placeholder.com/280x200/00FF9F/FFFFFF?text=' + link.name.charAt(0);
         const description = link.description || '';
         
         return `
-            <a href="${link.url}" class="partner-card" target="_blank">
-                <div class="partner-card-content">
-                    <img src="${imagePath}" alt="${link.name}" class="partner-logo">
-                    <div class="partner-name">${link.name}</div>
-                    ${description ? `<div class="partner-description">${description}</div>` : ''}
+            <a href="${link.url}" class="partner-card" target="_blank" style="background-image: url('${imagePath}'); background-size: cover; background-position: center;">
+                <div class="partner-card-overlay">
+                    <div class="partner-card-content">
+                        <div class="partner-name">${link.name}</div>
+                        ${description ? `<div class="partner-description">${description}</div>` : ''}
+                    </div>
                 </div>
             </a>
         `;
