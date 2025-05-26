@@ -3953,39 +3953,57 @@ document.createElement = function(tagName) {
 				}
 
 				function loadFriendLinks(friendLinks) {
-					if (!Array.isArray(friendLinks) || friendLinks.length === 0) return;
+					if (!Array.isArray(friendLinks)) friendLinks = [];
 					
-					const friendContainer = document.getElementById('friend-links');
-					if (!friendContainer) return;
+					const friendLinksContainer = document.getElementById('friend-links');
+					if (!friendLinksContainer) return;
 					
-					// Keep the hardcoded StrainNavigator entry, only add others
-					friendLinks.forEach(item => {
-						// Skip StrainNavigator since it's hardcoded
-						if (item.name === 'StrainNavigator') return;
+					// Clear existing items first
+					friendLinksContainer.innerHTML = '';
+					
+					// Always add hardcoded StrainNavigator first (not editable)
+					const strainNavItem = document.createElement('div');
+					strainNavItem.className = 'form-group friend-item default-friend';
+					strainNavItem.innerHTML = `
+						<div style="display: flex; gap: 10px; margin-bottom: 10px;">
+							<input type="text" placeholder="Name" value="StrainNavigator" style="flex: 1;" readonly>
+							<input type="text" placeholder="URL" value="https://www.strainnavigator.com/" style="flex: 1;" readonly>
+							<button type="button" class="btn" disabled style="opacity: 0.5; cursor: not-allowed;">×</button>
+						</div>
+						<div style="display: flex; gap: 10px; margin-bottom: 10px;">
+							<input type="text" placeholder="Logo/Image URL (optional)" value="img/friends/Strain_Navigator_Logo.jpg" style="flex: 1;" readonly>
+							<input type="text" placeholder="Description (optional)" value="Premium strain database" style="flex: 1;" readonly>
+						</div>
+					`;
+					friendLinksContainer.appendChild(strainNavItem);
+					
+					// Then add other friend links (skip StrainNavigator if it exists in data)
+					friendLinks.forEach(link => {
+						if (link.name === 'StrainNavigator') return; // Skip duplicate
 						
-						const friendItem = document.createElement('div');
-						friendItem.className = 'form-group friend-item';
-						friendItem.innerHTML = `
-							<div style="display: flex; gap: 10px; margin-bottom: 10px;">
-								<input type="text" placeholder="Friend Name" value="${item.name || ''}" style="flex: 1;">
-								<input type="text" placeholder="URL" value="${item.url || ''}" style="flex: 1;">
-								<button type="button" class="btn remove-friend-btn">×</button>
-							</div>
-							<div style="display: flex; gap: 10px; margin-bottom: 10px;">
-								<input type="text" placeholder="Logo/Image URL (optional)" value="${item.image || ''}" style="flex: 1;">
-								<input type="text" placeholder="Description (optional)" value="${item.description || ''}" style="flex: 1;">
-							</div>
-						`;
-						
-						// Add event listener to remove button
-						const removeBtn = friendItem.querySelector('.remove-friend-btn');
-						if (removeBtn) {
+						if (link.name && link.url) {
+							const friendItem = document.createElement('div');
+							friendItem.className = 'form-group friend-item';
+							friendItem.innerHTML = `
+								<div style="display: flex; gap: 10px; margin-bottom: 10px;">
+									<input type="text" placeholder="Friend Name" value="${link.name}" style="flex: 1;">
+									<input type="text" placeholder="URL" value="${link.url}" style="flex: 1;">
+									<button type="button" class="btn remove-friend-btn">×</button>
+								</div>
+								<div style="display: flex; gap: 10px; margin-bottom: 10px;">
+									<input type="text" placeholder="Logo/Image URL (optional)" value="${link.image || ''}" style="flex: 1;">
+									<input type="text" placeholder="Description (optional)" value="${link.description || ''}" style="flex: 1;">
+								</div>
+							`;
+							
+							// Add remove button event
+							const removeBtn = friendItem.querySelector('.remove-friend-btn');
 							removeBtn.addEventListener('click', function() {
-								friendContainer.removeChild(friendItem);
+								friendLinksContainer.removeChild(friendItem);
 							});
+							
+							friendLinksContainer.appendChild(friendItem);
 						}
-						
-						friendContainer.appendChild(friendItem);
 					});
 				}
 
