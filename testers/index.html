@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dwarven Forged - Seed Testing Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 5px;
+        }
+        
+        .nav-tab {
+            padding: 12px 24px;
+            margin: 0 5px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+        
+        .nav-tab:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .nav-tab.active {
+            background: rgba(255,255,255,0.3);
+            font-weight: bold;
+        }
+        
+        .tab-content {
+            display: none;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            font-size: 1em;
+        }
+        
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid rgba(76, 175, 80, 0.5);
+            color: #fff;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .data-table th {
+            background: rgba(255,255,255,0.2);
+            font-weight: bold;
+        }
+        
+        .strain-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+        
+        .strain-card h3 {
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .strain-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        .stat-number {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .important-warning {
+            background: rgba(255, 152, 0, 0.2);
+            border: 1px solid rgba(255, 152, 0, 0.5);
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .important-warning strong {
+            color: #ffab40;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row,
+            .form-row-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏔️ Dwarven Forged Seed Testing</h1>
+            <p>Professional Cannabis Genetics Testing & Feedback System</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('submit-report')">Submit Report</button>
+            <button class="nav-tab" onclick="showTab('view-data')">View Results</button>
+            <button class="nav-tab" onclick="showTab('strain-summary')">Strain Summary</button>
+            <button class="nav-tab" onclick="showTab('setup')">Setup Instructions</button>
+        </div>
+        
+        <!-- Submit Report Tab -->
+        <div id="submit-report" class="tab-content active">
+            <h2>🌱 Submit Grow Report</h2>
+            
+            <div class="important-warning">
+                <strong>⚠️ Critical Info:</strong> Always report hermaphrodite traits, male flowers on female plants, or seeds found during harvest - this data is crucial for strain stability!
+            </div>
+            
+            <form id="reportForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="testerName">Tester Name/ID:</label>
+                        <input type="text" id="testerName" name="testerName" placeholder="Your grower name or ID">
+                    </div>
+                    <div class="form-group">
+                        <label for="strainName">Strain Name:</label>
+                        <input type="text" id="strainName" name="strainName" placeholder="e.g., Dwarven Purple Kush">
+                    </div>
+                </div>
+                
+                <div class="form-row-3">
+                    <div class="form-group">
+                        <label for="plantId">Plant ID:</label>
+                        <input type="text" id="plantId" name="plantId" placeholder="e.g., DPK_001, Pheno#2">
+                    </div>
+                    <div class="form-group">
+                        <label for="weekNumber">Week #:</label>
+                        <input type="number" id="weekNumber" name="weekNumber" min="1" max="30">
+                    </div>
+                    <div class="form-group">
+                        <label for="reportDate">Report Date:</label>
+                        <input type="date" id="reportDate" name="reportDate">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="growMethod">Growing Method:</label>
+                        <select id="growMethod" name="growMethod">
+                            <option value="">Select Method</option>
+                            <option value="indoor-soil">Indoor - Soil</option>
+                            <option value="indoor-hydro">Indoor - Hydro</option>
+                            <option value="indoor-coco">Indoor - Coco</option>
+                            <option value="outdoor-soil">Outdoor - Soil</option>
+                            <option value="greenhouse">Greenhouse</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="plantStage">Plant Stage:</label>
+                        <select id="plantStage" name="plantStage">
+                            <option value="">Select Stage</option>
+                            <option value="seedling">Seedling</option>
+                            <option value="vegetative">Vegetative</option>
+                            <option value="pre-flower">Pre-Flower</option>
+                            <option value="flowering">Flowering</option>
+                            <option value="harvest">Harvest</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row-3">
+                    <div class="form-group">
+                        <label for="plantHeight">Height (inches):</label>
+                        <input type="number" id="plantHeight" name="plantHeight" step="0.5">
+                    </div>
+                    <div class="form-group">
+                        <label for="plantHealth">Health (1-10):</label>
+                        <input type="number" id="plantHealth" name="plantHealth" min="1" max="10">
+                    </div>
+                    <div class="form-group">
+                        <label for="sexConfirmed">Sex Confirmed:</label>
+                        <select id="sexConfirmed" name="sexConfirmed">
+                            <option value="">Not Yet</option>
+                            <option value="female">Female</option>
+                            <option value="male">Male</option>
+                            <option value="hermie">Hermaphrodite</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Critical Cannabis-Specific Fields -->
+                <div class="important-warning">
+                    <strong>🚨 CRITICAL TRACKING:</strong>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hermieIssues">Hermie/Male Traits Observed:</label>
+                        <select id="hermieIssues" name="hermieIssues">
+                            <option value="none">None Observed</option>
+                            <option value="nanners">Nanners (Male flowers)</option>
+                            <option value="pollen-sacs">Pollen Sacs</option>
+                            <option value="seeds-found">Seeds Found in Buds</option>
+                            <option value="intersex">Intersex Traits</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="hermieLocation">Location on Plant:</label>
+                        <input type="text" id="hermieLocation" name="hermieLocation" placeholder="e.g., Lower nodes, stressed branches">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="photoLinks">Photo Links (one per line):</label>
+                    <textarea id="photoLinks" name="photoLinks" placeholder="Paste image URLs here, one per line..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="generalNotes">General Notes & Observations:</label>
+                    <textarea id="generalNotes" name="generalNotes" placeholder="Any other observations, issues, or notes..."></textarea>
+                </div>
+                
+                <button type="button" class="btn" onclick="generateSheetData()">📋 Generate Sheet Data</button>
+                <button type="button" class="btn btn-secondary" onclick="clearForm()">🔄 Clear Form</button>
+            </form>
+            
+            <div id="outputSection" style="display: none; margin-top: 30px;">
+                <h3>📊 Copy this data to your Google Sheet:</h3>
+                <div class="alert">
+                    <strong>Instructions:</strong> Copy the text below and paste it as a new row in your Google Sheet
+                </div>
+                <textarea id="sheetOutput" style="width: 100%; height: 100px; font-family: monospace; background: #fff; color: #333; padding: 10px; border-radius: 5px;"></textarea>
+                <br>
+                <button class="btn" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
+            </div>
+        </div>
+        
+        <!-- View Data Tab -->
+        <div id="view-data" class="tab-content">
+            <h2>📈 View Test Results</h2>
+            <p style="margin-bottom: 20px;">This would display your Google Sheets data. For the prototype, here's sample data:</p>
+            
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Tester</th>
+                        <th>Strain</th>
+                        <th>Plant ID</th>
+                        <th>Week</th>
+                        <th>Stage</th>
+                        <th>Height</th>
+                        <th>Health</th>
+                        <th>Issues</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2025-05-20</td>
+                        <td>GrowMaster_420</td>
+                        <td>Dwarven Purple</td>
+                        <td>DP_001</td>
+                        <td>6</td>
+                        <td>Flowering</td>
+                        <td>24"</td>
+                        <td>9/10</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>2025-05-18</td>
+                        <td>IndoorGuru</td>
+                        <td>Dwarven Gold</td>
+                        <td>DG_002</td>
+                        <td>8</td>
+                        <td>Flowering</td>
+                        <td>30"</td>
+                        <td>8/10</td>
+                        <td>Minor nute burn</td>
+                    </tr>
+                    <tr style="background: rgba(255, 152, 0, 0.2);">
+                        <td>2025-05-15</td>
+                        <td>TestGrower_X</td>
+                        <td>Dwarven Diesel</td>
+                        <td>DD_003</td>
+                        <td>7</td>
+                        <td>Flowering</td>
+                        <td>28"</td>
+                        <td>6/10</td>
+                        <td>⚠️ Nanners observed</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Strain Summary Tab -->
+        <div id="strain-summary" class="tab-content">
+            <h2>🧬 Strain Performance Summary</h2>
+            
+            <div class="strain-card">
+                <h3>Dwarven Purple Kush</h3>
+                <p>Indoor/Outdoor hybrid strain with strong genetics</p>
+                <div class="strain-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">12</div>
+                        <div>Total Tests</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">8.5</div>
+                        <div>Avg Health</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">0%</div>
+                        <div>Hermie Rate</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">68</div>
+                        <div>Avg Days</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="strain-card" style="border-left-color: #ff9800;">
+                <h3>Dwarven Diesel <span style="color: #ff9800;">⚠️</span></h3>
+                <p>High yielding strain - monitoring for stability issues</p>
+                <div class="strain-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">8</div>
+                        <div>Total Tests</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">7.2</div>
+                        <div>Avg Health</div>
+                    </div>
+                    <div class="stat-item" style="background: rgba(255, 152, 0, 0.2);">
+                        <div class="stat-number">25%</div>
+                        <div>Hermie Rate</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">72</div>
+                        <div>Avg Days</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Setup Tab -->
+        <div id="setup" class="tab-content">
+            <h2>⚙️ Setup Instructions</h2>
+            
+            <div class="alert">
+                <strong>Quick Setup:</strong> This system works with Google Forms + Google Sheets for zero cost and maximum simplicity!
+            </div>
+            
+            <h3>Step 1: Create Google Form</h3>
+            <p>Create a Google Form with these fields (matching the form above):</p>
+            <ul style="margin: 15px 0 15px 30px;">
+                <li>Tester Name, Strain Name, Plant ID</li>
+                <li>Week Number, Report Date, Growing Method</li>
+                <li>Plant Stage, Height, Health Rating</li>
+                <li>Sex Confirmed, Hermie Issues, Location</li>
+                <li>Photo Links, General Notes</li>
+            </ul>
+            
+            <h3>Step 2: Link to Google Sheets</h3>
+            <p>Google Forms automatically creates a spreadsheet with all responses. No coding required!</p>
+            
+            <h3>Step 3: Share Form Link</h3>
+            <p>Share your form link with testers - they can submit anonymously, no Google account needed.</p>
+            
+            <h3>Step 4: Customize This Dashboard</h3>
+            <p>This HTML page can read from your Google Sheets using the Sheets API to display live data.</p>
+            
+            <div class="important-warning">
+                <strong>🔗 Next Steps:</strong> Want me to help you set up the actual Google Form and connect it to this dashboard? Just let me know!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set today's date as default
+        document.getElementById('reportDate').valueAsDate = new Date();
+        
+        function showTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Remove active class from all nav buttons
+            const navTabs = document.querySelectorAll('.nav-tab');
+            navTabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked nav button
+            event.target.classList.add('active');
+        }
+        
+        function generateSheetData() {
+            const form = document.getElementById('reportForm');
+            const formData = new FormData(form);
+            
+            // Build CSV row
+            const csvRow = [
+                formData.get('reportDate') || '',
+                formData.get('testerName') || '',
+                formData.get('strainName') || '',
+                formData.get('plantId') || '',
+                formData.get('weekNumber') || '',
+                formData.get('plantStage') || '',
+                formData.get('growMethod') || '',
+                formData.get('plantHeight') || '',
+                formData.get('plantHealth') || '',
+                formData.get('sexConfirmed') || '',
+                formData.get('hermieIssues') || '',
+                formData.get('hermieLocation') || '',
+                (formData.get('photoLinks') || '').replace(/\n/g, ' | '),
+                (formData.get('generalNotes') || '').replace(/\n/g, ' ')
+            ].map(field => `"${field}"`).join('\t');
+            
+            document.getElementById('sheetOutput').value = csvRow;
+            document.getElementById('outputSection').style.display = 'block';
+            
+            // Scroll to output
+            document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function copyToClipboard() {
+            const output = document.getElementById('sheetOutput');
+            output.select();
+            output.setSelectionRange(0, 99999);
+            document.execCommand('copy');
+            
+            // Show feedback
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = '✅ Copied!';
+            btn.style.background = 'linear-gradient(135deg, #4caf50 0%, #45a049 100%)';
+            
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            }, 2000);
+        }
+        
+        function clearForm() {
+            document.getElementById('reportForm').reset();
+            document.getElementById('reportDate').valueAsDate = new Date();
+            document.getElementById('outputSection').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
