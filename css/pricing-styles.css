@@ -57,10 +57,10 @@ body::after {
     pointer-events: none;
 }
 
-/* Site Header Styles */
+/* Site Header Styles - Match main site exactly */
 .site-header {
     padding: 20px 0;
-    background: rgba(46, 33, 25, 0.8);
+    background: rgba(10, 14, 23, 0.8);  /* Same as main site */
     backdrop-filter: blur(10px);
     border-bottom: 2px solid var(--primary-color);
     position: sticky;
