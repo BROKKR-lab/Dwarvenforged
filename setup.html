@@ -4613,6 +4613,24 @@ document.createElement = function(tagName) {
 					if (config.friendLinks && config.friendLinks.length > 0) {
 						loadFriendLinks(config.friendLinks);
 					}
+
+					// Friend links showcase settings
+					if (config.friendLinksShowcase) {
+						safeSetValue('friend-links-enabled', config.friendLinksShowcase.enabled ? 'true' : 'false');
+						safeSetValue('friend-links-style', config.friendLinksShowcase.style || 'cards');
+						
+						// Trigger the change event to show/hide the style options
+						const friendLinksEnabledSelect = document.getElementById('friend-links-enabled');
+						if (friendLinksEnabledSelect) {
+							const event = new Event('change');
+							friendLinksEnabledSelect.dispatchEvent(event);
+						}
+					}
+
+					// Footer friend links setting
+					if (config.showFooterFriendLinks !== undefined) {
+						safeSetValue('footer-friend-links', config.showFooterFriendLinks ? 'true' : 'false');
+					}
 					
 					// About section
 					if (config.about) {
