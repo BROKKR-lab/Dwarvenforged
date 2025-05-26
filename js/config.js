@@ -716,7 +716,7 @@
     "navigation": [
         {
             "name": "Collections",
-            "url": "#catalog"
+            "url": "#products"
         },
         {
             "name": "Membership",
@@ -724,7 +724,7 @@
         },
         {
             "name": "Genetics Explorer",
-            "url": "#genetics-explorer"
+            "url": "#strain-tree-section"
         },
         {
             "name": "Our Forge",
