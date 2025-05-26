@@ -3953,51 +3953,39 @@ document.createElement = function(tagName) {
 				}
 
 				function loadFriendLinks(friendLinks) {
-					if (!Array.isArray(friendLinks)) friendLinks = [];
+					if (!Array.isArray(friendLinks) || friendLinks.length === 0) return;
 					
-					const friendLinksContainer = document.getElementById('friend-links');
-					if (!friendLinksContainer) return;
+					const friendContainer = document.getElementById('friend-links');
+					if (!friendContainer) return;
 					
-					// Clear existing items first
-					friendLinksContainer.innerHTML = '';
-					
-					// Always add the default StrainNavigator link first
-					const defaultFriendItem = document.createElement('div');
-					defaultFriendItem.className = 'form-group friend-item default-friend';
-					defaultFriendItem.innerHTML = `
-						<div style="display: flex; gap: 10px;">
-							<input type="text" placeholder="Friend" value="StrainNavigator" style="flex: 1;" readonly>
-							<input type="text" placeholder="URL" value="https://www.strainnavigator.com/" style="flex: 1;" readonly>
-							<button type="button" class="btn" disabled style="opacity: 0.5; cursor: not-allowed;">×</button>
-						</div>
-					`;
-					friendLinksContainer.appendChild(defaultFriendItem);
-					
-					// Add each saved friend link
-					friendLinks.forEach(link => {
-						// Skip if this is the default StrainNavigator link
-						if (link.name === "StrainNavigator" && link.url === "https://www.strainnavigator.com/") {
-							return;
-						}
+					// Keep the hardcoded StrainNavigator entry, only add others
+					friendLinks.forEach(item => {
+						// Skip StrainNavigator since it's hardcoded
+						if (item.name === 'StrainNavigator') return;
 						
 						const friendItem = document.createElement('div');
 						friendItem.className = 'form-group friend-item';
 						friendItem.innerHTML = `
-							<div style="display: flex; gap: 10px;">
-								<input type="text" placeholder="Friend" value="${link.name || ''}" style="flex: 1;">
-								<input type="text" placeholder="URL" value="${link.url || ''}" style="flex: 1;">
+							<div style="display: flex; gap: 10px; margin-bottom: 10px;">
+								<input type="text" placeholder="Friend Name" value="${item.name || ''}" style="flex: 1;">
+								<input type="text" placeholder="URL" value="${item.url || ''}" style="flex: 1;">
 								<button type="button" class="btn remove-friend-btn">×</button>
+							</div>
+							<div style="display: flex; gap: 10px; margin-bottom: 10px;">
+								<input type="text" placeholder="Logo/Image URL (optional)" value="${item.image || ''}" style="flex: 1;">
+								<input type="text" placeholder="Description (optional)" value="${item.description || ''}" style="flex: 1;">
 							</div>
 						`;
 						
 						// Add event listener to remove button
 						const removeBtn = friendItem.querySelector('.remove-friend-btn');
-						removeBtn.addEventListener('click', function() {
-							friendLinksContainer.removeChild(friendItem);
-							// This will trigger the autosave
-						});
+						if (removeBtn) {
+							removeBtn.addEventListener('click', function() {
+								friendContainer.removeChild(friendItem);
+							});
+						}
 						
-						friendLinksContainer.appendChild(friendItem);
+						friendContainer.appendChild(friendItem);
 					});
 				}
 
