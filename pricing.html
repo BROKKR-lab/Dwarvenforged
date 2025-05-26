@@ -16,14 +16,20 @@
                     <h1 class="site-title">DwarvenForged</h1>
                 </a>
             </div>
-            <nav>
-                <ul class="main-navigation">
-                    <li><a href="/index.html#products">Collections</a></li>
-                    <li><a href="/pricing.html" class="active">Membership</a></li>
-                    <li><a href="/index.html#strain-tree-section">Genetics Explorer</a></li>
-                    <li><a href="/index.html#about">Our Forge</a></li>
-                </ul>
-            </nav>
+			<nav>
+				<ul class="main-navigation">
+					<li><a href="/index.html#products">Collections</a></li>
+					<li><a href="/pricing.html" class="active">Membership</a></li>
+					<li><a href="/index.html#strain-tree-section">Genetics Explorer</a></li>
+					<li><a href="/index.html#about">Our Forge</a></li>
+					<li>
+						<a href="#" id="cart-link-pricing">
+							<span>Collection Box</span>
+							<span id="cart-count" class="cart-badge">0</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
         </div>
     </header>
     
@@ -429,53 +435,86 @@
             }
         }
 
-        // Add interactive animations
-        document.addEventListener('DOMContentLoaded', function() {
-            // Animate cards on scroll
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-            
-            // Initially hide cards for animation
-            document.querySelectorAll('.pricing-card, .regular-pack-card, .limited-card, .merch-card').forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(card);
-            });
+		// Add interactive animations
+		document.addEventListener('DOMContentLoaded', function() {
+			// Load and display cart count
+			function updateCartDisplay() {
+				const storedCart = localStorage.getItem('siteCart');
+				const cartCount = document.getElementById('cart-count');
+				
+				if (storedCart && cartCount) {
+					const cart = JSON.parse(storedCart);
+					const count = cart.reduce((total, item) => total + item.quantity, 0);
+					cartCount.textContent = count;
+				}
+			}
+			
+			// Handle cart link click
+			const cartLink = document.getElementById('cart-link-pricing');
+			if (cartLink) {
+				cartLink.addEventListener('click', function(e) {
+					e.preventDefault();
+					
+					const confirmed = confirm("Go to main site to view your Collection Box?\n\nClick OK to go to main site\nClick Cancel to stay on pricing page");
+					
+					if (confirmed) {
+						window.location.href = '/index.html';
+					}
+					// If cancelled, do nothing - stay on pricing page
+				});
+			}
+			
+			// Update cart display on page load
+			updateCartDisplay();
+			
+			// Update cart display if storage changes (in case user has multiple tabs open)
+			window.addEventListener('storage', updateCartDisplay);
 
-            // Add subtle hover effects to buttons
-            document.querySelectorAll('.cta-button').forEach(button => {
-                button.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-2px) scale(1.02)';
-                });
-                
-                button.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
-                });
-            });
+			// Animate cards on scroll
+			const observerOptions = {
+				threshold: 0.1,
+				rootMargin: '0px 0px -50px 0px'
+			};
+			
+			const observer = new IntersectionObserver(function(entries) {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.style.opacity = '1';
+						entry.target.transform = 'translateY(0)';
+					}
+				});
+			}, observerOptions);
+			
+			// Initially hide cards for animation
+			document.querySelectorAll('.pricing-card, .regular-pack-card, .limited-card, .merch-card').forEach(card => {
+				card.style.opacity = '0';
+				card.style.transform = 'translateY(30px)';
+				card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+				observer.observe(card);
+			});
+			
+			// Add subtle hover effects to buttons
+			document.querySelectorAll('.cta-button').forEach(button => {
+				button.addEventListener('mouseenter', function() {
+					this.style.transform = 'translateY(-2px) scale(1.02)';
+				});
+				
+				button.addEventListener('mouseleave', function() {
+					this.style.transform = 'translateY(0) scale(1)';
+				});
+			});
 
-            // Add sparkle effect on hover for limited cards
-            document.querySelectorAll('.limited-card').forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.boxShadow = '0 15px 40px rgba(255, 107, 53, 0.3)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.boxShadow = 'none';
-                });
-            });
-        });
+			// Add sparkle effect on hover for limited cards
+			document.querySelectorAll('.limited-card').forEach(card => {
+				card.addEventListener('mouseenter', function() {
+					this.style.boxShadow = '0 15px 40px rgba(255, 107, 53, 0.3)';
+				});
+				
+				card.addEventListener('mouseleave', function() {
+					this.style.boxShadow = 'none';
+				});
+			});
+		});
     </script>
 </body>
 </html>
