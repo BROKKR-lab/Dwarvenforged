@@ -17,6 +17,21 @@
     box-sizing: border-box;
 }
 
+.legal-disclaimer {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-top: 1px solid var(--primary-color);
+    padding: 20px 0;
+    margin-top: 2rem;
+}
+
+.legal-disclaimer p {
+    font-size: 0.8rem;
+    color: #aaa;
+    text-align: center;
+    margin: 0;
+    line-height: 1.4;
+}
+
 body {
     font-family: var(--font-body);
     background-color: var(--background-color);
