@@ -718,14 +718,13 @@ function applySiteConfig() {
            typeTag.setAttribute('property', 'og:image:type');
            typeTag.setAttribute('content', 'image/jpeg'); // Assume JPEG, change if needed
            document.head.appendChild(typeTag);
-       }
-	   
-		// Add legal disclaimer if enabled
-		if (siteConfig.legal && siteConfig.legal.enableDisclaimer && siteConfig.legal.disclaimerText) {
-			addLegalDisclaimer(siteConfig.legal.disclaimerText, siteConfig.site.name);
-		}
-	   
-   }
+       }	   
+    }
+
+	// Add legal disclaimer if enabled
+	if (siteConfig.legal && siteConfig.legal.enableDisclaimer && siteConfig.legal.disclaimerText) {
+		addLegalDisclaimer(siteConfig.legal.disclaimerText, siteConfig.site.name);
+	}
    
    // Fix logo path handling
    let logoPath = siteConfig.site.logo;
