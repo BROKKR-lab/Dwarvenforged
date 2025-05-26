@@ -1126,9 +1126,21 @@ document.createElement = function(tagName) {
                     <input type="text" id="analytics-id" value="">
                 </div>
                 
-                <h3>Navigation</h3>
-                <p>Add or edit navigation items. First item is always Home.</p>
-                
+				<h3>Navigation</h3>
+				<p>Add or edit navigation items. First item is always Home.</p>
+
+				<div class="form-group">
+					<label>Available Page Sections:</label>
+					<div style="background: rgba(0,0,0,0.2); padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+						<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.9rem;">
+							<div><code>#products</code> - Product collections</div>
+							<div><code>#about</code> - About page</div>
+							<div><code>#strain-tree-section</code> - Genetics explorer</div>
+							<div><code>#partner-showcase</code> - Partners section</div>
+						</div>
+					</div>
+				</div>
+
 				<div id="nav-items">
 					<div class="form-group nav-item">
 						<div style="display: flex; gap: 10px;">
@@ -1156,12 +1168,22 @@ document.createElement = function(tagName) {
 				</div>
 
 				<p class="help-text" style="margin-top: 10px; color: #aaa; font-size: 0.9rem;">
-					Use '#section-name' for sections on the main page (e.g., #products, #about) or full URLs for external links.
+					Use the section codes above for internal navigation, or full URLs (https://...) for external links.
 				</p>
                 
-                <button type="button" class="btn" id="add-nav-btn">Add Navigation Item</button>
-				
-                <h3>Friends</h3>
+				<button type="button" class="btn" id="add-nav-btn">Add Navigation Item</button>
+
+				<div class="form-group">
+					<label>Quick Add Common Sections:</label>
+					<div style="display: flex; gap: 10px; flex-wrap: wrap;">
+						<button type="button" class="btn quick-nav-btn" data-name="Collections" data-url="#products">+ Collections</button>
+						<button type="button" class="btn quick-nav-btn" data-name="Genetics Explorer" data-url="#strain-tree-section">+ Genetics Explorer</button>
+						<button type="button" class="btn quick-nav-btn" data-name="Partners" data-url="#partner-showcase">+ Partners</button>
+						<button type="button" class="btn quick-nav-btn" data-name="About" data-url="#about">+ About</button>
+					</div>
+				</div>
+
+				<h3>Friends</h3>
                 <p>Add or edit friend site links.</p>
                 
 				<div id="friend-links">
@@ -3191,6 +3213,33 @@ document.createElement = function(tagName) {
                         }
                     }
                 });
+
+				// Quick-add navigation buttons
+				document.addEventListener('click', function(e) {
+					if (e.target.classList.contains('quick-nav-btn')) {
+						const name = e.target.getAttribute('data-name');
+						const url = e.target.getAttribute('data-url');
+						
+						// Add new nav item
+						const navItems = document.getElementById('nav-items');
+						const newItem = document.createElement('div');
+						newItem.className = 'form-group nav-item';
+						newItem.innerHTML = `
+							<div style="display: flex; gap: 10px;">
+								<input type="text" placeholder="Name" value="${name}" style="flex: 1;">
+								<input type="text" placeholder="URL" value="${url}" style="flex: 1;">
+								<button type="button" class="btn remove-nav-btn">×</button>
+							</div>
+						`;
+						
+						navItems.appendChild(newItem);
+						
+						// Add event listener to remove button
+						newItem.querySelector('.remove-nav-btn').addEventListener('click', function() {
+							navItems.removeChild(newItem);
+						});
+					}
+				});
                 
                 // Show/hide External Checkout URL based on checkout method
                 document.getElementById('checkout-method').addEventListener('change', function() {
@@ -4068,7 +4117,14 @@ document.createElement = function(tagName) {
 
 				// Function to load navigation items
 				function loadNavigationItems(navItems) {
-					if (!Array.isArray(navItems) || navItems.length === 0) return;
+					// If no nav items provided, set better defaults with correct section names
+					if (!Array.isArray(navItems) || navItems.length === 0) {
+						navItems = [
+							{ name: "Collections", url: "#products" },
+							{ name: "Genetics Explorer", url: "#strain-tree-section" },
+							{ name: "About", url: "#about" }
+						];
+					}
 					
 					// Clear existing items first
 					const navContainer = document.getElementById('nav-items');
@@ -4076,7 +4132,7 @@ document.createElement = function(tagName) {
 					
 					navContainer.innerHTML = '';
 					
-					// Add each saved navigation item
+					// Add each navigation item (either saved ones or defaults)
 					navItems.forEach(item => {
 						const navItem = document.createElement('div');
 						navItem.className = 'form-group nav-item';
