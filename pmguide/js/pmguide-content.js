@@ -1,25 +1,29 @@
 // Content data for Dwarven Forged PM Guide
 const pmContentData = {
     // Introduction Section
-    "intro": `
-        <div class="content-header">
-            <img src="https://www.dwarvenforged.com/pmguide/img/pm-warfare-hero.jpg" alt="Dwarven Forged PM Guide" class="hero-image">
-            <h1>DWARVEN FORGED PM WARFARE GUIDE</h1>
-            <div class="subtitle">CONQUERING THE INVISIBLE ENEMY</div>
-        </div>
-        
-        <div class="intro-text">
-            <p>Powdery mildew (PM) is the silent destroyer that has plagued cannabis cultivators since the dawn of indoor growing. Unlike other fungal enemies, PM thrives in the exact conditions we create for our plants and can devastate months of work in mere days.</p>
-            <p>This specialized warfare guide provides proven strategies to prevent, identify, and eliminate powdery mildew from your cultivation operation.</p>
-        </div>
-        
-        <p>Select any chapter from the navigation menu to master the art of PM warfare. Each section provides battle-tested techniques from master growers who have faced and conquered this invisible enemy.</p>
-        
-        <div class="tip-box">
-            <h4>Dwarven Wisdom:</h4>
-            <p>Prevention is always easier than cure. Master the preventive arts first - most PM battles are won before they begin.</p>
-        </div>
-    `,
+	"intro": `
+		<div class="content-header">
+			<img src="https://www.dwarvenforged.com/pmguide/img/pm-warfare-hero.jpg" alt="Dwarven Forged PM Guide" class="hero-image">
+			<h1>DWARVEN FORGED PM WARFARE GUIDE</h1>
+			<div class="subtitle">CONQUERING THE INVISIBLE ENEMY</div>
+		</div>
+		
+		<div class="intro-text">
+			<p>Powdery mildew (PM) is the silent destroyer that has plagued cannabis cultivators since the dawn of indoor growing. Unlike other fungal enemies, PM thrives in the exact conditions we create for our plants and can devastate months of work in mere days.</p>
+			<p>This specialized warfare guide provides proven strategies to prevent, identify, and eliminate powdery mildew from your cultivation operation.</p>
+		</div>
+		
+		<p>Select any chapter from the navigation menu to master the art of PM warfare. Each section provides battle-tested techniques from master growers who have faced and conquered this invisible enemy.</p>
+		
+		<div class="tip-box">
+			<h4>Dwarven Wisdom:</h4>
+			<p>Prevention is always easier than cure. Master the preventive arts first - most PM battles are won before they begin.</p>
+		</div>
+		
+		<div class="nav-buttons">
+			<button class="nav-button" onclick="showSection('enemy')">Next: Know Your Enemy</button>
+		</div>
+	`,
 
     // Know Your Enemy Section  
     "enemy": `
