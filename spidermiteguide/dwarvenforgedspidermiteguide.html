@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dwarven Forged Spider Mite Guide - Defeating the Tiny Destroyers</title>
+    <link rel="stylesheet" href="css/spidermiteguide-styles.css">
+    <script src="js/spidermiteguide-content.js" defer></script>
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" onclick="toggleMenu()">☰</button>
+    
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="https://www.dwarvenforged.com/spidermiteguide/img/spider-mite-guide-logo.jpg" alt="Dwarven Forged Spider Mite Guide" class="sidebar-logo">
+                <h2 class="sidebar-title">SPIDER MITE GUIDE</h2>
+                <div class="sidebar-subtitle">Defeating the Tiny Destroyers</div>
+            </div>
+            <ul class="nav-list" id="navList">
+                <li><a href="#" class="nav-link" data-section="intro">The Tiny Threat</a></li>
+                <li><a href="#" class="nav-link" data-section="enemy">Know Your Enemy</a></li>
+                <li><a href="#" class="nav-link" data-section="identification">Identification & Detection</a></li>
+                <li><a href="#" class="nav-link" data-section="prevention">Fortress Defense</a></li>
+                <li><a href="#" class="nav-link" data-section="environmental">Environmental Warfare</a></li>
+                <li><a href="#" class="nav-link" data-section="organic">Organic Arsenal</a></li>
+                <li><a href="#" class="nav-link" data-section="biological">Predator Army</a></li>
+                <li><a href="#" class="nav-link" data-section="treatment">Treatment Protocols</a></li>
+                <li><a href="#" class="nav-link" data-section="emergency">Crisis Response</a></li>
+                <li><a href="#" class="nav-link" data-section="cleanup">Forge Purification</a></li>
+                <li><a href="#" class="nav-link" data-section="recovery">Recovery & Prevention</a></li>
+                <li><a href="#" class="nav-link" data-section="mastery">Mite Mastery</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="../growguide/" class="guide-link">← Main Grow Guide</a>
+                <a href="../pmguide/" class="guide-link">← PM Guide</a>
+            </div>
+        </aside>
+        
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div id="contentContainer">
+                <!-- Content will be loaded dynamically from spidermiteguide-content.js -->
+            </div>
+        </main>
+    </div>
+    
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop" onclick="scrollToTop(); return false;">↑</a>
+    
+    <script>
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.getAttribute('data-section');
+                    showSection(section);
+                    
+                    // Update active link
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Close mobile menu if open
+                    if(window.innerWidth <= 992) {
+                        document.getElementById('sidebar').classList.remove('open');
+                    }
+                });
+            });
+            
+            // Show intro section by default
+            showSection('intro');
+            navLinks[0].classList.add('active');
+            
+            // Back to top button visibility
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    document.getElementById('backToTop').classList.add('visible');
+                } else {
+                    document.getElementById('backToTop').classList.remove('visible');
+                }
+            });
+        });
+        
+        // Show content section
+        function showSection(sectionId) {
+            const contentContainer = document.getElementById('contentContainer');
+            
+            // Load content from the spidermiteguide-content.js file
+            if (sectionId in spiderMiteContentData) {
+                contentContainer.innerHTML = spiderMiteContentData[sectionId];
+                window.scrollTo(0, 0);
+                
+                // Update active nav link
+                const navLinks = document.querySelectorAll('.nav-link');
+                navLinks.forEach(l => l.classList.remove('active'));
+                const currentLink = document.querySelector(`[data-section="${sectionId}"]`);
+                if (currentLink) {
+                    currentLink.classList.add('active');
+                }
+            } else {
+                contentContainer.innerHTML = '<h1>Section Not Found</h1><p>The requested section could not be found.</p>';
+            }
+        }
+        
+        // Toggle mobile menu
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+        
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
