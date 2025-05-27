@@ -491,7 +491,7 @@
             },
             "growing-guide": {
                 "id": "growing-guide",
-                "name": "Dwarven Growing Guide",
+                "name": "Dwarven Forged Growing Guide",
                 "type": "Guides & Tips",
                 "status": "available",
                 "delivery": "digital",
@@ -502,7 +502,7 @@
                 "variety": "Comprehensive Guide",
                 "rating": "5/5",
                 "origin": "DwarvenForged Research",
-                "rarity": "",
+                "rarity": "Premium",
                 "details": "Many pages of growing information including:\n- Nutrient schedules\n- Lighting tips\n- Environmental control\n- Troubleshooting common issues",
                 "notes": "Digital product - instant access after purchase. Perfect companion for our genetics.",
                 "packOptions": [
@@ -714,6 +714,28 @@
                 "hoverImage": "",
                 "hidden": false,
                 "displayOrder": 17
+            },
+            "product-1748328413142": {
+                "id": "product-1748328413142",
+                "name": "Dwarven Forged Digital PM Guide",
+                "type": "Guides & Tips",
+                "status": "available",
+                "delivery": "digital",
+                "digitalContent": "https://www.dwarvenforged.com/pmguide/dwarvenforgedpmguide.html",
+                "image": "/pmguide/img/pm-guide-logo.jpg",
+                "additionalImages": [],
+                "description": "Our complete PM guide with tips and tricks from the Dwarven master growers. Learn how to prevent an outbreak or deal with the aftermath when facing PM with our step-by-step instructions.",
+                "variety": "Comprehensive Guide",
+                "rating": "5/5",
+                "origin": "DwarvenForged Research",
+                "rarity": "Premium",
+                "details": "Many pages of growing information including:\n- Environmental defense systems\n- Early detection techniques  \n- Organic treatment arsenal\n- Biological control methods\n- Crisis management protocols\n- Facility decontamination\n- Genetic protection strategies\n- Advanced prevention tactics",
+                "notes": "Digital product - instant access after purchase. Perfect companion for our grow guide.",
+                "packOptions": [],
+                "enableHoverImage": false,
+                "hoverImage": "",
+                "hidden": false,
+                "displayOrder": 21
             }
         }
     },
