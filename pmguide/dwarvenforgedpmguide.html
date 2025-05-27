@@ -86,17 +86,25 @@
         });
         
         // Show content section
-        function showSection(sectionId) {
-            const contentContainer = document.getElementById('contentContainer');
-            
-            // Load content from the pmguide-content.js file
-            if (sectionId in pmContentData) {
-                contentContainer.innerHTML = pmContentData[sectionId];
-                window.scrollTo(0, 0);
-            } else {
-                contentContainer.innerHTML = '<h1>Section Not Found</h1><p>The requested section could not be found.</p>';
-            }
-        }
+		function showSection(sectionId) {
+			const contentContainer = document.getElementById('contentContainer');
+			
+			// Load content from the pmguide-content.js file
+			if (sectionId in pmContentData) {
+				contentContainer.innerHTML = pmContentData[sectionId];
+				window.scrollTo(0, 0);
+				
+				// Update active nav link
+				const navLinks = document.querySelectorAll('.nav-link');
+				navLinks.forEach(l => l.classList.remove('active'));
+				const currentLink = document.querySelector(`[data-section="${sectionId}"]`);
+				if (currentLink) {
+					currentLink.classList.add('active');
+				}
+			} else {
+				contentContainer.innerHTML = '<h1>Section Not Found</h1><p>The requested section could not be found.</p>';
+			}
+		}
         
         // Toggle mobile menu
         function toggleMenu() {
