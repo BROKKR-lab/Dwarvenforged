@@ -739,6 +739,28 @@
                 "hoverImage": "",
                 "hidden": false,
                 "displayOrder": 21
+            },
+            "product-1748375198125": {
+                "id": "product-1748375198125",
+                "name": "Dwarven Forged Spider Mite Guide",
+                "type": "Guides & Tips",
+                "status": "available",
+                "delivery": "digital",
+                "digitalContent": "https://www.dwarvenforged.com/spidermiteguide/dwarvenforgedspidermiteguide.html",
+                "image": "/spidermiteguide/img/spider-mite-guide-logo.jpg",
+                "additionalImages": [],
+                "description": "Our complete Spider Mite guide with tips and tricks from the Dwarven master growers. Learn how to prevent an outbreak or deal with the aftermath when facing Spider Mites with our step-by-step instructions.",
+                "variety": "Comprehensive Guide",
+                "rating": "5/5",
+                "origin": "DwarvenForged Research",
+                "rarity": "Premium",
+                "details": "Many pages of growing information including:\n- Environmental defense systems\n- Early detection techniques  \n- Organic treatment arsenal\n- Biological control methods\n- Crisis management protocols\n- Facility decontamination\n- Genetic protection strategies\n- Advanced prevention tactics",
+                "notes": "Digital product - instant access after purchase. Perfect companion for our grow guide.",
+                "packOptions": [],
+                "enableHoverImage": false,
+                "hoverImage": "",
+                "hidden": false,
+                "displayOrder": 22
             }
         }
     },
