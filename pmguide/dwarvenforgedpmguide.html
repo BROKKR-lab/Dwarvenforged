@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dwarven Forged PM Guide - Conquering the Invisible Enemy</title>
+    <link rel="stylesheet" href="css/pmguide-styles.css">
+    <script src="js/pmguide-content.js" defer></script>
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" onclick="toggleMenu()">☰</button>
+    
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="https://www.dwarvenforged.com/pmguide/img/pm-guide-logo.jpg" alt="Dwarven Forged PM Guide" class="sidebar-logo">
+                <h2 class="sidebar-title">PM WARFARE GUIDE</h2>
+                <div class="sidebar-subtitle">Conquering the Invisible Enemy</div>
+            </div>
+            <ul class="nav-list" id="navList">
+                <li><a href="#" class="nav-link" data-section="intro">The Invisible Threat</a></li>
+                <li><a href="#" class="nav-link" data-section="enemy">Know Your Enemy</a></li>
+                <li><a href="#" class="nav-link" data-section="fortress">Fortifying the Forge</a></li>
+                <li><a href="#" class="nav-link" data-section="genetics">Bloodline Protection</a></li>
+                <li><a href="#" class="nav-link" data-section="detection">Early Warning Systems</a></li>
+                <li><a href="#" class="nav-link" data-section="prevention">Preventive Measures</a></li>
+                <li><a href="#" class="nav-link" data-section="organic">Organic Arsenal</a></li>
+                <li><a href="#" class="nav-link" data-section="biological">Biological Warfare</a></li>
+                <li><a href="#" class="nav-link" data-section="emergency">Crisis Management</a></li>
+                <li><a href="#" class="nav-link" data-section="decontamination">Forge Cleansing</a></li>
+                <li><a href="#" class="nav-link" data-section="advanced">Advanced Tactics</a></li>
+                <li><a href="#" class="nav-link" data-section="recovery">Recovery Protocols</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="../growguide/" class="guide-link">← Main Grow Guide</a>
+            </div>
+        </aside>
+        
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div id="contentContainer">
+                <!-- Content will be loaded dynamically from pmguide-content.js -->
+            </div>
+        </main>
+    </div>
+    
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop" onclick="scrollToTop(); return false;">↑</a>
+    
+    <script>
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.getAttribute('data-section');
+                    showSection(section);
+                    
+                    // Update active link
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Close mobile menu if open
+                    if(window.innerWidth <= 992) {
+                        document.getElementById('sidebar').classList.remove('open');
+                    }
+                });
+            });
+            
+            // Show intro section by default
+            showSection('intro');
+            navLinks[0].classList.add('active');
+            
+            // Back to top button visibility
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    document.getElementById('backToTop').classList.add('visible');
+                } else {
+                    document.getElementById('backToTop').classList.remove('visible');
+                }
+            });
+        });
+        
+        // Show content section
+        function showSection(sectionId) {
+            const contentContainer = document.getElementById('contentContainer');
+            
+            // Load content from the pmguide-content.js file
+            if (sectionId in pmContentData) {
+                contentContainer.innerHTML = pmContentData[sectionId];
+                window.scrollTo(0, 0);
+            } else {
+                contentContainer.innerHTML = '<h1>Section Not Found</h1><p>The requested section could not be found.</p>';
+            }
+        }
+        
+        // Toggle mobile menu
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+        
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
