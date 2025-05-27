@@ -3,20 +3,24 @@
 
 const contentData = {
     // Introduction Section
-    "intro": `
-        <div class="content-header">
-            <img src="https://www.dwarvenforged.com/growguide/img/growing-guide.jpg" alt="Dwarven Forged Grow Guide" class="hero-image">
-            <h1>DWARVEN FORGED MASTER GROW GUIDE</h1>
-            <div class="subtitle">DIGITAL EDITION</div>
-        </div>
-        
-        <div class="intro-text">
-            <p>Welcome to the official Dwarven Forged Grow Guide. Like the mythical dwarven smiths who crafted legendary treasures in their mountain forges, we'll help you forge exceptional plants with precision and care. This comprehensive guide will walk you through every stage of the cultivation process - from setting up your grow space to harvesting and enjoying your meticulously crafted herbs.</p>
-            <p>Crafted by a collective of passionate cannabis artisans with decades of combined experience, this guide contains the accumulated wisdom of master growers who have perfected their craft through years of careful selection and testing.</p>
-        </div>
-        
-        <p>Select any chapter from the navigation menu to begin your journey into cultivation mastery. Each section provides detailed information and dwarven wisdom to help you become a master grower.</p>
-    `,
+	"intro": `
+		<div class="content-header">
+			<img src="https://www.dwarvenforged.com/growguide/img/growing-guide-header.jpg" alt="Dwarven Forged Grow Guide" class="hero-image">
+			<h1>DWARVEN FORGED MASTER GROW GUIDE</h1>
+			<div class="subtitle">DIGITAL EDITION</div>
+		</div>
+		
+		<div class="intro-text">
+			<p>Welcome to the official Dwarven Forged Grow Guide. Like the mythical dwarven smiths who crafted legendary treasures in their mountain forges, we'll help you forge exceptional plants with precision and care. This comprehensive guide will walk you through every stage of the cultivation process - from setting up your grow space to harvesting and enjoying your meticulously crafted herbs.</p>
+			<p>Crafted by a collective of passionate cannabis artisans with decades of combined experience, this guide contains the accumulated wisdom of master growers who have perfected their craft through years of careful selection and testing.</p>
+		</div>
+		
+		<p>Select any chapter from the navigation menu to begin your journey into cultivation mastery. Each section provides detailed information and dwarven wisdom to help you become a master grower.</p>
+		
+		<div class="nav-buttons">
+			<button class="nav-button" onclick="showSection('step1')">Next: Choosing Your Forge</button>
+		</div>
+	`,
 
     // Step 1 Section
     "step1": `
