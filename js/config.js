@@ -465,7 +465,7 @@
                 "enableHoverImage": false,
                 "hoverImage": "",
                 "hidden": false,
-                "displayOrder": 11
+                "displayOrder": 16
             },
             "dwarven-gold": {
                 "id": "dwarven-gold",
@@ -489,7 +489,7 @@
                         "salePrice": 80
                     }
                 ],
-                "displayOrder": 12,
+                "displayOrder": 11,
                 "hidden": true
             },
             "growing-guide": {
@@ -629,7 +629,7 @@
                 "enableHoverImage": true,
                 "hoverImage": "",
                 "hidden": false,
-                "displayOrder": 16
+                "displayOrder": 17
             },
             "product-1747018323542": {
                 "id": "product-1747018323542",
@@ -666,7 +666,7 @@
                 "id": "product-1747018356805",
                 "name": "Mirth Berries",
                 "type": "Crafted Genetics",
-                "status": "coming-soon",
+                "status": "available",
                 "delivery": "physical",
                 "digitalContent": "",
                 "image": "/img/strains/MirthBerries-logo.jpg",
@@ -688,7 +688,7 @@
                 "enableHoverImage": false,
                 "hoverImage": "",
                 "hidden": true,
-                "displayOrder": 18
+                "displayOrder": 12
             },
             "product-1747522841132": {
                 "id": "product-1747522841132",
@@ -716,7 +716,7 @@
                 "enableHoverImage": false,
                 "hoverImage": "",
                 "hidden": false,
-                "displayOrder": 17
+                "displayOrder": 18
             },
             "product-1748328413142": {
                 "id": "product-1748328413142",
