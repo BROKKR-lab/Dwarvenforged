@@ -518,7 +518,7 @@
                 "enableHoverImage": false,
                 "hoverImage": "",
                 "hidden": false,
-                "displayOrder": 20
+                "displayOrder": 19
             },
             "product-1746999759173": {
                 "id": "product-1746999759173",
@@ -540,7 +540,7 @@
                 "enableHoverImage": false,
                 "hoverImage": "",
                 "hidden": false,
-                "displayOrder": 19
+                "displayOrder": 22
             },
             "product-1747018112345": {
                 "id": "product-1747018112345",
@@ -738,7 +738,7 @@
                 "enableHoverImage": false,
                 "hoverImage": "",
                 "hidden": false,
-                "displayOrder": 21
+                "displayOrder": 20
             },
             "product-1748375198125": {
                 "id": "product-1748375198125",
@@ -760,7 +760,7 @@
                 "enableHoverImage": false,
                 "hoverImage": "",
                 "hidden": false,
-                "displayOrder": 22
+                "displayOrder": 21
             }
         }
     },
