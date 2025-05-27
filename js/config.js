@@ -73,7 +73,7 @@
         "title": "The Brokkr Story",
         "subtitle": "Premium Genetics Forged with Dwarven Precision",
         "image": "img/about.jpg",
-        "description": "Founded by a collective of passionate cannabis craftsmen with decades of combined experience, Brokkr Seeds was born from a simple mission: to forge exceptional cannabis genetics that are accessible to real growers.\n\nLike the mythical dwarven smiths who crafted legendary treasures in their mountain forges, we meticulously select, test, and perfect our genetics through rigorous breeding programs. Each strain is carefully hammered into its final form through multiple generations of selection.\n\nOur name pays homage to Brokkr, the dwarven smith of Norse mythology who crafted mighty artifacts for the gods. In that same tradition, we create seeds worthy of the most discerning growers.",
+        "description": "Founded by a collective of passionate cannabis craftsmen with decades of combined experience, Dwarven Forged LLC was born from a simple mission: to forge exceptional cannabis genetics that are accessible to real growers.\n\nLike the mythical dwarven smiths who crafted legendary treasures in their mountain forges, we meticulously select, test, and perfect our genetics through rigorous breeding programs. Each strain is carefully hammered into its final form through multiple generations of selection.\n\nOur name pays homage to Brokkr, the dwarven smith of Norse mythology who crafted mighty artifacts for the gods. In that same tradition, we create seeds worthy of the most discerning growers.",
         "teamMembers": [
             {
                 "name": "Master Brokkr",
