@@ -442,8 +442,8 @@
             "dragon-breath": {
                 "id": "dragon-breath",
                 "name": "Dragon Breath",
-                "type": "Anvil Series",
-                "status": "available",
+                "type": "Crafted Genetics",
+                "status": "coming-soon",
                 "delivery": "physical",
                 "digitalContent": "",
                 "image": "strains/dragon-breath.jpg",
@@ -452,6 +452,7 @@
                 "variety": "Photoperiod",
                 "rating": "27-30% THC",
                 "origin": "Fire OG × Red Dragon",
+                "rarity": "Rare",
                 "details": "Flowering Time: 10 weeks\nStretch: High\nYield: Medium-High\nHeight: Tall\nTHC: 27-30%\nCBD: 0.1%\nEffects: Intense, Euphoric, Cerebral, Long-lasting\nFlavors: Spicy, Pepper, Fuel",
                 "notes": "Our highest THC strain. Limited quantities available. Experienced users only.",
                 "packOptions": [
@@ -461,8 +462,10 @@
                         "salePrice": 75
                     }
                 ],
-                "displayOrder": 11,
-                "hidden": true
+                "enableHoverImage": false,
+                "hoverImage": "",
+                "hidden": false,
+                "displayOrder": 11
             },
             "dwarven-gold": {
                 "id": "dwarven-gold",
@@ -684,7 +687,7 @@
                 ],
                 "enableHoverImage": false,
                 "hoverImage": "",
-                "hidden": false,
+                "hidden": true,
                 "displayOrder": 18
             },
             "product-1747522841132": {
@@ -789,7 +792,7 @@
         "checkoutMethod": "email",
         "externalCheckoutUrl": "",
         "analyticsId": "",
-        "orderEmail": "dwarvenforgedshop@sitepackages.net",
+        "orderEmail": "orders@example.com",
         "enableAgeCheck": true,
         "ageCheckMinimum": 21,
         "ageRedirectUrl": "https://www.google.com"
