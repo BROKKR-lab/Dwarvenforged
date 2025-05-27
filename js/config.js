@@ -16,7 +16,7 @@
                 "url": "https://www.instagram.com/dwarvenforged/"
             }
         ],
-        "copyright": "© 2025 DwarvenForged / Brokkr Seeds. All rights reserved."
+        "copyright": "© 2025-2026 Dwarven Forged LLC. All rights reserved."
     },
     "colors": {
         "primary": "#b87333",
@@ -717,7 +717,7 @@
             },
             "product-1748328413142": {
                 "id": "product-1748328413142",
-                "name": "Dwarven Forged Digital PM Guide",
+                "name": "Dwarven Forged PM Guide",
                 "type": "Guides & Tips",
                 "status": "available",
                 "delivery": "digital",
