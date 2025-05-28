@@ -253,9 +253,10 @@ body::after {
 
 .merch-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .pricing-card {
@@ -635,5 +636,16 @@ body::after {
     
     .container {
         padding: 1rem;
+    }
+	
+    .merch-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }	
+}
+
+@media (max-width: 480px) {
+    .merch-grid {
+        grid-template-columns: 1fr;
     }
 }
