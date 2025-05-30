@@ -864,9 +864,9 @@ function openProductModalReadOnly(product) {
     document.getElementById('modalOrigin').textContent = product.origin || 'Various';
     document.getElementById('modalRarity').textContent = product.rarity || 'Standard';
     document.getElementById('modalVariety').textContent = product.variety || 'Premium';
-    document.getElementById('modalDescription').textContent = product.description;
-    document.getElementById('modalDetails').textContent = product.details || 'No additional details available.';
-    document.getElementById('modalNotes').textContent = product.notes || 'No special notes.';
+	document.getElementById('modalDescription').innerHTML = (product.description || '').replace(/\n/g, '<br>');
+	document.getElementById('modalDetails').innerHTML = (product.details || 'No additional details available.').replace(/\n/g, '<br>');
+	document.getElementById('modalNotes').innerHTML = (product.notes || 'No special notes.').replace(/\n/g, '<br>');
     
     // Set up thumbnails gallery
     const thumbnailsContainer = document.getElementById('modalThumbnails');
@@ -1777,7 +1777,7 @@ function createProductCard(product) {
         <div class="card-content">
             <h3 class="card-title">${product.name}</h3>
             <span class="product-type">${product.type}</span>
-            <p class="card-description">${(product.description || '').replace(/\n/g, '<br>')}</p>
+            <p class="card-description">${(product.description || '').split('\n')[0]}</p>
             <div class="product-details">
                 <div class="detail-item">${product.delivery === 'digital' ? 'Digital' : siteConfig.terminology.productTerm}</div>
                 <div class="detail-item">${product.variety || 'Premium'}</div>
