@@ -1777,7 +1777,7 @@ function createProductCard(product) {
         <div class="card-content">
             <h3 class="card-title">${product.name}</h3>
             <span class="product-type">${product.type}</span>
-            <p class="card-description">${product.description || ''}</p>
+            <p class="card-description">${(product.description || '').replace(/\n/g, '<br>')}</p>
             <div class="product-details">
                 <div class="detail-item">${product.delivery === 'digital' ? 'Digital' : siteConfig.terminology.productTerm}</div>
                 <div class="detail-item">${product.variety || 'Premium'}</div>
