@@ -551,13 +551,13 @@
                 "digitalContent": "",
                 "image": "/img/strains/Niflheim-logo.jpg",
                 "additionalImages": [],
-                "description": "Niflheim",
+                "description": "NIFLHEIM — F1 Regular Photoperiod Seeds by Dwarven Forged\nLineage: Insane in the Membrane × Mango Thai Landrace\nFlower Time: 10–12 Weeks\nType: Super Sativa",
                 "variety": "",
                 "rating": "",
                 "origin": "",
                 "rarity": "",
-                "details": "Niflheim",
-                "notes": "",
+                "details": "From the ancient forges of the Dwarves and the cold outer reaches of the cosmos comes Niflheim — a frost-kissed titan born where candy-coated chaos meets tropical wisdom. This F1 regular photoperiod cross harnesses the sugary madness of Insane in the Membrane, selected for its electric candy terpenes — loud, bright, and unforgettable. Paired with the ancient and resilient Mango Thai landrace, this union brings rock-solid vigor and an exotic mango twist from the jungles of Southeast Asia, anchoring the flavor in something ancient and pure.",
+                "notes": "Not for the faint of heart, nor the short of patience. Like its namesake — the icy realm of mist in Norse legend — Niflheim is mysterious, expansive, and brimming with hidden power. Expect towering sativa growth, epic stretch, and an extended flower time of 10 to 12 weeks — a worthy journey for the celestial cultivator. She's wild. She's wise. She's weaponized mango mist wrapped in cosmic lightning. Forge your path through frost and flame. Niflheim awaits.",
                 "packOptions": [
                     {
                         "size": "6 Pack",
